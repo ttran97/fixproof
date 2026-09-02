@@ -1,0 +1,83 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_packet",
+  "adjudication_packet": {
+    "case_id": "sqli",
+    "case": "SQLi",
+    "canonical_id": "CF-345f0ac3d7ae",
+    "attempt": 1,
+    "trigger": {
+      "classification": "sast_runtime_disagreement",
+      "automated_disposition": "NEEDS_HUMAN_ADJUDICATION",
+      "reason_codes": [
+        "TARGET_SAST_FINDING_PERSISTENT",
+        "SAST_RUNTIME_EVIDENCE_CONFLICT"
+      ]
+    },
+    "evidence_summary": {
+      "syntax": "pass",
+      "target_sast": "persistent",
+      "new_sast_findings": 0,
+      "security_validation": "pass",
+      "security_tests": {
+        "passed": 2,
+        "total": 2
+      },
+      "functional_validation": "pass",
+      "functional_tests": {
+        "passed": 3,
+        "total": 3
+      }
+    },
+    "evidence_binding": {
+      "workspace_content_hash_mode": "utf8_normalized_text_sha256",
+      "candidate_source_sha256": "fcae3ba7d47cce397868e38306996a41a931a2576e483b28f51055de5d02db19",
+      "patch_sha256": "3a3cca6f6d9a76aa94aecc975ecbfc94be4f92da872423fa52a15c5b06519a26",
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/correlated/vulnerable-sqli-app.json",
+          "sha256": "804b6d396d9d99dd3bdca52c716cbe3a91c344e65aae247f4dd759bf01875c23"
+        },
+        "remediation": {
+          "path": "data/remediations/CF-345f0ac3d7ae-attempt-01.json",
+          "sha256": "4055534a4e0c4ba6888f6956e0d22108076021157c112c6e8a356e8abbc6713b"
+        },
+        "preliminary": {
+          "path": "data/validation/CF-345f0ac3d7ae-attempt-01.json",
+          "sha256": "c06b6536cfc17d6abe89fa0ffc5f2627eccf23e7f23c4df1ea30dec1ac6f08ac"
+        },
+        "security": {
+          "path": "data/security_validation/CF-345f0ac3d7ae-attempt-01.json",
+          "sha256": "b04cc76b25ab55a8799c6017dd9f1ccf7f83a1f513bf50be858c6fe4c8ac44d2"
+        },
+        "functional": {
+          "path": "data/functional_validation/CF-345f0ac3d7ae-attempt-01.json",
+          "sha256": "68cf0d98830563cbe92e491487d191dc30021d829d067a12fa74162f06b811c9"
+        },
+        "decision": {
+          "path": "data/decisions/CF-345f0ac3d7ae-attempt-01.json",
+          "sha256": "f3874840d3560d891576fffc7f31a554eda7847b4952ff75bb189b912ff3a94a"
+        },
+        "workspace": {
+          "path": "workspaces/CF-345f0ac3d7ae/attempt-01/workspace.json",
+          "sha256": "d8ef97180fc45c4123417fab6eb72b22dd3ba949aa79c6c9777c8d157fe64602"
+        }
+      }
+    },
+    "review_protocol": {
+      "allowed_verdicts": [
+        "ACCEPT_CANDIDATE",
+        "REJECT_CANDIDATE",
+        "REQUEST_ADDITIONAL_TESTING"
+      ],
+      "required_checks": [
+        "candidate_patch_reviewed",
+        "sast_finding_and_rule_provenance_reviewed",
+        "targeted_security_evidence_reviewed",
+        "functional_evidence_reviewed"
+      ],
+      "instructions": "A human reviewer must inspect the candidate and all bound evidence. The automated NEEDS_HUMAN_ADJUDICATION decision must remain unchanged; record the human conclusion in a separate adjudication_result artifact."
+    }
+  }
+}

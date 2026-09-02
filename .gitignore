@@ -1,0 +1,19 @@
+workspaces/
+.env
+.env.local
+.env.*.local
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node.js
+**/node_modules/
+npm-debug.log*
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

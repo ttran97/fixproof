@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "xss",
+    "case": "XSS",
+    "canonical_id": "CF-ffcaa5bd5497",
+    "attempt": 2,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-08-27T19:56:45.267161Z",
+    "rationale": "The candidate correctly encodes untrusted input for HTML element content, passes all targeted security and functional tests, and the persistent SAST result is attributable to heuristics that do not recognize the local encoder. Acceptance is limited to the controlled /hello target.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/adjudications/CF-ffcaa5bd5497-attempt-02-packet.json",
+      "sha256": "d44e47c65e4eb3064180715fe4e04fd1031a9004467d68b2ade30064c95a8d42"
+    },
+    "automated_decision_unchanged": true
+  }
+}

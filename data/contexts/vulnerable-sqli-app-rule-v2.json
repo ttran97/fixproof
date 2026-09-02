@@ -1,0 +1,94 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "context_build": {
+    "canonical_finding_count": 2,
+    "contexts_created": 2
+  },
+  "contexts": [
+    {
+      "context_id": "CTX-CF-74954363b011",
+      "canonical_id": "CF-74954363b011",
+      "finding": {
+        "cwe": "CWE-352",
+        "cwe_name": "Cross-Site Request Forgery (CSRF)",
+        "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+        "language": "javascript",
+        "start_line": 4,
+        "end_line": 4
+      },
+      "scanner_evidence": {
+        "finding_count": 1,
+        "rule_origins": [
+          "semgrep_oss"
+        ],
+        "rules": [
+          {
+            "finding_id": "FP-967ecd63a064",
+            "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "rule_origin": "semgrep_oss",
+            "severity": "INFO",
+            "confidence": "LOW"
+          }
+        ],
+        "messages": [
+          "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies."
+        ]
+      },
+      "source_context": {
+        "context_type": "line_window",
+        "start_line": 1,
+        "end_line": 12,
+        "affected_start_line": 4,
+        "affected_end_line": 4,
+        "code": "   1: const express = require(\"express\");\n   2: const sqlite3 = require(\"sqlite3\").verbose();\n   3: \n>> 4: const app = express();\n   5: \n   6: const db = new sqlite3.Database(\":memory:\");\n   7: \n   8: db.serialize(() => {\n   9:     db.run(`\n   10:         CREATE TABLE users (\n   11:             id INTEGER PRIMARY KEY,\n   12:             username TEXT NOT NULL,"
+      }
+    },
+    {
+      "context_id": "CTX-CF-345f0ac3d7ae",
+      "canonical_id": "CF-345f0ac3d7ae",
+      "finding": {
+        "cwe": "CWE-89",
+        "cwe_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "vulnerability_class": "SQL Injection",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+        "language": "javascript",
+        "start_line": 37,
+        "end_line": 37
+      },
+      "scanner_evidence": {
+        "finding_count": 1,
+        "rule_origins": [
+          "fixproof_controlled"
+        ],
+        "rules": [
+          {
+            "finding_id": "FP-9fa22b369342",
+            "rule_id": "rules.fixproof.javascript.sqlite3.sql-injection",
+            "rule_origin": "fixproof_controlled",
+            "severity": "ERROR",
+            "confidence": "HIGH"
+          }
+        ],
+        "messages": [
+          "User-controlled Express query input reaches a SQLite query execution function. Use parameterized SQL instead of constructing SQL with untrusted input.\n"
+        ]
+      },
+      "source_context": {
+        "context_type": "express_route",
+        "start_line": 28,
+        "end_line": 46,
+        "affected_start_line": 37,
+        "affected_end_line": 37,
+        "code": "   28: app.get(\"/user\", (req, res) => {\n   29:     const username = req.query.username;\n   30: \n   31:     const query =\n   32:         \"SELECT id, username, role FROM users \" +\n   33:         \"WHERE username = '\" +\n   34:         username +\n   35:         \"'\";\n   36: \n>> 37:     db.all(query, (err, rows) => {\n   38:         if (err) {\n   39:             return res.status(500).json({\n   40:                 error: \"Query failed\"\n   41:             });\n   42:         }\n   43: \n   44:         res.json(rows);\n   45:     });\n   46: });"
+      }
+    }
+  ]
+}

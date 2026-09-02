@@ -1,0 +1,131 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "context_build": {
+    "canonical_finding_count": 3,
+    "contexts_created": 3
+  },
+  "contexts": [
+    {
+      "context_id": "CTX-CF-24c9c2fe4ed3",
+      "canonical_id": "CF-24c9c2fe4ed3",
+      "finding": {
+        "cwe": "CWE-352",
+        "cwe_name": "Cross-Site Request Forgery (CSRF)",
+        "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-js-app\\app.js",
+        "language": "javascript",
+        "start_line": 3,
+        "end_line": 3
+      },
+      "scanner_evidence": {
+        "finding_count": 1,
+        "rules": [
+          {
+            "finding_id": "FP-0a6882897edf",
+            "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "severity": "INFO",
+            "confidence": "LOW"
+          }
+        ],
+        "messages": [
+          "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies."
+        ]
+      },
+      "source_context": {
+        "context_type": "line_window",
+        "start_line": 1,
+        "end_line": 11,
+        "affected_start_line": 3,
+        "affected_end_line": 3,
+        "code": "   1: const express = require(\"express\");\n   2: const fs = require(\"fs\");\n>> 3: const app = express();\n   4: \n   5: app.use(express.urlencoded({ extended: true }));\n   6: \n   7: const API_SECRET_KEY = \"sk_live_fixproof_test_998877665544\";\n   8: \n   9: app.get(\"/hello\", (req, res) => {\n   10:     const name = req.query.name;\n   11:     res.send(\"<h1>Hello \" + name + \"</h1>\");"
+      }
+    },
+    {
+      "context_id": "CTX-CF-ffcaa5bd5497",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "finding": {
+        "cwe": "CWE-79",
+        "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "vulnerability_class": "Cross-Site-Scripting (XSS)",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-js-app\\app.js",
+        "language": "javascript",
+        "start_line": 11,
+        "end_line": 11
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rules": [
+          {
+            "finding_id": "FP-4a463523c09f",
+            "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          },
+          {
+            "finding_id": "FP-aa732c35120a",
+            "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          }
+        ],
+        "messages": [
+          "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+          "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML."
+        ]
+      },
+      "source_context": {
+        "context_type": "express_route",
+        "start_line": 9,
+        "end_line": 12,
+        "affected_start_line": 11,
+        "affected_end_line": 11,
+        "code": "   9: app.get(\"/hello\", (req, res) => {\n   10:     const name = req.query.name;\n>> 11:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n   12: });"
+      }
+    },
+    {
+      "context_id": "CTX-CF-e786a7568baa",
+      "canonical_id": "CF-e786a7568baa",
+      "finding": {
+        "cwe": "CWE-79",
+        "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "vulnerability_class": "Cross-Site-Scripting (XSS)",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-js-app\\app.js",
+        "language": "javascript",
+        "start_line": 23,
+        "end_line": 23
+      },
+      "scanner_evidence": {
+        "finding_count": 1,
+        "rules": [
+          {
+            "finding_id": "FP-111593356956",
+            "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          }
+        ],
+        "messages": [
+          "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML."
+        ]
+      },
+      "source_context": {
+        "context_type": "express_route",
+        "start_line": 14,
+        "end_line": 24,
+        "affected_start_line": 23,
+        "affected_end_line": 23,
+        "code": "   14: app.get(\"/user\", (req, res) => {\n   15:     const username = req.query.username;\n   16: \n   17:     const query =\n   18:         \"SELECT * FROM users WHERE username = '\" +\n   19:         username +\n   20:         \"'\";\n   21: \n   22:     console.log(\"Executing query:\", query);\n>> 23:     res.send(query);\n   24: });"
+      }
+    }
+  ]
+}

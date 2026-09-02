@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "correlation": {
+    "input_finding_count": 2,
+    "canonical_finding_count": 2,
+    "duplicates_collapsed": 0
+  },
+  "findings": [
+    {
+      "canonical_id": "CF-74954363b011",
+      "cwe": "CWE-352",
+      "cwe_name": "Cross-Site Request Forgery (CSRF)",
+      "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+      "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+      "start_line": 4,
+      "end_line": 4,
+      "source_context": {
+        "snippet": "2: const sqlite3 = require(\"sqlite3\").verbose();\n3: \n4: const app = express();\n5: \n6: const db = new sqlite3.Database(\":memory:\");",
+        "context_start_line": 2,
+        "context_end_line": 6,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-sqli-app\\app.js"
+      },
+      "status": "new",
+      "scanner_finding_count": 1,
+      "rule_origins": [
+        "semgrep_oss"
+      ],
+      "scanner_evidence": [
+        {
+          "finding_id": "FP-967ecd63a064",
+          "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+          "rule_origin": "semgrep_oss",
+          "severity": "INFO",
+          "confidence": "LOW",
+          "message": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies."
+        }
+      ]
+    },
+    {
+      "canonical_id": "CF-345f0ac3d7ae",
+      "cwe": "CWE-89",
+      "cwe_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "vulnerability_class": "SQL Injection",
+      "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+      "start_line": 37,
+      "end_line": 45,
+      "source_context": {
+        "snippet": "35:         \"'\";\n36: \n37:     db.all(query, (err, rows) => {\n38:         if (err) {\n39:             return res.status(500).json({\n40:                 error: \"Query failed\"\n41:             });\n42:         }\n43: \n44:         res.json(rows);\n45:     });\n46: });\n47: ",
+        "context_start_line": 35,
+        "context_end_line": 47,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-sqli-app\\app.js"
+      },
+      "status": "new",
+      "scanner_finding_count": 1,
+      "rule_origins": [
+        "fixproof_controlled"
+      ],
+      "scanner_evidence": [
+        {
+          "finding_id": "FP-094665e42a9d",
+          "rule_id": "rules.fixproof.javascript.sqlite3.sql-injection",
+          "rule_origin": "fixproof_controlled",
+          "severity": "ERROR",
+          "confidence": "HIGH",
+          "message": "User-controlled Express query input reaches a SQLite query execution function. Use parameterized SQL instead of constructing SQL with untrusted input.\n"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "application": "vulnerable-js-app",
+  "language": "javascript",
+  "purpose": "Controlled intentionally vulnerable application for FixProof evaluation",
+  "expected_vulnerabilities": [
+    {
+      "id": "GT-001",
+      "cwe": "CWE-798",
+      "type": "Use of Hard-coded Credentials",
+      "description": "Hard-coded API credential in source code"
+    },
+    {
+      "id": "GT-002",
+      "cwe": "CWE-79",
+      "type": "Cross-Site Scripting",
+      "description": "Unsanitized request parameter is inserted directly into an HTML response"
+    },
+    {
+      "id": "GT-003",
+      "cwe": "CWE-89",
+      "type": "SQL Injection",
+      "description": "User-controlled input is concatenated directly into a SQL query"
+    },
+    {
+      "id": "GT-004",
+      "cwe": "CWE-22",
+      "type": "Path Traversal",
+      "description": "User-controlled filename is concatenated into a filesystem path"
+    }
+  ]
+}

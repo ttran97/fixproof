@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "model": "gpt-5.2",
+    "response_id": "resp_06025100dc970968006a8f5f4453e487d2804e92423062e2a9",
+    "analysis": "The route reflects req.query.name directly into an HTML response via string concatenation and res.send(), allowing an attacker to inject HTML/JS (reflected XSS). The fix is to ensure user-controlled content is HTML-escaped before embedding into HTML.",
+    "remediation_strategy": "Escape the untrusted `name` value for HTML special characters before concatenating into the HTML string. This preserves the current response format while preventing script/HTML injection.",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const safeName = String(name ?? \"\").replace(/[&<>\"]+/g, (ch) => ({\n        \"&\": \"&amp;\",\n        \"<\": \"&lt;\",\n        \">\": \"&gt;\",\n        \"\\\"\": \"&quot;\"\n    }[ch]));\n    res.send(\"<h1>Hello \" + safeName + \"</h1>\");\n});",
+    "assumptions": [
+      "This endpoint is intended to return a small HTML snippet and not a JSON response.",
+      "Escaping for HTML element content is sufficient for the current usage (the value is not inserted into an attribute, script, or style context)."
+    ],
+    "needs_additional_context": false
+  }
+}

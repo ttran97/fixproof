@@ -1,0 +1,648 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "study_id": "cs6727-fixproof-final-experiment",
+  "aggregation_unit": "remediation_attempt",
+  "case_count": 3,
+  "attempt_count": 4,
+  "control_count": 1,
+  "manifest": {
+    "sha256": "f41072f912b92afcfb688b7022e85c58731759acd25e71ee87c7b3696302c064",
+    "path": "data/evaluation/experiment-manifest.json"
+  },
+  "experiment_matrix": [
+    {
+      "case_id": "xss",
+      "case": "XSS",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "candidate_origin": "ai_generated",
+      "metric_scope": "primary_ai_attempt_metrics",
+      "evidence_revision": null,
+      "model": "gpt-5.2",
+      "response_id": "resp_06025100dc970968006a8f5f4453e487d2804e92423062e2a9",
+      "policy_version": "0.1-strict",
+      "classification": "persistent_target_with_functional_regression",
+      "reason_codes": [
+        "TARGET_SAST_FINDING_PERSISTENT",
+        "FUNCTIONAL_REGRESSION"
+      ],
+      "decision": "REJECT",
+      "retry_allowed": null,
+      "human_review_status": "not_ready",
+      "evidence": {
+        "syntax": "pass",
+        "target_sast": "persistent",
+        "sast_remediation_success": false,
+        "security": {
+          "status": "pass",
+          "total": 4,
+          "passed": 4,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "functional": {
+          "status": "fail",
+          "total": 6,
+          "passed": 4,
+          "failed": 2,
+          "inconclusive": 0
+        },
+        "new_sast_findings": 0,
+        "security_regression": false,
+        "false_success": false,
+        "sast_runtime_disagreement": false
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "unrecorded"
+        ],
+        "rule_provenance_complete": false
+      },
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/correlated/vulnerable-js-app.json",
+          "sha256": "223959e8e667e864f8576681bdb8d88a35e9628acfe255c7f9ae439488e7f026"
+        },
+        "remediation": {
+          "path": "data/remediations/CF-ffcaa5bd5497.json",
+          "sha256": "9b277714f7239d9579aa8e957a470686c5ec628acb012670ce1f177c8d7cb554"
+        },
+        "preliminary": {
+          "path": "data/validation/CF-ffcaa5bd5497.json",
+          "sha256": "e5b95fe0e31f5a68fad253b99d9b6b55f502a268957109211e997cd49842721d"
+        },
+        "security": {
+          "path": "data/security_validation/CF-ffcaa5bd5497.json",
+          "sha256": "2479cae26cd4e7c3da1b09ac7f8bf0753b65b4d10f4ae412292318032714964c"
+        },
+        "functional": {
+          "path": "data/functional_validation/CF-ffcaa5bd5497.json",
+          "sha256": "fcc5b79102c807fc998f6e9fd92d5210ecb5ba0e1064a12495e00af89b965da2"
+        },
+        "decision": {
+          "path": "data/decisions/CF-ffcaa5bd5497.json",
+          "sha256": "243a9dfec1a6abb31216704db847f9da50e0083ed8663c425999f1815fa8c1d9"
+        },
+        "workspace": {
+          "path": "workspaces/CF-ffcaa5bd5497/workspace.json",
+          "sha256": "9f5c36d1f7c827f14b98af5fd7994f37be9196f925cb5e5cb2b3b6a741f9849c"
+        }
+      },
+      "adjudication": {
+        "required": false,
+        "status": "not_required",
+        "verdict": null
+      }
+    },
+    {
+      "case_id": "xss",
+      "case": "XSS",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "attempt": 2,
+      "retry_of_attempt": 1,
+      "candidate_origin": "ai_generated",
+      "metric_scope": "primary_ai_attempt_metrics",
+      "evidence_revision": null,
+      "model": "gpt-5.2",
+      "response_id": "resp_0b859c2d9aa58280006a8f77fa071c87d297129a3802111beb",
+      "policy_version": "0.2-evidence-aware",
+      "classification": "sast_runtime_disagreement",
+      "reason_codes": [
+        "TARGET_SAST_FINDING_PERSISTENT",
+        "SAST_RUNTIME_EVIDENCE_CONFLICT"
+      ],
+      "decision": "NEEDS_HUMAN_ADJUDICATION",
+      "retry_allowed": false,
+      "human_review_status": "adjudication_required",
+      "evidence": {
+        "syntax": "pass",
+        "target_sast": "persistent",
+        "sast_remediation_success": false,
+        "security": {
+          "status": "pass",
+          "total": 4,
+          "passed": 4,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "functional": {
+          "status": "pass",
+          "total": 6,
+          "passed": 6,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "new_sast_findings": 0,
+        "security_regression": false,
+        "false_success": false,
+        "sast_runtime_disagreement": true
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "unrecorded"
+        ],
+        "rule_provenance_complete": false
+      },
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/correlated/vulnerable-js-app.json",
+          "sha256": "223959e8e667e864f8576681bdb8d88a35e9628acfe255c7f9ae439488e7f026"
+        },
+        "remediation": {
+          "path": "data/remediations/CF-ffcaa5bd5497-attempt-02.json",
+          "sha256": "f539b47850c184e4982fc7871df93ac4049f8ccb13b0a8f79753be28c7ec3d11"
+        },
+        "preliminary": {
+          "path": "data/validation/CF-ffcaa5bd5497-attempt-02.json",
+          "sha256": "cec7c57c1c5f2162e6c285a25a474c7f25b3e5608f993f98720db9a57be3db1d"
+        },
+        "security": {
+          "path": "data/security_validation/CF-ffcaa5bd5497-attempt-02.json",
+          "sha256": "cf8fa69618dba47eb69a1004a655e94565fd85300cc6d9bd426837dffd11cc8c"
+        },
+        "functional": {
+          "path": "data/functional_validation/CF-ffcaa5bd5497-attempt-02.json",
+          "sha256": "aa9a0309514f525b66db3b556f0fb571fe1b249f52becaf4d398907b5f0a7be8"
+        },
+        "decision": {
+          "path": "data/decisions/CF-ffcaa5bd5497-attempt-02-policy-02.json",
+          "sha256": "9dd8a2108f9f0a39f4a0590d7aff17d1ebdc5208f015e8433a96882bc8875799"
+        },
+        "workspace": {
+          "path": "workspaces/CF-ffcaa5bd5497/attempt-02/workspace.json",
+          "sha256": "86a4830348a3a770e6a0764831c5a6bec25ab1c83a0f8da2187228cac931c8eb"
+        },
+        "adjudication_packet": {
+          "path": "data/adjudications/CF-ffcaa5bd5497-attempt-02-packet.json",
+          "sha256": "d44e47c65e4eb3064180715fe4e04fd1031a9004467d68b2ade30064c95a8d42"
+        },
+        "adjudication_result": {
+          "path": "data/adjudications/CF-ffcaa5bd5497-attempt-02-result.json",
+          "sha256": "5b852f0037c188a978f0df84568bf03c6d62e3a53151ebb6952ab52ff700b163"
+        }
+      },
+      "adjudication": {
+        "required": true,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-08-27T19:56:45.267161Z",
+        "rationale": "The candidate correctly encodes untrusted input for HTML element content, passes all targeted security and functional tests, and the persistent SAST result is attributable to heuristics that do not recognize the local encoder. Acceptance is limited to the controlled /hello target.",
+        "packet": {
+          "path": "data/adjudications/CF-ffcaa5bd5497-attempt-02-packet.json",
+          "sha256": "d44e47c65e4eb3064180715fe4e04fd1031a9004467d68b2ade30064c95a8d42"
+        },
+        "result": {
+          "path": "data/adjudications/CF-ffcaa5bd5497-attempt-02-result.json",
+          "sha256": "5b852f0037c188a978f0df84568bf03c6d62e3a53151ebb6952ab52ff700b163"
+        }
+      }
+    },
+    {
+      "case_id": "sqli",
+      "case": "SQLi",
+      "application": "vulnerable-sqli-app",
+      "cwe": "CWE-89",
+      "canonical_id": "CF-345f0ac3d7ae",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "candidate_origin": "ai_generated",
+      "metric_scope": "primary_ai_attempt_metrics",
+      "evidence_revision": {
+        "revision": "controlled-sqli-rule-v2",
+        "reason": "The sink was narrowed to the SQL query argument so safely bound parameter values are not treated as query text.",
+        "historical_adjudication": {
+          "status": "completed",
+          "verdict": "ACCEPT_CANDIDATE",
+          "reviewer": "Tony Tran",
+          "reviewed_at": "2026-08-27T19:56:45.383102Z"
+        },
+        "historical_artifacts": {
+          "historical_decision": {
+            "path": "data/decisions/CF-345f0ac3d7ae-attempt-01.json",
+            "sha256": "f3874840d3560d891576fffc7f31a554eda7847b4952ff75bb189b912ff3a94a"
+          },
+          "historical_adjudication_result": {
+            "path": "data/adjudications/CF-345f0ac3d7ae-attempt-01-result.json",
+            "sha256": "81291ec6b11db2538f942ec3ef453c5df2eff396666fef50b6925ba41f863ed9"
+          },
+          "historical_adjudication_packet": {
+            "path": "data/adjudications/CF-345f0ac3d7ae-attempt-01-packet.json",
+            "sha256": "ba1bca54f3e962461af405403ae97af7cb01648b7e3f52bf355f16fa27b5f32e"
+          }
+        }
+      },
+      "model": "gpt-5.2",
+      "response_id": "resp_0eba2ed31847369a006a908aeac3c087d2ab24572e84529ac3",
+      "policy_version": "0.2-evidence-aware",
+      "classification": "validated_candidate",
+      "reason_codes": [],
+      "decision": "READY_FOR_HUMAN_REVIEW",
+      "retry_allowed": false,
+      "human_review_status": "ready",
+      "evidence": {
+        "syntax": "pass",
+        "target_sast": "resolved",
+        "sast_remediation_success": true,
+        "security": {
+          "status": "pass",
+          "total": 2,
+          "passed": 2,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "functional": {
+          "status": "pass",
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "new_sast_findings": 0,
+        "security_regression": false,
+        "false_success": false,
+        "sast_runtime_disagreement": false
+      },
+      "scanner_evidence": {
+        "finding_count": 1,
+        "rule_origins": [
+          "fixproof_controlled"
+        ],
+        "rule_provenance_complete": true
+      },
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/correlated/vulnerable-sqli-app-rule-v2.json",
+          "sha256": "3a3bc89bbcc12f90e8f37b19bfa922211a4e63e173dd1b70b09aab806c2b16dc"
+        },
+        "remediation": {
+          "path": "data/remediations/CF-345f0ac3d7ae-attempt-01.json",
+          "sha256": "4055534a4e0c4ba6888f6956e0d22108076021157c112c6e8a356e8abbc6713b"
+        },
+        "preliminary": {
+          "path": "data/validation/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+          "sha256": "b464f61a8e2059119ea1a032e51bd03a648b1783b2baa62406fd5289d56938d3"
+        },
+        "security": {
+          "path": "data/security_validation/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+          "sha256": "3a6ee4c049681f10d448a4dd61ea81efd739caa5756492547f9fc18c1b85f46a"
+        },
+        "functional": {
+          "path": "data/functional_validation/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+          "sha256": "63f9b979e4bb11b2b5cf7ce12ae1652d35e0ebbab61016ffdf33720b9ad4c551"
+        },
+        "decision": {
+          "path": "data/decisions/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+          "sha256": "9ce841d5273890cffef8b5d7a3b6401cc06bd917cdbf3e8a63d3a5d4f9bcb6dd"
+        },
+        "workspace": {
+          "path": "workspaces/revalidations/sqli-rule-v2/CF-345f0ac3d7ae/attempt-01/workspace.json",
+          "sha256": "74ec27a55945f5d68bcc1bba15ecc334fe2e3a630688c1e508cffc09feec5299"
+        }
+      },
+      "adjudication": {
+        "required": false,
+        "status": "not_required",
+        "verdict": null
+      }
+    },
+    {
+      "case_id": "path-traversal",
+      "case": "Path traversal",
+      "application": "vulnerable-path-traversal-app",
+      "cwe": "CWE-22",
+      "canonical_id": "CF-bc4a65bafb2d",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "candidate_origin": "ai_generated",
+      "metric_scope": "primary_ai_attempt_metrics",
+      "evidence_revision": null,
+      "model": "gpt-5.2",
+      "response_id": "resp_0857ddcdcdbd8bd6006a908ec53cd087d2b01362adb87097de",
+      "policy_version": "0.2-evidence-aware",
+      "classification": "sast_runtime_disagreement",
+      "reason_codes": [
+        "TARGET_SAST_FINDING_PERSISTENT",
+        "SAST_RUNTIME_EVIDENCE_CONFLICT"
+      ],
+      "decision": "NEEDS_HUMAN_ADJUDICATION",
+      "retry_allowed": false,
+      "human_review_status": "adjudication_required",
+      "evidence": {
+        "syntax": "pass",
+        "target_sast": "persistent",
+        "sast_remediation_success": false,
+        "security": {
+          "status": "pass",
+          "total": 2,
+          "passed": 2,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "functional": {
+          "status": "pass",
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "inconclusive": 0
+        },
+        "new_sast_findings": 0,
+        "security_regression": false,
+        "false_success": false,
+        "sast_runtime_disagreement": true
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "semgrep_oss"
+        ],
+        "rule_provenance_complete": true
+      },
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/correlated/vulnerable-path-traversal-app.json",
+          "sha256": "d7f54a10ce880c5dd98732f3b7204ab56e9d93a4d37d5bc4cf81dd2a3679c563"
+        },
+        "remediation": {
+          "path": "data/remediations/CF-bc4a65bafb2d-attempt-01.json",
+          "sha256": "5ee57a63e208680ff1cc037877bbd4ea6af6a5f0e76b71e4fac8ed85aa47bb21"
+        },
+        "preliminary": {
+          "path": "data/validation/CF-bc4a65bafb2d-attempt-01.json",
+          "sha256": "82030456d01f451b091b1f7059e68fb2fcc4bdc5f68d680636dcd910e95e2658"
+        },
+        "security": {
+          "path": "data/security_validation/CF-bc4a65bafb2d-attempt-01.json",
+          "sha256": "5ff2b9356407740954b807cc370f074fffa581a44832af98a52f4672b9752412"
+        },
+        "functional": {
+          "path": "data/functional_validation/CF-bc4a65bafb2d-attempt-01.json",
+          "sha256": "e83b51a29e7a3801786c806e784f98c17752aebcca78634f22eeafa01e3ec75e"
+        },
+        "decision": {
+          "path": "data/decisions/CF-bc4a65bafb2d-attempt-01.json",
+          "sha256": "dbf8c96d248ac6a7b0336f49f130bc885a10c58a300aa04b578798f949119a44"
+        },
+        "workspace": {
+          "path": "workspaces/CF-bc4a65bafb2d/attempt-01/workspace.json",
+          "sha256": "4eb04e2200eff4ea7dbf5f6c29188ddead6427eed6451dbc8f792bb1c04dc75f"
+        },
+        "adjudication_packet": {
+          "path": "data/adjudications/CF-bc4a65bafb2d-attempt-01-packet.json",
+          "sha256": "ecf2b8340dc48302c5b31cf398751c582607928ce47a4688e782b3d3d9699112"
+        },
+        "adjudication_result": {
+          "path": "data/adjudications/CF-bc4a65bafb2d-attempt-01-result.json",
+          "sha256": "9604491db916620150ad9c0ed1a9d38eab8e4fa61c2c3c5b1149e68dcf86107b"
+        }
+      },
+      "adjudication": {
+        "required": true,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-08-27T19:56:45.503068Z",
+        "rationale": "The candidate resolves the allowed root and requested path, enforces an exact root or root-plus-separator boundary, rejects the controlled traversal, and preserves expected file behavior. Acceptance is limited to the controlled benchmark threat model and does not claim application-wide filesystem safety.",
+        "packet": {
+          "path": "data/adjudications/CF-bc4a65bafb2d-attempt-01-packet.json",
+          "sha256": "ecf2b8340dc48302c5b31cf398751c582607928ce47a4688e782b3d3d9699112"
+        },
+        "result": {
+          "path": "data/adjudications/CF-bc4a65bafb2d-attempt-01-result.json",
+          "sha256": "9604491db916620150ad9c0ed1a9d38eab8e4fa61c2c3c5b1149e68dcf86107b"
+        }
+      }
+    }
+  ],
+  "outcome_coverage_controls": [
+    {
+      "case_id": "xss-static-output-control",
+      "case": "XSS static-output control",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "candidate_origin": "deterministic_non_ai",
+      "metric_scope": "outcome_coverage_only",
+      "evidence_revision": null,
+      "model": "not-applicable-deterministic-control",
+      "response_id": null,
+      "policy_version": "0.2-evidence-aware",
+      "classification": "sast_false_success",
+      "reason_codes": [
+        "TARGET_SECURITY_TEST_INCONCLUSIVE",
+        "FUNCTIONAL_REGRESSION"
+      ],
+      "decision": "REJECT",
+      "retry_allowed": true,
+      "human_review_status": "not_ready",
+      "evidence": {
+        "syntax": "pass",
+        "target_sast": "resolved",
+        "sast_remediation_success": true,
+        "security": {
+          "status": "inconclusive",
+          "total": 4,
+          "passed": 0,
+          "failed": 0,
+          "inconclusive": 4
+        },
+        "functional": {
+          "status": "fail",
+          "total": 6,
+          "passed": 0,
+          "failed": 6,
+          "inconclusive": 0
+        },
+        "new_sast_findings": 0,
+        "security_regression": false,
+        "false_success": true,
+        "sast_runtime_disagreement": false
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "unrecorded"
+        ],
+        "rule_provenance_complete": false
+      },
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/correlated/vulnerable-js-app.json",
+          "sha256": "223959e8e667e864f8576681bdb8d88a35e9628acfe255c7f9ae439488e7f026"
+        },
+        "remediation": {
+          "path": "data/evaluation_controls/remediations/CF-ffcaa5bd5497-static-output-control.json",
+          "sha256": "b73907aae15457dd5b7cd05b976d040bac395398828b6782ea43f817979248a3"
+        },
+        "preliminary": {
+          "path": "data/evaluation_controls/validation/CF-ffcaa5bd5497-static-output-control.json",
+          "sha256": "851a340022d4eada2705ad52f0ff7b3704d2b5ed55206e6ca634fa52b2fa8941"
+        },
+        "security": {
+          "path": "data/evaluation_controls/security_validation/CF-ffcaa5bd5497-static-output-control.json",
+          "sha256": "7c2b92c7ecdffa66a4be3399e00f5558359d9a4b293608d75c587617b7beff1e"
+        },
+        "functional": {
+          "path": "data/evaluation_controls/functional_validation/CF-ffcaa5bd5497-static-output-control.json",
+          "sha256": "4c22440c269d10a403cb9af83980286d3709fb19336450ab3198cf8630e6fc53"
+        },
+        "decision": {
+          "path": "data/evaluation_controls/decisions/CF-ffcaa5bd5497-static-output-control.json",
+          "sha256": "7a9dc2f5c936d0638bec3b1249825e8d96d0cd925fa704bf8454a09cc6724c6c"
+        },
+        "workspace": {
+          "path": "workspaces/evaluation-controls/sast-false-success/CF-ffcaa5bd5497/attempt-01/workspace.json",
+          "sha256": "a035f47d98f6a2651c95435d96e80543b211f6412c13d124d04feddfa9adc13c"
+        }
+      },
+      "adjudication": {
+        "required": false,
+        "status": "not_required",
+        "verdict": null
+      },
+      "expected_classification": "sast_false_success"
+    }
+  ],
+  "outcome_coverage": {
+    "required_outcomes": {
+      "validated_candidate": {
+        "observed_in_primary_ai_attempts": true,
+        "primary_ai_attempt_count": 1,
+        "demonstrated_by_non_ai_control": false,
+        "control_count": 0,
+        "covered": true
+      },
+      "sast_false_success": {
+        "observed_in_primary_ai_attempts": false,
+        "primary_ai_attempt_count": 0,
+        "demonstrated_by_non_ai_control": true,
+        "control_count": 1,
+        "covered": true
+      }
+    },
+    "all_required_outcomes_covered": true,
+    "primary_ai_classifications": {
+      "persistent_target_with_functional_regression": 1,
+      "sast_runtime_disagreement": 2,
+      "validated_candidate": 1
+    },
+    "control_classifications": {
+      "sast_false_success": 1
+    },
+    "metric_separation": "Outcome-coverage controls are excluded from all primary AI-attempt metrics."
+  },
+  "metrics": {
+    "sast_remediation_success_rate": {
+      "numerator": 1,
+      "denominator": 4,
+      "rate": 0.25,
+      "percentage": 25.0
+    },
+    "targeted_security_validation_pass_rate": {
+      "numerator": 4,
+      "denominator": 4,
+      "rate": 1.0,
+      "percentage": 100.0
+    },
+    "functional_preservation_rate": {
+      "numerator": 3,
+      "denominator": 4,
+      "rate": 0.75,
+      "percentage": 75.0
+    },
+    "security_regression_new_finding_rate": {
+      "numerator": 0,
+      "denominator": 4,
+      "rate": 0.0,
+      "percentage": 0.0
+    },
+    "sast_false_success_count": 0,
+    "sast_runtime_disagreement_count": 2,
+    "retry_improvement_rate": {
+      "numerator": 1,
+      "denominator": 1,
+      "rate": 1.0,
+      "percentage": 100.0
+    },
+    "human_adjudication_rate": {
+      "numerator": 2,
+      "denominator": 4,
+      "rate": 0.5,
+      "percentage": 50.0
+    },
+    "human_adjudication_completion_rate": {
+      "numerator": 2,
+      "denominator": 2,
+      "rate": 1.0,
+      "percentage": 100.0
+    },
+    "decision_distribution": {
+      "REJECT": 1,
+      "READY_FOR_HUMAN_REVIEW": 1,
+      "NEEDS_HUMAN_ADJUDICATION": 2
+    }
+  },
+  "metric_definitions": {
+    "sast_remediation_success_rate": "Attempts whose target SAST finding was resolved, divided by all attempts.",
+    "targeted_security_validation_pass_rate": "Attempts whose targeted runtime security validation passed, divided by all attempts.",
+    "functional_preservation_rate": "Attempts whose functional/regression validation passed, divided by all attempts.",
+    "security_regression_new_finding_rate": "Attempts that introduced one or more new SAST findings, divided by all attempts.",
+    "sast_false_success_count": "Count of attempts where the target SAST finding resolved but security validation failed or was inconclusive, functional validation failed, or new SAST findings appeared.",
+    "sast_runtime_disagreement_count": "Count of attempts where the target SAST finding remained persistent while targeted security and functional validation passed with no new SAST findings.",
+    "retry_improvement_rate": "Retries that were no worse on syntax, target SAST, security, functional, and new-finding evidence and improved at least one of those dimensions, divided by all retries.",
+    "human_adjudication_rate": "Attempts dispositioned NEEDS_HUMAN_ADJUDICATION, divided by all attempts.",
+    "human_adjudication_completion_rate": "Completed evidence-bound human adjudications, divided by attempts that require human adjudication."
+  },
+  "retry_analysis": [
+    {
+      "case_id": "xss",
+      "case": "XSS",
+      "from_attempt": 1,
+      "to_attempt": 2,
+      "improved": true,
+      "improved_dimensions": [
+        "functional_validation"
+      ],
+      "worsened_dimensions": []
+    }
+  ],
+  "adjudication_summary": {
+    "required": 2,
+    "missing_packet": 0,
+    "pending": 0,
+    "completed": 2,
+    "verdict_distribution": {
+      "ACCEPT_CANDIDATE": 2
+    }
+  },
+  "provenance_summary": {
+    "attempts_with_complete_rule_provenance": 2,
+    "attempts_with_unrecorded_rule_provenance": 2,
+    "recorded_rule_origins": [
+      "fixproof_controlled",
+      "semgrep_oss"
+    ],
+    "unrecorded_attempts": [
+      {
+        "case_id": "xss",
+        "attempt": 1,
+        "baseline": "data/correlated/vulnerable-js-app.json"
+      },
+      {
+        "case_id": "xss",
+        "attempt": 2,
+        "baseline": "data/correlated/vulnerable-js-app.json"
+      }
+    ]
+  }
+}

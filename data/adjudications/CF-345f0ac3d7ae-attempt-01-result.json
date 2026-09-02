@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "sqli",
+    "case": "SQLi",
+    "canonical_id": "CF-345f0ac3d7ae",
+    "attempt": 1,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-08-27T19:56:45.383102Z",
+    "rationale": "The candidate uses a constant SQL statement with a placeholder and supplies the username through SQLite parameter binding. Targeted security and functional tests pass, while the controlled rule conservatively flags user input reaching db.all even as a bound value.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/adjudications/CF-345f0ac3d7ae-attempt-01-packet.json",
+      "sha256": "ba1bca54f3e962461af405403ae97af7cb01648b7e3f52bf355f16fa27b5f32e"
+    },
+    "automated_decision_unchanged": true
+  }
+}

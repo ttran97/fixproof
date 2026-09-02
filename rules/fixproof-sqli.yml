@@ -1,0 +1,40 @@
+rules:
+  - id: fixproof.javascript.sqlite3.sql-injection
+    mode: taint
+
+    languages:
+      - javascript
+
+    message: >
+      User-controlled Express query input reaches a SQLite query
+      execution function. Use parameterized SQL instead of constructing
+      SQL with untrusted input.
+
+    severity: ERROR
+
+    metadata:
+      cwe: >-
+        CWE-89: Improper Neutralization of Special Elements used in an
+        SQL Command ('SQL Injection')
+      vulnerability_class:
+        - SQL Injection
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      likelihood: HIGH
+      technology:
+        - express
+        - sqlite3
+      fixproof_controlled_rule: true
+
+    pattern-sources:
+      - pattern: req.query.$PARAM
+
+    pattern-sinks:
+      - patterns:
+          - pattern-either:
+              - pattern: db.all($QUERY, ...)
+              - pattern: db.get($QUERY, ...)
+              - pattern: db.run($QUERY, ...)
+              - pattern: db.exec($QUERY, ...)
+          - focus-metavariable: $QUERY

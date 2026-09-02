@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "security_validation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "validator": "cwe79_reflected_xss",
+    "cwe": "CWE-79",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\attempt-02\\app\\app.js",
+      "route": "/hello",
+      "query_parameter": "name"
+    },
+    "status": "pass",
+    "test_count": 4,
+    "tests": [
+      {
+        "test": "script_tag",
+        "payload": "<script>alert(1)</script>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &lt;script&gt;alert(1)&lt;/script&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "No raw HTML markup from the payload remained in the reflected response value.",
+          "reflected_value": "&lt;script&gt;alert(1)&lt;/script&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false
+        }
+      },
+      {
+        "test": "img_event_handler",
+        "payload": "<img src=x onerror=alert(1)>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &lt;img src=x onerror=alert(1)&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "No raw HTML markup from the payload remained in the reflected response value.",
+          "reflected_value": "&lt;img src=x onerror=alert(1)&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false
+        }
+      },
+      {
+        "test": "quote_svg_event",
+        "payload": "\"><svg onload=alert(1)>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &quot;&gt;&lt;svg onload=alert(1)&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "No raw HTML markup from the payload remained in the reflected response value.",
+          "reflected_value": "&quot;&gt;&lt;svg onload=alert(1)&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false
+        }
+      },
+      {
+        "test": "consecutive_markup_characters",
+        "payload": "<<script>alert(1)//<</script>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &lt;&lt;script&gt;alert(1)//&lt;&lt;/script&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "No raw HTML markup from the payload remained in the reflected response value.",
+          "reflected_value": "&lt;&lt;script&gt;alert(1)//&lt;&lt;/script&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false
+        }
+      }
+    ],
+    "limitations": [
+      "This MVP validator inspects reflected HTTP output and does not execute JavaScript in a real browser.",
+      "The validator is currently specific to reflected XSS in HTML element content."
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "functional_validation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "validator": "express_reflected_output",
+    "cwe": "CWE-79",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\evaluation-controls\\sast-false-success\\CF-ffcaa5bd5497\\attempt-01\\app\\app.js",
+      "route": "/hello",
+      "query_parameter": "name"
+    },
+    "status": "fail",
+    "summary": {
+      "tests": 6,
+      "passed": 0,
+      "failed": 6
+    },
+    "tests": [
+      {
+        "test": "simple_name",
+        "input": "Tony",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "fail",
+          "reason": "Response did not preserve the expected Hello response structure.",
+          "expected_value": "Tony",
+          "reflected_value": null,
+          "decoded_value": null,
+          "semantic_match": false
+        }
+      },
+      {
+        "test": "name_with_space",
+        "input": "Tony Tran",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "fail",
+          "reason": "Response did not preserve the expected Hello response structure.",
+          "expected_value": "Tony Tran",
+          "reflected_value": null,
+          "decoded_value": null,
+          "semantic_match": false
+        }
+      },
+      {
+        "test": "ampersand_text",
+        "input": "Tony & Alicia",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "fail",
+          "reason": "Response did not preserve the expected Hello response structure.",
+          "expected_value": "Tony & Alicia",
+          "reflected_value": null,
+          "decoded_value": null,
+          "semantic_match": false
+        }
+      },
+      {
+        "test": "single_markup_character",
+        "input": "Tony < Alicia",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "fail",
+          "reason": "Response did not preserve the expected Hello response structure.",
+          "expected_value": "Tony < Alicia",
+          "reflected_value": null,
+          "decoded_value": null,
+          "semantic_match": false
+        }
+      },
+      {
+        "test": "adjacent_special_characters",
+        "input": "Tony &<> Alicia",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "fail",
+          "reason": "Response did not preserve the expected Hello response structure.",
+          "expected_value": "Tony &<> Alicia",
+          "reflected_value": null,
+          "decoded_value": null,
+          "semantic_match": false
+        }
+      },
+      {
+        "test": "quote_and_markup",
+        "input": "\"><hello>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "fail",
+          "reason": "Response did not preserve the expected Hello response structure.",
+          "expected_value": "\"><hello>",
+          "reflected_value": null,
+          "decoded_value": null,
+          "semantic_match": false
+        }
+      }
+    ],
+    "validation_property": "The remediation must preserve the user-visible query parameter value while allowing safe HTML encoding.",
+    "limitations": [
+      "This MVP functional validator is specific to the controlled /hello Express endpoint.",
+      "It verifies response semantics rather than full application behavior."
+    ]
+  }
+}

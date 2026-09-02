@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "application": "vulnerable-path-traversal-app",
+  "ground_truth": [
+    {
+      "ground_truth_id": "GT-PATH-001",
+      "cwe": "CWE-22",
+      "cwe_name": "Improper Limitation of a Pathname to a Restricted Directory",
+      "vulnerability_class": "Path Traversal",
+      "file": "sample_apps\\vulnerable-path-traversal-app\\app.js",
+      "route": "/file",
+      "input_parameter": "name",
+      "source": "req.query.name",
+      "sink": "fs.readFile",
+      "allowed_directory": "public-files",
+      "legitimate_fixture": "welcome.txt",
+      "traversal_fixture": "../outside-secret.txt",
+      "expected_vulnerable": true,
+      "description": "Untrusted filename input is normalized with path.join and passed to fs.readFile without enforcing that the resolved path remains inside the allowed public-files directory."
+    }
+  ]
+}

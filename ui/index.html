@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Read-only FixProof experiment dashboard">
+  <title>FixProof Evaluation Dashboard</title>
+  <link rel="stylesheet" href="/ui/styles.css">
+  <script src="/ui/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-copy">
+      <p class="eyebrow">CS6727 security practicum</p>
+      <h1>FixProof</h1>
+      <p class="subtitle">Validation evidence for AI-generated vulnerability remediation</p>
+    </div>
+    <div class="report-state" aria-live="polite">
+      <span class="state-dot"></span>
+      <span id="report-state">Loading verified report…</span>
+    </div>
+  </header>
+
+  <main id="dashboard" class="dashboard" aria-busy="true">
+    <section aria-labelledby="summary-heading">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Primary experiment</p>
+          <h2 id="summary-heading">Evaluation summary</h2>
+        </div>
+        <p id="study-summary" class="section-note"></p>
+      </div>
+      <div id="metric-grid" class="metric-grid"></div>
+    </section>
+
+    <section class="two-column" aria-label="Coverage and human review status">
+      <article class="panel">
+        <p class="section-kicker">Policy outcomes</p>
+        <h2>Coverage</h2>
+        <div id="coverage-list" class="coverage-list"></div>
+        <p class="panel-note">Non-AI controls are never included in primary attempt metrics.</p>
+      </article>
+      <article class="panel">
+        <p class="section-kicker">Human boundary</p>
+        <h2>Adjudication</h2>
+        <div id="adjudication-summary" class="adjudication-summary"></div>
+      </article>
+    </section>
+
+    <section aria-labelledby="matrix-heading">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Authoritative attempts</p>
+          <h2 id="matrix-heading">Experiment matrix</h2>
+        </div>
+        <p class="section-note">Select a row to inspect its evidence and artifact bindings.</p>
+      </div>
+      <div class="table-shell">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Case</th>
+              <th scope="col">CWE</th>
+              <th scope="col">Attempt</th>
+              <th scope="col">SAST</th>
+              <th scope="col">Security</th>
+              <th scope="col">Functional</th>
+              <th scope="col">New</th>
+              <th scope="col">Decision</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="detail-heading">
+      <div class="section-heading detail-heading">
+        <div>
+          <p class="section-kicker">Evidence explorer</p>
+          <h2 id="detail-heading">Attempt details</h2>
+        </div>
+        <label class="attempt-picker">
+          <span>Selected attempt</span>
+          <select id="attempt-picker"></select>
+        </label>
+      </div>
+      <article id="attempt-detail" class="detail-panel"></article>
+    </section>
+
+    <section aria-labelledby="control-heading">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Separated validation controls</p>
+          <h2 id="control-heading">False-success control</h2>
+        </div>
+        <p class="section-note">Outcome coverage only; excluded from AI performance metrics.</p>
+      </div>
+      <div id="control-list" class="control-list"></div>
+    </section>
+
+    <section class="panel limitations" aria-labelledby="limits-heading">
+      <p class="section-kicker">Interpretation</p>
+      <h2 id="limits-heading">Scope limits</h2>
+      <ul>
+        <li>Results describe a small controlled benchmark, not production remediation performance.</li>
+        <li>Targeted runtime tests cover specific endpoints and payloads rather than application-wide security.</li>
+        <li>Human review remains separate from automated decisions and AI-generated patches are never auto-approved.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="error-panel" class="error-panel" hidden role="alert">
+    <h2>Dashboard could not load</h2>
+    <p id="error-message"></p>
+    <p>Start the local dashboard server from the repository root instead of opening this file directly.</p>
+  </div>
+
+  <footer>
+    <p>Read-only view of <code>data/evaluation/experiment-report.json</code></p>
+    <p id="manifest-digest"></p>
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_role": "deterministic_evaluation_control",
+  "remediation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "model": "not-applicable-deterministic-control",
+    "response_id": null,
+    "analysis": "This negative control removes the untrusted data flow by returning a static greeting. It is intentionally functionally incorrect and exists only to verify that FixProof rejects a candidate after SAST appears successful.",
+    "remediation_strategy": "Replace the reflected greeting with static output so the target SAST finding resolves while expected user-visible behavior is lost.",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    res.send(\"<h1>Hello</h1>\");\n});",
+    "assumptions": [],
+    "needs_additional_context": false
+  },
+  "control_metadata": {
+    "control_type": "sast_false_success_negative_control",
+    "candidate_origin": "deterministic_non_ai",
+    "expected_classification": "sast_false_success",
+    "excluded_from_ai_attempt_metrics": true
+  }
+}
+

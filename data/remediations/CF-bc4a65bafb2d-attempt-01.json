@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-bc4a65bafb2d",
+    "model": "gpt-5.2",
+    "response_id": "resp_0857ddcdcdbd8bd6006a908ec53cd087d2b01362adb87097de",
+    "analysis": "`req.query.name` is user-controlled and is directly used as a path segment in `path.join(fileRoot, name)`. An attacker can supply values like `../secret` or absolute paths to escape `fileRoot` and read arbitrary files. The fix is to normalize/resolve the final path and ensure it remains within `fileRoot` before reading.",
+    "remediation_strategy": "Resolve the requested path against `fileRoot` and enforce that the resolved path starts with the intended root (with a path separator boundary). Reject missing/invalid names and any path that escapes the root. This preserves intended file-serving behavior for legitimate relative names.",
+    "patched_code": "app.get(\"/file\", (req, res) => {\n    const name = req.query.name;\n\n    if (typeof name !== \"string\" || name.length === 0) {\n        return res.status(400).json({ error: \"Invalid file name\" });\n    }\n\n    const rootPath = path.resolve(fileRoot);\n    const filePath = path.resolve(rootPath, name);\n\n    if (filePath !== rootPath && !filePath.startsWith(rootPath + path.sep)) {\n        return res.status(400).json({ error: \"Invalid file path\" });\n    }\n\n    fs.readFile(\n        filePath,\n        \"utf8\",\n        (err, data) => {\n            if (err) {\n                return res.status(404).json({\n                    error: \"File not found\"\n                });\n            }\n\n            res.type(\"text/plain\").send(data);\n        }\n    );\n});",
+    "assumptions": [
+      "`fileRoot` is intended to be the base directory that all readable files must reside within.",
+      "Serving nested paths under `fileRoot` (e.g., `subdir/file.txt`) is acceptable as long as traversal outside `fileRoot` is blocked."
+    ],
+    "needs_additional_context": false
+  }
+}

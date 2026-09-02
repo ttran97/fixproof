@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "study_id": "cs6727-fixproof-final-experiment",
+  "attempts": [
+    {
+      "case_id": "xss",
+      "case": "XSS",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "artifacts": {
+        "baseline_correlated": "data/correlated/vulnerable-js-app.json",
+        "remediation": "data/remediations/CF-ffcaa5bd5497.json",
+        "preliminary": "data/validation/CF-ffcaa5bd5497.json",
+        "security": "data/security_validation/CF-ffcaa5bd5497.json",
+        "functional": "data/functional_validation/CF-ffcaa5bd5497.json",
+        "decision": "data/decisions/CF-ffcaa5bd5497.json",
+        "workspace": "workspaces/CF-ffcaa5bd5497/workspace.json"
+      }
+    },
+    {
+      "case_id": "xss",
+      "case": "XSS",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "attempt": 2,
+      "retry_of_attempt": 1,
+      "artifacts": {
+        "baseline_correlated": "data/correlated/vulnerable-js-app.json",
+        "remediation": "data/remediations/CF-ffcaa5bd5497-attempt-02.json",
+        "preliminary": "data/validation/CF-ffcaa5bd5497-attempt-02.json",
+        "security": "data/security_validation/CF-ffcaa5bd5497-attempt-02.json",
+        "functional": "data/functional_validation/CF-ffcaa5bd5497-attempt-02.json",
+        "decision": "data/decisions/CF-ffcaa5bd5497-attempt-02-policy-02.json",
+        "workspace": "workspaces/CF-ffcaa5bd5497/attempt-02/workspace.json",
+        "adjudication_packet": "data/adjudications/CF-ffcaa5bd5497-attempt-02-packet.json",
+        "adjudication_result": "data/adjudications/CF-ffcaa5bd5497-attempt-02-result.json"
+      }
+    },
+    {
+      "case_id": "sqli",
+      "case": "SQLi",
+      "application": "vulnerable-sqli-app",
+      "cwe": "CWE-89",
+      "canonical_id": "CF-345f0ac3d7ae",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "evidence_revision": {
+        "revision": "controlled-sqli-rule-v2",
+        "reason": "The sink was narrowed to the SQL query argument so safely bound parameter values are not treated as query text.",
+        "historical_decision": "data/decisions/CF-345f0ac3d7ae-attempt-01.json",
+        "historical_adjudication_result": "data/adjudications/CF-345f0ac3d7ae-attempt-01-result.json"
+      },
+      "artifacts": {
+        "baseline_correlated": "data/correlated/vulnerable-sqli-app-rule-v2.json",
+        "remediation": "data/remediations/CF-345f0ac3d7ae-attempt-01.json",
+        "preliminary": "data/validation/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+        "security": "data/security_validation/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+        "functional": "data/functional_validation/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+        "decision": "data/decisions/CF-345f0ac3d7ae-attempt-01-rule-v2.json",
+        "workspace": "workspaces/revalidations/sqli-rule-v2/CF-345f0ac3d7ae/attempt-01/workspace.json"
+      }
+    },
+    {
+      "case_id": "path-traversal",
+      "case": "Path traversal",
+      "application": "vulnerable-path-traversal-app",
+      "cwe": "CWE-22",
+      "canonical_id": "CF-bc4a65bafb2d",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "artifacts": {
+        "baseline_correlated": "data/correlated/vulnerable-path-traversal-app.json",
+        "remediation": "data/remediations/CF-bc4a65bafb2d-attempt-01.json",
+        "preliminary": "data/validation/CF-bc4a65bafb2d-attempt-01.json",
+        "security": "data/security_validation/CF-bc4a65bafb2d-attempt-01.json",
+        "functional": "data/functional_validation/CF-bc4a65bafb2d-attempt-01.json",
+        "decision": "data/decisions/CF-bc4a65bafb2d-attempt-01.json",
+        "workspace": "workspaces/CF-bc4a65bafb2d/attempt-01/workspace.json",
+        "adjudication_packet": "data/adjudications/CF-bc4a65bafb2d-attempt-01-packet.json",
+        "adjudication_result": "data/adjudications/CF-bc4a65bafb2d-attempt-01-result.json"
+      }
+    }
+  ],
+  "controls": [
+    {
+      "case_id": "xss-static-output-control",
+      "case": "XSS static-output control",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "canonical_id": "CF-ffcaa5bd5497",
+      "attempt": 1,
+      "retry_of_attempt": null,
+      "candidate_origin": "deterministic_non_ai",
+      "metric_scope": "outcome_coverage_only",
+      "expected_classification": "sast_false_success",
+      "artifacts": {
+        "baseline_correlated": "data/correlated/vulnerable-js-app.json",
+        "remediation": "data/evaluation_controls/remediations/CF-ffcaa5bd5497-static-output-control.json",
+        "preliminary": "data/evaluation_controls/validation/CF-ffcaa5bd5497-static-output-control.json",
+        "security": "data/evaluation_controls/security_validation/CF-ffcaa5bd5497-static-output-control.json",
+        "functional": "data/evaluation_controls/functional_validation/CF-ffcaa5bd5497-static-output-control.json",
+        "decision": "data/evaluation_controls/decisions/CF-ffcaa5bd5497-static-output-control.json",
+        "workspace": "workspaces/evaluation-controls/sast-false-success/CF-ffcaa5bd5497/attempt-01/workspace.json"
+      }
+    }
+  ]
+}

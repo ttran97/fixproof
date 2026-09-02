@@ -1,0 +1,42 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "decision": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "policy_version": "0.1-strict",
+    "classification": "persistent_target_with_functional_regression",
+    "disposition": "REJECT",
+    "eligible_for_human_approval": false,
+    "recommended_action": "generate_new_candidate",
+    "reason_codes": [
+      "TARGET_SAST_FINDING_PERSISTENT",
+      "FUNCTIONAL_REGRESSION"
+    ],
+    "evidence": {
+      "syntax": "pass",
+      "target_sast": "persistent",
+      "new_sast_findings": 0,
+      "security_validation": "pass",
+      "functional_validation": "fail",
+      "functional_tests": {
+        "passed": 4,
+        "failed": 2
+      }
+    },
+    "evidence_conflict": {
+      "detected": true,
+      "description": "The target SAST finding remained persistent while targeted runtime security validation passed."
+    },
+    "evaluation_labels": {
+      "sast_remediation_success": false,
+      "security_validation_pass": true,
+      "functional_preservation": false,
+      "security_regression": false,
+      "false_success": false
+    },
+    "human_review": {
+      "status": "not_ready",
+      "note": "Human approval remains required for candidates that pass all automated validation stages."
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "functional_validation": {
+    "canonical_id": "CF-345f0ac3d7ae",
+    "validator": "express_sqlite_user_lookup",
+    "cwe": "CWE-89",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\revalidations\\sqli-rule-v2\\CF-345f0ac3d7ae\\attempt-01\\app\\app.js",
+      "route": "/user",
+      "query_parameter": "username"
+    },
+    "status": "pass",
+    "summary": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "tests": [
+      {
+        "test": "alice_lookup",
+        "input": "alice",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"}]",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected query result.",
+          "expected_rows": [
+            {
+              "id": 1,
+              "username": "alice",
+              "role": "user"
+            }
+          ],
+          "actual_rows": [
+            {
+              "id": 1,
+              "username": "alice",
+              "role": "user"
+            }
+          ],
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "bob_lookup",
+        "input": "bob",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "[{\"id\":2,\"username\":\"bob\",\"role\":\"admin\"}]",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected query result.",
+          "expected_rows": [
+            {
+              "id": 2,
+              "username": "bob",
+              "role": "admin"
+            }
+          ],
+          "actual_rows": [
+            {
+              "id": 2,
+              "username": "bob",
+              "role": "admin"
+            }
+          ],
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "unknown_user_lookup",
+        "input": "unknown-user",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "[]",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected query result.",
+          "expected_rows": [],
+          "actual_rows": [],
+          "semantic_match": true
+        }
+      }
+    ],
+    "validation_property": "The remediation must preserve exact JSON results for legitimate and unknown username lookups.",
+    "limitations": [
+      "This validator covers only three controlled lookup cases against the seeded in-memory database.",
+      "It does not establish full application functional correctness."
+    ]
+  }
+}

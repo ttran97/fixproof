@@ -1,0 +1,103 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "validation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "stage": "preliminary_validation",
+    "status": "failed_target_sast_validation",
+    "syntax": {
+      "status": "pass",
+      "tool": "node --check",
+      "return_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "sast": {
+      "status": "completed",
+      "candidate_scanner_findings": 4,
+      "candidate_canonical_findings": 3,
+      "raw_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\validation\\candidate-semgrep-raw.json",
+      "normalized_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\validation\\candidate-normalized.json",
+      "correlated_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\validation\\candidate-correlated.json"
+    },
+    "comparison": {
+      "target": {
+        "canonical_id": "CF-ffcaa5bd5497",
+        "semantic_key": "app.js|CWE-79|express:get:/hello",
+        "status": "persistent",
+        "baseline": [
+          {
+            "semantic_key": "app.js|CWE-79|express:get:/hello",
+            "canonical_id": "CF-ffcaa5bd5497",
+            "cwe": "CWE-79",
+            "vulnerability_class": "Cross-Site-Scripting (XSS)",
+            "file": "sample_apps\\vulnerable-js-app\\app.js",
+            "start_line": 11,
+            "end_line": 11,
+            "scope": "express:get:/hello",
+            "scanner_finding_count": 2
+          }
+        ],
+        "candidate_matches": [
+          {
+            "semantic_key": "app.js|CWE-79|express:get:/hello",
+            "canonical_id": "CF-41460f84fb61",
+            "cwe": "CWE-79",
+            "vulnerability_class": "Cross-Site-Scripting (XSS)",
+            "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\app\\app.js",
+            "start_line": 17,
+            "end_line": 17,
+            "scope": "express:get:/hello",
+            "scanner_finding_count": 2
+          }
+        ]
+      },
+      "summary": {
+        "baseline_canonical_findings": 3,
+        "candidate_canonical_findings": 3,
+        "persistent": 3,
+        "resolved": 0,
+        "new": 0
+      },
+      "persistent_findings": [
+        {
+          "semantic_key": "app.js|CWE-352|file",
+          "canonical_id": "CF-24c9c2fe4ed3",
+          "cwe": "CWE-352",
+          "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+          "file": "sample_apps\\vulnerable-js-app\\app.js",
+          "start_line": 3,
+          "end_line": 3,
+          "scope": "file",
+          "scanner_finding_count": 1
+        },
+        {
+          "semantic_key": "app.js|CWE-79|express:get:/hello",
+          "canonical_id": "CF-ffcaa5bd5497",
+          "cwe": "CWE-79",
+          "vulnerability_class": "Cross-Site-Scripting (XSS)",
+          "file": "sample_apps\\vulnerable-js-app\\app.js",
+          "start_line": 11,
+          "end_line": 11,
+          "scope": "express:get:/hello",
+          "scanner_finding_count": 2
+        },
+        {
+          "semantic_key": "app.js|CWE-79|express:get:/user",
+          "canonical_id": "CF-e786a7568baa",
+          "cwe": "CWE-79",
+          "vulnerability_class": "Cross-Site-Scripting (XSS)",
+          "file": "sample_apps\\vulnerable-js-app\\app.js",
+          "start_line": 23,
+          "end_line": 23,
+          "scope": "express:get:/user",
+          "scanner_finding_count": 1
+        }
+      ],
+      "resolved_findings": [],
+      "new_findings": []
+    },
+    "final_security_validation": "not_run",
+    "functional_validation": "not_run"
+  }
+}

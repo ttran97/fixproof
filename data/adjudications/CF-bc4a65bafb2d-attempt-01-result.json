@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "path-traversal",
+    "case": "Path traversal",
+    "canonical_id": "CF-bc4a65bafb2d",
+    "attempt": 1,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-08-27T19:56:45.503068Z",
+    "rationale": "The candidate resolves the allowed root and requested path, enforces an exact root or root-plus-separator boundary, rejects the controlled traversal, and preserves expected file behavior. Acceptance is limited to the controlled benchmark threat model and does not claim application-wide filesystem safety.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/adjudications/CF-bc4a65bafb2d-attempt-01-packet.json",
+      "sha256": "ecf2b8340dc48302c5b31cf398751c582607928ce47a4688e782b3d3d9699112"
+    },
+    "automated_decision_unchanged": true
+  }
+}

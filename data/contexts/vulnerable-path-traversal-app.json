@@ -1,0 +1,102 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "context_build": {
+    "canonical_finding_count": 2,
+    "contexts_created": 2
+  },
+  "contexts": [
+    {
+      "context_id": "CTX-CF-e52878dcf378",
+      "canonical_id": "CF-e52878dcf378",
+      "finding": {
+        "cwe": "CWE-352",
+        "cwe_name": "Cross-Site Request Forgery (CSRF)",
+        "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-path-traversal-app\\app.js",
+        "language": "javascript",
+        "start_line": 5,
+        "end_line": 5
+      },
+      "scanner_evidence": {
+        "finding_count": 1,
+        "rule_origins": [
+          "semgrep_oss"
+        ],
+        "rules": [
+          {
+            "finding_id": "FP-39346edb120c",
+            "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "rule_origin": "semgrep_oss",
+            "severity": "INFO",
+            "confidence": "LOW"
+          }
+        ],
+        "messages": [
+          "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies."
+        ]
+      },
+      "source_context": {
+        "context_type": "line_window",
+        "start_line": 1,
+        "end_line": 13,
+        "affected_start_line": 5,
+        "affected_end_line": 5,
+        "code": "   1: const express = require(\"express\");\n   2: const fs = require(\"fs\");\n   3: const path = require(\"path\");\n   4: \n>> 5: const app = express();\n   6: \n   7: const fileRoot = path.join(\n   8:     __dirname,\n   9:     \"public-files\"\n   10: );\n   11: \n   12: app.get(\"/file\", (req, res) => {\n   13:     const name = req.query.name;"
+      }
+    },
+    {
+      "context_id": "CTX-CF-bc4a65bafb2d",
+      "canonical_id": "CF-bc4a65bafb2d",
+      "finding": {
+        "cwe": "CWE-22",
+        "cwe_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+        "vulnerability_class": "Path Traversal",
+        "status": "new"
+      },
+      "location": {
+        "file": "sample_apps\\vulnerable-path-traversal-app\\app.js",
+        "language": "javascript",
+        "start_line": 17,
+        "end_line": 17
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "semgrep_oss"
+        ],
+        "rules": [
+          {
+            "finding_id": "FP-542dd4eb1ef1",
+            "rule_id": "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+            "rule_origin": "semgrep_oss",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          },
+          {
+            "finding_id": "FP-87bdae134aa1",
+            "rule_id": "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal",
+            "rule_origin": "semgrep_oss",
+            "severity": "WARNING",
+            "confidence": "LOW"
+          }
+        ],
+        "messages": [
+          "Possible writing outside of the destination, make sure that the target path is nested in the intended destination",
+          "Detected possible user input going into a `path.join` or `path.resolve` function. This could possibly lead to a path traversal vulnerability,  where the attacker can access arbitrary files stored in the file system. Instead, be sure to sanitize or validate user input first."
+        ]
+      },
+      "source_context": {
+        "context_type": "express_route",
+        "start_line": 12,
+        "end_line": 33,
+        "affected_start_line": 17,
+        "affected_end_line": 17,
+        "code": "   12: app.get(\"/file\", (req, res) => {\n   13:     const name = req.query.name;\n   14: \n   15:     const filePath = path.join(\n   16:         fileRoot,\n>> 17:         name\n   18:     );\n   19: \n   20:     fs.readFile(\n   21:         filePath,\n   22:         \"utf8\",\n   23:         (err, data) => {\n   24:             if (err) {\n   25:                 return res.status(404).json({\n   26:                     error: \"File not found\"\n   27:                 });\n   28:             }\n   29: \n   30:             res.type(\"text/plain\").send(data);\n   31:         }\n   32:     );\n   33: });"
+      }
+    }
+  ]
+}

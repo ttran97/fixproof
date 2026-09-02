@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "decision": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "policy_version": "0.2-evidence-aware",
+    "classification": "sast_false_success",
+    "disposition": "REJECT",
+    "eligible_for_human_approval": false,
+    "retry_allowed": true,
+    "recommended_action": "generate_new_candidate",
+    "reason_codes": [
+      "TARGET_SECURITY_TEST_INCONCLUSIVE",
+      "FUNCTIONAL_REGRESSION"
+    ],
+    "evidence": {
+      "syntax": "pass",
+      "target_sast": "resolved",
+      "new_sast_findings": 0,
+      "security_validation": "inconclusive",
+      "functional_validation": "fail",
+      "functional_tests": {
+        "passed": 0,
+        "failed": 6
+      }
+    },
+    "evidence_conflict": {
+      "detected": false,
+      "description": null
+    },
+    "evaluation_labels": {
+      "sast_remediation_success": true,
+      "security_validation_pass": false,
+      "functional_preservation": false,
+      "security_regression": false,
+      "false_success": true
+    },
+    "human_review": {
+      "status": "not_ready",
+      "purpose": null,
+      "note": "FixProof never automatically approves an AI-generated remediation. Human review remains required."
+    },
+    "input_artifacts": {
+      "preliminary": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\evaluation_controls\\validation\\CF-ffcaa5bd5497-static-output-control.json",
+      "security": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\evaluation_controls\\security_validation\\CF-ffcaa5bd5497-static-output-control.json",
+      "functional": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\evaluation_controls\\functional_validation\\CF-ffcaa5bd5497-static-output-control.json"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "scanner": {
+    "name": "Semgrep",
+    "version": "1.136.0",
+    "engine_requested": "OSS"
+  },
+  "scan": {
+    "files_scanned": [
+      "sample_apps\\vulnerable-js-app\\app.js"
+    ],
+    "finding_count": 4,
+    "error_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "FP-0a6882897edf",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+      "cwe": "CWE-352",
+      "cwe_name": "Cross-Site Request Forgery (CSRF)",
+      "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+      "severity": "INFO",
+      "confidence": "LOW",
+      "likelihood": "LOW",
+      "impact": "HIGH",
+      "message": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies.",
+      "file": "sample_apps\\vulnerable-js-app\\app.js",
+      "start_line": 3,
+      "end_line": 3,
+      "source_context": {
+        "snippet": "1: const express = require(\"express\");\n2: const fs = require(\"fs\");\n3: const app = express();\n4: \n5: app.use(express.urlencoded({ extended: true }));",
+        "context_start_line": 1,
+        "context_end_line": 5,
+        "source_file_resolved": true,
+        "resolved_path": "sample_apps\\vulnerable-js-app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-28a1d68bff12",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "HIGH",
+      "impact": "MEDIUM",
+      "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+      "file": "sample_apps\\vulnerable-js-app\\app.js",
+      "start_line": 13,
+      "end_line": 13,
+      "source_context": {
+        "snippet": "11: app.get(\"/hello\", (req, res) => {\n12:     const name = req.query.name;\n13:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n14: });\n15: ",
+        "context_start_line": 11,
+        "context_end_line": 15,
+        "source_file_resolved": true,
+        "resolved_path": "sample_apps\\vulnerable-js-app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-847208f38b53",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "impact": "MEDIUM",
+      "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+      "file": "sample_apps\\vulnerable-js-app\\app.js",
+      "start_line": 13,
+      "end_line": 13,
+      "source_context": {
+        "snippet": "11: app.get(\"/hello\", (req, res) => {\n12:     const name = req.query.name;\n13:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n14: });\n15: ",
+        "context_start_line": 11,
+        "context_end_line": 15,
+        "source_file_resolved": true,
+        "resolved_path": "sample_apps\\vulnerable-js-app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-8a202d053999",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "impact": "MEDIUM",
+      "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+      "file": "sample_apps\\vulnerable-js-app\\app.js",
+      "start_line": 26,
+      "end_line": 26,
+      "source_context": {
+        "snippet": "24: \n25:     console.log(\"Executing query:\", query);\n26:     res.send(query);\n27: });\n28: ",
+        "context_start_line": 24,
+        "context_end_line": 28,
+        "source_file_resolved": true,
+        "resolved_path": "sample_apps\\vulnerable-js-app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "model": "gpt-5.2",
+    "response_id": "resp_0b859c2d9aa58280006a8f77fa071c87d297129a3802111beb",
+    "analysis": "The /hello route reflects req.query.name directly into an HTML response via string concatenation, enabling reflected XSS (CWE-79). The prior fix attempted escaping but used a regex that grouped multiple characters per match, causing lookup failures and output corruption (\"undefined\"). The remediation must properly escape each special character without altering the intended displayed text semantics.",
+    "remediation_strategy": "Apply correct HTML escaping to untrusted input before inserting it into the HTML response. Use a character-by-character replacement with a mapping function so adjacent special characters are handled correctly, preserving the visible output while preventing HTML/JS injection.",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const safeName = String(name ?? \"\").replace(/[&<>\"']/g, (ch) => {\n        switch (ch) {\n            case \"&\": return \"&amp;\";\n            case \"<\": return \"&lt;\";\n            case \">\": return \"&gt;\";\n            case '\"': return \"&quot;\";\n            case \"'\": return \"&#39;\";\n            default: return ch;\n        }\n    });\n    res.send(\"<h1>Hello \" + safeName + \"</h1>\");\n});",
+    "assumptions": [],
+    "needs_additional_context": false
+  }
+}

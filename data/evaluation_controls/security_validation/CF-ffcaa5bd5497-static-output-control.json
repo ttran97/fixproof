@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "security_validation": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "validator": "cwe79_reflected_xss",
+    "cwe": "CWE-79",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\evaluation-controls\\sast-false-success\\CF-ffcaa5bd5497\\attempt-01\\app\\app.js",
+      "route": "/hello",
+      "query_parameter": "name"
+    },
+    "status": "inconclusive",
+    "test_count": 4,
+    "tests": [
+      {
+        "test": "script_tag",
+        "payload": "<script>alert(1)</script>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "inconclusive",
+          "reason": "Could not identify the expected reflected response region.",
+          "reflected_value": null,
+          "payload_reflected_verbatim": null,
+          "raw_markup_present": null
+        }
+      },
+      {
+        "test": "img_event_handler",
+        "payload": "<img src=x onerror=alert(1)>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "inconclusive",
+          "reason": "Could not identify the expected reflected response region.",
+          "reflected_value": null,
+          "payload_reflected_verbatim": null,
+          "raw_markup_present": null
+        }
+      },
+      {
+        "test": "quote_svg_event",
+        "payload": "\"><svg onload=alert(1)>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "inconclusive",
+          "reason": "Could not identify the expected reflected response region.",
+          "reflected_value": null,
+          "payload_reflected_verbatim": null,
+          "raw_markup_present": null
+        }
+      },
+      {
+        "test": "consecutive_markup_characters",
+        "payload": "<<script>alert(1)//<</script>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "inconclusive",
+          "reason": "Could not identify the expected reflected response region.",
+          "reflected_value": null,
+          "payload_reflected_verbatim": null,
+          "raw_markup_present": null
+        }
+      }
+    ],
+    "limitations": [
+      "This MVP validator inspects reflected HTTP output and does not execute JavaScript in a real browser.",
+      "The validator is specific to reflected XSS in HTML element content."
+    ]
+  }
+}

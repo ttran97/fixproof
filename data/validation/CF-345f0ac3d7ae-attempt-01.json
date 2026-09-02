@@ -1,0 +1,92 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "validation": {
+    "canonical_id": "CF-345f0ac3d7ae",
+    "stage": "preliminary_validation",
+    "status": "failed_target_sast_validation",
+    "syntax": {
+      "status": "pass",
+      "tool": "node --check",
+      "return_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "sast": {
+      "status": "completed",
+      "candidate_scanner_findings": 2,
+      "candidate_canonical_findings": 2,
+      "raw_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-345f0ac3d7ae\\attempt-01\\validation\\candidate-semgrep-raw.json",
+      "normalized_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-345f0ac3d7ae\\attempt-01\\validation\\candidate-normalized.json",
+      "correlated_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-345f0ac3d7ae\\attempt-01\\validation\\candidate-correlated.json"
+    },
+    "comparison": {
+      "target": {
+        "canonical_id": "CF-345f0ac3d7ae",
+        "semantic_key": "app.js|CWE-89|express:get:/user",
+        "status": "persistent",
+        "baseline": [
+          {
+            "semantic_key": "app.js|CWE-89|express:get:/user",
+            "canonical_id": "CF-345f0ac3d7ae",
+            "cwe": "CWE-89",
+            "vulnerability_class": "SQL Injection",
+            "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+            "start_line": 37,
+            "end_line": 45,
+            "scope": "express:get:/user",
+            "scanner_finding_count": 1
+          }
+        ],
+        "candidate_matches": [
+          {
+            "semantic_key": "app.js|CWE-89|express:get:/user",
+            "canonical_id": "CF-19e8d9ff95c3",
+            "cwe": "CWE-89",
+            "vulnerability_class": "SQL Injection",
+            "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-345f0ac3d7ae\\attempt-01\\app\\app.js",
+            "start_line": 33,
+            "end_line": 41,
+            "scope": "express:get:/user",
+            "scanner_finding_count": 1
+          }
+        ]
+      },
+      "summary": {
+        "baseline_canonical_findings": 2,
+        "candidate_canonical_findings": 2,
+        "persistent": 2,
+        "resolved": 0,
+        "new": 0
+      },
+      "persistent_findings": [
+        {
+          "semantic_key": "app.js|CWE-352|file",
+          "canonical_id": "CF-74954363b011",
+          "cwe": "CWE-352",
+          "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+          "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+          "start_line": 4,
+          "end_line": 4,
+          "scope": "file",
+          "scanner_finding_count": 1
+        },
+        {
+          "semantic_key": "app.js|CWE-89|express:get:/user",
+          "canonical_id": "CF-345f0ac3d7ae",
+          "cwe": "CWE-89",
+          "vulnerability_class": "SQL Injection",
+          "file": "sample_apps\\vulnerable-sqli-app\\app.js",
+          "start_line": 37,
+          "end_line": 45,
+          "scope": "express:get:/user",
+          "scanner_finding_count": 1
+        }
+      ],
+      "resolved_findings": [],
+      "new_findings": []
+    },
+    "final_security_validation": "not_run",
+    "functional_validation": "not_run"
+  }
+}
