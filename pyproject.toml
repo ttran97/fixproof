@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=75,<76"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fixproof"
+version = "0.1.0"
+description = "Validation-oriented evaluation of AI-generated security remediations"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "openai==3.3.1",
+    "pydantic==2.13.4",
+    "semgrep==1.136.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

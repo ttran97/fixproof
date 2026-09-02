@@ -14,6 +14,7 @@ from fixproof.reproduce import evaluate_readiness
 from fixproof.validation.decision_engine import run_decision_engine
 from fixproof.validation.functional_validator import run_functional_validation
 from fixproof.validation.security_validator import run_security_validation
+from fixproof.validation.validation_runner import run_validation as run_preliminary_validation
 
 
 SUPPORTED_CONTEXTS = {
@@ -42,6 +43,7 @@ class DemoSelection:
     canonical_id: str
     attempt: int
     contexts_file: Path
+    baseline_correlated_file: Path
     baseline_source: Path
     remediation_file: Path
     preliminary_file: Path
@@ -56,15 +58,21 @@ class DemoSelection:
 @dataclass(frozen=True)
 class DemoValidationResult:
     output_dir: Path
+    preliminary_file: Path
     security_file: Path
     functional_file: Path
     decision_file: Path
     summary_file: Path
     decision: dict[str, Any]
+    evidence_mode: dict[str, str]
 
 
 Validator = Callable[[Path, Path, str, Path], dict[str, Any]]
 DecisionRunner = Callable[[Path, Path, Path, Path], dict[str, Any]]
+PreliminaryRunner = Callable[
+    [Path, Path, Path, str, Path, Path | None],
+    dict[str, Any],
+]
 
 
 def _load_json(path: Path, label: str) -> dict[str, Any]:
@@ -154,6 +162,11 @@ def select_demo_case(
         SUPPORTED_CONTEXTS[case_id],
         "context artifact",
     )
+    baseline_correlated_file = _resolve_project_file(
+        project_root,
+        artifacts.get("baseline_correlated"),
+        "baseline correlated artifact",
+    )
     remediation_file = _resolve_project_file(
         project_root,
         artifacts.get("remediation"),
@@ -223,6 +236,7 @@ def select_demo_case(
         canonical_id=canonical_id,
         attempt=selected_attempt,
         contexts_file=contexts_file,
+        baseline_correlated_file=baseline_correlated_file,
         baseline_source=baseline_source,
         remediation_file=remediation_file,
         preliminary_file=preliminary_file,
@@ -270,6 +284,8 @@ def run_live_validation(
     selection: DemoSelection,
     output_parent: Path | None = None,
     *,
+    fresh_sast: bool = False,
+    preliminary_runner: PreliminaryRunner = run_preliminary_validation,
     security_runner: Validator = run_security_validation,
     functional_runner: Validator = run_functional_validation,
     decision_runner: DecisionRunner = run_decision_engine,
@@ -281,6 +297,19 @@ def run_live_validation(
         _ensure_validation_port_available()
 
     output_dir = _new_output_directory(selection, output_parent)
+    preliminary_file = selection.preliminary_file
+
+    if fresh_sast:
+        preliminary_file = output_dir / "preliminary.json"
+        preliminary_runner(
+            selection.project_root,
+            selection.baseline_correlated_file,
+            selection.workspace_dir,
+            selection.canonical_id,
+            preliminary_file,
+            output_dir / "sast",
+        )
+
     security_file = output_dir / "security.json"
     functional_file = output_dir / "functional.json"
     decision_file = output_dir / "decision.json"
@@ -299,7 +328,7 @@ def run_live_validation(
         functional_file,
     )
     decision = decision_runner(
-        selection.preliminary_file,
+        preliminary_file,
         security_file,
         functional_file,
         decision_file,
@@ -331,6 +360,15 @@ def run_live_validation(
             f"{mismatches}."
         )
 
+    evidence_mode = {
+        "ai_candidate": "recorded",
+        "baseline_sast": "recorded",
+        "candidate_sast": "live" if fresh_sast else "recorded",
+        "runtime_security": "live",
+        "functional_regression": "live",
+        "decision": "live",
+    }
+
     summary = {
         "schema_version": "0.1",
         "project": "FixProof",
@@ -350,8 +388,10 @@ def run_live_validation(
             "classification": live_decision.get("classification"),
             "disposition": live_decision.get("disposition"),
         },
+        "evidence_mode": evidence_mode,
         "recorded_decision_match": True,
         "outputs": {
+            "preliminary": str(preliminary_file),
             "security": str(security_file),
             "functional": str(functional_file),
             "decision": str(decision_file),
@@ -364,11 +404,13 @@ def run_live_validation(
 
     return DemoValidationResult(
         output_dir=output_dir,
+        preliminary_file=preliminary_file,
         security_file=security_file,
         functional_file=functional_file,
         decision_file=decision_file,
         summary_file=summary_file,
         decision=decision,
+        evidence_mode=evidence_mode,
     )
 
 
@@ -414,6 +456,25 @@ def _print_selection(selection: DemoSelection) -> None:
     print("Candidate origin: recorded AI-generated remediation")
 
 
+def _print_evidence_plan(*, validate: bool, fresh_sast: bool, serve: bool) -> None:
+    print()
+    print("Evidence plan")
+    print("- RECORDED: AI-generated candidate and baseline SAST evidence")
+
+    if validate:
+        candidate_sast = "LIVE (fresh Semgrep rescan)" if fresh_sast else "RECORDED"
+        print(f"- {candidate_sast}: candidate SAST evidence")
+        print("- LIVE: targeted runtime security tests")
+        print("- LIVE: functional regression tests")
+        print("- LIVE: deterministic decision recomputation")
+        print("- DISPOSABLE: all newly generated demo outputs")
+    else:
+        print("- NOT RUN: candidate validation stages")
+
+    if serve:
+        print("- AUTHORITATIVE RECORDED DATA: read-only dashboard")
+
+
 def _print_validation(result: DemoValidationResult) -> None:
     decision = result.decision["decision"]
     print()
@@ -422,7 +483,12 @@ def _print_validation(result: DemoValidationResult) -> None:
     print("=" * 60)
     print(f"Classification: {decision['classification']}")
     print(f"Decision: {decision['disposition']}")
+    print(
+        "Candidate SAST evidence: "
+        f"{result.evidence_mode['candidate_sast']}"
+    )
     print("Recorded decision match: yes")
+    print(f"Preliminary evidence: {result.preliminary_file}")
     print(f"Disposable outputs: {result.output_dir}")
     print(f"Summary: {result.summary_file}")
 
@@ -470,7 +536,18 @@ def main() -> None:
     parser.add_argument(
         "--validate",
         action="store_true",
-        help="rerun targeted security, functional, and decision stages",
+        help=(
+            "rerun targeted security, functional, and decision stages using "
+            "the recorded candidate-SAST result"
+        ),
+    )
+    parser.add_argument(
+        "--fresh-sast",
+        action="store_true",
+        help=(
+            "also rerun candidate syntax/Semgrep validation into the "
+            "disposable output directory; implies --validate"
+        ),
     )
     parser.add_argument(
         "--serve",
@@ -496,12 +573,26 @@ def main() -> None:
         )
         _print_selection(selection)
 
-        if not args.validate and not args.serve:
-            print("No live action selected. Add --validate and/or --serve.")
+        validate = args.validate or args.fresh_sast
+        _print_evidence_plan(
+            validate=validate,
+            fresh_sast=args.fresh_sast,
+            serve=args.serve,
+        )
+
+        if not validate and not args.serve:
+            print(
+                "No live action selected. Add --validate, --fresh-sast, "
+                "and/or --serve."
+            )
             return
 
-        if args.validate:
-            result = run_live_validation(selection, args.output_dir)
+        if validate:
+            result = run_live_validation(
+                selection,
+                args.output_dir,
+                fresh_sast=args.fresh_sast,
+            )
             _print_validation(result)
 
         if args.serve:

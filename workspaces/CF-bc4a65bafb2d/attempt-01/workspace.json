@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-bc4a65bafb2d",
+    "attempt": 1,
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-path-traversal-app\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-bc4a65bafb2d\\attempt-01\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-bc4a65bafb2d\\attempt-01",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-bc4a65bafb2d\\attempt-01\\candidate.patch",
+    "remediation_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\remediations\\CF-bc4a65bafb2d-attempt-01.json",
+    "model": "gpt-5.2",
+    "response_id": "resp_0857ddcdcdbd8bd6006a908ec53cd087d2b01362adb87097de",
+    "hashes": {
+      "original_source_sha256": "7d1780e68cb3b6c64f0597f9bc4c464add1289a0bf95e9ac2be335c8d9a9781e",
+      "candidate_source_sha256": "b97e8dc77016718f8efa7814865a1dd505e55af18ce10be2f108e5179176406f",
+      "patch_sha256": "5202be672104cd77a423d780426532ce349cf8c24830e1032694fe5d7e3e04de"
+    },
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}

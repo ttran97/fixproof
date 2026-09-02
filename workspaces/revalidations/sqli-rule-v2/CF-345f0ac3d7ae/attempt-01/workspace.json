@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-345f0ac3d7ae",
+    "attempt": 1,
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-sqli-app\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\revalidations\\sqli-rule-v2\\CF-345f0ac3d7ae\\attempt-01\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\revalidations\\sqli-rule-v2\\CF-345f0ac3d7ae\\attempt-01",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\revalidations\\sqli-rule-v2\\CF-345f0ac3d7ae\\attempt-01\\candidate.patch",
+    "remediation_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\remediations\\CF-345f0ac3d7ae-attempt-01.json",
+    "model": "gpt-5.2",
+    "response_id": "resp_0eba2ed31847369a006a908aeac3c087d2ab24572e84529ac3",
+    "hashes": {
+      "original_source_sha256": "2f0059db558ad91cbbfe9d02b99a8a4d54fa7fcf6b267b26e8ea63f42e21eae5",
+      "candidate_source_sha256": "fcae3ba7d47cce397868e38306996a41a931a2576e483b28f51055de5d02db19",
+      "patch_sha256": "3a3cca6f6d9a76aa94aecc975ecbfc94be4f92da872423fa52a15c5b06519a26"
+    },
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "attempt": 1,
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-js-app\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\evaluation-controls\\sast-false-success\\CF-ffcaa5bd5497\\attempt-01\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\evaluation-controls\\sast-false-success\\CF-ffcaa5bd5497\\attempt-01",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\evaluation-controls\\sast-false-success\\CF-ffcaa5bd5497\\attempt-01\\candidate.patch",
+    "remediation_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\evaluation_controls\\remediations\\CF-ffcaa5bd5497-static-output-control.json",
+    "model": "not-applicable-deterministic-control",
+    "response_id": null,
+    "hashes": {
+      "original_source_sha256": "b2202e28597ecbf13c48bcc3b9989771f5d1f9d3a19c6ae8b362ecc4db5b65f4",
+      "candidate_source_sha256": "599877105e81183ac306494ce2460dffbf5142c379b83ae9aa140002247080ba",
+      "patch_sha256": "989d4ab8c89830772adce4510e4013b6fabe9a605a3dbc97cc461e60779e7252"
+    },
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}

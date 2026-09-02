@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "attempt": 2,
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-js-app\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\attempt-02\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\attempt-02",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\attempt-02\\candidate.patch",
+    "remediation_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\remediations\\CF-ffcaa5bd5497-attempt-02.json",
+    "model": "gpt-5.2",
+    "response_id": "resp_0b859c2d9aa58280006a8f77fa071c87d297129a3802111beb",
+    "hashes": {
+      "original_source_sha256": "b2202e28597ecbf13c48bcc3b9989771f5d1f9d3a19c6ae8b362ecc4db5b65f4",
+      "candidate_source_sha256": "484c0ad459febab1680010ee3283cfaa150f1a0d228d92f1240aa624a9cb3daa",
+      "patch_sha256": "5d0b7b4919482a56991e8c7b285cdd27e2c3b524f5a54cbdf5ec93fc46ef110f"
+    },
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}

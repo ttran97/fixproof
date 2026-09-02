@@ -221,69 +221,50 @@ The controlled rule is now integrated with the normal scanner pipeline, and rule
 
 ```text
 fixproof/
-├── README.md
-├── IMPLEMENTATION_GUIDE.md
-├── .gitignore
-├── data/
-│   ├── ground_truth/
-│   ├── raw_scans/
-│   ├── normalized/
-│   ├── correlated/
-│   ├── contexts/
-│   ├── prompts/
-│   ├── retry_prompts/
-│   ├── remediations/
-│   ├── validation/
-│   ├── security_validation/
-│   ├── functional_validation/
-│   └── decisions/
-├── docs/
-│   ├── architecture.md
-│   └── methodology.md
-├── rules/
-│   └── fixproof-sqli.yml
-├── sample_apps/
-│   ├── python-smoke-test/
-│   ├── vulnerable-js-app/
-│   └── vulnerable-sqli-app/
-├── src/fixproof/
-│   ├── __init__.py
-│   ├── scan_pipeline.py
-│   ├── scanners/
-│   │   ├── semgrep_runner.py
-│   │   └── semgrep_parser.py
-│   ├── findings/
-│   │   └── finding_correlator.py
-│   ├── agent/
-│   │   ├── context_builder.py
-│   │   ├── prompt_builder.py
-│   │   ├── remediation_agent.py
-│   │   └── retry_prompt_builder.py
-│   ├── patches/
-│   │   └── patch_workspace.py
-│   └── validation/
-│       ├── validation_runner.py
-│       ├── security_validator.py
-│       ├── functional_validator.py
-│       └── decision_engine.py
-├── tests/
-└── workspaces/
-    └── <canonical-id>/
-        └── attempt-XX/
+|-- README.md
+|-- IMPLEMENTATION_GUIDE.md
+|-- pyproject.toml
+|-- data/
+|   |-- ground_truth/, raw_scans/, normalized/, and correlated/
+|   |-- contexts/, prompts/, retry_prompts/, and remediations/
+|   |-- validation/, security_validation/, and functional_validation/
+|   |-- decisions/ and adjudications/
+|   `-- evaluation/ and evaluation_controls/
+|-- docs/
+|   |-- architecture.md, methodology.md, and evaluation-report.md
+|   |-- demo-guide.md and evidence-map.md
+|   `-- related-work.md, threat-model.md, artifact-schema.md,
+|       and reproducibility.md
+|-- rules/
+|-- sample_apps/
+|   |-- vulnerable-js-app/
+|   |-- vulnerable-sqli-app/
+|   `-- vulnerable-path-traversal-app/
+|-- scripts/
+|-- src/fixproof/
+|   |-- agent/, scanners/, findings/, and patches/
+|   |-- validation/
+|   `-- evaluation/
+|-- tests/
+|-- ui/
+`-- workspaces/  (curated evidence files plus ignored disposable content)
 ```
 
 ## Environment setup
 
-Use Python 3.11+ in a virtual environment:
+Use Python 3.11 in a virtual environment. The editable install uses the pinned
+versions in `pyproject.toml`, including the Semgrep version recorded by the
+pilot scans:
 
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install openai pydantic
+python -m pip install -e .
 ```
 
-FixProof uses a `src/` layout, so set this in each new PowerShell session:
+The editable install handles the `src/` layout. If you intentionally run
+without installing the project, set this in each new PowerShell session:
 
 ```powershell
 $env:PYTHONPATH="src"
@@ -313,24 +294,23 @@ still plaintext on the local machine, so never share, record, or commit it. The
 committable `.env.example` contains blank placeholders. Do not reuse a key that
 has previously been exposed.
 
-For JavaScript benchmark apps, install dependencies inside the app directory. Example:
+For JavaScript benchmark apps, restore the exact locked dependencies inside
+each app directory. Example:
 
 ```powershell
 Push-Location sample_apps\vulnerable-sqli-app
-npm install
+npm ci
 Pop-Location
 ```
 
-Recommended `.gitignore`:
+Research and audit starting points:
 
-```gitignore
-node_modules/
-.env
-.venv/
-__pycache__/
-*.pyc
-workspaces/
-```
+- [Evaluation methodology](docs/methodology.md)
+- [Professor-facing evidence map](docs/evidence-map.md)
+- [Threat model](docs/threat-model.md)
+- [Artifact contract](docs/artifact-schema.md)
+- [Related-work positioning](docs/related-work.md)
+- [Clean-environment procedure](docs/reproducibility.md)
 
 ## Preparation pipeline
 
@@ -643,8 +623,8 @@ a candidate. It regenerates only the two derived evaluation reports.
 
 ## Controlled demo command
 
-Use the manifest-selected SQLi candidate for a complete live validation and
-dashboard demonstration:
+Use the manifest-selected SQLi candidate for a reproducible runtime-validation
+and dashboard demonstration:
 
 ```powershell
 $env:PYTHONPATH="src"
@@ -659,9 +639,23 @@ to its latest selected attempt; add `--attempt 1` to demonstrate the functional
 regression and `REJECT` outcome from its first attempt.
 
 Live demo results are written to a unique directory under Windows `TEMP` and
-are explicitly non-authoritative. The command does not call the model, rerun
-Semgrep, or overwrite experiment data. It also requires the served dashboard
-report to match a fresh read-only aggregation of the manifest.
+are explicitly non-authoritative. The default command reuses the recorded
+candidate-SAST result while rerunning security, functional, and decision
+stages. The command does not call the model or overwrite experiment data.
+
+To rerun candidate syntax and Semgrep as well, use the guided fresh-SAST mode:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 `
+  -Case sqli `
+  -Attempt 1 `
+  -FreshSast `
+  -SkipVerification
+```
+
+The CLI prints an evidence plan labeling every input as recorded or live. Fresh
+SAST artifacts are stored beside the disposable runtime outputs under `TEMP`.
+The served dashboard always remains the authoritative recorded experiment.
 
 See the [demonstration guide](docs/demo-guide.md) for the baseline SQLi exploit,
 candidate-patch walkthrough, supported outcomes, and suggested presentation

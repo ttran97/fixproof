@@ -9,6 +9,7 @@ param(
     [switch]$UseLatestAttempt,
     [switch]$Suite,
     [switch]$SkipVerification,
+    [switch]$FreshSast,
     [switch]$Serve
 )
 
@@ -24,6 +25,10 @@ if (-not (Test-Path -LiteralPath $python -PathType Leaf)) {
 
 if ($Suite -and $Serve) {
     throw "-Serve is available for one selected case, not for -Suite."
+}
+
+if ($Suite -and $FreshSast) {
+    throw "-FreshSast is intentionally limited to one selected case."
 }
 
 Push-Location $projectRoot
@@ -43,6 +48,25 @@ try {
     }
 
     Write-Host "Project: $projectRoot"
+    Write-Host ""
+
+    Write-Host "Evidence mode"
+    Write-Host "- RECORDED: AI-generated candidate and baseline SAST evidence"
+
+    if ($FreshSast) {
+        Write-Host "- LIVE: candidate syntax check and fresh Semgrep rescan"
+    }
+    else {
+        Write-Host "- RECORDED: candidate SAST evidence"
+    }
+
+    Write-Host "- LIVE: runtime security, functional, and decision stages"
+    Write-Host "- DISPOSABLE: new demo outputs under Windows TEMP"
+
+    if ($Serve) {
+        Write-Host "- RECORDED: authoritative read-only dashboard"
+    }
+
     Write-Host ""
 
     if ($Suite) {
@@ -147,6 +171,10 @@ try {
             $demoArguments += @("--attempt", [string]$testSet.Attempt)
         }
 
+        if ($FreshSast) {
+            $demoArguments += "--fresh-sast"
+        }
+
         if ($Serve) {
             $demoArguments += "--serve"
         }
@@ -215,6 +243,13 @@ try {
         }
 
         if (-not $Suite) {
+            if ($FreshSast) {
+                Write-Host "This run used a fresh candidate Semgrep rescan."
+            }
+            else {
+                Write-Host "This run reused the recorded candidate SAST result."
+            }
+
             Write-Host "Add -Serve to open the dashboard."
         }
     }

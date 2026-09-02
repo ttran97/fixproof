@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "trial_plan",
+  "plan_status": "draft_pending_instructor_feedback",
+  "purpose": "Freeze the primary repeated-trial protocol before collecting additional model outputs.",
+  "research_question": "Can independent SAST, targeted runtime-security, and functional evidence prevent false confidence in AI-generated vulnerability remediation?",
+  "aggregation_unit": "remediation_attempt",
+  "benchmarks": [
+    {
+      "case_id": "xss",
+      "application": "vulnerable-js-app",
+      "cwe": "CWE-79"
+    },
+    {
+      "case_id": "sqli",
+      "application": "vulnerable-sqli-app",
+      "cwe": "CWE-89"
+    },
+    {
+      "case_id": "path-traversal",
+      "application": "vulnerable-path-traversal-app",
+      "cwe": "CWE-22"
+    }
+  ],
+  "pilot_evidence": {
+    "manifest": "data/evaluation/experiment-manifest.json",
+    "ai_attempts": 4,
+    "note": "Pilot evidence informs feasibility but must remain distinguishable from any later predeclared primary trials."
+  },
+  "treatments": {
+    "candidate_generator": "gpt-5.2",
+    "prompt_template_version": null,
+    "model_settings": null,
+    "planned_attempts_per_case": null,
+    "retry_limit": null,
+    "retry_eligibility_policy": "0.2-evidence-aware"
+  },
+  "comparison": {
+    "baseline": "sast_only_interpretation",
+    "treatment": "fixproof_multistage_validation",
+    "same_candidate_evidence_required": true
+  },
+  "primary_metrics": [
+    "sast_remediation_success_rate",
+    "targeted_security_pass_rate",
+    "functional_preservation_rate",
+    "new_finding_rate",
+    "sast_false_success_count",
+    "sast_runtime_disagreement_count",
+    "retry_improvement_rate",
+    "adjudication_completion_rate"
+  ],
+  "decisions_required_before_freeze": [
+    "Set the same planned attempt count for each CWE or justify an exception.",
+    "Record exact model parameters and prompt-template version.",
+    "Define failed API call, malformed response, scanner failure, and timeout handling.",
+    "Define exclusion rules without inspecting primary-trial outcomes.",
+    "Define the SAST-only decision mapping for resolved and persistent targets.",
+    "Decide whether a retry is a separate attempt, a paired outcome, or both.",
+    "Record environment versions and controlled-rule revisions."
+  ],
+  "protocol_frozen": false
+}
+

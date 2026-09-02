@@ -135,6 +135,109 @@ class DemoTests(unittest.TestCase):
             summary = json.loads(first.summary_file.read_text(encoding="utf-8"))
             self.assertFalse(summary["authoritative_experiment_artifact"])
             self.assertTrue(summary["recorded_decision_match"])
+            self.assertEqual(summary["evidence_mode"]["candidate_sast"], "recorded")
+
+    def test_fresh_sast_mode_uses_disposable_preliminary_artifacts(self) -> None:
+        selection = select_demo_case(self.project_root, "sqli")
+
+        def preliminary_runner(
+            project_root: Path,
+            baseline: Path,
+            workspace: Path,
+            canonical_id: str,
+            output: Path,
+            artifact_dir: Path | None,
+        ) -> dict:
+            self.assertEqual(project_root, selection.project_root)
+            self.assertEqual(baseline, selection.baseline_correlated_file)
+            self.assertEqual(workspace, selection.workspace_dir)
+            self.assertEqual(canonical_id, selection.canonical_id)
+            self.assertIsNotNone(artifact_dir)
+            assert artifact_dir is not None
+            artifact_dir.mkdir(parents=True)
+            (artifact_dir / "candidate-semgrep-raw.json").write_text(
+                "{}",
+                encoding="utf-8",
+            )
+            return self._write_result(
+                output,
+                {
+                    "validation": {
+                        "canonical_id": canonical_id,
+                        "syntax": {"status": "pass"},
+                    }
+                },
+            )
+
+        def security_runner(
+            contexts: Path,
+            workspace: Path,
+            canonical_id: str,
+            output: Path,
+        ) -> dict:
+            return self._write_result(
+                output,
+                {
+                    "security_validation": {
+                        "canonical_id": canonical_id,
+                        "status": "pass",
+                    }
+                },
+            )
+
+        def functional_runner(
+            contexts: Path,
+            workspace: Path,
+            canonical_id: str,
+            output: Path,
+        ) -> dict:
+            return self._write_result(
+                output,
+                {
+                    "functional_validation": {
+                        "canonical_id": canonical_id,
+                        "status": "pass",
+                    }
+                },
+            )
+
+        def decision_runner(
+            preliminary: Path,
+            security: Path,
+            functional: Path,
+            output: Path,
+        ) -> dict:
+            self.assertNotEqual(preliminary, selection.preliminary_file)
+            self.assertTrue(preliminary.is_file())
+            payload = {
+                "decision": {
+                    "canonical_id": selection.canonical_id,
+                    "classification": "validated_candidate",
+                    "disposition": "READY_FOR_HUMAN_REVIEW",
+                }
+            }
+            return self._write_result(output, payload)
+
+        with tempfile.TemporaryDirectory() as directory:
+            result = run_live_validation(
+                selection,
+                Path(directory),
+                fresh_sast=True,
+                preliminary_runner=preliminary_runner,
+                security_runner=security_runner,
+                functional_runner=functional_runner,
+                decision_runner=decision_runner,
+                check_port=False,
+            )
+
+            self.assertEqual(result.preliminary_file.parent, result.output_dir)
+            self.assertEqual(result.evidence_mode["candidate_sast"], "live")
+            summary = json.loads(result.summary_file.read_text(encoding="utf-8"))
+            self.assertEqual(summary["evidence_mode"]["candidate_sast"], "live")
+            self.assertEqual(
+                Path(summary["outputs"]["preliminary"]),
+                result.preliminary_file,
+            )
 
     def test_live_decision_drift_is_rejected(self) -> None:
         selection = select_demo_case(self.project_root, "sqli")

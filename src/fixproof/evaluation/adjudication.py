@@ -95,16 +95,59 @@ def _resolve_project_file(
     configured_path: Any,
     label: str,
 ) -> Path:
-    raw_path = Path(_string(configured_path, label))
-    resolved = (
-        raw_path.resolve()
-        if raw_path.is_absolute()
-        else (project_root / raw_path).resolve()
+    configured = _string(configured_path, label)
+    raw_path = Path(configured)
+    normalized = configured.replace("\\", "/")
+    windows_absolute = (
+        len(normalized) >= 3
+        and normalized[0].isalpha()
+        and normalized[1:3] == ":/"
     )
-    _relative_path(project_root, resolved)
-    if not resolved.is_file():
-        raise AdjudicationDataError(f"Bound file does not exist: '{resolved}'.")
-    return resolved
+
+    if not raw_path.is_absolute() and not windows_absolute:
+        resolved = (project_root / raw_path).resolve()
+        _relative_path(project_root, resolved)
+        if not resolved.is_file():
+            raise AdjudicationDataError(
+                f"Bound file does not exist: '{resolved}'."
+            )
+        return resolved
+
+    # Historical workspace records contain development-machine absolute paths.
+    # Never follow one outside the active project root: a clean-extraction check
+    # on the same machine could otherwise validate against the original checkout.
+    if raw_path.is_absolute():
+        resolved = raw_path.resolve()
+        try:
+            _relative_path(project_root, resolved)
+        except AdjudicationDataError:
+            pass
+        else:
+            if resolved.is_file():
+                return resolved
+
+    repository_roots = {
+        "data",
+        "docs",
+        "rules",
+        "sample_apps",
+        "src",
+        "tests",
+        "ui",
+        "workspaces",
+    }
+    path_parts = [part for part in normalized.split("/") if part]
+    for index, part in enumerate(path_parts):
+        if part.lower() not in repository_roots:
+            continue
+        portable = (project_root.joinpath(*path_parts[index:])).resolve()
+        _relative_path(project_root, portable)
+        if portable.is_file():
+            return portable
+
+    raise AdjudicationDataError(
+        f"Bound file does not exist under the active project root: '{configured}'."
+    )
 
 
 def _workspace_hashes(project_root: Path, row: dict[str, Any]) -> dict[str, str]:

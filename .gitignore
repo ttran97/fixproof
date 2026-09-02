@@ -1,4 +1,13 @@
-workspaces/
+# Generated workspaces are excluded by default, but the compact evidence files
+# needed to audit selected experiments remain eligible for version control.
+workspaces/**
+!workspaces/**/
+!workspaces/**/candidate.patch
+!workspaces/**/workspace.json
+!workspaces/**/app/**/*.js
+!workspaces/**/app/**/*.json
+!workspaces/**/app/**/*.txt
+!workspaces/**/validation/*.json
 .env
 .env.local
 .env.*.local
@@ -17,3 +26,4 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 .vscode/
+dist/

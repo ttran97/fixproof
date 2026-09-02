@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-ffcaa5bd5497",
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\sample_apps\\vulnerable-js-app\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\workspaces\\CF-ffcaa5bd5497\\candidate.patch",
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}

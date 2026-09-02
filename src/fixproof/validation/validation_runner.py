@@ -459,6 +459,7 @@ def run_validation(
     workspace_dir: Path,
     canonical_id: str,
     output_file: Path,
+    artifact_dir: Path | None = None,
 ) -> dict[str, Any]:
 
     print("=" * 60)
@@ -589,8 +590,9 @@ def run_validation(
     # -------------------------------------------------
 
     validation_workspace = (
-        workspace_dir
-        / "validation"
+        artifact_dir
+        if artifact_dir is not None
+        else workspace_dir / "validation"
     )
 
     validation_workspace.mkdir(
@@ -880,6 +882,15 @@ def main() -> None:
         type=Path,
     )
 
+    parser.add_argument(
+        "--artifact-dir",
+        type=Path,
+        help=(
+            "Directory for raw, normalized, and correlated candidate-SAST "
+            "artifacts. Defaults to <workspace>/validation."
+        ),
+    )
+
     args = parser.parse_args()
 
     run_validation(
@@ -894,6 +905,11 @@ def main() -> None:
         ),
         canonical_id=args.canonical_id,
         output_file=args.output.resolve(),
+        artifact_dir=(
+            args.artifact_dir.resolve()
+            if args.artifact_dir is not None
+            else None
+        ),
     )
 
 

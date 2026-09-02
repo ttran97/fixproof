@@ -8,6 +8,7 @@ from pathlib import Path
 from fixproof.evaluation.adjudication import (
     AdjudicationDataError,
     REQUIRED_REVIEW_CHECKS,
+    _resolve_project_file,
     build_completed_result,
     validate_packet,
     validate_result,
@@ -149,6 +150,30 @@ class AdjudicationTests(unittest.TestCase):
                     self.xss_retry,
                     packet_path,
                 )
+
+    def test_historical_absolute_path_relocates_to_active_project(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            temporary_root = Path(directory)
+            candidate = (
+                temporary_root
+                / "workspaces"
+                / "example"
+                / "candidate.patch"
+            )
+            candidate.parent.mkdir(parents=True)
+            candidate.write_text("example patch\n", encoding="utf-8")
+
+            historical = (
+                "C:/Users/Example/old-fixproof/"
+                "workspaces/example/candidate.patch"
+            )
+            resolved = _resolve_project_file(
+                temporary_root,
+                historical,
+                "test historical path",
+            )
+
+        self.assertEqual(resolved, candidate.resolve())
 
 
 if __name__ == "__main__":
