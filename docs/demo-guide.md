@@ -6,13 +6,35 @@ This is the recommended classroom demonstration. It uses an authoritative,
 previously recorded AI candidate, reruns independent validation, and leaves the
 benchmark and experiment artifacts unchanged.
 
+### Choose the evidence mode first
+
+The guided command prints an evidence plan before it starts. There are two
+candidate-validation modes:
+
+| Mode | Recorded inputs | Live work | Best use |
+|---|---|---|---|
+| Default replay | AI candidate, baseline SAST, candidate SAST | Runtime security, functional regression, decision | Fast, deterministic classroom explanation |
+| `-FreshSast` | AI candidate, baseline SAST | Candidate syntax/Semgrep, runtime security, functional regression, decision | Prove that the candidate is actually rescanned |
+
+Both modes write newly generated outputs to a unique directory under Windows
+`TEMP`. Neither mode calls the OpenAI API, changes the vulnerable baseline, or
+adds results to the authoritative experiment. The dashboard always shows the
+recorded authoritative experiment.
+
+Recommended learning order:
+
+1. Run XSS attempt 1 in the default mode to see a functional regression.
+2. Run XSS attempt 2 in the default mode to see an evidence disagreement.
+3. Run one selected case with `-FreshSast` to include an actual candidate
+   Semgrep rescan.
+
 ### Run the complete test-set matrix
 
 Use this command when you want to demonstrate that FixProof handles more than
 one vulnerability or outcome correctly:
 
 ```powershell
-cd "C:\Users\Tony Tran\Documents\fixproof"
+Set-Location "C:\path\to\fixproof"
 powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 -Suite
 ```
 
@@ -27,7 +49,8 @@ candidate validations:
 | TS-04 | XSS attempt 2, CWE-79 | Static/runtime disagreement must cross the human boundary | `NEEDS_HUMAN_ADJUDICATION` |
 | TS-05 | Path traversal, CWE-22 | Conflicting evidence must cross the human boundary | `NEEDS_HUMAN_ADJUDICATION` |
 
-A test set passes when fresh validation reproduces its expected policy outcome.
+A test set passes when live runtime and functional validation reproduce its
+expected policy outcome using the selected candidate and candidate-SAST mode.
 Therefore, TS-03 passing means FixProof correctly produced `REJECT`; it does
 not mean the rejected patch is safe to deploy.
 
@@ -40,9 +63,24 @@ demo so the all-case suite can finish and print its complete summary.
 From Windows PowerShell:
 
 ```powershell
-cd "C:\Users\Tony Tran\Documents\fixproof"
+Set-Location "C:\path\to\fixproof"
 powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 -Case sqli
 ```
+
+To include a fresh candidate syntax check and Semgrep rescan:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 `
+  -Case sqli `
+  -Attempt 1 `
+  -FreshSast `
+  -SkipVerification
+```
+
+The fresh scan's raw, normalized, correlated, and preliminary artifacts are
+stored beside the disposable runtime outputs. If the fresh result no longer
+matches the recorded decision, the demo fails visibly instead of hiding the
+drift.
 
 Follow these checkpoints in the output:
 
@@ -158,7 +196,9 @@ The demo command:
   `data/evaluation/experiment-manifest.json`;
 - checks that the baseline was not modified;
 - does not call the OpenAI API;
-- does not rerun Semgrep or change the recorded preliminary SAST result;
+- reuses the recorded preliminary SAST result by default;
+- reruns candidate syntax and Semgrep only when `--fresh-sast`/`-FreshSast`
+  is selected, writing those outputs under `TEMP`;
 - writes fresh security, functional, decision, and summary JSON files to a
   unique directory under Windows `TEMP`;
 - does not overwrite authoritative artifacts;
