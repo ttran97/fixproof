@@ -154,7 +154,8 @@ authoritative experiment artifacts shown by the dashboard.
 
 The prototype is intentionally scoped to JavaScript/Express benchmarks,
 Semgrep CE/OSS, endpoint-specific runtime tests, filesystem workspaces, and a
-small controlled sample. The current XSS validator does not execute JavaScript
-in a browser, the controlled SQLi rule is benchmark-oriented, and canonical
-fingerprinting remains MVP-level. These limits constrain generalization but do
-not invalidate the demonstrated validation workflow.
+small controlled sample. Primary-v1 executes controlled XSS payloads in
+headless Chromium, but the route and payload set remain narrow. The controlled
+SQLi rule is benchmark-oriented, and canonical fingerprinting remains
+MVP-level. These limits constrain generalization but do not invalidate the
+demonstrated validation workflow.

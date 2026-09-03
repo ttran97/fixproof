@@ -23,6 +23,7 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -e .
+python -m playwright install chromium
 
 Push-Location sample_apps\vulnerable-js-app
 npm ci
@@ -35,6 +36,18 @@ Pop-Location
 Push-Location sample_apps\vulnerable-path-traversal-app
 npm ci
 Pop-Location
+
+Push-Location benchmarks\primary\v1\xss
+npm ci
+Pop-Location
+
+Push-Location benchmarks\primary\v1\sqli
+npm ci
+Pop-Location
+
+Push-Location benchmarks\primary\v1\path-traversal
+npm ci
+Pop-Location
 ```
 
 The package metadata pins the versions used by the recorded pilot, including
@@ -45,8 +58,14 @@ Semgrep `1.136.0` as recorded in the raw scan artifacts.
 ```powershell
 python -m unittest discover -s tests -v
 python -m fixproof.reproduce --verify
+python -m fixproof.evaluation.benchmark_verifier
 powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 -Suite
 ```
+
+The primary benchmark verifier starts each frozen baseline on loopback, checks
+its bound hashes and restore copy, confirms functional-pass/security-fail
+ground truth, requires browser execution for CWE-79, and captures Semgrep
+evidence. It does not invoke the remediation model or generate an attempt.
 
 The evidence-map document lists the artifacts a reviewer can inspect after the
 commands complete.
@@ -84,4 +103,3 @@ and local editor files. Never package the working directory with File Explorer.
 - No command may use the original checkout as hidden evidence.
 - The dashboard must serve only its allowlisted UI and report paths.
 - Recorded and live/disposable evidence must remain visibly labeled.
-

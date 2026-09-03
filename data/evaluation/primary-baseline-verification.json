@@ -1,0 +1,813 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_baseline_verification",
+  "generated_at": "2026-09-03T20:38:12.943885+00:00",
+  "manifest": {
+    "path": "data/evaluation/primary-benchmark-manifest.json",
+    "sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+    "suite_id": "primary-v1"
+  },
+  "status": "ready",
+  "summary": {
+    "cases": 3,
+    "passed": 3,
+    "failed": 0
+  },
+  "cases": [
+    {
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "status": "pass",
+      "checks": {
+        "file_bindings": "pass",
+        "restore_copy": "pass",
+        "syntax": "pass",
+        "target_only_contract": "pass",
+        "runtime_ground_truth": "pass",
+        "scanner_evidence": "pass"
+      },
+      "file_bindings": {
+        "status": "pass",
+        "files": [
+          {
+            "path": "benchmarks/primary/v1/xss/app.js",
+            "expected_sha256": "fbdc7b2f6fb5ce318efe96b53013fb343bd84ea013ab9fc0106255cf27714ba7",
+            "actual_sha256": "fbdc7b2f6fb5ce318efe96b53013fb343bd84ea013ab9fc0106255cf27714ba7",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/xss/package.json",
+            "expected_sha256": "414a5dc6a826684d62f885e49d118bd3492848c4d2e14eb44cc9540acc5f70ca",
+            "actual_sha256": "414a5dc6a826684d62f885e49d118bd3492848c4d2e14eb44cc9540acc5f70ca",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/xss/package-lock.json",
+            "expected_sha256": "339cb7fdf2e70418f9e850c0d02d73a04f62188f925793f59d9dadf9cd25ad81",
+            "actual_sha256": "339cb7fdf2e70418f9e850c0d02d73a04f62188f925793f59d9dadf9cd25ad81",
+            "matches": true
+          }
+        ]
+      },
+      "restore_copy": {
+        "status": "pass",
+        "mismatches": []
+      },
+      "syntax": {
+        "status": "pass",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "runtime_ground_truth": {
+        "status": "pass",
+        "security": {
+          "status": "fail",
+          "expected_status": "fail",
+          "count": 4,
+          "tests": [
+            {
+              "test": "script_tag",
+              "payload": "<script>alert(1)</script>",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello <script>alert(1)</script></h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "fail",
+                "reason": "The controlled payload executed in headless Chromium.",
+                "reflected_value": "<script>alert(1)</script>",
+                "payload_reflected_verbatim": true,
+                "raw_markup_present": true,
+                "http_status": "fail",
+                "browser": {
+                  "status": "executed",
+                  "executed": true,
+                  "url": "http://127.0.0.1:3000/hello?name=%3Cscript%3Ealert%281%29%3C%2Fscript%3E",
+                  "browser": "chromium",
+                  "dialogs": [
+                    {
+                      "type": "alert",
+                      "message": "1"
+                    }
+                  ],
+                  "http_status": 200,
+                  "error": null
+                }
+              }
+            },
+            {
+              "test": "img_event_handler",
+              "payload": "<img src=x onerror=alert(1)>",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello <img src=x onerror=alert(1)></h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "fail",
+                "reason": "The controlled payload executed in headless Chromium.",
+                "reflected_value": "<img src=x onerror=alert(1)>",
+                "payload_reflected_verbatim": true,
+                "raw_markup_present": true,
+                "http_status": "fail",
+                "browser": {
+                  "status": "executed",
+                  "executed": true,
+                  "url": "http://127.0.0.1:3000/hello?name=%3Cimg+src%3Dx+onerror%3Dalert%281%29%3E",
+                  "browser": "chromium",
+                  "dialogs": [
+                    {
+                      "type": "alert",
+                      "message": "1"
+                    }
+                  ],
+                  "http_status": 200,
+                  "error": null
+                }
+              }
+            },
+            {
+              "test": "quote_svg_event",
+              "payload": "\"><svg onload=alert(1)>",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello \"><svg onload=alert(1)></h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "fail",
+                "reason": "The controlled payload executed in headless Chromium.",
+                "reflected_value": "\"><svg onload=alert(1)>",
+                "payload_reflected_verbatim": true,
+                "raw_markup_present": true,
+                "http_status": "fail",
+                "browser": {
+                  "status": "executed",
+                  "executed": true,
+                  "url": "http://127.0.0.1:3000/hello?name=%22%3E%3Csvg+onload%3Dalert%281%29%3E",
+                  "browser": "chromium",
+                  "dialogs": [
+                    {
+                      "type": "alert",
+                      "message": "1"
+                    }
+                  ],
+                  "http_status": 200,
+                  "error": null
+                }
+              }
+            },
+            {
+              "test": "consecutive_markup_characters",
+              "payload": "<<script>alert(1)//<</script>",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello <<script>alert(1)//<</script></h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "fail",
+                "reason": "The controlled payload executed in headless Chromium.",
+                "reflected_value": "<<script>alert(1)//<</script>",
+                "payload_reflected_verbatim": true,
+                "raw_markup_present": true,
+                "http_status": "fail",
+                "browser": {
+                  "status": "executed",
+                  "executed": true,
+                  "url": "http://127.0.0.1:3000/hello?name=%3C%3Cscript%3Ealert%281%29%2F%2F%3C%3C%2Fscript%3E",
+                  "browser": "chromium",
+                  "dialogs": [
+                    {
+                      "type": "alert",
+                      "message": "1"
+                    }
+                  ],
+                  "http_status": 200,
+                  "error": null
+                }
+              }
+            }
+          ]
+        },
+        "functional": {
+          "status": "pass",
+          "expected_status": "pass",
+          "count": 6,
+          "tests": [
+            {
+              "test": "simple_name",
+              "input": "Tony",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello Tony</h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected user-visible value.",
+                "expected_value": "Tony",
+                "reflected_value": "Tony",
+                "decoded_value": "Tony",
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "name_with_space",
+              "input": "Tony Tran",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello Tony Tran</h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected user-visible value.",
+                "expected_value": "Tony Tran",
+                "reflected_value": "Tony Tran",
+                "decoded_value": "Tony Tran",
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "ampersand_text",
+              "input": "Tony & Alicia",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello Tony & Alicia</h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected user-visible value.",
+                "expected_value": "Tony & Alicia",
+                "reflected_value": "Tony & Alicia",
+                "decoded_value": "Tony & Alicia",
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "single_markup_character",
+              "input": "Tony < Alicia",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello Tony < Alicia</h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected user-visible value.",
+                "expected_value": "Tony < Alicia",
+                "reflected_value": "Tony < Alicia",
+                "decoded_value": "Tony < Alicia",
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "adjacent_special_characters",
+              "input": "Tony &<> Alicia",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello Tony &<> Alicia</h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected user-visible value.",
+                "expected_value": "Tony &<> Alicia",
+                "reflected_value": "Tony &<> Alicia",
+                "decoded_value": "Tony &<> Alicia",
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "quote_and_markup",
+              "input": "\"><hello>",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "<h1>Hello \"><hello></h1>",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected user-visible value.",
+                "expected_value": "\"><hello>",
+                "reflected_value": "\"><hello>",
+                "decoded_value": "\"><hello>",
+                "semantic_match": true
+              }
+            }
+          ]
+        },
+        "browser_execution": {
+          "status": "pass",
+          "expected_executions": 4,
+          "observed_executions": 4,
+          "statuses": [
+            "executed",
+            "executed",
+            "executed",
+            "executed"
+          ]
+        },
+        "test_contract_matches": true
+      },
+      "scanner_evidence": {
+        "status": "pass",
+        "expected_default_target_detected": true,
+        "default_target_detected": true,
+        "configured_target_detected": true,
+        "target_rule_ids": [
+          "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+          "javascript.express.security.injection.raw-html-format.raw-html-format"
+        ],
+        "default": {
+          "path": "data/primary_baselines/raw_scans/xss-default.json",
+          "semgrep_version": "1.136.0",
+          "observed_rule_ids": [
+            "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+            "javascript.express.security.injection.raw-html-format.raw-html-format"
+          ],
+          "sha256": "02e74f0b2d800601a0ce7005a00308c37184ea92abc370deb2d86d1d6a02eca8"
+        },
+        "configured": {
+          "path": "data/primary_baselines/raw_scans/xss-default.json",
+          "semgrep_version": "1.136.0",
+          "observed_rule_ids": [
+            "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+            "javascript.express.security.injection.raw-html-format.raw-html-format"
+          ],
+          "sha256": "02e74f0b2d800601a0ce7005a00308c37184ea92abc370deb2d86d1d6a02eca8"
+        }
+      }
+    },
+    {
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "status": "pass",
+      "checks": {
+        "file_bindings": "pass",
+        "restore_copy": "pass",
+        "syntax": "pass",
+        "target_only_contract": "pass",
+        "runtime_ground_truth": "pass",
+        "scanner_evidence": "pass"
+      },
+      "file_bindings": {
+        "status": "pass",
+        "files": [
+          {
+            "path": "benchmarks/primary/v1/sqli/app.js",
+            "expected_sha256": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95",
+            "actual_sha256": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/sqli/package.json",
+            "expected_sha256": "291d7b9a3dbc5ce6424968cc961fb775cc5d5db71a4c2c3f8155f293ec3c1b18",
+            "actual_sha256": "291d7b9a3dbc5ce6424968cc961fb775cc5d5db71a4c2c3f8155f293ec3c1b18",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/sqli/package-lock.json",
+            "expected_sha256": "c97488ec3ad8096e226454d4801d0d5b2d9d340660b557cade10c5a3f2464347",
+            "actual_sha256": "c97488ec3ad8096e226454d4801d0d5b2d9d340660b557cade10c5a3f2464347",
+            "matches": true
+          }
+        ]
+      },
+      "restore_copy": {
+        "status": "pass",
+        "mismatches": []
+      },
+      "syntax": {
+        "status": "pass",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "runtime_ground_truth": {
+        "status": "pass",
+        "security": {
+          "status": "fail",
+          "expected_status": "fail",
+          "count": 2,
+          "tests": [
+            {
+              "test": "legitimate_lookup_control",
+              "test_type": "control",
+              "payload": "alice",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"}]",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The legitimate lookup returned only the expected user.",
+                "expected_usernames": [
+                  "alice"
+                ],
+                "returned_usernames": [
+                  "alice"
+                ],
+                "returned_rows": [
+                  {
+                    "id": 1,
+                    "username": "alice",
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "test": "boolean_or_injection",
+              "test_type": "attack",
+              "payload": "' OR '1'='1",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"},{\"id\":2,\"username\":\"bob\",\"role\":\"admin\"},{\"id\":3,\"username\":\"charlie\",\"role\":\"user\"}]",
+                "error": null
+              },
+              "evaluation": {
+                "status": "fail",
+                "reason": "The SQL injection payload returned database users.",
+                "expected_usernames": [],
+                "returned_usernames": [
+                  "alice",
+                  "bob",
+                  "charlie"
+                ],
+                "returned_rows": [
+                  {
+                    "id": 1,
+                    "username": "alice",
+                    "role": "user"
+                  },
+                  {
+                    "id": 2,
+                    "username": "bob",
+                    "role": "admin"
+                  },
+                  {
+                    "id": 3,
+                    "username": "charlie",
+                    "role": "user"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "functional": {
+          "status": "pass",
+          "expected_status": "pass",
+          "count": 3,
+          "tests": [
+            {
+              "test": "alice_lookup",
+              "input": "alice",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"}]",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected query result.",
+                "expected_rows": [
+                  {
+                    "id": 1,
+                    "username": "alice",
+                    "role": "user"
+                  }
+                ],
+                "actual_rows": [
+                  {
+                    "id": 1,
+                    "username": "alice",
+                    "role": "user"
+                  }
+                ],
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "bob_lookup",
+              "input": "bob",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "[{\"id\":2,\"username\":\"bob\",\"role\":\"admin\"}]",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected query result.",
+                "expected_rows": [
+                  {
+                    "id": 2,
+                    "username": "bob",
+                    "role": "admin"
+                  }
+                ],
+                "actual_rows": [
+                  {
+                    "id": 2,
+                    "username": "bob",
+                    "role": "admin"
+                  }
+                ],
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "unknown_user_lookup",
+              "input": "unknown-user",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "[]",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected query result.",
+                "expected_rows": [],
+                "actual_rows": [],
+                "semantic_match": true
+              }
+            }
+          ]
+        },
+        "browser_execution": null,
+        "test_contract_matches": true
+      },
+      "scanner_evidence": {
+        "status": "pass",
+        "expected_default_target_detected": false,
+        "default_target_detected": false,
+        "configured_target_detected": true,
+        "target_rule_ids": [
+          "rules.fixproof.javascript.sqlite3.sql-injection"
+        ],
+        "default": {
+          "path": "data/primary_baselines/raw_scans/sqli-default.json",
+          "semgrep_version": "1.136.0",
+          "observed_rule_ids": [
+            "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage"
+          ],
+          "sha256": "bb3dff79b4ef9eafdc1d14174defdaa4151b40ad4b24f8d81337ceb07499fe21"
+        },
+        "configured": {
+          "path": "data/primary_baselines/raw_scans/sqli-configured.json",
+          "semgrep_version": "1.136.0",
+          "observed_rule_ids": [
+            "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "rules.fixproof.javascript.sqlite3.sql-injection"
+          ],
+          "sha256": "978bb7a3f73284db6a23471e1cb3efc67bd8c9e18bcc41e9d9c6d49bf3c1a20e"
+        }
+      }
+    },
+    {
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "status": "pass",
+      "checks": {
+        "file_bindings": "pass",
+        "restore_copy": "pass",
+        "syntax": "pass",
+        "target_only_contract": "pass",
+        "runtime_ground_truth": "pass",
+        "scanner_evidence": "pass"
+      },
+      "file_bindings": {
+        "status": "pass",
+        "files": [
+          {
+            "path": "benchmarks/primary/v1/path-traversal/app.js",
+            "expected_sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc",
+            "actual_sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/path-traversal/package.json",
+            "expected_sha256": "b7f2127a3ddfaba293dfdd4bb700b04bf71ac037da3e05e40951582e0ce0d4cf",
+            "actual_sha256": "b7f2127a3ddfaba293dfdd4bb700b04bf71ac037da3e05e40951582e0ce0d4cf",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/path-traversal/package-lock.json",
+            "expected_sha256": "6a282da1e8d3316fa4dcd2d205950f85142117d39c0409e03800c435fc591e41",
+            "actual_sha256": "6a282da1e8d3316fa4dcd2d205950f85142117d39c0409e03800c435fc591e41",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/path-traversal/public-files/welcome.txt",
+            "expected_sha256": "68ddc99af8293d59337e8f87d177659eff9484241f3438bce426569dc85c994b",
+            "actual_sha256": "68ddc99af8293d59337e8f87d177659eff9484241f3438bce426569dc85c994b",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/path-traversal/public-files/guide.txt",
+            "expected_sha256": "c7842713f0d53e4a9c40ba6035547dcf671241cd709f755ebf7f48c774ceffde",
+            "actual_sha256": "c7842713f0d53e4a9c40ba6035547dcf671241cd709f755ebf7f48c774ceffde",
+            "matches": true
+          },
+          {
+            "path": "benchmarks/primary/v1/path-traversal/outside-secret.txt",
+            "expected_sha256": "a6d9cd2eeaa60e529569eb7b9dda90468f04c5ee701ae8e4729b2a3eb4757a28",
+            "actual_sha256": "a6d9cd2eeaa60e529569eb7b9dda90468f04c5ee701ae8e4729b2a3eb4757a28",
+            "matches": true
+          }
+        ]
+      },
+      "restore_copy": {
+        "status": "pass",
+        "mismatches": []
+      },
+      "syntax": {
+        "status": "pass",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "runtime_ground_truth": {
+        "status": "pass",
+        "security": {
+          "status": "fail",
+          "expected_status": "fail",
+          "count": 2,
+          "tests": [
+            {
+              "test": "legitimate_file_control",
+              "test_type": "control",
+              "payload": "welcome.txt",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "FixProof public fixture: welcome\n",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The legitimate file request returned the expected public fixture.",
+                "expected_body": "FixProof public fixture: welcome",
+                "forbidden_body": null,
+                "returned_body": "FixProof public fixture: welcome\n",
+                "outside_file_disclosed": false
+              }
+            },
+            {
+              "test": "parent_directory_traversal",
+              "test_type": "attack",
+              "payload": "../outside-secret.txt",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET\n",
+                "error": null
+              },
+              "evaluation": {
+                "status": "fail",
+                "reason": "The response disclosed the controlled file outside the allowed directory.",
+                "expected_body": null,
+                "forbidden_body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET",
+                "returned_body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET\n",
+                "outside_file_disclosed": true
+              }
+            }
+          ]
+        },
+        "functional": {
+          "status": "pass",
+          "expected_status": "pass",
+          "count": 3,
+          "tests": [
+            {
+              "test": "welcome_file",
+              "input": "welcome.txt",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "FixProof public fixture: welcome\n",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected file response.",
+                "expected_status": 200,
+                "actual_status": 200,
+                "expected_body": "FixProof public fixture: welcome",
+                "actual_body": "FixProof public fixture: welcome\n",
+                "expected_json": null,
+                "actual_json": null,
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "guide_file",
+              "input": "guide.txt",
+              "http": {
+                "request_succeeded": true,
+                "status_code": 200,
+                "body": "FixProof public fixture: guide\n",
+                "error": null
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected file response.",
+                "expected_status": 200,
+                "actual_status": 200,
+                "expected_body": "FixProof public fixture: guide",
+                "actual_body": "FixProof public fixture: guide\n",
+                "expected_json": null,
+                "actual_json": null,
+                "semantic_match": true
+              }
+            },
+            {
+              "test": "missing_file",
+              "input": "missing.txt",
+              "http": {
+                "request_succeeded": false,
+                "status_code": 404,
+                "body": "{\"error\":\"File not found\"}",
+                "error": "HTTP Error 404: Not Found"
+              },
+              "evaluation": {
+                "status": "pass",
+                "reason": "The candidate preserved the expected file response.",
+                "expected_status": 404,
+                "actual_status": 404,
+                "expected_body": null,
+                "actual_body": "{\"error\":\"File not found\"}",
+                "expected_json": {
+                  "error": "File not found"
+                },
+                "actual_json": {
+                  "error": "File not found"
+                },
+                "semantic_match": true
+              }
+            }
+          ]
+        },
+        "browser_execution": null,
+        "test_contract_matches": true
+      },
+      "scanner_evidence": {
+        "status": "pass",
+        "expected_default_target_detected": true,
+        "default_target_detected": true,
+        "configured_target_detected": true,
+        "target_rule_ids": [
+          "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+          "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal"
+        ],
+        "default": {
+          "path": "data/primary_baselines/raw_scans/path-traversal-default.json",
+          "semgrep_version": "1.136.0",
+          "observed_rule_ids": [
+            "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+            "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal"
+          ],
+          "sha256": "d2017c96cb4320c70087838965b705fe156522704231bc682f4367bfa3c6fc4b"
+        },
+        "configured": {
+          "path": "data/primary_baselines/raw_scans/path-traversal-default.json",
+          "semgrep_version": "1.136.0",
+          "observed_rule_ids": [
+            "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+            "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+            "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal"
+          ],
+          "sha256": "d2017c96cb4320c70087838965b705fe156522704231bc682f4367bfa3c6fc4b"
+        }
+      }
+    }
+  ]
+}

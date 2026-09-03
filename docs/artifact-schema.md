@@ -71,6 +71,8 @@ must be stored and reported separately from primary AI attempts.
 - SAST-only comparison rule;
 - timestamp and software/environment versions.
 
-The draft decisions that still need to be frozen are recorded in
-`data/evaluation/trial-plan.json`.
-
+The frozen decisions and completed technical gates are recorded in
+`data/evaluation/trial-plan.json`. The versioned benchmark contract and hashes
+are in `data/evaluation/primary-benchmark-manifest.json`, and the executable
+baseline evidence is in `data/evaluation/primary-baseline-verification.json`.
+Their rationale is documented in `docs/study-protocol-v1.md`.

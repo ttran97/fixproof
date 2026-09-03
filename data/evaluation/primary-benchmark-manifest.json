@@ -1,0 +1,204 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_benchmark_manifest",
+  "suite_id": "primary-v1",
+  "suite_root": "benchmarks/primary/v1",
+  "suite_frozen": true,
+  "frozen_at": "2026-09-03",
+  "baseline_verification_report": "data/evaluation/primary-baseline-verification.json",
+  "candidate_prompts_must_exclude_this_manifest": true,
+  "scanner": {
+    "engine": "Semgrep Community Edition",
+    "version": "1.136.0",
+    "default_configuration": "auto",
+    "controlled_rule_directory": "rules",
+    "process_timeout_seconds": 120
+  },
+  "cases": [
+    {
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "application_directory": "benchmarks/primary/v1/xss",
+      "source_file": "benchmarks/primary/v1/xss/app.js",
+      "route": "/hello",
+      "input_parameter": "name",
+      "source": "req.query.name",
+      "sink": "res.send HTML response",
+      "intentionally_seeded_vulnerabilities": [
+        "CWE-79"
+      ],
+      "scanner_expectation": {
+        "default_target_detected": true,
+        "rule_origin": "semgrep_oss",
+        "any_target_rule_id": [
+          "javascript.express.security.injection.raw-html-format.raw-html-format",
+          "javascript.express.security.audit.xss.direct-response-write.direct-response-write"
+        ]
+      },
+      "tests": {
+        "security": {
+          "count": 4,
+          "names": [
+            "script_tag",
+            "img_event_handler",
+            "quote_svg_event",
+            "consecutive_markup_characters"
+          ],
+          "expected_baseline_status": "fail",
+          "browser_execution_required": true,
+          "expected_browser_executions": 4
+        },
+        "functional": {
+          "count": 6,
+          "names": [
+            "simple_name",
+            "name_with_space",
+            "ampersand_text",
+            "single_markup_character",
+            "adjacent_special_characters",
+            "quote_and_markup"
+          ],
+          "expected_baseline_status": "pass"
+        }
+      },
+      "files": [
+        {
+          "path": "benchmarks/primary/v1/xss/app.js",
+          "sha256": "fbdc7b2f6fb5ce318efe96b53013fb343bd84ea013ab9fc0106255cf27714ba7"
+        },
+        {
+          "path": "benchmarks/primary/v1/xss/package.json",
+          "sha256": "414a5dc6a826684d62f885e49d118bd3492848c4d2e14eb44cc9540acc5f70ca"
+        },
+        {
+          "path": "benchmarks/primary/v1/xss/package-lock.json",
+          "sha256": "339cb7fdf2e70418f9e850c0d02d73a04f62188f925793f59d9dadf9cd25ad81"
+        }
+      ]
+    },
+    {
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "application_directory": "benchmarks/primary/v1/sqli",
+      "source_file": "benchmarks/primary/v1/sqli/app.js",
+      "route": "/user",
+      "input_parameter": "username",
+      "source": "req.query.username",
+      "sink": "sqlite3 db.all query execution",
+      "intentionally_seeded_vulnerabilities": [
+        "CWE-89"
+      ],
+      "scanner_expectation": {
+        "default_target_detected": false,
+        "rule_origin": "fixproof_controlled",
+        "controlled_rule_revision": "controlled-sqli-rule-v2",
+        "any_target_rule_id": [
+          "rules.fixproof.javascript.sqlite3.sql-injection"
+        ]
+      },
+      "tests": {
+        "security": {
+          "count": 2,
+          "names": [
+            "legitimate_lookup_control",
+            "boolean_or_injection"
+          ],
+          "expected_baseline_status": "fail"
+        },
+        "functional": {
+          "count": 3,
+          "names": [
+            "alice_lookup",
+            "bob_lookup",
+            "unknown_user_lookup"
+          ],
+          "expected_baseline_status": "pass"
+        }
+      },
+      "files": [
+        {
+          "path": "benchmarks/primary/v1/sqli/app.js",
+          "sha256": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95"
+        },
+        {
+          "path": "benchmarks/primary/v1/sqli/package.json",
+          "sha256": "291d7b9a3dbc5ce6424968cc961fb775cc5d5db71a4c2c3f8155f293ec3c1b18"
+        },
+        {
+          "path": "benchmarks/primary/v1/sqli/package-lock.json",
+          "sha256": "c97488ec3ad8096e226454d4801d0d5b2d9d340660b557cade10c5a3f2464347"
+        }
+      ]
+    },
+    {
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "application_directory": "benchmarks/primary/v1/path-traversal",
+      "source_file": "benchmarks/primary/v1/path-traversal/app.js",
+      "route": "/file",
+      "input_parameter": "name",
+      "source": "req.query.name",
+      "sink": "fs.readFile",
+      "intentionally_seeded_vulnerabilities": [
+        "CWE-22"
+      ],
+      "scanner_expectation": {
+        "default_target_detected": true,
+        "rule_origin": "semgrep_oss",
+        "any_target_rule_id": [
+          "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+          "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal"
+        ]
+      },
+      "tests": {
+        "security": {
+          "count": 2,
+          "names": [
+            "legitimate_file_control",
+            "parent_directory_traversal"
+          ],
+          "expected_baseline_status": "fail"
+        },
+        "functional": {
+          "count": 3,
+          "names": [
+            "welcome_file",
+            "guide_file",
+            "missing_file"
+          ],
+          "expected_baseline_status": "pass"
+        }
+      },
+      "files": [
+        {
+          "path": "benchmarks/primary/v1/path-traversal/app.js",
+          "sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc"
+        },
+        {
+          "path": "benchmarks/primary/v1/path-traversal/package.json",
+          "sha256": "b7f2127a3ddfaba293dfdd4bb700b04bf71ac037da3e05e40951582e0ce0d4cf"
+        },
+        {
+          "path": "benchmarks/primary/v1/path-traversal/package-lock.json",
+          "sha256": "6a282da1e8d3316fa4dcd2d205950f85142117d39c0409e03800c435fc591e41"
+        },
+        {
+          "path": "benchmarks/primary/v1/path-traversal/public-files/welcome.txt",
+          "sha256": "68ddc99af8293d59337e8f87d177659eff9484241f3438bce426569dc85c994b"
+        },
+        {
+          "path": "benchmarks/primary/v1/path-traversal/public-files/guide.txt",
+          "sha256": "c7842713f0d53e4a9c40ba6035547dcf671241cd709f755ebf7f48c774ceffde"
+        },
+        {
+          "path": "benchmarks/primary/v1/path-traversal/outside-secret.txt",
+          "sha256": "a6d9cd2eeaa60e529569eb7b9dda90468f04c5ee701ae8e4729b2a3eb4757a28"
+        }
+      ]
+    }
+  ]
+}

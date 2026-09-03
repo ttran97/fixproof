@@ -5,6 +5,9 @@ from pathlib import Path
 from typing import Iterable
 
 
+DEFAULT_SEMGREP_TIMEOUT_SECONDS = 120
+
+
 def build_semgrep_command(
     target: Path,
     output: Path,
@@ -79,6 +82,7 @@ def run_semgrep(
     output: Path,
     project_rule_dir: Path | None = None,
     additional_configs: Iterable[str | Path] | None = None,
+    timeout_seconds: int = DEFAULT_SEMGREP_TIMEOUT_SECONDS,
 ) -> Path:
     """
     Execute Semgrep against a FixProof scan target.
@@ -154,9 +158,21 @@ def run_semgrep(
     # Semgrep CLI output previously caused Windows
     # encoding issues in this environment.
     #
-    result = subprocess.run(
-        command
-    )
+    if timeout_seconds <= 0:
+        raise ValueError(
+            "Semgrep timeout must be greater than zero seconds."
+        )
+
+    try:
+        result = subprocess.run(
+            command,
+            timeout=timeout_seconds,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(
+            "Semgrep execution exceeded the fixed process timeout of "
+            f"{timeout_seconds} seconds."
+        ) from exc
 
     if result.returncode not in (
         0,
@@ -219,10 +235,18 @@ if __name__ == "__main__":
         type=Path,
     )
 
+    parser.add_argument(
+        "--process-timeout",
+        default=DEFAULT_SEMGREP_TIMEOUT_SECONDS,
+        type=int,
+        help="Maximum Semgrep process runtime in seconds.",
+    )
+
     args = parser.parse_args()
 
     run_semgrep(
         target=args.target,
         output=args.output,
         project_rule_dir=args.rules,
+        timeout_seconds=args.process_timeout,
     )

@@ -303,8 +303,25 @@ npm ci
 Pop-Location
 ```
 
+The frozen primary suite is under `benchmarks/primary/v1/`. It contains one
+target-only application for CWE-79, CWE-89, and CWE-22. Install its locked
+dependencies, install Chromium for the XSS execution oracle, and verify every
+baseline before generating a primary candidate:
+
+```powershell
+foreach ($case in @("xss", "sqli", "path-traversal")) {
+    Push-Location "benchmarks\primary\v1\$case"
+    npm ci
+    Pop-Location
+}
+
+.\.venv\Scripts\python.exe -m playwright install chromium
+.\.venv\Scripts\python.exe -m fixproof.evaluation.benchmark_verifier
+```
+
 Research and audit starting points:
 
+- [Primary study protocol v1](docs/study-protocol-v1.md)
 - [Evaluation methodology](docs/methodology.md)
 - [Professor-facing evidence map](docs/evidence-map.md)
 - [Threat model](docs/threat-model.md)
@@ -463,9 +480,11 @@ app.js|CWE-79|express:get:/hello
 
 ## Targeted security validation
 
-`security_validator.py` currently supports the controlled reflected CWE-79 case. It starts the isolated Express candidate, reuses the baseline application's `node_modules` through `NODE_PATH`, sends controlled payloads, inspects the reflected user-controlled region, stores evidence, and stops the app.
-
-Current limitation: it does not execute JavaScript in a browser. Report this as a targeted CWE-79 test, not proof that the full application is secure.
+`security_validator.py` supports controlled CWE-79, CWE-89, and CWE-22 cases.
+For XSS it combines HTTP response inspection with controlled payload execution
+in headless Chromium. It starts only an isolated Express candidate, stores the
+observations, and stops the app. These are endpoint-specific tests, not proof
+that the full application is secure.
 
 ## Functional validation
 

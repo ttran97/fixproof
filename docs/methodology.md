@@ -9,17 +9,20 @@ behavior.
 
 The primary research question is:
 
-> Can independent SAST, targeted runtime security, and functional evidence
-> prevent false confidence in AI-generated vulnerability remediation?
+> Does FixProof's multi-stage validation identify unsuccessful or functionally
+> damaging AI-generated security fixes that would appear successful when
+> remediation success is determined only by disappearance of the original SAST
+> finding?
 
 A secondary question asks whether measured failure evidence can improve a
 retry without allowing the remediation model to grade itself.
 
 ## Experimental unit and benchmark selection
 
-The aggregation unit is one remediation attempt, not one vulnerability case.
-The authoritative experiment contains four AI-generated attempts across three
-controlled JavaScript/Express cases:
+The aggregation unit is one scheduled initial remediation attempt, not one
+vulnerability case. The existing authoritative manifest contains a feasibility
+pilot with four AI-generated attempts across three controlled
+JavaScript/Express cases:
 
 | Case | CWE | Primary behavior under test | AI attempts |
 |---|---:|---|---:|
@@ -27,9 +30,22 @@ controlled JavaScript/Express cases:
 | SQL injection | CWE-89 | Query input reaches a SQLite statement | 1 |
 | Path traversal | CWE-22 | Request input controls a file path | 1 |
 
+These pilot attempts are not part of the planned primary-trial denominator.
+The primary study uses a frozen, versioned, target-only application for each CWE
+and five independent initial attempts per case, for 15 scheduled initial
+attempts. At most one eligible validation-feedback retry may follow an initial
+attempt; retries are paired secondary outcomes and cannot replace or be
+combined with the initial results.
+
 Each benchmark is deliberately small enough to establish independent ground
 truth and to test the affected endpoint deterministically. Results describe
-this controlled sample and are not a production success-rate estimate.
+this controlled sample and are not a production success-rate estimate. The
+complete construction rules, AI contract, comparison mapping, failure rules,
+and pre-freeze gates are defined in
+[`docs/study-protocol-v1.md`](study-protocol-v1.md) and the machine-readable
+`data/evaluation/trial-plan.json`. The internal protocol and primary-v1 suite
+were frozen after all three baseline evidence gates passed; the results remain
+subject to instructor review through the normal progress-report process.
 
 ## Experimental workflow
 
@@ -98,6 +114,13 @@ canonical ID, analysis, strategy, patched code, assumptions, and context-needs
 flag. Model name and response ID are retained for auditability. Candidates are
 never applied to the baseline application.
 
+For the primary study, the fixed generator is `gpt-5.2`, the prompt template is
+version `1.0`, and there are no model tools. The current Responses API call does
+not explicitly set temperature, top-p, or seed, so those values are recorded as
+provider/model defaults rather than inferred. Repetitions for a case receive
+the same frozen task evidence and never receive results from other initial
+attempts.
+
 ## Validation design
 
 Preliminary validation checks JavaScript syntax, rescans the candidate, and
@@ -106,8 +129,10 @@ than a line-sensitive finding ID.
 
 Targeted validators then test the behavior relevant to each CWE:
 
-- CWE-79 sends markup and event-handler payloads and separately verifies that
-  ordinary and special-character inputs retain their intended value.
+- CWE-79 sends markup and event-handler payloads, observes execution in
+  headless Chromium, and separately verifies that ordinary and
+  special-character inputs retain their intended value. Historical pilot
+  artifacts used reflected-output evidence; primary-v1 uses browser execution.
 - CWE-89 distinguishes expected username lookup from a classic injection that
   would return all seeded users, then verifies parameterized behavior.
 - CWE-22 distinguishes approved public-file reads from traversal attempts and
@@ -134,9 +159,11 @@ assuming either evidence source is universally correct.
 
 Only policy-eligible failures may produce a retry prompt. The prompt contains
 the prior candidate and measured syntax, scanner, security, and functional
-evidence. The XSS retry is considered improved only because it is no worse on
-all compared dimensions and improves at least one dimension; in the selected
-experiment, functional preservation improved from 4/6 to 6/6.
+evidence. The primary protocol permits at most one retry per eligible initial
+attempt. It is analyzed as a paired secondary treatment and never replaces the
+initial attempt. In the pilot, the XSS retry is considered improved because it
+is no worse on all compared dimensions and improves functional preservation
+from 4/6 to 6/6.
 
 ## Human adjudication
 
@@ -152,8 +179,11 @@ adjudications and contains two completed reviewer results.
 
 ## Metrics
 
-All primary rates use AI-generated remediation attempts as their denominator;
-the non-AI outcome-coverage control is excluded.
+Pilot metrics use the four manifest-selected AI-generated attempts as their
+denominator; the non-AI outcome-coverage control is excluded. Future primary
+metrics use all 15 scheduled initial attempts unless a metric explicitly
+requires an applied candidate. Malformed or unapplicable model output remains a
+recorded primary failure rather than being silently regenerated.
 
 - **SAST remediation success rate:** target finding resolved / AI attempts.
 - **Targeted security pass rate:** security validation passed / AI attempts.
@@ -163,12 +193,17 @@ the non-AI outcome-coverage control is excluded.
   functionality fails, or new findings appear.
 - **SAST/runtime disagreement:** target persists while security and functional
   tests pass and no new findings appear.
-- **Retry improvement rate:** eligible retries with a non-worsening improvement
-  / all selected retries.
-- **Adjudication completion rate:** completed evidence-bound reviews / required
-  adjudications.
+- **SAST-only apparent-success rate:** target resolved / scheduled initial
+  attempts; the intentionally simplified comparator ignores runtime,
+  functional, and new-finding evidence.
+- **FixProof disposition distribution:** `REJECT`,
+  `READY_FOR_HUMAN_REVIEW`, and `NEEDS_HUMAN_ADJUDICATION` / scheduled initial
+  attempts.
 
-## Outcome-coverage control
+Retry-improvement rate and adjudication-completion rate are secondary metrics.
+Human review is never represented as an autonomous production acceptance.
+
+## Pilot outcome-coverage control
 
 The selected AI outputs did not organically produce a false success. To test
 that policy branch deterministically, FixProof includes a static-output XSS
@@ -207,8 +242,8 @@ and then starts the read-only dashboard.
 
 - The sample contains three deliberately small JavaScript/Express cases.
 - Endpoint-specific tests do not establish application-wide security.
-- The XSS security validator checks reflected output but does not execute it in
-  a browser JavaScript engine.
+- The browser-backed XSS checks cover a fixed route and payload set; they do not
+  establish application-wide XSS safety.
 - The controlled SQLi rule is intentionally benchmark-oriented and
   identifier-specific, not a general detector.
 - Filesystem copies isolate attempts from baselines but are not hardened

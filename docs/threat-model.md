@@ -89,8 +89,8 @@ temporary outputs, and unselected generated workspaces.
 ## Residual risks
 
 - Endpoint-specific payloads can miss variants outside the test design.
-- Reflected-XSS checks do not execute JavaScript in a browser.
+- Browser-backed reflected-XSS checks cover only the frozen route and payload
+  set and do not establish application-wide XSS safety.
 - Controlled rules can overfit a benchmark.
 - A small number of attempts cannot estimate broad model performance.
 - Human adjudication can still be mistaken despite complete evidence.
-

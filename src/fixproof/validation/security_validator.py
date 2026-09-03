@@ -13,6 +13,11 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+from fixproof.validation.browser_xss import (
+    combine_xss_evidence,
+    run_browser_xss_test,
+)
+
 
 # ---------------------------------------------------------
 # MVP configuration
@@ -604,7 +609,7 @@ def run_xss_tests(
             payload=test_case["value"],
         )
 
-        evaluation = (
+        http_evaluation = (
             evaluate_xss_response(
                 payload=test_case[
                     "value"
@@ -612,6 +617,27 @@ def run_xss_tests(
                 response=response,
             )
         )
+
+        browser_evaluation = run_browser_xss_test(
+            host=HOST,
+            port=PORT,
+            route=route,
+            parameter=parameter,
+            payload=test_case["value"],
+        )
+
+        combined = combine_xss_evidence(
+            http_evaluation=http_evaluation,
+            browser_evaluation=browser_evaluation,
+        )
+
+        evaluation = {
+            **http_evaluation,
+            "http_status": http_evaluation["status"],
+            "browser": browser_evaluation,
+            "status": combined["status"],
+            "reason": combined["reason"],
+        }
 
         test_results.append(
             {
@@ -1048,15 +1074,15 @@ def run_security_validation(
                 route=route,
                 parameter=query_parameter,
             )
-            validator = "cwe79_reflected_xss"
+            validator = "cwe79_reflected_xss_browser"
             limitations = [
                 (
-                    "This MVP validator inspects reflected HTTP output "
-                    "and does not execute JavaScript in a real browser."
+                    "This controlled validator combines reflected-output "
+                    "inspection with Playwright headless Chromium execution."
                 ),
                 (
                     "The validator is specific to reflected XSS in "
-                    "HTML element content."
+                    "HTML element content and the fixed payload suite."
                 ),
             ]
         elif cwe == "CWE-89":

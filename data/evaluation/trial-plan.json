@@ -1,65 +1,249 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "project": "FixProof",
   "artifact_type": "trial_plan",
-  "plan_status": "draft_pending_instructor_feedback",
-  "purpose": "Freeze the primary repeated-trial protocol before collecting additional model outputs.",
-  "research_question": "Can independent SAST, targeted runtime-security, and functional evidence prevent false confidence in AI-generated vulnerability remediation?",
-  "aggregation_unit": "remediation_attempt",
+  "plan_status": "frozen_ready_for_primary_collection",
+  "last_revised": "2026-09-03",
+  "frozen_at": "2026-09-03",
+  "protocol_document": "docs/study-protocol-v1.md",
+  "purpose": "Predeclare the primary repeated-trial protocol before collecting additional model outputs.",
+  "research_question": "Does FixProof's multi-stage validation identify unsuccessful or functionally damaging AI-generated security fixes that would appear successful when remediation success is determined only by disappearance of the original SAST finding?",
+  "aggregation_unit": "scheduled_initial_remediation_attempt",
+  "claim_boundary": "Descriptive evidence for three controlled JavaScript/Express cases; no production or population-level generalization.",
   "benchmarks": [
     {
       "case_id": "xss",
-      "application": "vulnerable-js-app",
-      "cwe": "CWE-79"
+      "primary_application": "primary-xss-v1",
+      "pilot_application": "vulnerable-js-app",
+      "cwe": "CWE-79",
+      "route": "/hello",
+      "input_parameter": "name",
+      "source": "req.query.name",
+      "sink": "res.send HTML response",
+      "primary_security_oracle": "controlled XSS payload execution in headless Chromium",
+      "scanner_configuration": {
+        "default": "semgrep auto",
+        "controlled_rule": null
+      },
+      "primary_baseline_status": "verified_and_frozen"
     },
     {
       "case_id": "sqli",
-      "application": "vulnerable-sqli-app",
-      "cwe": "CWE-89"
+      "primary_application": "primary-sqli-v1",
+      "pilot_application": "vulnerable-sqli-app",
+      "cwe": "CWE-89",
+      "route": "/user",
+      "input_parameter": "username",
+      "source": "req.query.username",
+      "sink": "sqlite3 query execution",
+      "primary_security_oracle": "a tautology payload must not return rows outside the intended lookup",
+      "scanner_configuration": {
+        "default": "semgrep auto; the pilot default configuration missed the target",
+        "controlled_rule": "rules/fixproof-sqli.yml",
+        "controlled_rule_revision": "controlled-sqli-rule-v2"
+      },
+      "primary_baseline_status": "verified_and_frozen"
     },
     {
       "case_id": "path-traversal",
-      "application": "vulnerable-path-traversal-app",
-      "cwe": "CWE-22"
+      "primary_application": "primary-path-traversal-v1",
+      "pilot_application": "vulnerable-path-traversal-app",
+      "cwe": "CWE-22",
+      "route": "/file",
+      "input_parameter": "name",
+      "source": "req.query.name",
+      "sink": "fs.readFile",
+      "primary_security_oracle": "encoded or unencoded parent traversal must not disclose the synthetic outside fixture",
+      "scanner_configuration": {
+        "default": "semgrep auto",
+        "controlled_rule": null
+      },
+      "primary_baseline_status": "verified_and_frozen"
     }
   ],
   "pilot_evidence": {
     "manifest": "data/evaluation/experiment-manifest.json",
     "ai_attempts": 4,
-    "note": "Pilot evidence informs feasibility but must remain distinguishable from any later predeclared primary trials."
+    "non_ai_controls": 1,
+    "included_in_primary_metrics": false,
+    "note": "Pilot evidence informs feasibility but remains separate from the predeclared primary trials."
   },
   "treatments": {
     "candidate_generator": "gpt-5.2",
-    "prompt_template_version": null,
-    "model_settings": null,
-    "planned_attempts_per_case": null,
-    "retry_limit": null,
-    "retry_eligibility_policy": "0.2-evidence-aware"
+    "api_interface": "OpenAI Responses API structured parse",
+    "prompt_template_version": "1.0",
+    "model_settings": {
+      "temperature": "provider_model_default_not_explicitly_set",
+      "top_p": "provider_model_default_not_explicitly_set",
+      "seed": "not_supplied",
+      "tools_enabled": false,
+      "structured_output": "RemediationResponse schema"
+    },
+    "planned_attempts_per_case": 5,
+    "planned_primary_attempts": 15,
+    "stopping_rule": "Complete all 15 scheduled initial attempts; do not stop early based on observed outcomes.",
+    "retry": {
+      "limit_per_primary_attempt": 1,
+      "eligibility_policy": "0.2-evidence-aware",
+      "analysis_role": "paired_secondary_outcome",
+      "included_in_primary_metrics": false
+    }
+  },
+  "candidate_contract": {
+    "receives": [
+      "canonical finding ID",
+      "CWE and vulnerability category",
+      "Semgrep rule ID, description, and provenance",
+      "affected filename and code region",
+      "focused surrounding source context",
+      "minimal-remediation and behavior-preservation constraints"
+    ],
+    "withheld": [
+      "ground-truth answers and reference patch",
+      "security- and functional-test implementations",
+      "hidden payload lists and expected test outputs",
+      "results from other initial primary attempts",
+      "authority to modify tests, validators, or scanner configuration",
+      "authority to approve or deploy a candidate"
+    ],
+    "returns": [
+      "canonical ID",
+      "analysis",
+      "remediation strategy",
+      "complete replacement code for the supplied context",
+      "assumptions",
+      "additional-context flag"
+    ]
   },
   "comparison": {
     "baseline": "sast_only_interpretation",
     "treatment": "fixproof_multistage_validation",
-    "same_candidate_evidence_required": true
+    "same_candidate_evidence_required": true,
+    "sast_only_mapping": {
+      "resolved": "APPARENT_SUCCESS",
+      "persistent": "FAILURE",
+      "scan_unavailable": "INCONCLUSIVE",
+      "ignored_by_design": [
+        "runtime security result",
+        "functional result",
+        "new SAST findings"
+      ]
+    },
+    "fixproof_dispositions": [
+      "REJECT",
+      "READY_FOR_HUMAN_REVIEW",
+      "NEEDS_HUMAN_ADJUDICATION"
+    ],
+    "automatic_production_acceptance": false
   },
   "primary_metrics": [
+    "valid_candidate_generation_application_rate",
     "sast_remediation_success_rate",
     "targeted_security_pass_rate",
     "functional_preservation_rate",
     "new_finding_rate",
-    "sast_false_success_count",
-    "sast_runtime_disagreement_count",
-    "retry_improvement_rate",
+    "sast_only_apparent_success_rate",
+    "fixproof_disposition_distribution",
+    "sast_false_success_count_and_rate",
+    "sast_runtime_disagreement_count_and_rate"
+  ],
+  "secondary_metrics": [
+    "paired_retry_improvement_rate",
     "adjudication_completion_rate"
   ],
-  "decisions_required_before_freeze": [
-    "Set the same planned attempt count for each CWE or justify an exception.",
-    "Record exact model parameters and prompt-template version.",
-    "Define failed API call, malformed response, scanner failure, and timeout handling.",
-    "Define exclusion rules without inspecting primary-trial outcomes.",
-    "Define the SAST-only decision mapping for resolved and persistent targets.",
-    "Decide whether a retry is a separate attempt, a paired outcome, or both.",
-    "Record environment versions and controlled-rule revisions."
+  "failure_handling": {
+    "malformed_or_wrong_id_model_response": "Record as a primary model/candidate failure; do not silently regenerate.",
+    "candidate_application_failure": "Record as a primary candidate failure.",
+    "syntax_or_startup_failure": "Record as a failed candidate in the primary denominator.",
+    "infrastructure_failure": "Document and rerun the affected stage with the same saved candidate when available; do not relabel it as remediation failure.",
+    "uncorrectable_infrastructure_failure": "Report the observation as missing or inconclusive without undisclosed replacement.",
+    "startup_timeout_seconds": 10,
+    "http_request_timeout_seconds": 5,
+    "scanner_timeout_seconds": 120,
+    "scanner_timeout_implemented": true
+  },
+  "exclusion_policy": {
+    "allowed_before_collection": [
+      "baseline exploit cannot be reproduced",
+      "frozen target scanner configuration cannot identify the target",
+      "baseline security or functional oracle is defective",
+      "baseline contains an unrelated intentionally seeded vulnerability"
+    ],
+    "outcome_dependent_exclusion_allowed": false,
+    "post_collection_rule": "Document as a protocol deviation; never exclude or replace without disclosure."
+  },
+  "environment": {
+    "operating_system": "Windows 10.0.26200.9278 development environment",
+    "python": "3.11.9",
+    "node": "22.17.1",
+    "npm": "10.9.2",
+    "semgrep": "1.136.0 recorded and pinned",
+    "playwright": "1.62.0",
+    "chromium_revision": "1234",
+    "openai_python": "3.3.1",
+    "pydantic": "2.13.4",
+    "dependency_authority": [
+      "pyproject.toml",
+      "sample application package-lock.json files",
+      "benchmarks/primary/v1/*/package-lock.json"
+    ]
+  },
+  "pre_freeze_gates": [
+    "Completed: created the versioned target-only primary-v1 suite without altering pilot evidence.",
+    "Completed: verified baseline ground truth and functional behavior for all three cases.",
+    "Completed: automated the browser-level CWE-79 execution oracle.",
+    "Completed: implemented and tested the 120-second Semgrep process timeout.",
+    "Completed: captured benchmark, prompt, rule, validator, protocol, environment, and evidence hashes.",
+    "Completed: verified byte-identical restoration and the complete automated test suite.",
+    "Completed: prepared the revised scope and evaluation design for the normal course progress-report process."
   ],
-  "protocol_frozen": false
+  "freeze_evidence": {
+    "benchmark_manifest": {
+      "path": "data/evaluation/primary-benchmark-manifest.json",
+      "sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888"
+    },
+    "baseline_verification": {
+      "path": "data/evaluation/primary-baseline-verification.json",
+      "binding": "embedded_frozen_manifest_sha256",
+      "manifest_sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+      "status": "ready",
+      "passed_cases": 3,
+      "failed_cases": 0
+    },
+    "initial_prompt_template": {
+      "path": "src/fixproof/agent/prompt_builder.py",
+      "version": "1.0",
+      "sha256": "faf3cfe07461f80cecd20cbaa6893ccdb7856c47929c77ba3249271d0a3b2c8c"
+    },
+    "retry_prompt_template": {
+      "path": "src/fixproof/agent/retry_prompt_builder.py",
+      "sha256": "6b0a47273f7187cda31e1dca6e436e34662b4afd87ffb7263b8477d3fa92154a"
+    },
+    "controlled_sqli_rule": {
+      "path": "rules/fixproof-sqli.yml",
+      "revision": "controlled-sqli-rule-v2",
+      "sha256": "8983978607481a089fba156b5fa0d691fb91c113c3b796330b7595ea1ed191c1"
+    },
+    "browser_oracle": {
+      "path": "src/fixproof/validation/browser_xss.py",
+      "sha256": "89a9638d5f8c1abbf897c4927812cbd57232492d728972b6c83fd9296ff20fd3"
+    },
+    "security_validator": {
+      "path": "src/fixproof/validation/security_validator.py",
+      "sha256": "c7ba090aa1b0f7a6b43a4e18e5e0dab2f17c57868b8020c84353b2b9731fef23"
+    },
+    "scanner_runner": {
+      "path": "src/fixproof/scanners/semgrep_runner.py",
+      "sha256": "1c11c0ef9ba0a0d10897afeac68d654112bf0bfa18925c12d5e42d27167803bf"
+    },
+    "protocol_document": {
+      "path": "docs/study-protocol-v1.md",
+      "sha256": "4947e9cb9d02bd8ee5f1725323a5b71d53fe19d9de01c325639fb675f2983229"
+    },
+    "dependency_specification": {
+      "path": "pyproject.toml",
+      "sha256": "3e54b7001d0ad1e0a596b800e6663210cd7ea597e0d0c03cc2765dd9b629bb01"
+    }
+  },
+  "protocol_frozen": true
 }
-

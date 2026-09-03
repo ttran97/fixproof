@@ -10,10 +10,10 @@ readme = "README.md"
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "openai==3.3.1",
+    "playwright==1.62.0",
     "pydantic==2.13.4",
     "semgrep==1.136.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
