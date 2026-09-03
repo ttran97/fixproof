@@ -329,6 +329,40 @@ Research and audit starting points:
 - [Related-work positioning](docs/related-work.md)
 - [Clean-environment procedure](docs/reproducibility.md)
 
+## Frozen primary-trial runner
+
+Validate the complete primary-v1 schedule without writing files or calling the
+model:
+
+```powershell
+python -m fixproof.primary_trials --dry-run
+```
+
+The dry run must report five initial attempts for each of CWE-79, CWE-89, and
+CWE-22, 15 total, with both frozen-input and prompt-withholding checks passing.
+
+Live collection is deliberately guarded. Commit the runner implementation
+first, keep the working tree free of changes outside `data/primary_trials/v1/`,
+and start with one scheduled observation:
+
+```powershell
+python -m fixproof.primary_trials `
+  --execute `
+  --case xss `
+  --attempt 1 `
+  --confirm-collection PRIMARY-V1-15
+```
+
+That command is a real primary observation and may call the configured OpenAI
+model. It is not a disposable smoke test. Running `--execute` without the exact
+confirmation value is rejected. Resume uses a saved response when available;
+an uncertain in-flight request is never automatically repeated.
+
+The runner writes the immutable 15-slot schedule to
+`data/primary_trials/v1/primary-experiment-manifest.json`, individual evidence
+under `cases/`, and provisional or final primary metrics to
+`collection-state.json`. Pilot artifacts are never read into those metrics.
+
 ## Preparation pipeline
 
 Run:

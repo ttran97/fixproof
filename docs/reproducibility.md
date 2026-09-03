@@ -70,6 +70,23 @@ evidence. It does not invoke the remediation model or generate an attempt.
 The evidence-map document lists the artifacts a reviewer can inspect after the
 commands complete.
 
+## Primary trial collection
+
+Before any model call, verify the frozen schedule and prompt boundary:
+
+```powershell
+python -m fixproof.primary_trials --dry-run
+```
+
+This command uses a temporary preparation directory, writes nothing into the
+repository, and makes no model call. The live `--execute` path additionally
+requires the exact `PRIMARY-V1-15` confirmation value and a committed
+implementation state. Trial artifacts are stored separately under
+`data/primary_trials/v1/`; the four historical AI attempts remain pilot
+evidence and are not inserted into the new primary schedule. The immutable
+schedule is `primary-experiment-manifest.json`; resumable state and primary-only
+metrics are kept separately in `collection-state.json`.
+
 ## Clean-archive check
 
 After committing the intended snapshot, run:
