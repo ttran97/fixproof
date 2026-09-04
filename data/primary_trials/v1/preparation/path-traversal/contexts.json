@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "context_build": {
+    "canonical_finding_count": 1,
+    "contexts_created": 1
+  },
+  "contexts": [
+    {
+      "context_id": "CTX-CF-17216aac7b7a",
+      "canonical_id": "CF-17216aac7b7a",
+      "finding": {
+        "cwe": "CWE-22",
+        "cwe_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+        "vulnerability_class": "Path Traversal",
+        "status": "new"
+      },
+      "location": {
+        "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+        "language": "javascript",
+        "start_line": 11,
+        "end_line": 11
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "semgrep_oss"
+        ],
+        "rules": [
+          {
+            "finding_id": "FP-67775a1addc7",
+            "rule_id": "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+            "rule_origin": "semgrep_oss",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          },
+          {
+            "finding_id": "FP-0961e430c56b",
+            "rule_id": "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal",
+            "rule_origin": "semgrep_oss",
+            "severity": "WARNING",
+            "confidence": "LOW"
+          }
+        ],
+        "messages": [
+          "Possible writing outside of the destination, make sure that the target path is nested in the intended destination",
+          "Detected possible user input going into a `path.join` or `path.resolve` function. This could possibly lead to a path traversal vulnerability,  where the attacker can access arbitrary files stored in the file system. Instead, be sure to sanitize or validate user input first."
+        ]
+      },
+      "source_context": {
+        "context_type": "express_route",
+        "start_line": 9,
+        "end_line": 22,
+        "affected_start_line": 11,
+        "affected_end_line": 11,
+        "code": "   9: app.get(\"/file\", (req, res) => {\n   10:     const name = req.query.name;\n>> 11:     const filePath = path.join(fileRoot, name);\n   12: \n   13:     fs.readFile(filePath, \"utf8\", (err, data) => {\n   14:         if (err) {\n   15:             return res.status(404).json({\n   16:                 error: \"File not found\"\n   17:             });\n   18:         }\n   19: \n   20:         res.type(\"text/plain\").send(data);\n   21:     });\n   22: });"
+      }
+    }
+  ]
+}

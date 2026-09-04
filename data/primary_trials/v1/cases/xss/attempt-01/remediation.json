@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-209ae17232b1",
+    "model": "gpt-5.2",
+    "response_id": "resp_0351a1e256a67f32006a9a01ddeec087d29da6daad65268950",
+    "analysis": "The /hello route reflects req.query.name directly into an HTML response via string concatenation. If name contains HTML/JS (e.g., <script>), it will be interpreted by the browser, enabling reflected XSS (CWE-79).",
+    "remediation_strategy": "Apply output encoding for the untrusted value before embedding it into HTML. Use a minimal local HTML-escape function to neutralize special characters (&, <, >, \", ', /) and keep the existing response structure and behavior.",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const escapeHtml = (value) => String(value ?? \"\")\n        .replace(/&/g, \"&amp;\")\n        .replace(/</g, \"&lt;\")\n        .replace(/>/g, \"&gt;\")\n        .replace(/\\\"/g, \"&quot;\")\n        .replace(/'/g, \"&#39;\")\n        .replace(/\\//g, \"&#x2F;\");\n\n    res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");\n});",
+    "assumptions": [],
+    "needs_additional_context": false
+  }
+}

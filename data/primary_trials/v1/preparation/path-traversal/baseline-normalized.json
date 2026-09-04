@@ -1,0 +1,102 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "scanner": {
+    "name": "Semgrep",
+    "version": "1.136.0",
+    "engine_requested": "OSS"
+  },
+  "scan": {
+    "files_scanned": [
+      "benchmarks\\primary\\v1\\path-traversal\\app.js"
+    ],
+    "finding_count": 3,
+    "error_count": 0,
+    "finding_count_by_rule_origin": {
+      "semgrep_oss": 3
+    }
+  },
+  "findings": [
+    {
+      "finding_id": "FP-8d178e7d9a92",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-352",
+      "cwe_name": "Cross-Site Request Forgery (CSRF)",
+      "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+      "severity": "INFO",
+      "confidence": "LOW",
+      "likelihood": "LOW",
+      "impact": "HIGH",
+      "message": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies.",
+      "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+      "start_line": 5,
+      "end_line": 5,
+      "source_context": {
+        "snippet": "3: const path = require(\"path\");\n4: \n5: const app = express();\n6: const port = Number(process.env.PORT || 3000);\n7: const fileRoot = path.join(__dirname, \"public-files\");",
+        "context_start_line": 3,
+        "context_end_line": 7,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-67775a1addc7",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-22",
+      "cwe_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "vulnerability_class": "Path Traversal",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "HIGH",
+      "impact": "MEDIUM",
+      "message": "Possible writing outside of the destination, make sure that the target path is nested in the intended destination",
+      "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+      "start_line": 11,
+      "end_line": 11,
+      "source_context": {
+        "snippet": "9: app.get(\"/file\", (req, res) => {\n10:     const name = req.query.name;\n11:     const filePath = path.join(fileRoot, name);\n12: \n13:     fs.readFile(filePath, \"utf8\", (err, data) => {",
+        "context_start_line": 9,
+        "context_end_line": 13,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-0961e430c56b",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-22",
+      "cwe_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "vulnerability_class": "Path Traversal",
+      "severity": "WARNING",
+      "confidence": "LOW",
+      "likelihood": "HIGH",
+      "impact": "MEDIUM",
+      "message": "Detected possible user input going into a `path.join` or `path.resolve` function. This could possibly lead to a path traversal vulnerability,  where the attacker can access arbitrary files stored in the file system. Instead, be sure to sanitize or validate user input first.",
+      "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+      "start_line": 11,
+      "end_line": 11,
+      "source_context": {
+        "snippet": "9: app.get(\"/file\", (req, res) => {\n10:     const name = req.query.name;\n11:     const filePath = path.join(fileRoot, name);\n12: \n13:     fs.readFile(filePath, \"utf8\", (err, data) => {",
+        "context_start_line": 9,
+        "context_end_line": 13,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    }
+  ]
+}

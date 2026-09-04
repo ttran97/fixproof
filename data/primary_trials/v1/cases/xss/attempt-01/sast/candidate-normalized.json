@@ -1,0 +1,102 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "scanner": {
+    "name": "Semgrep",
+    "version": "1.136.0",
+    "engine_requested": "OSS"
+  },
+  "scan": {
+    "files_scanned": [
+      "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js"
+    ],
+    "finding_count": 3,
+    "error_count": 0,
+    "finding_count_by_rule_origin": {
+      "semgrep_oss": 3
+    }
+  },
+  "findings": [
+    {
+      "finding_id": "FP-25733206aaad",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-352",
+      "cwe_name": "Cross-Site Request Forgery (CSRF)",
+      "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+      "severity": "INFO",
+      "confidence": "LOW",
+      "likelihood": "LOW",
+      "impact": "HIGH",
+      "message": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies.",
+      "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js",
+      "start_line": 3,
+      "end_line": 3,
+      "source_context": {
+        "snippet": "1: const express = require(\"express\");\n2: \n3: const app = express();\n4: const port = Number(process.env.PORT || 3000);\n5: ",
+        "context_start_line": 1,
+        "context_end_line": 5,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-3eeaa79419b3",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "HIGH",
+      "impact": "MEDIUM",
+      "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+      "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js",
+      "start_line": 16,
+      "end_line": 16,
+      "source_context": {
+        "snippet": "14:         .replace(/\\//g, \"&#x2F;\");\n15: \n16:     res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");\n17: });\n18: ",
+        "context_start_line": 14,
+        "context_end_line": 18,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-a68ee376a142",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "impact": "MEDIUM",
+      "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+      "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js",
+      "start_line": 16,
+      "end_line": 16,
+      "source_context": {
+        "snippet": "14:         .replace(/\\//g, \"&#x2F;\");\n15: \n16:     res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");\n17: });\n18: ",
+        "context_start_line": 14,
+        "context_end_line": 18,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    }
+  ]
+}

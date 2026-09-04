@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "decision": {
+    "canonical_id": "CF-209ae17232b1",
+    "policy_version": "0.2-evidence-aware",
+    "classification": "sast_runtime_disagreement",
+    "disposition": "NEEDS_HUMAN_ADJUDICATION",
+    "eligible_for_human_approval": false,
+    "retry_allowed": false,
+    "recommended_action": "human_adjudication",
+    "reason_codes": [
+      "TARGET_SAST_FINDING_PERSISTENT",
+      "SAST_RUNTIME_EVIDENCE_CONFLICT"
+    ],
+    "evidence": {
+      "syntax": "pass",
+      "target_sast": "persistent",
+      "new_sast_findings": 0,
+      "security_validation": "pass",
+      "functional_validation": "pass",
+      "functional_tests": {
+        "passed": 6,
+        "failed": 0
+      }
+    },
+    "evidence_conflict": {
+      "detected": true,
+      "description": "The target SAST finding remained persistent while targeted runtime security validation and functional validation both passed with no new SAST findings."
+    },
+    "evaluation_labels": {
+      "sast_remediation_success": false,
+      "security_validation_pass": true,
+      "functional_preservation": true,
+      "security_regression": false,
+      "false_success": false
+    },
+    "human_review": {
+      "status": "adjudication_required",
+      "purpose": "resolve_conflicting_validation_evidence",
+      "note": "FixProof never automatically approves an AI-generated remediation. Human review remains required."
+    },
+    "input_artifacts": {
+      "preliminary": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\preliminary.json",
+      "security": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\security.json",
+      "functional": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\functional.json"
+    }
+  }
+}

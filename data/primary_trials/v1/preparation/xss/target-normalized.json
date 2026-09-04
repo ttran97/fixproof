@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "scanner": {
+    "name": "Semgrep",
+    "version": "1.136.0",
+    "engine_requested": "OSS"
+  },
+  "scan": {
+    "files_scanned": [
+      "benchmarks\\primary\\v1\\xss\\app.js"
+    ],
+    "finding_count": 2,
+    "error_count": 0,
+    "finding_count_by_rule_origin": {
+      "semgrep_oss": 2
+    }
+  },
+  "findings": [
+    {
+      "finding_id": "FP-9f13d6a1a7b4",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "HIGH",
+      "impact": "MEDIUM",
+      "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+      "file": "benchmarks\\primary\\v1\\xss\\app.js",
+      "start_line": 8,
+      "end_line": 8,
+      "source_context": {
+        "snippet": "6: app.get(\"/hello\", (req, res) => {\n7:     const name = req.query.name;\n8:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n9: });\n10: ",
+        "context_start_line": 6,
+        "context_end_line": 10,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\xss\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    },
+    {
+      "finding_id": "FP-11e9e9fb24fa",
+      "scanner": "semgrep",
+      "engine": "OSS",
+      "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      "rule_origin": "semgrep_oss",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "severity": "WARNING",
+      "confidence": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "impact": "MEDIUM",
+      "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.",
+      "file": "benchmarks\\primary\\v1\\xss\\app.js",
+      "start_line": 8,
+      "end_line": 8,
+      "source_context": {
+        "snippet": "6: app.get(\"/hello\", (req, res) => {\n7:     const name = req.query.name;\n8:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n9: });\n10: ",
+        "context_start_line": 6,
+        "context_end_line": 10,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\xss\\app.js"
+      },
+      "status": "new",
+      "validation_state": "NO_VALIDATOR"
+    }
+  ]
+}

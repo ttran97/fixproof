@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "context_build": {
+    "canonical_finding_count": 1,
+    "contexts_created": 1
+  },
+  "contexts": [
+    {
+      "context_id": "CTX-CF-209ae17232b1",
+      "canonical_id": "CF-209ae17232b1",
+      "finding": {
+        "cwe": "CWE-79",
+        "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "vulnerability_class": "Cross-Site-Scripting (XSS)",
+        "status": "new"
+      },
+      "location": {
+        "file": "benchmarks\\primary\\v1\\xss\\app.js",
+        "language": "javascript",
+        "start_line": 8,
+        "end_line": 8
+      },
+      "scanner_evidence": {
+        "finding_count": 2,
+        "rule_origins": [
+          "semgrep_oss"
+        ],
+        "rules": [
+          {
+            "finding_id": "FP-9f13d6a1a7b4",
+            "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+            "rule_origin": "semgrep_oss",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          },
+          {
+            "finding_id": "FP-11e9e9fb24fa",
+            "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+            "rule_origin": "semgrep_oss",
+            "severity": "WARNING",
+            "confidence": "MEDIUM"
+          }
+        ],
+        "messages": [
+          "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+          "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML."
+        ]
+      },
+      "source_context": {
+        "context_type": "express_route",
+        "start_line": 6,
+        "end_line": 9,
+        "affected_start_line": 8,
+        "affected_end_line": 8,
+        "code": "   6: app.get(\"/hello\", (req, res) => {\n   7:     const name = req.query.name;\n>> 8:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n   9: });"
+      }
+    }
+  ]
+}

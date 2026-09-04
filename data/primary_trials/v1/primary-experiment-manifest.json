@@ -1,0 +1,226 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_experiment_manifest",
+  "created_at": "2026-09-03T23:25:15.357524+00:00",
+  "suite_id": "primary-v1",
+  "manifest_sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+  "implementation_commit": "f30ed0ec5bf0b7f4ca6bbf9178fb3a747cecd0b2",
+  "implementation_files": {
+    "src/fixproof/primary_trials.py": "ff3a29d237e923d31ca6e76d179383e24ec3df542f8bcfba43b886ed83d24f83",
+    "src/fixproof/agent/context_builder.py": "86f2c7b3d015ac58526d78c2f170f4b8d678af455647ebdace7b9cd9fa9e8a5e",
+    "src/fixproof/agent/prompt_builder.py": "faf3cfe07461f80cecd20cbaa6893ccdb7856c47929c77ba3249271d0a3b2c8c",
+    "src/fixproof/agent/remediation_agent.py": "44c9d5fc7e8de64ef55aa50c4abc4b445268da485f320ac16f43b210a1b1277f",
+    "src/fixproof/findings/finding_correlator.py": "92c8c392209dfbf096720f81de0655b80a5987665030bf1e4272a570ffabd4b6",
+    "src/fixproof/patches/patch_workspace.py": "1dceca6b5a2007755d72aa8135fb92a56f7e42bffb7da19d481659cbb72e3e4f",
+    "src/fixproof/scanners/semgrep_parser.py": "0fb93fd5005b133f40e6aca22844c83774287d15a2e98e0a2d48750c5f5721be",
+    "src/fixproof/scanners/semgrep_runner.py": "1c11c0ef9ba0a0d10897afeac68d654112bf0bfa18925c12d5e42d27167803bf",
+    "src/fixproof/validation/browser_xss.py": "89a9638d5f8c1abbf897c4927812cbd57232492d728972b6c83fd9296ff20fd3",
+    "src/fixproof/validation/decision_engine.py": "ed3128e55ebfec567d8f318f30ec593401d2533b8080bcec1e97c8658d058d70",
+    "src/fixproof/validation/functional_validator.py": "b5a7677114c24f31fd7b4a4d59e96ae55b6c80cd9e9fe7bd7320cbf8b13a5a00",
+    "src/fixproof/validation/security_validator.py": "c7ba090aa1b0f7a6b43a4e18e5e0dab2f17c57868b8020c84353b2b9731fef23",
+    "src/fixproof/validation/validation_runner.py": "5caa55964d7c12bf9838cf967da4a29cfdd2aed41ce2238d73e38e115bda47a2"
+  },
+  "model": "gpt-5.2",
+  "attempts": [
+    {
+      "trial_id": "primary-v1-xss-initial-01",
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "attempt": 1,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-xss-initial-02",
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "attempt": 2,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-xss-initial-03",
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "attempt": 3,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-xss-initial-04",
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "attempt": 4,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-xss-initial-05",
+      "case_id": "xss",
+      "application": "primary-xss-v1",
+      "cwe": "CWE-79",
+      "attempt": 5,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-sqli-initial-01",
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "attempt": 1,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-sqli-initial-02",
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "attempt": 2,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-sqli-initial-03",
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "attempt": 3,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-sqli-initial-04",
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "attempt": 4,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-sqli-initial-05",
+      "case_id": "sqli",
+      "application": "primary-sqli-v1",
+      "cwe": "CWE-89",
+      "attempt": 5,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-01",
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "attempt": 1,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-02",
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "attempt": 2,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-03",
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "attempt": 3,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-04",
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "attempt": 4,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-05",
+      "case_id": "path-traversal",
+      "application": "primary-path-traversal-v1",
+      "cwe": "CWE-22",
+      "attempt": 5,
+      "condition": "initial",
+      "metric_scope": "primary",
+      "status": "planned"
+    }
+  ],
+  "preparations": {
+    "xss": {
+      "case_id": "xss",
+      "canonical_id": "CF-209ae17232b1",
+      "baseline_raw": "data/primary_baselines/raw_scans/xss-default.json",
+      "baseline_raw_sha256": "02e74f0b2d800601a0ce7005a00308c37184ea92abc370deb2d86d1d6a02eca8",
+      "baseline_correlated": "data/primary_trials/v1/preparation/xss/baseline-correlated.json",
+      "contexts": "data/primary_trials/v1/preparation/xss/contexts.json",
+      "prompts": "data/primary_trials/v1/preparation/xss/prompts.json",
+      "prompt_sha256": "98de010780cf370b81215a57ad39a729c1d40ff3e6c7a84a6c2392af12337475",
+      "prompt_withholding_audit": "pass",
+      "target_rule_ids": [
+        "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+        "javascript.express.security.injection.raw-html-format.raw-html-format"
+      ],
+      "target_rule_origin": "semgrep_oss"
+    },
+    "sqli": {
+      "case_id": "sqli",
+      "canonical_id": "CF-8b662341cc2d",
+      "baseline_raw": "data/primary_baselines/raw_scans/sqli-configured.json",
+      "baseline_raw_sha256": "978bb7a3f73284db6a23471e1cb3efc67bd8c9e18bcc41e9d9c6d49bf3c1a20e",
+      "baseline_correlated": "data/primary_trials/v1/preparation/sqli/baseline-correlated.json",
+      "contexts": "data/primary_trials/v1/preparation/sqli/contexts.json",
+      "prompts": "data/primary_trials/v1/preparation/sqli/prompts.json",
+      "prompt_sha256": "ef89df63ff919d517475fc9e936f0415de5d451de0a3a302c482461f34e2344b",
+      "prompt_withholding_audit": "pass",
+      "target_rule_ids": [
+        "rules.fixproof.javascript.sqlite3.sql-injection"
+      ],
+      "target_rule_origin": "fixproof_controlled"
+    },
+    "path-traversal": {
+      "case_id": "path-traversal",
+      "canonical_id": "CF-17216aac7b7a",
+      "baseline_raw": "data/primary_baselines/raw_scans/path-traversal-default.json",
+      "baseline_raw_sha256": "d2017c96cb4320c70087838965b705fe156522704231bc682f4367bfa3c6fc4b",
+      "baseline_correlated": "data/primary_trials/v1/preparation/path-traversal/baseline-correlated.json",
+      "contexts": "data/primary_trials/v1/preparation/path-traversal/contexts.json",
+      "prompts": "data/primary_trials/v1/preparation/path-traversal/prompts.json",
+      "prompt_sha256": "4c0d6e4692371b39863d3c585e326bfa3108a9a68886086d026c315bfdb1d1b2",
+      "prompt_withholding_audit": "pass",
+      "target_rule_ids": [
+        "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+        "javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal"
+      ],
+      "target_rule_origin": "semgrep_oss"
+    }
+  }
+}

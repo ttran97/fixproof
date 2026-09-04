@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "correlation": {
+    "input_finding_count": 2,
+    "canonical_finding_count": 1,
+    "duplicates_collapsed": 1
+  },
+  "findings": [
+    {
+      "canonical_id": "CF-209ae17232b1",
+      "cwe": "CWE-79",
+      "cwe_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "vulnerability_class": "Cross-Site-Scripting (XSS)",
+      "file": "benchmarks\\primary\\v1\\xss\\app.js",
+      "start_line": 8,
+      "end_line": 8,
+      "source_context": {
+        "snippet": "6: app.get(\"/hello\", (req, res) => {\n7:     const name = req.query.name;\n8:     res.send(\"<h1>Hello \" + name + \"</h1>\");\n9: });\n10: ",
+        "context_start_line": 6,
+        "context_end_line": 10,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\xss\\app.js"
+      },
+      "status": "new",
+      "scanner_finding_count": 2,
+      "rule_origins": [
+        "semgrep_oss"
+      ],
+      "scanner_evidence": [
+        {
+          "finding_id": "FP-9f13d6a1a7b4",
+          "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+          "rule_origin": "semgrep_oss",
+          "severity": "WARNING",
+          "confidence": "MEDIUM",
+          "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within."
+        },
+        {
+          "finding_id": "FP-11e9e9fb24fa",
+          "rule_id": "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+          "rule_origin": "semgrep_oss",
+          "severity": "WARNING",
+          "confidence": "MEDIUM",
+          "message": "Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML."
+        }
+      ]
+    }
+  ]
+}
