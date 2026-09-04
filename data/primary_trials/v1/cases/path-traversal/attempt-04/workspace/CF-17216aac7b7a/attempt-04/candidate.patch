@@ -1,0 +1,25 @@
+--- original/app.js
++++ candidate/app.js
+@@ -8,7 +8,21 @@
+ 
+ app.get("/file", (req, res) => {
+     const name = req.query.name;
+-    const filePath = path.join(fileRoot, name);
++    if (typeof name !== "string" || name.length === 0) {
++        return res.status(400).json({
++            error: "Invalid file name"
++        });
++    }
++
++    const rootPath = path.resolve(fileRoot);
++    const filePath = path.resolve(rootPath, name);
++
++    // Ensure the resolved path stays within the intended root directory
++    if (filePath !== rootPath && !filePath.startsWith(rootPath + path.sep)) {
++        return res.status(400).json({
++            error: "Invalid file name"
++        });
++    }
+ 
+     fs.readFile(filePath, "utf8", (err, data) => {
+         if (err) {

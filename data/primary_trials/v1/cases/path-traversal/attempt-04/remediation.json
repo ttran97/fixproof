@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-17216aac7b7a",
+    "model": "gpt-5.2",
+    "response_id": "resp_05cce6ab46d313d6006a9b07f5d11c87d288c11222dac91ff4",
+    "analysis": "`req.query.name` is user-controlled and is used directly in `path.join(fileRoot, name)`. An attacker can supply traversal sequences (e.g., `../../etc/passwd`) or absolute paths to escape `fileRoot` and read arbitrary files. The fix is to resolve the candidate path and enforce it stays within `fileRoot` before reading.",
+    "remediation_strategy": "Resolve the requested path against the intended root and validate that the resolved path is still nested under `fileRoot` (using a prefix check with a trailing path separator). Reject invalid/missing names with a 400 response. This preserves intended behavior for legitimate in-root file reads while preventing traversal.",
+    "patched_code": "app.get(\"/file\", (req, res) => {\n    const name = req.query.name;\n    if (typeof name !== \"string\" || name.length === 0) {\n        return res.status(400).json({\n            error: \"Invalid file name\"\n        });\n    }\n\n    const rootPath = path.resolve(fileRoot);\n    const filePath = path.resolve(rootPath, name);\n\n    // Ensure the resolved path stays within the intended root directory\n    if (filePath !== rootPath && !filePath.startsWith(rootPath + path.sep)) {\n        return res.status(400).json({\n            error: \"Invalid file name\"\n        });\n    }\n\n    fs.readFile(filePath, \"utf8\", (err, data) => {\n        if (err) {\n            return res.status(404).json({\n                error: \"File not found\"\n            });\n        }\n\n        res.type(\"text/plain\").send(data);\n    });\n});",
+    "assumptions": [
+      "`fileRoot` is intended to be the sole allowed directory root for file reads.",
+      "`path` and `fs` are already imported in this module (as implied by the original code)."
+    ],
+    "needs_additional_context": false
+  }
+}

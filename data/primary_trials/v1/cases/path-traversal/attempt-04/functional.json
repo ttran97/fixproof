@@ -1,0 +1,94 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "functional_validation": {
+    "canonical_id": "CF-17216aac7b7a",
+    "validator": "express_restricted_file_lookup",
+    "cwe": "CWE-22",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-04\\workspace\\CF-17216aac7b7a\\attempt-04\\app\\app.js",
+      "route": "/file",
+      "query_parameter": "name"
+    },
+    "status": "pass",
+    "summary": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "tests": [
+      {
+        "test": "welcome_file",
+        "input": "welcome.txt",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "FixProof public fixture: welcome\n",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected file response.",
+          "expected_status": 200,
+          "actual_status": 200,
+          "expected_body": "FixProof public fixture: welcome",
+          "actual_body": "FixProof public fixture: welcome\n",
+          "expected_json": null,
+          "actual_json": null,
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "guide_file",
+        "input": "guide.txt",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "FixProof public fixture: guide\n",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected file response.",
+          "expected_status": 200,
+          "actual_status": 200,
+          "expected_body": "FixProof public fixture: guide",
+          "actual_body": "FixProof public fixture: guide\n",
+          "expected_json": null,
+          "actual_json": null,
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "missing_file",
+        "input": "missing.txt",
+        "http": {
+          "request_succeeded": false,
+          "status_code": 404,
+          "body": "{\"error\":\"File not found\"}",
+          "error": "HTTP Error 404: Not Found"
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected file response.",
+          "expected_status": 404,
+          "actual_status": 404,
+          "expected_body": null,
+          "actual_body": "{\"error\":\"File not found\"}",
+          "expected_json": {
+            "error": "File not found"
+          },
+          "actual_json": {
+            "error": "File not found"
+          },
+          "semantic_match": true
+        }
+      }
+    ],
+    "validation_property": "The remediation must preserve public-file contents and the existing missing-file 404 response.",
+    "limitations": [
+      "This validator covers two public fixtures and one missing-file case.",
+      "It does not establish full application functional correctness."
+    ]
+  }
+}
