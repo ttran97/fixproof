@@ -1,0 +1,130 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "security_validation": {
+    "canonical_id": "CF-209ae17232b1",
+    "validator": "cwe79_reflected_xss_browser",
+    "cwe": "CWE-79",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-05\\workspace\\CF-209ae17232b1\\attempt-05\\app\\app.js",
+      "route": "/hello",
+      "query_parameter": "name"
+    },
+    "status": "pass",
+    "test_count": 4,
+    "tests": [
+      {
+        "test": "script_tag",
+        "payload": "<script>alert(1)</script>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &lt;script&gt;alert(1)&lt;/script&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The payload was not present as unsafe reflected markup and did not execute in headless Chromium.",
+          "reflected_value": "&lt;script&gt;alert(1)&lt;/script&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false,
+          "http_status": "pass",
+          "browser": {
+            "status": "not_executed",
+            "executed": false,
+            "url": "http://127.0.0.1:3000/hello?name=%3Cscript%3Ealert%281%29%3C%2Fscript%3E",
+            "browser": "chromium",
+            "dialogs": [],
+            "http_status": 200,
+            "error": null
+          }
+        }
+      },
+      {
+        "test": "img_event_handler",
+        "payload": "<img src=x onerror=alert(1)>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &lt;img src=x onerror=alert(1)&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The payload was not present as unsafe reflected markup and did not execute in headless Chromium.",
+          "reflected_value": "&lt;img src=x onerror=alert(1)&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false,
+          "http_status": "pass",
+          "browser": {
+            "status": "not_executed",
+            "executed": false,
+            "url": "http://127.0.0.1:3000/hello?name=%3Cimg+src%3Dx+onerror%3Dalert%281%29%3E",
+            "browser": "chromium",
+            "dialogs": [],
+            "http_status": 200,
+            "error": null
+          }
+        }
+      },
+      {
+        "test": "quote_svg_event",
+        "payload": "\"><svg onload=alert(1)>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &quot;&gt;&lt;svg onload=alert(1)&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The payload was not present as unsafe reflected markup and did not execute in headless Chromium.",
+          "reflected_value": "&quot;&gt;&lt;svg onload=alert(1)&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false,
+          "http_status": "pass",
+          "browser": {
+            "status": "not_executed",
+            "executed": false,
+            "url": "http://127.0.0.1:3000/hello?name=%22%3E%3Csvg+onload%3Dalert%281%29%3E",
+            "browser": "chromium",
+            "dialogs": [],
+            "http_status": 200,
+            "error": null
+          }
+        }
+      },
+      {
+        "test": "consecutive_markup_characters",
+        "payload": "<<script>alert(1)//<</script>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &lt;&lt;script&gt;alert(1)//&lt;&lt;/script&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The payload was not present as unsafe reflected markup and did not execute in headless Chromium.",
+          "reflected_value": "&lt;&lt;script&gt;alert(1)//&lt;&lt;/script&gt;",
+          "payload_reflected_verbatim": false,
+          "raw_markup_present": false,
+          "http_status": "pass",
+          "browser": {
+            "status": "not_executed",
+            "executed": false,
+            "url": "http://127.0.0.1:3000/hello?name=%3C%3Cscript%3Ealert%281%29%2F%2F%3C%3C%2Fscript%3E",
+            "browser": "chromium",
+            "dialogs": [],
+            "http_status": 200,
+            "error": null
+          }
+        }
+      }
+    ],
+    "limitations": [
+      "This controlled validator combines reflected-output inspection with Playwright headless Chromium execution.",
+      "The validator is specific to reflected XSS in HTML element content and the fixed payload suite."
+    ]
+  }
+}

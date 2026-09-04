@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-209ae17232b1",
+    "model": "gpt-5.2",
+    "response_id": "resp_092e1f33a820a5e1006a9af7e72da087d2a2b4eaa838f1a5e9",
+    "analysis": "The route interpolates req.query.name directly into an HTML string sent via res.send(). If name contains HTML/JS payloads (e.g., <script>), it will be reflected into the response and executed by the browser (reflected XSS, CWE-79).",
+    "remediation_strategy": "HTML-escape the untrusted query parameter before embedding it into the HTML response. This preserves the route\u2019s behavior (still returns an <h1> greeting) while preventing injected markup/scripts from being interpreted by the browser.",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const safeName = String(name ?? \"\")\n        .replace(/&/g, \"&amp;\")\n        .replace(/</g, \"&lt;\")\n        .replace(/>/g, \"&gt;\")\n        .replace(/\\\"/g, \"&quot;\")\n        .replace(/'/g, \"&#39;\");\n    res.send(\"<h1>Hello \" + safeName + \"</h1>\");\n});",
+    "assumptions": [
+      "This endpoint is intended to return a small HTML fragment and not render templates.",
+      "Escaping the name value is acceptable (i.e., user-provided HTML is not intended to be rendered as HTML)."
+    ],
+    "needs_additional_context": false
+  }
+}

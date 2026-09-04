@@ -1,0 +1,101 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_trial_attempt",
+  "trial_id": "primary-v1-xss-initial-05",
+  "case_id": "xss",
+  "application": "primary-xss-v1",
+  "cwe": "CWE-79",
+  "attempt": 5,
+  "condition": "initial",
+  "metric_scope": "primary",
+  "status": "completed",
+  "model": "gpt-5.2",
+  "canonical_id": "CF-209ae17232b1",
+  "manifest_sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+  "prompt_sha256": "98de010780cf370b81215a57ad39a729c1d40ff3e6c7a84a6c2392af12337475",
+  "history": [
+    {
+      "status": "api_request_started",
+      "recorded_at": "2026-09-04T16:55:01.337689+00:00"
+    },
+    {
+      "status": "model_response_saved",
+      "recorded_at": "2026-09-04T16:55:07.675385+00:00"
+    },
+    {
+      "status": "candidate_applied",
+      "recorded_at": "2026-09-04T16:55:07.707382+00:00"
+    },
+    {
+      "status": "completed",
+      "recorded_at": "2026-09-04T16:55:22.045861+00:00"
+    }
+  ],
+  "remediation": {
+    "path": "data/primary_trials/v1/cases/xss/attempt-05/remediation.json",
+    "sha256": "cfdacb86bd389c45dea0bef65b6370f190f55e3472e25be125033fab9b6df9f8"
+  },
+  "response_id": "resp_092e1f33a820a5e1006a9af7e72da087d2a2b4eaa838f1a5e9",
+  "error": null,
+  "workspace_metadata": {
+    "path": "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/workspace.json",
+    "sha256": "2b1bd26bc161bb2d7bcbe5cdebc600968c5c095dd8cb81df44b8d6dcb418dd32"
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/candidate.patch",
+    "sha256": "6c5e16d4062bb4be6d01fdecf79b21313ae4637193ec0da57649883d3c19e7a9"
+  },
+  "terminal": true,
+  "classification": "sast_runtime_disagreement",
+  "disposition": "NEEDS_HUMAN_ADJUDICATION",
+  "sast_only_interpretation": "FAILURE",
+  "evidence": {
+    "syntax": "pass",
+    "target_sast": "persistent",
+    "new_sast_findings": 0,
+    "security_validation": "pass",
+    "functional_validation": "pass",
+    "functional_tests": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "evaluation_labels": {
+    "sast_remediation_success": false,
+    "security_validation_pass": true,
+    "functional_preservation": true,
+    "security_regression": false,
+    "false_success": false
+  },
+  "artifacts": {
+    "remediation": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/remediation.json",
+      "sha256": "cfdacb86bd389c45dea0bef65b6370f190f55e3472e25be125033fab9b6df9f8"
+    },
+    "workspace": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/workspace.json",
+      "sha256": "2b1bd26bc161bb2d7bcbe5cdebc600968c5c095dd8cb81df44b8d6dcb418dd32"
+    },
+    "patch": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/candidate.patch",
+      "sha256": "6c5e16d4062bb4be6d01fdecf79b21313ae4637193ec0da57649883d3c19e7a9"
+    },
+    "preliminary": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/preliminary.json",
+      "sha256": "f6c52cef90b6a17c27ed899f9aef589eaef5e164f833a6f51e995ac1905aeb86"
+    },
+    "security": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/security.json",
+      "sha256": "c482269efd5a71f2913d5459aeac1ee1638288cc10880c053a9c3adaa132fd3c"
+    },
+    "functional": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/functional.json",
+      "sha256": "5881fb2bed60b42c5d5c84a5bc59dffd41ac48b500234f63bd62afce7607c0d7"
+    },
+    "decision": {
+      "path": "data/primary_trials/v1/cases/xss/attempt-05/decision.json",
+      "sha256": "3b57d0b0d1e048b742e9153670f01a38b385b1d5793e83a25a4dcf32bdda1577"
+    }
+  }
+}
