@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-209ae17232b1",
+    "attempt": 3,
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\xss\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-03\\workspace\\CF-209ae17232b1\\attempt-03\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-03\\workspace\\CF-209ae17232b1\\attempt-03",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-03\\workspace\\CF-209ae17232b1\\attempt-03\\candidate.patch",
+    "remediation_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-03\\remediation.json",
+    "model": "gpt-5.2",
+    "response_id": "resp_02eb89c2f5ac92af006a9af6ad3ae087d285a2b4a4ea5e0dd0",
+    "hashes": {
+      "original_source_sha256": "fbdc7b2f6fb5ce318efe96b53013fb343bd84ea013ab9fc0106255cf27714ba7",
+      "candidate_source_sha256": "99daf7c0134115e6c84fa77f37eb487b0c1ae04777333e519fa8096f203574b6",
+      "patch_sha256": "6e68e29c8e0b8972175757240a8545ffa5101371b3bea3959bff4fbe53ddfccc"
+    },
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}

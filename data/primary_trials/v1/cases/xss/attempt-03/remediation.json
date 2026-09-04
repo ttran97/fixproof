@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-209ae17232b1",
+    "model": "gpt-5.2",
+    "response_id": "resp_02eb89c2f5ac92af006a9af6ad3ae087d285a2b4a4ea5e0dd0",
+    "analysis": "The route directly concatenates untrusted query parameter `name` into an HTML string and sends it via `res.send()`. If `name` contains HTML/JS payloads, they will be interpreted by the browser, enabling reflected XSS (CWE-79).",
+    "remediation_strategy": "HTML-escape the untrusted `name` value before embedding it into the response HTML. Use a small local escaping function to neutralize special characters (<, >, &, \", ', `) while preserving the route behavior (still returns an <h1> greeting).",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const escapeHtml = (value) =>\n        String(value)\n            .replace(/&/g, \"&amp;\")\n            .replace(/</g, \"&lt;\")\n            .replace(/>/g, \"&gt;\")\n            .replace(/\\\"/g, \"&quot;\")\n            .replace(/'/g, \"&#39;\")\n            .replace(/`/g, \"&#96;\");\n\n    res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");\n});",
+    "assumptions": [],
+    "needs_additional_context": false
+  }
+}
