@@ -22,3 +22,20 @@
 # Generated evidence is byte-bound by SHA-256; never normalize it.
 data/** -text
 workspaces/** -text
+
+# Frozen experimental implementation files are also SHA-256 byte-bound.
+rules/fixproof-sqli.yml -text
+src/fixproof/agent/context_builder.py -text
+src/fixproof/agent/prompt_builder.py -text
+src/fixproof/agent/remediation_agent.py -text
+src/fixproof/agent/retry_prompt_builder.py -text
+src/fixproof/findings/finding_correlator.py -text
+src/fixproof/patches/patch_workspace.py -text
+src/fixproof/primary_trials.py -text
+src/fixproof/scanners/semgrep_parser.py -text
+src/fixproof/scanners/semgrep_runner.py -text
+src/fixproof/validation/browser_xss.py -text
+src/fixproof/validation/decision_engine.py -text
+src/fixproof/validation/functional_validator.py -text
+src/fixproof/validation/security_validator.py -text
+src/fixproof/validation/validation_runner.py -text
