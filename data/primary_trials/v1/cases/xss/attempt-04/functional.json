@@ -1,0 +1,135 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "functional_validation": {
+    "canonical_id": "CF-209ae17232b1",
+    "validator": "express_reflected_output",
+    "cwe": "CWE-79",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-04\\workspace\\CF-209ae17232b1\\attempt-04\\app\\app.js",
+      "route": "/hello",
+      "query_parameter": "name"
+    },
+    "status": "pass",
+    "summary": {
+      "tests": 6,
+      "passed": 6,
+      "failed": 0
+    },
+    "tests": [
+      {
+        "test": "simple_name",
+        "input": "Tony",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello Tony</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected user-visible value.",
+          "expected_value": "Tony",
+          "reflected_value": "Tony",
+          "decoded_value": "Tony",
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "name_with_space",
+        "input": "Tony Tran",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello Tony Tran</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected user-visible value.",
+          "expected_value": "Tony Tran",
+          "reflected_value": "Tony Tran",
+          "decoded_value": "Tony Tran",
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "ampersand_text",
+        "input": "Tony & Alicia",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello Tony &amp; Alicia</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected user-visible value.",
+          "expected_value": "Tony & Alicia",
+          "reflected_value": "Tony &amp; Alicia",
+          "decoded_value": "Tony & Alicia",
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "single_markup_character",
+        "input": "Tony < Alicia",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello Tony &lt; Alicia</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected user-visible value.",
+          "expected_value": "Tony < Alicia",
+          "reflected_value": "Tony &lt; Alicia",
+          "decoded_value": "Tony < Alicia",
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "adjacent_special_characters",
+        "input": "Tony &<> Alicia",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello Tony &amp;&lt;&gt; Alicia</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected user-visible value.",
+          "expected_value": "Tony &<> Alicia",
+          "reflected_value": "Tony &amp;&lt;&gt; Alicia",
+          "decoded_value": "Tony &<> Alicia",
+          "semantic_match": true
+        }
+      },
+      {
+        "test": "quote_and_markup",
+        "input": "\"><hello>",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "<h1>Hello &quot;&gt;&lt;hello&gt;</h1>",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The candidate preserved the expected user-visible value.",
+          "expected_value": "\"><hello>",
+          "reflected_value": "&quot;&gt;&lt;hello&gt;",
+          "decoded_value": "\"><hello>",
+          "semantic_match": true
+        }
+      }
+    ],
+    "validation_property": "The remediation must preserve the user-visible query parameter value while allowing safe HTML encoding.",
+    "limitations": [
+      "This MVP functional validator is specific to the controlled /hello Express endpoint.",
+      "It verifies response semantics rather than full application behavior."
+    ]
+  }
+}

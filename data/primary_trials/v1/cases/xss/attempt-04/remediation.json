@@ -1,0 +1,16 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-209ae17232b1",
+    "model": "gpt-5.2",
+    "response_id": "resp_07b29f9c3380bba2006a9af77a9be487d2963535a5dae7004d",
+    "analysis": "The route reflects `req.query.name` directly into an HTML response via string concatenation. If `name` contains HTML/JS (e.g., `<script>`), it will be interpreted by the browser, enabling reflected XSS (CWE-79).",
+    "remediation_strategy": "Apply output encoding for the HTML context before embedding user-controlled data into the response. Use a minimal inline HTML-escape function to neutralize characters that can break out of text context (`& < > \" '`). Preserve the existing response structure and behavior (still returns an `<h1>` greeting).",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const escapeHtml = (value) =>\n        String(value ?? \"\")\n            .replace(/&/g, \"&amp;\")\n            .replace(/</g, \"&lt;\")\n            .replace(/>/g, \"&gt;\")\n            .replace(/\\\"/g, \"&quot;\")\n            .replace(/'/g, \"&#39;\");\n\n    res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");\n});",
+    "assumptions": [
+      "The greeting should continue to render HTML with the provided name displayed as text (not as HTML)."
+    ],
+    "needs_additional_context": false
+  }
+}

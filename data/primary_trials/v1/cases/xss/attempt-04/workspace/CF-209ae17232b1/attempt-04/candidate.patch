@@ -1,0 +1,19 @@
+--- original/app.js
++++ candidate/app.js
+@@ -5,7 +5,15 @@
+ 
+ app.get("/hello", (req, res) => {
+     const name = req.query.name;
+-    res.send("<h1>Hello " + name + "</h1>");
++    const escapeHtml = (value) =>
++        String(value ?? "")
++            .replace(/&/g, "&amp;")
++            .replace(/</g, "&lt;")
++            .replace(/>/g, "&gt;")
++            .replace(/\"/g, "&quot;")
++            .replace(/'/g, "&#39;");
++
++    res.send("<h1>Hello " + escapeHtml(name) + "</h1>");
+ });
+ 
+ app.listen(port, "127.0.0.1", () => {
