@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-17216aac7b7a",
+    "model": "gpt-5.2",
+    "response_id": "resp_01cd9cf2b274863c006a9b08211d7087d29188b4b072e315dd",
+    "analysis": "`req.query.name` is user-controlled and is directly used in `path.join(fileRoot, name)`. An attacker can supply traversal sequences (e.g., `../`) or absolute paths to read files outside `fileRoot`. The code should ensure the resolved path remains within `fileRoot` before reading.",
+    "remediation_strategy": "Resolve the requested path against the intended root and then enforce that the resolved path is still nested under `fileRoot` (using a normalized root prefix check). Reject invalid/escaping paths with a 400 response; otherwise proceed to read the file as before.",
+    "patched_code": "app.get(\"/file\", (req, res) => {\n    const name = req.query.name;\n\n    const rootPath = path.resolve(fileRoot) + path.sep;\n    const filePath = path.resolve(fileRoot, String(name || \"\"));\n\n    if (!filePath.startsWith(rootPath)) {\n        return res.status(400).json({\n            error: \"Invalid file path\"\n        });\n    }\n\n    fs.readFile(filePath, \"utf8\", (err, data) => {\n        if (err) {\n            return res.status(404).json({\n                error: \"File not found\"\n            });\n        }\n\n        res.type(\"text/plain\").send(data);\n    });\n});",
+    "assumptions": [
+      "`fileRoot` is an intended directory root path (absolute or relative) under which files may be read.",
+      "The endpoint should reject traversal/escaping attempts rather than attempting to sanitize to a different file."
+    ],
+    "needs_additional_context": false
+  }
+}
