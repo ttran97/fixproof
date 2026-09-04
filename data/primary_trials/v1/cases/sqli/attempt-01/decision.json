@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "decision": {
+    "canonical_id": "CF-8b662341cc2d",
+    "policy_version": "0.2-evidence-aware",
+    "classification": "validated_candidate",
+    "disposition": "READY_FOR_HUMAN_REVIEW",
+    "eligible_for_human_approval": true,
+    "retry_allowed": false,
+    "recommended_action": "present_candidate_for_human_review",
+    "reason_codes": [],
+    "evidence": {
+      "syntax": "pass",
+      "target_sast": "resolved",
+      "new_sast_findings": 0,
+      "security_validation": "pass",
+      "functional_validation": "pass",
+      "functional_tests": {
+        "passed": 3,
+        "failed": 0
+      }
+    },
+    "evidence_conflict": {
+      "detected": false,
+      "description": null
+    },
+    "evaluation_labels": {
+      "sast_remediation_success": true,
+      "security_validation_pass": true,
+      "functional_preservation": true,
+      "security_regression": false,
+      "false_success": false
+    },
+    "human_review": {
+      "status": "ready",
+      "purpose": "final_candidate_approval",
+      "note": "FixProof never automatically approves an AI-generated remediation. Human review remains required."
+    },
+    "input_artifacts": {
+      "preliminary": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-01\\preliminary.json",
+      "security": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-01\\security.json",
+      "functional": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-01\\functional.json"
+    }
+  }
+}

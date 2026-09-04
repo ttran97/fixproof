@@ -1,0 +1,68 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "security_validation": {
+    "canonical_id": "CF-8b662341cc2d",
+    "validator": "cwe89_sqlite_query_injection",
+    "cwe": "CWE-89",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-01\\workspace\\CF-8b662341cc2d\\attempt-01\\app\\app.js",
+      "route": "/user",
+      "query_parameter": "username"
+    },
+    "status": "pass",
+    "test_count": 2,
+    "tests": [
+      {
+        "test": "legitimate_lookup_control",
+        "test_type": "control",
+        "payload": "alice",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"}]",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The legitimate lookup returned only the expected user.",
+          "expected_usernames": [
+            "alice"
+          ],
+          "returned_usernames": [
+            "alice"
+          ],
+          "returned_rows": [
+            {
+              "id": 1,
+              "username": "alice",
+              "role": "user"
+            }
+          ]
+        }
+      },
+      {
+        "test": "boolean_or_injection",
+        "test_type": "attack",
+        "payload": "' OR '1'='1",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "[]",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The SQL injection payload did not return any users.",
+          "expected_usernames": [],
+          "returned_usernames": [],
+          "returned_rows": []
+        }
+      }
+    ],
+    "limitations": [
+      "This controlled validator checks one Boolean SQL injection payload against a seeded SQLite dataset.",
+      "A passing result applies to this endpoint and does not establish application-wide SQL injection safety."
+    ]
+  }
+}

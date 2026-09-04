@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-8b662341cc2d",
+    "model": "gpt-5.2",
+    "response_id": "resp_0f9487e0c4a29b81006a9af84fd7cc87d2b214efb12f97dca1",
+    "analysis": "The route builds an SQL query by concatenating the user-controlled `req.query.username` into the SQL string, allowing SQL injection (CWE-89) when passed to `db.all`. SQLite3 supports parameterized queries using `?` placeholders to safely bind untrusted input.",
+    "remediation_strategy": "Replace string concatenation with a parameterized SQL statement and pass `username` as a bound parameter to `db.all`, preserving the query logic and response behavior while preventing injection.",
+    "patched_code": "app.get(\"/user\", (req, res) => {\n    const username = req.query.username;\n    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n\n    db.all(query, [username], (err, rows) => {\n        if (err) {\n            return res.status(500).json({\n                error: \"Query failed\"\n            });\n        }\n\n        res.json(rows);\n    });\n});",
+    "assumptions": [
+      "`db` is an instance of the `sqlite3` Database object supporting `db.all(sql, params, callback)`.",
+      "`username` is intended to be treated as a literal value for equality comparison in the WHERE clause."
+    ],
+    "needs_additional_context": false
+  }
+}

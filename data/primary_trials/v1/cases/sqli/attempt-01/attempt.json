@@ -1,0 +1,101 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_trial_attempt",
+  "trial_id": "primary-v1-sqli-initial-01",
+  "case_id": "sqli",
+  "application": "primary-sqli-v1",
+  "cwe": "CWE-89",
+  "attempt": 1,
+  "condition": "initial",
+  "metric_scope": "primary",
+  "status": "completed",
+  "model": "gpt-5.2",
+  "canonical_id": "CF-8b662341cc2d",
+  "manifest_sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+  "prompt_sha256": "ef89df63ff919d517475fc9e936f0415de5d451de0a3a302c482461f34e2344b",
+  "history": [
+    {
+      "status": "api_request_started",
+      "recorded_at": "2026-09-04T16:56:46.031436+00:00"
+    },
+    {
+      "status": "model_response_saved",
+      "recorded_at": "2026-09-04T16:56:51.851662+00:00"
+    },
+    {
+      "status": "candidate_applied",
+      "recorded_at": "2026-09-04T16:56:51.881009+00:00"
+    },
+    {
+      "status": "completed",
+      "recorded_at": "2026-09-04T16:57:04.720847+00:00"
+    }
+  ],
+  "remediation": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-01/remediation.json",
+    "sha256": "c895d6a16303a175e9a20f8ba3cf6e101c6380fee2127c8e186815267d641629"
+  },
+  "response_id": "resp_0f9487e0c4a29b81006a9af84fd7cc87d2b214efb12f97dca1",
+  "error": null,
+  "workspace_metadata": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/workspace.json",
+    "sha256": "f7485469235542d18e9bf4447040fdd051995381d161ac96374b1bfca4355033"
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/candidate.patch",
+    "sha256": "b56f4759021ea66ac9c264c7c0194076bac331c9f28341aaa41662b1a5a41ea4"
+  },
+  "terminal": true,
+  "classification": "validated_candidate",
+  "disposition": "READY_FOR_HUMAN_REVIEW",
+  "sast_only_interpretation": "APPARENT_SUCCESS",
+  "evidence": {
+    "syntax": "pass",
+    "target_sast": "resolved",
+    "new_sast_findings": 0,
+    "security_validation": "pass",
+    "functional_validation": "pass",
+    "functional_tests": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "evaluation_labels": {
+    "sast_remediation_success": true,
+    "security_validation_pass": true,
+    "functional_preservation": true,
+    "security_regression": false,
+    "false_success": false
+  },
+  "artifacts": {
+    "remediation": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/remediation.json",
+      "sha256": "c895d6a16303a175e9a20f8ba3cf6e101c6380fee2127c8e186815267d641629"
+    },
+    "workspace": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/workspace.json",
+      "sha256": "f7485469235542d18e9bf4447040fdd051995381d161ac96374b1bfca4355033"
+    },
+    "patch": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/candidate.patch",
+      "sha256": "b56f4759021ea66ac9c264c7c0194076bac331c9f28341aaa41662b1a5a41ea4"
+    },
+    "preliminary": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/preliminary.json",
+      "sha256": "a5d6160b7386233e50b241101a689e06808c199c392dc68efb2039583221a3b2"
+    },
+    "security": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/security.json",
+      "sha256": "ef64a5b00dfc1d4da93f1ac6c3cb499d6f615de950b82462eadad880156ec861"
+    },
+    "functional": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/functional.json",
+      "sha256": "fb95d2ce5b47668a77e1b3473606008170a8f8b4a55ed311d0d4a510c448f3f8"
+    },
+    "decision": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/decision.json",
+      "sha256": "c8b59a042064e2a7900ccfaf6347a9f0ccd473c10ebc609c60fcdae94ad87ae5"
+    }
+  }
+}
