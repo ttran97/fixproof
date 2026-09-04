@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "security_validation": {
+    "canonical_id": "CF-17216aac7b7a",
+    "validator": "cwe22_restricted_file_read",
+    "cwe": "CWE-22",
+    "target": {
+      "source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-02\\workspace\\CF-17216aac7b7a\\attempt-02\\app\\app.js",
+      "route": "/file",
+      "query_parameter": "name"
+    },
+    "status": "pass",
+    "test_count": 2,
+    "tests": [
+      {
+        "test": "legitimate_file_control",
+        "test_type": "control",
+        "payload": "welcome.txt",
+        "http": {
+          "request_succeeded": true,
+          "status_code": 200,
+          "body": "FixProof public fixture: welcome\n",
+          "error": null
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The legitimate file request returned the expected public fixture.",
+          "expected_body": "FixProof public fixture: welcome",
+          "forbidden_body": null,
+          "returned_body": "FixProof public fixture: welcome\n",
+          "outside_file_disclosed": false
+        }
+      },
+      {
+        "test": "parent_directory_traversal",
+        "test_type": "attack",
+        "payload": "../outside-secret.txt",
+        "http": {
+          "request_succeeded": false,
+          "status_code": 400,
+          "body": "{\"error\":\"Invalid file path\"}",
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "evaluation": {
+          "status": "pass",
+          "reason": "The traversal request was rejected without disclosing the controlled outside file.",
+          "expected_body": null,
+          "forbidden_body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET",
+          "returned_body": "{\"error\":\"Invalid file path\"}",
+          "outside_file_disclosed": false
+        }
+      }
+    ],
+    "limitations": [
+      "This controlled validator checks one parent-directory traversal payload against one outside fixture.",
+      "A passing result applies to this endpoint and does not establish application-wide filesystem safety."
+    ]
+  }
+}

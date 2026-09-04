@@ -1,0 +1,92 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "validation": {
+    "canonical_id": "CF-17216aac7b7a",
+    "stage": "preliminary_validation",
+    "status": "failed_target_sast_validation",
+    "syntax": {
+      "status": "pass",
+      "tool": "node --check",
+      "return_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "sast": {
+      "status": "completed",
+      "candidate_scanner_findings": 3,
+      "candidate_canonical_findings": 2,
+      "raw_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-02\\sast\\candidate-semgrep-raw.json",
+      "normalized_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-02\\sast\\candidate-normalized.json",
+      "correlated_results": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-02\\sast\\candidate-correlated.json"
+    },
+    "comparison": {
+      "target": {
+        "canonical_id": "CF-17216aac7b7a",
+        "semantic_key": "app.js|CWE-22|express:get:/file",
+        "status": "persistent",
+        "baseline": [
+          {
+            "semantic_key": "app.js|CWE-22|express:get:/file",
+            "canonical_id": "CF-17216aac7b7a",
+            "cwe": "CWE-22",
+            "vulnerability_class": "Path Traversal",
+            "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+            "start_line": 11,
+            "end_line": 11,
+            "scope": "express:get:/file",
+            "scanner_finding_count": 2
+          }
+        ],
+        "candidate_matches": [
+          {
+            "semantic_key": "app.js|CWE-22|express:get:/file",
+            "canonical_id": "CF-6971f0276c29",
+            "cwe": "CWE-22",
+            "vulnerability_class": "Path Traversal",
+            "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-02\\workspace\\CF-17216aac7b7a\\attempt-02\\app\\app.js",
+            "start_line": 16,
+            "end_line": 16,
+            "scope": "express:get:/file",
+            "scanner_finding_count": 2
+          }
+        ]
+      },
+      "summary": {
+        "baseline_canonical_findings": 2,
+        "candidate_canonical_findings": 2,
+        "persistent": 2,
+        "resolved": 0,
+        "new": 0
+      },
+      "persistent_findings": [
+        {
+          "semantic_key": "app.js|CWE-22|express:get:/file",
+          "canonical_id": "CF-17216aac7b7a",
+          "cwe": "CWE-22",
+          "vulnerability_class": "Path Traversal",
+          "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+          "start_line": 11,
+          "end_line": 11,
+          "scope": "express:get:/file",
+          "scanner_finding_count": 2
+        },
+        {
+          "semantic_key": "app.js|CWE-352|file",
+          "canonical_id": "CF-cdd64f601b73",
+          "cwe": "CWE-352",
+          "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+          "file": "benchmarks\\primary\\v1\\path-traversal\\app.js",
+          "start_line": 5,
+          "end_line": 5,
+          "scope": "file",
+          "scanner_finding_count": 1
+        }
+      ],
+      "resolved_findings": [],
+      "new_findings": []
+    },
+    "final_security_validation": "not_run",
+    "functional_validation": "not_run"
+  }
+}

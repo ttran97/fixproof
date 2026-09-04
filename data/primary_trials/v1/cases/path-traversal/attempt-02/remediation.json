@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-17216aac7b7a",
+    "model": "gpt-5.2",
+    "response_id": "resp_069faad3fe2ce0d6006a9b079ff70487d2ba85a44229ead306",
+    "analysis": "`req.query.name` is user-controlled and is directly joined with `fileRoot` via `path.join`, allowing `../`-style traversal to access files outside `fileRoot`. The fix should ensure the resolved path remains within `fileRoot` before reading the file.",
+    "remediation_strategy": "Resolve the requested path against `fileRoot`, normalize it, and enforce that the resulting path is still inside `fileRoot` (using `path.resolve` and a prefix check with a trailing path separator). Reject missing/invalid names and traversal attempts with an error response.",
+    "patched_code": "app.get(\"/file\", (req, res) => {\n    const name = req.query.name;\n    if (typeof name !== \"string\" || name.length === 0) {\n        return res.status(400).json({ error: \"Invalid file name\" });\n    }\n\n    const resolvedRoot = path.resolve(fileRoot);\n    const filePath = path.resolve(resolvedRoot, name);\n\n    if (filePath !== resolvedRoot && !filePath.startsWith(resolvedRoot + path.sep)) {\n        return res.status(400).json({ error: \"Invalid file path\" });\n    }\n\n    fs.readFile(filePath, \"utf8\", (err, data) => {\n        if (err) {\n            return res.status(404).json({\n                error: \"File not found\"\n            });\n        }\n\n        res.type(\"text/plain\").send(data);\n    });\n});",
+    "assumptions": [
+      "`fileRoot` is an absolute or relative path designating the intended directory boundary for readable files.",
+      "The endpoint is intended to read only files located under `fileRoot`."
+    ],
+    "needs_additional_context": false
+  }
+}
