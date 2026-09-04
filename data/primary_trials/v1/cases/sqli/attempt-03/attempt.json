@@ -1,0 +1,101 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_trial_attempt",
+  "trial_id": "primary-v1-sqli-initial-03",
+  "case_id": "sqli",
+  "application": "primary-sqli-v1",
+  "cwe": "CWE-89",
+  "attempt": 3,
+  "condition": "initial",
+  "metric_scope": "primary",
+  "status": "completed",
+  "model": "gpt-5.2",
+  "canonical_id": "CF-8b662341cc2d",
+  "manifest_sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+  "prompt_sha256": "ef89df63ff919d517475fc9e936f0415de5d451de0a3a302c482461f34e2344b",
+  "history": [
+    {
+      "status": "api_request_started",
+      "recorded_at": "2026-09-04T17:29:48.683080+00:00"
+    },
+    {
+      "status": "model_response_saved",
+      "recorded_at": "2026-09-04T17:29:54.696321+00:00"
+    },
+    {
+      "status": "candidate_applied",
+      "recorded_at": "2026-09-04T17:29:54.715049+00:00"
+    },
+    {
+      "status": "completed",
+      "recorded_at": "2026-09-04T17:30:03.647255+00:00"
+    }
+  ],
+  "remediation": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-03/remediation.json",
+    "sha256": "8e843e142d21bca7d6e7c1449ab89ae40a611a42d8633887a589819ffe26eb87"
+  },
+  "response_id": "resp_0c33a11b263e3663006a9b000e84ac87d2aff007e886ab0697",
+  "error": null,
+  "workspace_metadata": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/workspace.json",
+    "sha256": "8ae80fea5d1aff4d620d1bd1b105c126223e11c9bf23921f44b143b8aa484e9a"
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/candidate.patch",
+    "sha256": "b56f4759021ea66ac9c264c7c0194076bac331c9f28341aaa41662b1a5a41ea4"
+  },
+  "terminal": true,
+  "classification": "validated_candidate",
+  "disposition": "READY_FOR_HUMAN_REVIEW",
+  "sast_only_interpretation": "APPARENT_SUCCESS",
+  "evidence": {
+    "syntax": "pass",
+    "target_sast": "resolved",
+    "new_sast_findings": 0,
+    "security_validation": "pass",
+    "functional_validation": "pass",
+    "functional_tests": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "evaluation_labels": {
+    "sast_remediation_success": true,
+    "security_validation_pass": true,
+    "functional_preservation": true,
+    "security_regression": false,
+    "false_success": false
+  },
+  "artifacts": {
+    "remediation": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/remediation.json",
+      "sha256": "8e843e142d21bca7d6e7c1449ab89ae40a611a42d8633887a589819ffe26eb87"
+    },
+    "workspace": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/workspace.json",
+      "sha256": "8ae80fea5d1aff4d620d1bd1b105c126223e11c9bf23921f44b143b8aa484e9a"
+    },
+    "patch": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/candidate.patch",
+      "sha256": "b56f4759021ea66ac9c264c7c0194076bac331c9f28341aaa41662b1a5a41ea4"
+    },
+    "preliminary": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/preliminary.json",
+      "sha256": "ca8e1624d5546a9f77a2f0477732df5ed3a6530b19c03e7cabacc4931ca12d48"
+    },
+    "security": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/security.json",
+      "sha256": "bf2f8043245238a869d3a94975117d4d44b9cd44e47b09a563464cd35a56f5fd"
+    },
+    "functional": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/functional.json",
+      "sha256": "f04fb4ce56c0c4c1327a229bb0b67bb91cf2b88307e224026b358152d9f90e0b"
+    },
+    "decision": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-03/decision.json",
+      "sha256": "853d1cc6225ff0135be935f611487b28fb471b497f204950028c5b5b8c519e00"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+--- original/app.js
++++ candidate/app.js
+@@ -26,13 +26,9 @@
+ 
+ app.get("/user", (req, res) => {
+     const username = req.query.username;
+-    const query =
+-        "SELECT id, username, role FROM users " +
+-        "WHERE username = '" +
+-        username +
+-        "'";
++    const query = "SELECT id, username, role FROM users WHERE username = ?";
+ 
+-    db.all(query, (err, rows) => {
++    db.all(query, [username], (err, rows) => {
+         if (err) {
+             return res.status(500).json({
+                 error: "Query failed"
