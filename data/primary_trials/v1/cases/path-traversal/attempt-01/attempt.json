@@ -1,0 +1,101 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "primary_trial_attempt",
+  "trial_id": "primary-v1-path-traversal-initial-01",
+  "case_id": "path-traversal",
+  "application": "primary-path-traversal-v1",
+  "cwe": "CWE-22",
+  "attempt": 1,
+  "condition": "initial",
+  "metric_scope": "primary",
+  "status": "completed",
+  "model": "gpt-5.2",
+  "canonical_id": "CF-17216aac7b7a",
+  "manifest_sha256": "a229ca3a0ce73c2eb235b21fd4b45c2ae717f69f9519438d2437503ccc7a7888",
+  "prompt_sha256": "4c0d6e4692371b39863d3c585e326bfa3108a9a68886086d026c315bfdb1d1b2",
+  "history": [
+    {
+      "status": "api_request_started",
+      "recorded_at": "2026-09-04T18:01:30.014844+00:00"
+    },
+    {
+      "status": "model_response_saved",
+      "recorded_at": "2026-09-04T18:01:37.592894+00:00"
+    },
+    {
+      "status": "candidate_applied",
+      "recorded_at": "2026-09-04T18:01:37.638712+00:00"
+    },
+    {
+      "status": "completed",
+      "recorded_at": "2026-09-04T18:01:48.487588+00:00"
+    }
+  ],
+  "remediation": {
+    "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/remediation.json",
+    "sha256": "1e5ef556d19d569b27c7d3f2de408bdf31b007e6254892ce1a45d98cb9144a6f"
+  },
+  "response_id": "resp_0196bf8de483641c006a9b077cadd887d2ac7a62b9781509ca",
+  "error": null,
+  "workspace_metadata": {
+    "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/workspace.json",
+    "sha256": "10fecd08b40749266aeb5ed03cfeac70d335615f44891205c6a75bdf280b3f45"
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/candidate.patch",
+    "sha256": "2ce5fe434c2d13735589762e32e8b0f8bb83b0496fb0820d5ac7e6f01dd66dbd"
+  },
+  "terminal": true,
+  "classification": "sast_runtime_disagreement",
+  "disposition": "NEEDS_HUMAN_ADJUDICATION",
+  "sast_only_interpretation": "FAILURE",
+  "evidence": {
+    "syntax": "pass",
+    "target_sast": "persistent",
+    "new_sast_findings": 0,
+    "security_validation": "pass",
+    "functional_validation": "pass",
+    "functional_tests": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "evaluation_labels": {
+    "sast_remediation_success": false,
+    "security_validation_pass": true,
+    "functional_preservation": true,
+    "security_regression": false,
+    "false_success": false
+  },
+  "artifacts": {
+    "remediation": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/remediation.json",
+      "sha256": "1e5ef556d19d569b27c7d3f2de408bdf31b007e6254892ce1a45d98cb9144a6f"
+    },
+    "workspace": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/workspace.json",
+      "sha256": "10fecd08b40749266aeb5ed03cfeac70d335615f44891205c6a75bdf280b3f45"
+    },
+    "patch": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/candidate.patch",
+      "sha256": "2ce5fe434c2d13735589762e32e8b0f8bb83b0496fb0820d5ac7e6f01dd66dbd"
+    },
+    "preliminary": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/preliminary.json",
+      "sha256": "71f837347423a19600932b22e905b40deb4788ccfd0eed4b71b3ac6b6323c722"
+    },
+    "security": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/security.json",
+      "sha256": "c419fb5983b3b6bddba5acd04a10f850ff03f842453c4976d9d4c1faa03ba4cf"
+    },
+    "functional": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/functional.json",
+      "sha256": "2bc1a8f2bf2124a14a35d07d52ee6ba2ade4e01a5d8b1115819241f4a674a628"
+    },
+    "decision": {
+      "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/decision.json",
+      "sha256": "ebd7a34b14daf2a47d09bafcb2d0083f8afeab6257615d6d00d668f75efe6eeb"
+    }
+  }
+}
