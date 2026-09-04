@@ -1,3 +1,7 @@
+# Generated evidence is byte-bound by SHA-256; never normalize it.
+data/** -text
+workspaces/** -text
+
 * text=auto
 
 *.py text eol=lf

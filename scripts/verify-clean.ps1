@@ -115,7 +115,7 @@ finally {
     }
     else {
         $resolvedRunDirectory = [IO.Path]::GetFullPath($runDirectory)
-        $expectedPrefix = $temporaryBase.TrimEnd("\\") + "\\fixproof-clean-"
+        $expectedPrefix = Join-Path $temporaryBase "fixproof-clean-"
         if (-not $resolvedRunDirectory.StartsWith(
             $expectedPrefix,
             [StringComparison]::OrdinalIgnoreCase
