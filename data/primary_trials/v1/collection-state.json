@@ -2,37 +2,37 @@
   "schema_version": "0.1",
   "project": "FixProof",
   "artifact_type": "primary_trial_collection_state",
-  "updated_at": "2026-09-04T17:30:59.491573+00:00",
+  "updated_at": "2026-09-04T17:32:08.369284+00:00",
   "status": "in_progress",
   "scheduled": 15,
-  "recorded": 9,
-  "terminal": 9,
-  "remaining": 6,
+  "recorded": 10,
+  "terminal": 10,
+  "remaining": 5,
   "status_counts": {
-    "completed": 9
+    "completed": 10
   },
   "primary_metrics": {
     "provisional": true,
     "denominator_policy": "all_15_scheduled_initial_attempts",
     "valid_candidate_generation_application": {
-      "count": 9,
+      "count": 10,
       "denominator": 15,
-      "rate": 0.6
+      "rate": 0.6666666666666666
     },
     "sast_remediation_success": {
-      "count": 4,
+      "count": 5,
       "denominator": 15,
-      "rate": 0.26666666666666666
+      "rate": 0.3333333333333333
     },
     "targeted_security_pass": {
-      "count": 9,
+      "count": 10,
       "denominator": 15,
-      "rate": 0.6
+      "rate": 0.6666666666666666
     },
     "functional_preservation": {
-      "count": 9,
+      "count": 10,
       "denominator": 15,
-      "rate": 0.6
+      "rate": 0.6666666666666666
     },
     "new_finding": {
       "count": 0,
@@ -40,9 +40,9 @@
       "rate": 0.0
     },
     "sast_only_apparent_success": {
-      "count": 4,
+      "count": 5,
       "denominator": 15,
-      "rate": 0.26666666666666666
+      "rate": 0.3333333333333333
     },
     "sast_false_success": {
       "count": 0,
@@ -56,7 +56,7 @@
     },
     "fixproof_disposition_distribution": {
       "NEEDS_HUMAN_ADJUDICATION": 5,
-      "READY_FOR_HUMAN_REVIEW": 4
+      "READY_FOR_HUMAN_REVIEW": 5
     }
   }
 }

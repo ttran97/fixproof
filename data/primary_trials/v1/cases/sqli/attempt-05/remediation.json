@@ -1,0 +1,16 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-8b662341cc2d",
+    "model": "gpt-5.2",
+    "response_id": "resp_013f58984faca7e6006a9b008bf71c87d2b22dfa265a1d825b",
+    "analysis": "The route builds a SQL query by concatenating the untrusted req.query.username directly into the WHERE clause, allowing SQL injection. sqlite3 supports parameterized queries via placeholders, which prevents injected SQL from being interpreted as part of the command.",
+    "remediation_strategy": "Replace string concatenation with a parameterized SQL statement using a single placeholder and pass the user-provided value as a bound parameter to db.all.",
+    "patched_code": "app.get(\"/user\", (req, res) => {\n    const username = req.query.username;\n    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n\n    db.all(query, [username], (err, rows) => {\n        if (err) {\n            return res.status(500).json({\n                error: \"Query failed\"\n            });\n        }\n\n        res.json(rows);\n    });\n});",
+    "assumptions": [
+      "The project uses the sqlite3 Node.js library where db.all(sql, params, callback) is supported."
+    ],
+    "needs_additional_context": false
+  }
+}
