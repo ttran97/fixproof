@@ -1,0 +1,42 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "correlation": {
+    "input_finding_count": 1,
+    "canonical_finding_count": 1,
+    "duplicates_collapsed": 0
+  },
+  "findings": [
+    {
+      "canonical_id": "CF-244f3f850e18",
+      "cwe": "CWE-352",
+      "cwe_name": "Cross-Site Request Forgery (CSRF)",
+      "vulnerability_class": "Cross-Site Request Forgery (CSRF)",
+      "file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-04\\workspace\\CF-8b662341cc2d\\attempt-04\\app\\app.js",
+      "start_line": 4,
+      "end_line": 4,
+      "source_context": {
+        "snippet": "2: const sqlite3 = require(\"sqlite3\").verbose();\n3: \n4: const app = express();\n5: const port = Number(process.env.PORT || 3000);\n6: const db = new sqlite3.Database(\":memory:\");",
+        "context_start_line": 2,
+        "context_end_line": 6,
+        "source_file_resolved": true,
+        "resolved_path": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-04\\workspace\\CF-8b662341cc2d\\attempt-04\\app\\app.js"
+      },
+      "status": "new",
+      "scanner_finding_count": 1,
+      "rule_origins": [
+        "semgrep_oss"
+      ],
+      "scanner_evidence": [
+        {
+          "finding_id": "FP-8363bee4d83d",
+          "rule_id": "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage",
+          "rule_origin": "semgrep_oss",
+          "severity": "INFO",
+          "confidence": "LOW",
+          "message": "A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies."
+        }
+      ]
+    }
+  ]
+}

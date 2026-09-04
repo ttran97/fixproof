@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.2",
+  "project": "FixProof",
+  "patch_workspace": {
+    "canonical_id": "CF-8b662341cc2d",
+    "attempt": 4,
+    "original_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\benchmarks\\primary\\v1\\sqli\\app.js",
+    "workspace_source": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-04\\workspace\\CF-8b662341cc2d\\attempt-04\\app\\app.js",
+    "workspace_directory": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-04\\workspace\\CF-8b662341cc2d\\attempt-04",
+    "patch_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-04\\workspace\\CF-8b662341cc2d\\attempt-04\\candidate.patch",
+    "remediation_file": "C:\\Users\\Tony Tran\\Documents\\fixproof\\data\\primary_trials\\v1\\cases\\sqli\\attempt-04\\remediation.json",
+    "model": "gpt-5.2",
+    "response_id": "resp_062ca9da6362ba7b006a9b00458f8887d2bd773227ec08dc91",
+    "hashes": {
+      "original_source_sha256": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95",
+      "candidate_source_sha256": "c8f43c2ea0d2e312245921f22d42a840e833d570adcab26870691947cfe21a1b",
+      "patch_sha256": "c15b7a3a3ad4a31891bc083c96d2a1f081d49f569dbd48209220ad29430a591d"
+    },
+    "original_modified": false,
+    "status": "candidate_applied"
+  }
+}
