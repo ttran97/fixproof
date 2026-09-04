@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "remediation": {
+    "canonical_id": "CF-209ae17232b1",
+    "model": "gpt-5.2",
+    "response_id": "resp_0b26fd23b8c3f927006a9ad745930487d2a8280fda85e4ed92",
+    "analysis": "The route reflects req.query.name directly into an HTML response using string concatenation and res.send(), allowing an attacker to inject HTML/JS (reflected XSS). The fix is to ensure user-controlled data is HTML-escaped before embedding into HTML.",
+    "remediation_strategy": "Escape special HTML characters in the `name` query parameter before interpolating it into the HTML response. Keep the response structure and endpoint behavior unchanged while preventing script/markup injection.",
+    "patched_code": "app.get(\"/hello\", (req, res) => {\n    const name = req.query.name;\n    const safeName = String(name ?? \"\").replace(/[&<>\"']/g, (c) => ({\n        \"&\": \"&amp;\",\n        \"<\": \"&lt;\",\n        \">\": \"&gt;\",\n        '\"': \"&quot;\",\n        \"'\": \"&#39;\",\n    })[c]);\n    res.send(\"<h1>Hello \" + safeName + \"</h1>\");\n});",
+    "assumptions": [
+      "This endpoint intends to return an HTML string and does not require rendering unescaped HTML from the name parameter.",
+      "No templating engine is currently configured/desired for this minimal change."
+    ],
+    "needs_additional_context": false
+  }
+}
