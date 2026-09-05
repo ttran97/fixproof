@@ -1122,12 +1122,14 @@ def render_markdown(report: dict[str, Any]) -> str:
     rows = report["experiment_matrix"]
     metrics = report["metrics"]
     lines = [
-        "# FixProof Experiment Evaluation Report",
+        "# FixProof Pilot Evaluation Report",
         "",
         (
             "This report is generated deterministically from the authoritative "
             f"attempt manifest `{report['manifest']['path']}`. Rates use the "
-            "remediation attempt as the aggregation unit."
+            "remediation attempt as the aggregation unit. This is the four-attempt "
+            "pilot, separate from primary-v1. Legacy JSON fields named primary "
+            "refer to AI attempts within this pilot."
         ),
         "",
         "## Experiment matrix",
@@ -1160,7 +1162,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             (
                 "These deterministic non-AI controls exercise missing policy "
-                "outcomes and are excluded from every primary AI-attempt metric."
+                "outcomes and are excluded from every pilot AI-attempt metric."
             ),
             "",
             "| Control | Origin | SAST | Security | Functional | Classification | Decision |",
@@ -1181,7 +1183,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "| Required outcome | Primary AI attempt | Non-AI control | Covered |",
+            "| Required outcome | Pilot AI attempt | Non-AI control | Covered |",
             "|---|---|---|---|",
         ]
     )

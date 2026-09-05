@@ -48,6 +48,19 @@ class DashboardTests(unittest.TestCase):
                 urlopen(f"{base_url}/README.md", timeout=5)
             self.assertEqual(blocked.exception.code, 404)
 
+            with urlopen(f"{base_url}/ui/primary.html", timeout=5) as response:
+                self.assertIn("FixProof Primary Study", response.read().decode("utf-8"))
+            with urlopen(f"{base_url}/data/evaluation/primary-report.json", timeout=5) as response:
+                primary = json.loads(response.read().decode("utf-8"))
+                self.assertEqual(primary["attempt_count"], 15)
+                self.assertLessEqual(primary["adjudication_summary"]["completed"],
+                                     primary["adjudication_summary"]["required"])
+            for raw_path in ("/data/primary_trials/v1/collection-state.json",
+                             "/data/primary_reviews/v1/primary-v1-xss-initial-01/packet.json"):
+                with self.assertRaises(HTTPError) as blocked_raw:
+                    urlopen(f"{base_url}{raw_path}", timeout=5)
+                self.assertEqual(blocked_raw.exception.code, 404)
+
             for secret_path in ("/.env", "/.env.example"):
                 with self.subTest(secret_path=secret_path):
                     with self.assertRaises(HTTPError) as secret:

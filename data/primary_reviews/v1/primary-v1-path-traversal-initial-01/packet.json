@@ -1,0 +1,83 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_packet",
+  "adjudication_packet": {
+    "case_id": "path-traversal",
+    "case": "Path traversal",
+    "canonical_id": "CF-17216aac7b7a",
+    "attempt": 1,
+    "trigger": {
+      "classification": "sast_runtime_disagreement",
+      "automated_disposition": "NEEDS_HUMAN_ADJUDICATION",
+      "reason_codes": [
+        "TARGET_SAST_FINDING_PERSISTENT",
+        "SAST_RUNTIME_EVIDENCE_CONFLICT"
+      ]
+    },
+    "evidence_summary": {
+      "syntax": "pass",
+      "target_sast": "persistent",
+      "new_sast_findings": 0,
+      "security_validation": "pass",
+      "security_tests": {
+        "passed": 2,
+        "total": 2
+      },
+      "functional_validation": "pass",
+      "functional_tests": {
+        "passed": 3,
+        "total": 3
+      }
+    },
+    "evidence_binding": {
+      "workspace_content_hash_mode": "utf8_normalized_text_sha256",
+      "candidate_source_sha256": "c9551e736277295a1921bb957f20681a8d62d2fb202ca37effdffeef5f3e947f",
+      "patch_sha256": "4cd288d8aabf9aac1138b1ac9c189dd878b8166cc0c987b666d44aa02ef17b42",
+      "artifacts": {
+        "baseline_correlated": {
+          "path": "data/primary_trials/v1/preparation/path-traversal/baseline-correlated.json",
+          "sha256": "10d4586bc26f89fb27a3d2d73556a08525c35d5f796c2d4d49c1b66cb3e404ed"
+        },
+        "remediation": {
+          "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/remediation.json",
+          "sha256": "1e5ef556d19d569b27c7d3f2de408bdf31b007e6254892ce1a45d98cb9144a6f"
+        },
+        "preliminary": {
+          "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/preliminary.json",
+          "sha256": "71f837347423a19600932b22e905b40deb4788ccfd0eed4b71b3ac6b6323c722"
+        },
+        "security": {
+          "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/security.json",
+          "sha256": "c419fb5983b3b6bddba5acd04a10f850ff03f842453c4976d9d4c1faa03ba4cf"
+        },
+        "functional": {
+          "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/functional.json",
+          "sha256": "2bc1a8f2bf2124a14a35d07d52ee6ba2ade4e01a5d8b1115819241f4a674a628"
+        },
+        "decision": {
+          "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/decision.json",
+          "sha256": "ebd7a34b14daf2a47d09bafcb2d0083f8afeab6257615d6d00d668f75efe6eeb"
+        },
+        "workspace": {
+          "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/workspace.json",
+          "sha256": "10fecd08b40749266aeb5ed03cfeac70d335615f44891205c6a75bdf280b3f45"
+        }
+      }
+    },
+    "review_protocol": {
+      "allowed_verdicts": [
+        "ACCEPT_CANDIDATE",
+        "REJECT_CANDIDATE",
+        "REQUEST_ADDITIONAL_TESTING"
+      ],
+      "required_checks": [
+        "candidate_patch_reviewed",
+        "sast_finding_and_rule_provenance_reviewed",
+        "targeted_security_evidence_reviewed",
+        "functional_evidence_reviewed"
+      ],
+      "instructions": "A human reviewer must inspect the candidate and all bound evidence. The automated NEEDS_HUMAN_ADJUDICATION decision must remain unchanged; record the human conclusion in a separate adjudication_result artifact."
+    }
+  }
+}

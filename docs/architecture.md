@@ -1,5 +1,10 @@
 # FixProof Architecture
 
+Updated September 5, 2026. `evaluation/primary_report.py` verifies and presents
+the completed 15-attempt primary study; `/ui/primary.html` displays it separately
+from the pilot. `findings/lifecycle.py` adds a four-state version history without
+modifying the frozen primary comparator. See [prototype status](prototype-status.md).
+
 ## Purpose and boundary
 
 FixProof is a validation-oriented research prototype for AI-generated
@@ -29,12 +34,12 @@ Normalize findings -> correlate evidence -> build focused context
 Structured remediation prompt -> AI candidate artifact
         |
         v
-Isolated attempt workspace + candidate patch
+Copied attempt workspace + candidate patch
         |
         +-------------------+--------------------+
         |                   |                    |
         v                   v                    v
-Syntax/build check     Candidate SAST      Runtime validators
+JavaScript syntax     Candidate SAST      Runtime validators
                             rescan          security + function
         |                   |                    |
         +-------------------+--------------------+
@@ -57,24 +62,28 @@ Syntax/build check     Candidate SAST      Runtime validators
 | Component | Responsibility | Primary implementation |
 |---|---|---|
 | Scanner runner and parser | Run Semgrep, normalize findings, retain rule origin | `src/fixproof/scanners/` |
-| Finding correlator | Merge scanner evidence into stable canonical findings | `src/fixproof/findings/` |
+| Finding correlator | Group rules describing the same local weakness; canonical IDs are location-sensitive | `src/fixproof/findings/finding_correlator.py` |
+| Finding history | Track new/persistent/resolved/reopened across comparable snapshots; reject ambiguous identities | `src/fixproof/findings/lifecycle.py` |
 | Context and prompt builders | Select the relevant code boundary and create a structured remediation task | `src/fixproof/agent/context_builder.py`, `prompt_builder.py` |
-| Remediation agent | Call the configured model and save the structured response unchanged | `src/fixproof/agent/remediation_agent.py` |
+| Remediation agent | Call the configured model and save parsed structured response fields | `src/fixproof/agent/remediation_agent.py` |
 | Patch workspace | Copy the benchmark, apply one candidate, record hashes, and preserve the baseline | `src/fixproof/patches/patch_workspace.py` |
-| Preliminary validation | Check syntax and semantically compare baseline and candidate SAST findings | `src/fixproof/validation/validation_runner.py` |
+| Preliminary validation | Check syntax and compare SAST by filename, CWE, and enclosing Express scope | `src/fixproof/validation/validation_runner.py` |
 | Runtime validation | Execute CWE-specific security and functional tests | `security_validator.py`, `functional_validator.py` |
 | Decision engine | Convert evidence into a deterministic disposition and reason codes | `src/fixproof/validation/decision_engine.py` |
 | Human adjudication | Bind immutable evidence packets to separate reviewer results | `src/fixproof/evaluation/adjudication.py` |
-| Evaluation report | Select authoritative artifacts, validate consistency, and compute metrics | `src/fixproof/evaluation/report_builder.py` |
-| Dashboard | Display only the generated machine-readable report | `src/fixproof/evaluation/dashboard.py`, `ui/` |
+| Pilot report | Select pilot artifacts, validate consistency, and compute metrics | `src/fixproof/evaluation/report_builder.py` |
+| Primary report | Verify the frozen 15-attempt collection, reconstruct comparisons/policy, and expose evidence and human-review status | `src/fixproof/evaluation/primary_report.py` |
+| Dashboard | Display the generated pilot and primary reports in separate views | `src/fixproof/evaluation/dashboard.py`, `ui/` |
 | Reproducibility gate | Rebuild reports, verify study invariants, run tests, and optionally serve the dashboard | `src/fixproof/reproduce.py` |
 | Demo operator | Select a supported authoritative attempt, rerun runtime validation into disposable outputs, compare the live decision, and optionally serve the dashboard | `src/fixproof/demo.py` |
 
 ## Artifact model
 
-The filesystem is the prototype's evidence store. Each stage writes an
-immutable or append-only JSON artifact instead of passing an unrecorded
-in-memory conclusion to the next stage.
+The filesystem is the prototype's evidence store. Stages record JSON artifacts,
+and selected evidence is bound by hashes. Frozen evidence must be retained;
+derived reports are regenerated. A filesystem user can still edit files, so
+hash checking detects inconsistencies but does not establish authenticity.
+The following paths describe the pilot:
 
 ```text
 data/raw_scans/             scanner output
@@ -82,8 +91,8 @@ data/normalized/            normalized findings and rule origin
 data/correlated/            canonical findings and merged evidence
 data/contexts/              focused source context
 data/prompts/               structured remediation inputs
-data/remediations/          unchanged model responses
-workspaces/                 isolated applications, patches, and hashes
+data/remediations/          parsed structured model responses
+workspaces/                 copied applications, patches, and hashes
 data/validation/            syntax and SAST comparison
 data/security_validation/   targeted exploit-oriented checks
 data/functional_validation/ regression checks
@@ -92,10 +101,17 @@ data/adjudications/         immutable packets and separate human results
 data/evaluation/            authoritative manifest and generated report
 ```
 
-`data/evaluation/experiment-manifest.json` is the selection authority. This is
+`data/evaluation/experiment-manifest.json` is the pilot selection authority. This is
 important because historical and revised evidence may coexist. The report
 builder follows only selected paths, validates cross-artifact identities and
 evidence, and records SHA-256 digests for every selected artifact.
+
+Primary evidence lives under `data/primary_trials/v1/`, selected by its
+`primary-experiment-manifest.json` and the frozen trial plan. Baseline
+evidence is under `data/primary_baselines/`. The post-collection report is
+`data/evaluation/primary-report.json`; pending packets and human results
+are separate under `data/primary_reviews/v1/`. The lifecycle demonstration
+under `data/lifecycle/` is a recorded replay, not part of primary repair rates.
 
 ## Security and trust boundaries
 
@@ -111,11 +127,11 @@ evidence, and records SHA-256 digests for every selected artifact.
   instead of being inferred.
 - Automated decisions cannot be overwritten by an adjudication. A reviewer
   result is a separate, evidence-bound artifact.
-- The dashboard server exposes only `/ui/*` and the generated report JSON. It
+- The dashboard server exposes only `/ui/*` and the two allowlisted report JSON paths. It
   blocks access to the rest of the repository and applies restrictive browser
   security headers.
-- API credentials come from environment variables and are never stored in
-  artifacts or source code.
+- API credentials are loaded from environment variables or the local ignored
+  `.env`; generated evidence and source must not contain them.
 
 ## Decision and human boundary
 
@@ -133,8 +149,8 @@ correctness and repeatedly rewriting functional code only to silence a rule.
 
 ## Reproducibility and presentation layer
 
-`python -m fixproof.reproduce --verify` rebuilds the two derived reports from
-the manifest, verifies metric separation and required outcomes, checks
+`python -m fixproof.reproduce --verify` rebuilds pilot and primary reports from
+their separate manifests, verifies metric separation and required pilot outcomes, checks
 adjudication and artifact bindings, and runs all tests. `--serve` performs the
 same verification before starting the dashboard. Neither mode reruns the model
 or scanner.

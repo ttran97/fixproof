@@ -21,6 +21,19 @@
   box-sizing: border-box;
 }
 
+nav a { color: var(--accent); }
+details { margin-block: 1rem; }
+summary { cursor: pointer; color: var(--accent); }
+details pre { max-height: 32rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dashboard > * { min-width: 0; }
+.table-wrap { max-width: 100%; overflow-x: auto; }
+#primary-detail h2, #detail-summary { overflow-wrap: anywhere; }
+#primary-dashboard button {
+  color: var(--accent); background: var(--surface-soft); border: 1px solid var(--border);
+  border-radius: 0.4rem; padding: 0.5rem; cursor: pointer; font: inherit;
+}
+#primary-dashboard button:hover, #primary-dashboard button:focus-visible { border-color: var(--accent); }
+
 body {
   min-width: 320px;
   margin: 0;

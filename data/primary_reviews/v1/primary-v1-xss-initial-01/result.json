@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "xss",
+    "case": "Reflected XSS",
+    "canonical_id": "CF-209ae17232b1",
+    "attempt": 1,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-05T14:35:49.364498Z",
+    "rationale": "escapeHTML encodes HTML sensitive characters include /",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-xss-initial-01/packet.json",
+      "sha256": "2fc7142f34bb199d5b1a29ac0d69cc45e0446a8186364f332246cbee63c0818d"
+    },
+    "automated_decision_unchanged": true
+  }
+}

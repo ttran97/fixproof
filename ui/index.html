@@ -22,10 +22,11 @@
   </header>
 
   <main id="dashboard" class="dashboard" aria-busy="true">
+    <nav aria-label="Study selection"><a href="/ui/primary.html">Primary study: 15 initial attempts</a> | Pilot study: 4 attempts and a separate control</nav>
     <section aria-labelledby="summary-heading">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">Primary experiment</p>
+          <p class="section-kicker">Pilot experiment</p>
           <h2 id="summary-heading">Evaluation summary</h2>
         </div>
         <p id="study-summary" class="section-note"></p>
@@ -38,7 +39,7 @@
         <p class="section-kicker">Policy outcomes</p>
         <h2>Coverage</h2>
         <div id="coverage-list" class="coverage-list"></div>
-        <p class="panel-note">Non-AI controls are never included in primary attempt metrics.</p>
+        <p class="panel-note">Non-AI controls are excluded from pilot AI-attempt metrics. The 15-attempt primary study is separate.</p>
       </article>
       <article class="panel">
         <p class="section-kicker">Human boundary</p>
@@ -122,4 +123,3 @@
   </footer>
 </body>
 </html>
-

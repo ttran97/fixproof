@@ -13,6 +13,7 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
 
     allowed_exact_paths = {
         "/data/evaluation/experiment-report.json",
+        "/data/evaluation/primary-report.json",
     }
     allowed_prefixes = (
         "/ui/",

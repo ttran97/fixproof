@@ -1,6 +1,6 @@
-# FixProof Experiment Evaluation Report
+# FixProof Pilot Evaluation Report
 
-This report is generated deterministically from the authoritative attempt manifest `data/evaluation/experiment-manifest.json`. Rates use the remediation attempt as the aggregation unit.
+This report is generated deterministically from the authoritative attempt manifest `data/evaluation/experiment-manifest.json`. Rates use the remediation attempt as the aggregation unit. This is the four-attempt pilot, separate from primary-v1. Legacy JSON fields named primary refer to AI attempts within this pilot.
 
 ## Experiment matrix
 
@@ -13,13 +13,13 @@ This report is generated deterministically from the authoritative attempt manife
 
 ## Outcome-coverage controls
 
-These deterministic non-AI controls exercise missing policy outcomes and are excluded from every primary AI-attempt metric.
+These deterministic non-AI controls exercise missing policy outcomes and are excluded from every pilot AI-attempt metric.
 
 | Control | Origin | SAST | Security | Functional | Classification | Decision |
 |---|---|---|---|---|---|---|
 | XSS static-output control | deterministic_non_ai | Resolved | Inconclusive | Fail | `sast_false_success` | Reject |
 
-| Required outcome | Primary AI attempt | Non-AI control | Covered |
+| Required outcome | Pilot AI attempt | Non-AI control | Covered |
 |---|---|---|---|
 | `validated_candidate` | Yes | No | Yes |
 | `sast_false_success` | No | Yes | Yes |

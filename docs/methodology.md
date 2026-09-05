@@ -30,10 +30,11 @@ JavaScript/Express cases:
 | SQL injection | CWE-89 | Query input reaches a SQLite statement | 1 |
 | Path traversal | CWE-22 | Request input controls a file path | 1 |
 
-These pilot attempts are not part of the planned primary-trial denominator.
+These pilot attempts are not part of the primary-trial denominator.
 The primary study uses a frozen, versioned, target-only application for each CWE
-and five independent initial attempts per case, for 15 scheduled initial
-attempts. At most one eligible validation-feedback retry may follow an initial
+and five separate initial model calls per case, for 15 scheduled initial
+attempts, all now recorded. Repeated calls on one app are not independent
+applications. At most one eligible validation-feedback retry may follow an initial
 attempt; retries are paired secondary outcomes and cannot replace or be
 combined with the initial results.
 
@@ -57,10 +58,10 @@ For each benchmark, FixProof follows the same sequence:
 4. Normalize and correlate scanner evidence while preserving provenance.
 5. Build focused source context and a structured remediation prompt.
 6. Give the model scanner evidence and code context, but not ground truth tests.
-7. Save the model response unchanged.
-8. Apply the candidate only to an isolated attempt workspace.
-9. Run syntax/build validation and a candidate SAST scan.
-10. Compare the target semantically across baseline and candidate findings.
+7. Save the parsed structured model response fields.
+8. Apply the candidate only to a copied attempt workspace.
+9. Run JavaScript syntax validation and a candidate SAST scan.
+10. Compare the target by filename, CWE, and enclosing Express scope.
 11. Run targeted runtime security validation.
 12. Run functional and regression validation.
 13. Compute a deterministic disposition from the recorded evidence.
@@ -174,13 +175,15 @@ a separate result artifact. The human record does not mutate the automated
 decision.
 
 Allowed verdicts are `ACCEPT_CANDIDATE`, `REJECT_CANDIDATE`, and
-`REQUEST_ADDITIONAL_TESTING`. The current authoritative matrix requires two
-adjudications and contains two completed reviewer results.
+`REQUEST_ADDITIONAL_TESTING`. The selected pilot matrix requires two
+adjudications and contains two completed reviewer results. The primary study
+has ten conflicts; ten packets are prepared and zero human results are
+complete as of September 5, 2026. See the generated primary report for updates.
 
 ## Metrics
 
 Pilot metrics use the four manifest-selected AI-generated attempts as their
-denominator; the non-AI outcome-coverage control is excluded. Future primary
+denominator; the non-AI outcome-coverage control is excluded. Primary
 metrics use all 15 scheduled initial attempts unless a metric explicitly
 requires an applied candidate. Malformed or unapplicable model output remains a
 recorded primary failure rather than being silently regenerated.

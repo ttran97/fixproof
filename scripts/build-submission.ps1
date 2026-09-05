@@ -5,6 +5,11 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+if ([IO.Path]::GetFileName($ArchiveName) -ne $ArchiveName -or
+    -not $ArchiveName.EndsWith('.zip', [StringComparison]::OrdinalIgnoreCase)) {
+    throw "ArchiveName must be a ZIP filename without directory components."
+}
+
 $originalLocation = Get-Location
 $repositoryRoot = (& git rev-parse --show-toplevel).Trim()
 if ($LASTEXITCODE -ne 0 -or -not $repositoryRoot) {
@@ -54,6 +59,24 @@ try {
         }
     }
 
+    $python = Join-Path $repositoryRoot ".venv\Scripts\python.exe"
+    & $python -m fixproof.evaluation.primary_report --check
+    if ($LASTEXITCODE -ne 0) {
+        throw "Primary evidence verification failed."
+    }
+    $primary = Get-Content -LiteralPath "data\evaluation\primary-report.json" -Raw | ConvertFrom-Json
+    $primaryPaths = @("data/evaluation/primary-report.json", "docs/primary-results.md")
+    $primaryPaths += @($primary.evidence_bindings | ForEach-Object { $_.path })
+    foreach ($row in $primary.experiment_matrix) {
+        $primaryPaths += @($row.artifacts.PSObject.Properties | ForEach-Object { $_.Value.path })
+    }
+    foreach ($path in ($primaryPaths | Sort-Object -Unique)) {
+        & git ls-files --error-unmatch -- $path 2>$null | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            throw "Primary evidence or derived report is not tracked: '$path'."
+        }
+    }
+
     $distribution = Join-Path $repositoryRoot "dist"
     New-Item -ItemType Directory -Path $distribution -Force | Out-Null
     $archivePath = Join-Path $distribution $ArchiveName
@@ -71,4 +94,3 @@ try {
 finally {
     Set-Location -LiteralPath $originalLocation
 }
-

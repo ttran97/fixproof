@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "xss",
+    "case": "Reflected XSS",
+    "canonical_id": "CF-209ae17232b1",
+    "attempt": 2,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-05T15:46:57.091307Z",
+    "rationale": "Implemented safeName that holds global replacement map encodes &<>\"'",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-xss-initial-02/packet.json",
+      "sha256": "a9cd88ec05cc9780f1b2e5bfa0d537d80940c37e1b7d381df8f9309d2ae4ebdb"
+    },
+    "automated_decision_unchanged": true
+  }
+}

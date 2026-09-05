@@ -1,5 +1,10 @@
 # FixProof Demonstration Guide
 
+These runtime demos replay selected **pilot** candidates. The 15-attempt
+primary study has a separate evidence view at `/ui/primary.html`, served by
+`python -m fixproof.reproduce --serve`. The lifecycle demonstration is a
+separately labeled recorded replay; see [prototype status](prototype-status.md).
+
 ## Follow-along demo test
 
 This is the recommended classroom demonstration. It uses an authoritative,

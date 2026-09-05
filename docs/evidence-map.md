@@ -1,4 +1,13 @@
-# FixProof Evidence Map
+# FixProof Pilot Evidence Map
+
+Current primary entry points: [verified primary results](primary-results.md),
+[prototype status](prototype-status.md), and [human review guide](primary-review-guide.md).
+
+This map covers the four-attempt **pilot** and its separate non-AI control.
+The completed 15-attempt primary-v1 study is under `data/primary_trials/v1/`.
+See [current prototype status](prototype-status.md) for its verified
+results and remaining primary human reviews, and the
+[submission guide](cs6727-submission-guide.md) for the repository walkthrough.
 
 ## What this map proves
 
@@ -97,4 +106,3 @@ powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 -Suite
 The CLI labels recorded and newly executed evidence. Live outputs are written
 to a disposable temporary directory and do not replace the authoritative
 experiment.
-

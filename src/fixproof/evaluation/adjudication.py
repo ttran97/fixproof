@@ -127,6 +127,7 @@ def _resolve_project_file(
                 return resolved
 
     repository_roots = {
+        "benchmarks",
         "data",
         "docs",
         "rules",
@@ -712,7 +713,12 @@ def main() -> None:
     record.add_argument("--output", type=Path, required=True)
     record.add_argument("--reviewer", required=True)
     record.add_argument("--verdict", choices=ALLOWED_VERDICTS, required=True)
-    record.add_argument("--rationale", required=True)
+    rationale_input = record.add_mutually_exclusive_group(required=True)
+    rationale_input.add_argument("--rationale")
+    rationale_input.add_argument(
+        "--rationale-file", type=Path,
+        help="Read UTF-8 review text from a file, avoiding shell quoting issues.",
+    )
     record.add_argument("--reviewed-at")
     record.add_argument("--confirm-all-required-checks", action="store_true")
 
@@ -736,13 +742,21 @@ def main() -> None:
         print(f"Pending packets: {len(outputs)}")
         return
 
+    rationale = args.rationale
+    if args.rationale_file is not None:
+        try:
+            # Windows PowerShell Set-Content -Encoding UTF8 may include a BOM.
+            rationale = from_root(args.rationale_file).read_text(encoding="utf-8-sig")
+        except (OSError, UnicodeError) as error:
+            parser.error(f"Cannot read rationale file: {error}")
+
     output = record_completed_result(
         project_root=project_root,
         packet_path=from_root(args.packet),
         output_path=from_root(args.output),
         reviewer=args.reviewer,
         verdict=args.verdict,
-        rationale=args.rationale,
+        rationale=rationale,
         reviewed_at=args.reviewed_at,
         confirm_all_required_checks=args.confirm_all_required_checks,
     )

@@ -44,7 +44,13 @@ try {
     Expand-Archive -LiteralPath $archivePath -DestinationPath $extractedRoot
 
     if ($InstallDependencies) {
-        & py -3.11 -m venv (Join-Path $extractedRoot ".venv")
+        $projectPython = Join-Path $repositoryRoot ".venv\Scripts\python.exe"
+        if (Test-Path -LiteralPath $projectPython) {
+            & $projectPython -m venv (Join-Path $extractedRoot ".venv")
+        }
+        else {
+            & py -3.11 -m venv (Join-Path $extractedRoot ".venv")
+        }
         if ($LASTEXITCODE -ne 0) {
             throw "Could not create the clean Python environment."
         }
@@ -69,10 +75,18 @@ try {
                 throw "Could not install FixProof dependencies."
             }
 
+            & $python -m playwright install chromium
+            if ($LASTEXITCODE -ne 0) {
+                throw "Could not install the Chromium runtime oracle."
+            }
+
             foreach ($application in @(
                 "sample_apps\vulnerable-js-app",
                 "sample_apps\vulnerable-sqli-app",
-                "sample_apps\vulnerable-path-traversal-app"
+                "sample_apps\vulnerable-path-traversal-app",
+                "benchmarks\primary\v1\xss",
+                "benchmarks\primary\v1\sqli",
+                "benchmarks\primary\v1\path-traversal"
             )) {
                 Push-Location -LiteralPath $application
                 try {
@@ -125,4 +139,3 @@ finally {
         Remove-Item -LiteralPath $resolvedRunDirectory -Recurse -Force
     }
 }
-

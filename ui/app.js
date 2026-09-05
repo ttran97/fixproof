@@ -81,7 +81,7 @@ function renderCoverage(report) {
     const copy = element("div");
     copy.append(element("strong", "", titleCase(name)));
     let source = "Not covered";
-    if (outcome.observed_in_primary_ai_attempts) source = "Primary AI attempt";
+    if (outcome.observed_in_primary_ai_attempts) source = "Pilot AI attempt";
     else if (outcome.demonstrated_by_non_ai_control) source = "Separated non-AI control";
     copy.append(element("div", "coverage-source", source));
     item.append(copy, badge(outcome.covered ? "Covered" : "Missing", outcome.covered ? "pass" : "fail"));

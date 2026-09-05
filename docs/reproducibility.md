@@ -1,5 +1,16 @@
 # FixProof Reproducibility Procedure
 
+The current verifier rebuilds both pilot and primary reports. It keeps evidence
+verification separate from pending primary human reviews. The primary-only
+read-only check is `python -m fixproof.evaluation.primary_report --check`;
+the primary dashboard is `/ui/primary.html`.
+
+On a machine where `py -3.11` is unavailable but the project Python 3.11
+environment exists, use its interpreter to create another environment:
+`.\.venv\Scripts\python.exe -m venv <new-environment-path>`.
+The clean-check script uses that interpreter when available and falls back to
+the Python launcher otherwise.
+
 ## Reproducibility levels
 
 FixProof distinguishes three claims:
@@ -50,22 +61,27 @@ npm ci
 Pop-Location
 ```
 
-The package metadata pins the versions used by the recorded pilot, including
+The package metadata pins direct dependencies used by the recorded study, including
 Semgrep `1.136.0` as recorded in the raw scan artifacts.
 
 ## Verification commands
 
 ```powershell
-python -m unittest discover -s tests -v
 python -m fixproof.reproduce --verify
-python -m fixproof.evaluation.benchmark_verifier
+python -m fixproof.evaluation.primary_report --check
+python -m fixproof.findings.lifecycle --history data/lifecycle/sqli-recorded-replay.json --check
 powershell -ExecutionPolicy Bypass -File .\demo-test.ps1 -Suite
 ```
 
-The primary benchmark verifier starts each frozen baseline on loopback, checks
-its bound hashes and restore copy, confirms functional-pass/security-fail
-ground truth, requires browser execution for CWE-79, and captures Semgrep
-evidence. It does not invoke the remediation model or generate an attempt.
+`reproduce --verify` includes the full automated test suite. The demo suite
+reruns four pilot candidates' runtime checks with recorded SAST evidence.
+
+The primary benchmark verifier was used to establish frozen baseline ground
+truth and capture scanner evidence. Its default output paths belong to the
+completed study. Do not rerun it with defaults after collection. For new
+supplemental baseline testing, inspect
+`python -m fixproof.evaluation.benchmark_verifier --help` and select separate
+output paths before running it. New scanner calls may use changed remote rules.
 
 The evidence-map document lists the artifacts a reviewer can inspect after the
 commands complete.
@@ -120,3 +136,36 @@ and local editor files. Never package the working directory with File Explorer.
 - No command may use the original checkout as hidden evidence.
 - The dashboard must serve only its allowlisted UI and report paths.
 - Recorded and live/disposable evidence must remain visibly labeled.
+
+## September 5, 2026 verification checkpoint
+
+The current working tree was copied using tracked plus non-ignored new files
+into `dist/verification/current-checkout/`, excluding `.env`, installed
+environments, Node dependencies, and generated distribution files. This was a
+sanitized **working-copy snapshot**, not an export of a clean committed HEAD.
+
+- A new Python 3.11 environment installed the declared package dependencies.
+  Imports resolved to that copy and its environment.
+- `npm ci` installed all six pilot/primary apps from their lockfiles.
+  Playwright's Chromium installer completed, using the host browser cache.
+- `fixproof.reproduce --verify` passed **87 tests** and verified both studies,
+  including all 15 primary attempts. Primary human completion remained 0/10.
+- The guided demo suite, run after that verification with `-SkipVerification`,
+  reproduced all **four** selected pilot runtime decisions using recorded SAST.
+- A browser smoke check of the current primary dashboard showed 15 rows and
+  nine evidence sections per selected trial, no page errors, and no document
+  overflow at desktop width 1440 or mobile width 390.
+
+Local logs are retained under ignored `dist/verification/`:
+`python-install.log`, `fresh-verification.log`, `fresh-demo.log`,
+`dashboard-smoke.json`, and `frozen-dry-run.log`. The verification-copy source
+manifest records file hashes; dependency installation logs also remain in
+each copied application's directory.
+
+This checks dependency restoration and evidence relocation on the same
+Windows host. It does not establish cross-platform support, a pristine OS
+installation, new primary runtime observations, or regeneration of the
+original model responses. Transitive Python dependencies are not fully
+lockfile-pinned. New scanner/model experiments require their own recorded
+conditions and outputs. A final committed-archive check and packaging remain
+to be run after reviewing and committing the intended snapshot.

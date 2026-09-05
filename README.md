@@ -8,7 +8,7 @@ The core premise is:
 
 > A SAST finding disappearing does not prove that a vulnerability was fixed correctly.
 
-FixProof therefore treats SAST as one source of evidence and independently checks candidate patches with syntax/build validation, SAST rescanning, targeted security tests, functional/regression tests, and a deterministic decision policy.
+FixProof therefore treats SAST as one source of evidence and independently checks candidate patches with JavaScript syntax validation, SAST rescanning, targeted security tests, functional/regression tests, and a deterministic decision policy.
 
 ## Research question
 
@@ -83,7 +83,29 @@ Syntax / Build Check        SAST Rescan
 
 ## Current project status
 
-### CWE-79 reflected XSS: first prototype path complete
+The current implementation reference is [prototype status](docs/prototype-status.md).
+Primary reporting, a separate 15-attempt dashboard, ten pending review packets,
+and new/persistent/resolved/reopened finding history are now implemented.
+Use [the review guide](docs/primary-review-guide.md) for the next human step.
+
+As of September 5, 2026, the three-case prototype and all **15/15 primary
+initial attempts** are implemented/recorded. The primary results are five
+`READY_FOR_HUMAN_REVIEW` candidates and ten `NEEDS_HUMAN_ADJUDICATION`
+candidates, with zero observed primary SAST false successes. Primary human
+reviews and final-submission materials remain to be completed.
+
+Start with the [documentation index](docs/README.md) for current references
+and guidance on preserving historical evidence. The
+[submission guide](docs/cs6727-submission-guide.md) explains the file structure,
+the pipeline, and how to present it.
+
+The case histories below and the original dashboard/report describe the
+**four-attempt pilot**, plus a separately labeled non-AI control. The primary
+study is separate under `data/primary_trials/v1/`; its recorded aggregate is
+`collection-state.json`. Do not combine these denominators or treat the
+pilot verifier's `READY` message as final course-submission readiness.
+
+### Pilot CWE-79 reflected XSS: prototype path complete
 
 Baseline target: `GET /hello` in `sample_apps/vulnerable-js-app/app.js`.
 
@@ -159,7 +181,7 @@ Attempt 2 produced:
 
 This prevents the system from endlessly changing otherwise functional code only to make Semgrep quiet.
 
-### CWE-89 SQL injection: current work
+### Pilot CWE-89 SQL injection: validated candidate recorded
 
 A separate controlled application exists at:
 
@@ -224,12 +246,14 @@ fixproof/
 |-- README.md
 |-- IMPLEMENTATION_GUIDE.md
 |-- pyproject.toml
+|-- benchmarks/primary/v1/  (frozen primary applications)
 |-- data/
 |   |-- ground_truth/, raw_scans/, normalized/, and correlated/
 |   |-- contexts/, prompts/, retry_prompts/, and remediations/
 |   |-- validation/, security_validation/, and functional_validation/
 |   |-- decisions/ and adjudications/
-|   `-- evaluation/ and evaluation_controls/
+|   |-- evaluation/ and evaluation_controls/  (pilot reports/control)
+|   `-- primary_baselines/ and primary_trials/v1/
 |-- docs/
 |   |-- architecture.md, methodology.md, and evaluation-report.md
 |   |-- demo-guide.md and evidence-map.md
@@ -400,9 +424,9 @@ Normalized metadata includes scanner/rule information, CWE, severity, confidence
 
 Current MVP `FP-*` IDs are location-sensitive, so they are not used alone for cross-version tracking.
 
-### Pending parser change
+### Implemented scanner rule provenance
 
-Preserve scanner rule provenance:
+The scanner rule-provenance change is implemented. Its classification is:
 
 ```python
 if metadata.get("fixproof_controlled_rule") is True:
@@ -411,7 +435,8 @@ else:
     rule_origin = "semgrep_oss"
 ```
 
-Propagate `rule_origin` into correlated scanner evidence.
+`rule_origin` is propagated into correlated scanner evidence. Historical
+artifacts from before this change retain explicitly unrecorded provenance.
 
 ## Finding correlation
 
@@ -596,6 +621,15 @@ fixproof_controlled_rule: true
 
 ## Evaluation reporting
 
+The original report builder selects the four-attempt **pilot**. The new primary
+adapter verifies the separate manifest/schema, generates
+`data/evaluation/primary-report.json` and `docs/primary-results.md`, and supplies
+the dashboard at `/ui/primary.html`:
+
+```powershell
+.\.venv\Scripts\python.exe -m fixproof.evaluation.primary_report
+```
+
 The evaluation layer uses an explicit manifest to select authoritative artifacts. This prevents superseded decisions, such as the original XSS Attempt 2 policy output, from being double-counted. It validates canonical IDs and decision evidence, recomputes metrics from the underlying validation artifacts, and records SHA-256 digests for auditability.
 
 Generate both report formats with:
@@ -624,15 +658,20 @@ $env:PYTHONPATH="src"
 
 All three original disagreement packets have completed reviewer results from Tony Tran with `ACCEPT_CANDIDATE`. Each result remains bound to its immutable packet. After SQLi rule-v2 revalidation, SQLi is now `READY_FOR_HUMAN_REVIEW`; its earlier disagreement adjudication is retained as historical evidence. The two cases that still require adjudication in the authoritative matrix are completed 2/2.
 
+That 2/2 completion figure applies to the pilot. The ten primary-v1
+disagreements have prepared packets but still await completed reviewer results.
+Use [the primary review guide](docs/primary-review-guide.md); primary results
+are discovered at fixed trial review paths without editing the frozen manifest.
+
 After personally reviewing every bound artifact, a reviewer can inspect the result command and allowed verdicts with:
 
 ```powershell
 .\.venv\Scripts\python.exe -m fixproof.evaluation.adjudication record --help
 ```
 
-The `record` command requires a reviewer identifier, rationale, verdict, separate output path, and explicit confirmation that all required checks were completed. It never overwrites the packet or changes the automated decision. Add the completed result as `adjudication_result` in the corresponding manifest entry, then regenerate the report.
+The `record` command requires a reviewer identifier, rationale, verdict, separate output path, and explicit confirmation that all required checks were completed. It never overwrites the packet or changes the automated decision. For pilot records, add the completed result as `adjudication_result` in the corresponding pilot manifest entry, then regenerate the pilot report.
 
-## Current evaluation matrix
+## Selected pilot evaluation matrix
 
 | Case | CWE | Attempt | SAST | Security | Functional | New findings | Decision |
 |---|---:|---:|---|---|---|---:|---|
@@ -641,18 +680,18 @@ The `record` command requires a reviewer identifier, rationale, verdict, separat
 | SQLi | 89 | 1 | Resolved | Pass (2/2) | Pass (3/3) | 0 | Ready for human review |
 | Path traversal | 22 | 1 | Persistent | Pass (2/2) | Pass (3/3) | 0 | Human adjudication |
 
-The generated primary AI-attempt metrics are: SAST remediation success 1/4, targeted security validation 4/4, functional preservation 3/4, new-security-finding rate 0/4, false-success count 0, SAST/runtime disagreement count 2, retry improvement 1/1, human adjudication 2/4, and adjudication completion 2/2.
+The generated pilot AI-attempt metrics are: SAST remediation success 1/4, targeted security validation 4/4, functional preservation 3/4, new-security-finding rate 0/4, false-success count 0, SAST/runtime disagreement count 2, retry improvement 1/1, human adjudication 2/4, and adjudication completion 2/2.
 
 A **false success** means the target SAST finding was resolved but downstream security/functional/new-finding validation still failed. XSS Attempt 1 is not a false success because the SAST target remained persistent.
 
 The policy's false-success outcome is exercised by a deterministic static-output XSS negative control. It resolves the SAST target by removing reflection but fails functionality and makes targeted security testing inconclusive. The manifest labels it `deterministic_non_ai` and `outcome_coverage_only`; the report excludes it from every primary AI-attempt metric. This demonstrates the policy branch without misrepresenting the control as AI-generated evidence.
 
-The generated [evaluation report](docs/evaluation-report.md) is the authoritative human-readable matrix; rerun the builder after selecting any new attempt in the manifest.
+The generated [pilot evaluation report](docs/evaluation-report.md) is the selected pilot matrix. The separate [primary results](docs/primary-results.md) cover all 15 primary attempts.
 
 ## Reproducibility verification
 
-The final-experiment verification command rebuilds both reports from the
-authoritative manifest, validates experiment and control separation, checks
+The verification command rebuilds the separate pilot and primary reports,
+validates experiment and control separation, checks
 required policy-outcome and decision-state coverage, confirms adjudication and
 artifact bindings, and runs the complete automated test suite:
 
@@ -672,7 +711,9 @@ To verify first and then launch the dashboard:
 
 The reproducibility command is deterministic and does not call the OpenAI API,
 rerun Semgrep, generate a new remediation, modify benchmark source, or approve
-a candidate. It regenerates only the two derived evaluation reports.
+a candidate. It regenerates derived pilot and primary JSON/Markdown reports.
+`EVIDENCE VERIFIED` describes automated verification; pending human reviews and
+course deliverables remain separate completion requirements.
 
 ## Controlled demo command
 

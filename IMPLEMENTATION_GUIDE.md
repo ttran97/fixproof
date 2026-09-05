@@ -1,8 +1,26 @@
-# FixProof Implementation Guide / Codex Handoff
+# FixProof historical implementation notes
 
-This file is a continuation guide for another coding agent. It records what is already implemented, what has been experimentally verified, and what should be built next.
+This preserves the development and pilot checkpoints through September 4,
+2026. Its task lists, counts, and "next step" statements describe those
+checkpoints, not the current backlog. Do not use them as instructions to
+repeat experiments or overwrite recorded evidence.
 
-## 1. Current exact handoff point
+For current work, read [prototype status](docs/prototype-status.md), the
+[documentation index](docs/README.md), and the
+[submission guide](docs/cs6727-submission-guide.md). The primary report and
+dashboard, pending primary review packets, and four-state lifecycle tracking
+were added after the frozen study. Human conclusions and final course
+deliverables remain separate work.
+
+## 1. Historical handoff point (September 4, 2026)
+
+September 4, 2026 review: the detailed case history below describes the pilot.
+All 15 initial primary-v1 attempts are also recorded in
+`data/primary_trials/v1/`: five ready for human review, ten requiring
+adjudication, and zero observed SAST false successes. The current report,
+dashboard, and adjudication defaults still select the four-attempt pilot.
+Read [the CS6727 alignment review](docs/cs6727-alignment-review.md) and
+[submission guide](docs/cs6727-submission-guide.md) before planning next work.
 
 ```text
 CWE-79:
@@ -21,10 +39,10 @@ default Semgrep provenance preserved
 security and functional validation pass
 SAST/runtime disagreement sent to human adjudication
 
-EVALUATION:
+PILOT EVALUATION:
 manifest-driven report builder implemented
 3 cases / 4 attempts selected
-validated-candidate outcome observed in a primary AI attempt
+validated-candidate outcome observed in a pilot AI attempt
 false-success outcome demonstrated by a separated non-AI control
 selected adjudications completed 2/2
 JSON metrics and Markdown matrix generated
@@ -34,7 +52,14 @@ controlled demo/operator command implemented for all three cases
 architecture and methodology documentation completed
 ```
 
-The next handoff should use `data/evaluation/experiment-manifest.json` as the authority for selected attempts and regenerate both reports after any artifact selection changes. Core prototype implementation is feature-complete for the current CS6727 scope; remaining work should emphasize submission packaging, presentation/demo rehearsal, and any course-specific written deliverables rather than adding autonomous production features.
+Use `data/evaluation/experiment-manifest.json` as the authority for selected
+pilot attempts. Use the separate primary manifest and attempt records for the
+15 primary observations. The narrowed core workflow is implemented, but
+primary reporting/review integration, ten primary disagreement reviews,
+explicit resolution of the original reopened-tracking and application-origin
+commitments, fresh-install verification, and course deliverables remain.
+Preserve the frozen primary implementation and evidence; document later
+changes without rewriting the recorded study.
 
 ---
 

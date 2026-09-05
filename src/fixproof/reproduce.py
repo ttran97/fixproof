@@ -10,6 +10,9 @@ from typing import Any
 
 from fixproof.evaluation.dashboard import create_dashboard_server
 from fixproof.evaluation.report_builder import ReportDataError, build_report
+from fixproof.evaluation.primary_report import write_primary_report
+from fixproof.findings.lifecycle import validate_history
+import json
 
 
 PRIMARY_METRIC_SCOPE = "primary_ai_attempt_metrics"
@@ -31,6 +34,7 @@ class ReadinessCheck:
 @dataclass(frozen=True)
 class VerificationResult:
     report: dict[str, Any]
+    primary_report: dict[str, Any]
     checks: tuple[ReadinessCheck, ...]
     tests_passed: bool
 
@@ -227,10 +231,15 @@ def verify_project(
         / "experiment-report.json",
         markdown_output=project_root / "docs" / "evaluation-report.md",
     )
+    primary = write_primary_report(project_root)
+    lifecycle_path = project_root / "data/lifecycle/sqli-recorded-replay.json"
+    if lifecycle_path.exists():
+        validate_history(json.loads(lifecycle_path.read_text(encoding="utf-8")))
     checks = evaluate_readiness(report)
     tests_passed = run_test_suite(project_root) if run_tests else True
     return VerificationResult(
         report=report,
+        primary_report=primary,
         checks=checks,
         tests_passed=tests_passed,
     )
@@ -243,12 +252,12 @@ def _print_verification(result: VerificationResult, project_root: Path) -> None:
     print(f"Python: {sys.executable}")
     print(f"Project: {project_root}")
     print(
-        "Report: "
+        "Pilot report: "
         f"{result.report['case_count']} cases, "
         f"{result.report['attempt_count']} AI attempts, "
         f"{result.report['control_count']} separated control"
     )
-    print("Readiness checks:")
+    print("Pilot evidence checks (legacy metric names refer to the pilot):")
     for check in result.checks:
         label = "PASS" if check.passed else "FAIL"
         print(f"  [{label}] {check.name}: {check.detail}")
@@ -263,7 +272,11 @@ def _print_verification(result: VerificationResult, project_root: Path) -> None:
             "unrecorded pre-provenance evidence."
         )
 
-    print("READY" if result.ready else "NOT READY")
+    review = result.primary_report["adjudication_summary"]
+    print(f"Primary evidence: {result.primary_report['attempt_count']}/15 initial attempts verified")
+    print(f"Primary human conflict reviews: {review['completed']}/{review['required']} completed")
+    print("EVIDENCE VERIFIED" if result.ready else "EVIDENCE VERIFICATION FAILED")
+    print("Human reviews and course deliverables are separate completion requirements.")
 
 
 def _serve(project_root: Path, bind: str, port: int) -> None:
@@ -285,7 +298,7 @@ def _serve(project_root: Path, bind: str, port: int) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Rebuild and verify the evidence-bound FixProof final experiment, "
+            "Rebuild and verify the separate FixProof pilot and primary studies, "
             "optionally serving its read-only dashboard."
         )
     )

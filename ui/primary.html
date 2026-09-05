@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FixProof Primary Study</title>
+  <link rel="stylesheet" href="/ui/styles.css">
+  <script src="/ui/primary.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><div class="header-copy">
+    <p class="eyebrow">CS6727 security practicum</p><h1>FixProof</h1>
+    <p class="subtitle">Primary study: evidence for 15 initial remediation attempts</p>
+  </div></header>
+  <main class="dashboard" id="primary-dashboard" aria-busy="true">
+    <nav aria-label="Study selection">Primary study | <a href="/ui/">Pilot study and non-AI control</a></nav>
+    <p id="primary-status" role="status">Loading primary evidence…</p>
+    <section aria-labelledby="primary-summary"><h2 id="primary-summary">Recorded results</h2>
+      <div id="primary-metrics" class="metric-grid"></div>
+      <p id="primary-interpretation" class="panel-note"></p>
+      <p id="primary-reviews"></p>
+    </section>
+    <section aria-labelledby="trial-heading"><h2 id="trial-heading">All initial attempts</h2>
+      <p>Select a trial to inspect its patch and measured evidence. Reviewing a page does not record approval.</p>
+      <div class="table-wrap"><table><thead><tr>
+        <th>Trial</th><th>CWE</th><th>Target SAST</th><th>Security</th><th>Functional</th><th>Decision</th><th>Conflict review</th>
+      </tr></thead><tbody id="primary-rows"></tbody></table></div>
+    </section>
+    <section class="panel" aria-labelledby="detail-heading" id="primary-detail" hidden>
+      <h2 id="detail-heading">Trial evidence</h2><p id="detail-summary"></p>
+      <div id="detail-sections"></div>
+    </section>
+    <section class="panel"><h2>Interpretation limits</h2><ul id="primary-limits"></ul></section>
+  </main>
+</body>
+</html>

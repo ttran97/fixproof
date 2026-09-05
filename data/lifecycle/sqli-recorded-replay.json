@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "finding_lifecycle",
+  "snapshots": [
+    {
+      "snapshot": {
+        "version": "v1-vulnerable-recorded",
+        "ruleset_id": "recorded-primary-v1-sqli-auto-plus-rule-v2",
+        "scanner_version": "1.136.0",
+        "scan_complete": true,
+        "coverage": [
+          "app.js"
+        ],
+        "source_hashes": {
+          "app.js": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95"
+        },
+        "scan_binding": {
+          "path": "data/primary_baselines/raw_scans/sqli-configured.json",
+          "sha256": "978bb7a3f73284db6a23471e1cb3efc67bd8c9e18bcc41e9d9c6d49bf3c1a20e"
+        },
+        "findings": [
+          {
+            "identity": {
+              "file": "app.js",
+              "cwe": "CWE-89",
+              "scope": "express:get:/user"
+            },
+            "start_line": 35,
+            "rule_ids": [
+              "rules.fixproof.javascript.sqlite3.sql-injection"
+            ]
+          },
+          {
+            "identity": {
+              "file": "app.js",
+              "cwe": "CWE-352",
+              "scope": "file"
+            },
+            "start_line": 4,
+            "rule_ids": [
+              "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage"
+            ]
+          }
+        ]
+      },
+      "previous_sha256": null,
+      "events": [
+        {
+          "finding_id": "7bfb9062ae908168407085e08635e644130e03e20d3b09004cf24d83a66f8874",
+          "status": "new"
+        },
+        {
+          "finding_id": "8c53d7f003b6e7c73610c0e1dba6324e9c8bc248fd236cd4936c1708d3988466",
+          "status": "new"
+        }
+      ],
+      "sha256": "011e06759144f1ec7deb67372decff214d4a90972472a1bdd11731a5c5d53857"
+    },
+    {
+      "snapshot": {
+        "version": "v2-fixed-recorded",
+        "ruleset_id": "recorded-primary-v1-sqli-auto-plus-rule-v2",
+        "scanner_version": "1.136.0",
+        "scan_complete": true,
+        "coverage": [
+          "app.js"
+        ],
+        "source_hashes": {
+          "app.js": "0569a2f8c616986e16fd9bea4915262e4497adb087169f034571e7b3973681cd"
+        },
+        "scan_binding": {
+          "path": "data/primary_trials/v1/cases/sqli/attempt-01/sast/candidate-semgrep-raw.json",
+          "sha256": "a860f5ed0c9b490a4ca0e7265d37cfed14b7bf9eeae5f331a3e9c79450c18868"
+        },
+        "findings": [
+          {
+            "identity": {
+              "file": "app.js",
+              "cwe": "CWE-352",
+              "scope": "file"
+            },
+            "start_line": 4,
+            "rule_ids": [
+              "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage"
+            ]
+          }
+        ]
+      },
+      "previous_sha256": "011e06759144f1ec7deb67372decff214d4a90972472a1bdd11731a5c5d53857",
+      "events": [
+        {
+          "finding_id": "8c53d7f003b6e7c73610c0e1dba6324e9c8bc248fd236cd4936c1708d3988466",
+          "status": "persistent"
+        },
+        {
+          "finding_id": "7bfb9062ae908168407085e08635e644130e03e20d3b09004cf24d83a66f8874",
+          "status": "resolved"
+        }
+      ],
+      "sha256": "2607765706270ef45cc8da5b0626d66ab18857b6caf18b696ebcba47cc5f668b"
+    },
+    {
+      "snapshot": {
+        "version": "v3-reintroduced-recorded",
+        "ruleset_id": "recorded-primary-v1-sqli-auto-plus-rule-v2",
+        "scanner_version": "1.136.0",
+        "scan_complete": true,
+        "coverage": [
+          "app.js"
+        ],
+        "source_hashes": {
+          "app.js": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95"
+        },
+        "scan_binding": {
+          "path": "data/primary_baselines/raw_scans/sqli-configured.json",
+          "sha256": "978bb7a3f73284db6a23471e1cb3efc67bd8c9e18bcc41e9d9c6d49bf3c1a20e"
+        },
+        "findings": [
+          {
+            "identity": {
+              "file": "app.js",
+              "cwe": "CWE-89",
+              "scope": "express:get:/user"
+            },
+            "start_line": 35,
+            "rule_ids": [
+              "rules.fixproof.javascript.sqlite3.sql-injection"
+            ]
+          },
+          {
+            "identity": {
+              "file": "app.js",
+              "cwe": "CWE-352",
+              "scope": "file"
+            },
+            "start_line": 4,
+            "rule_ids": [
+              "javascript.express.security.audit.express-check-csurf-middleware-usage.express-check-csurf-middleware-usage"
+            ]
+          }
+        ]
+      },
+      "previous_sha256": "2607765706270ef45cc8da5b0626d66ab18857b6caf18b696ebcba47cc5f668b",
+      "events": [
+        {
+          "finding_id": "7bfb9062ae908168407085e08635e644130e03e20d3b09004cf24d83a66f8874",
+          "status": "reopened"
+        },
+        {
+          "finding_id": "8c53d7f003b6e7c73610c0e1dba6324e9c8bc248fd236cd4936c1708d3988466",
+          "status": "persistent"
+        }
+      ],
+      "sha256": "ed9bb4c4e2c07d4ecc7faf41244f70511f2551b8cdc2f3a27a08229c34692485"
+    }
+  ],
+  "findings": {
+    "7bfb9062ae908168407085e08635e644130e03e20d3b09004cf24d83a66f8874": {
+      "identity": {
+        "file": "app.js",
+        "cwe": "CWE-89",
+        "scope": "express:get:/user"
+      },
+      "status": "reopened",
+      "first_seen": "v1-vulnerable-recorded",
+      "last_seen": "v3-reintroduced-recorded",
+      "resolved_in": null,
+      "reopen_count": 1
+    },
+    "8c53d7f003b6e7c73610c0e1dba6324e9c8bc248fd236cd4936c1708d3988466": {
+      "identity": {
+        "file": "app.js",
+        "cwe": "CWE-352",
+        "scope": "file"
+      },
+      "status": "persistent",
+      "first_seen": "v1-vulnerable-recorded",
+      "last_seen": "v3-reintroduced-recorded",
+      "resolved_in": null,
+      "reopen_count": 0
+    }
+  }
+}

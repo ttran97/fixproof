@@ -22,6 +22,13 @@ must be stored and reported separately from primary AI attempts.
 
 ## Required evidence chain
 
+The paths below describe pilot artifacts. The equivalent primary chain is
+inside `data/primary_trials/v1/cases/<case>/attempt-XX/`, with preparation
+records selected by its frozen manifest. Primary human records live separately
+under `data/primary_reviews/v1/`; the derived report is
+`data/evaluation/primary-report.json`. Do not move bound primary artifacts
+to match the pilot directory layout.
+
 | Stage | Required record | Minimum meaning |
 |---|---|---|
 | Ground truth | `data/ground_truth/<application>.json` | Independent vulnerability definition, source, sink, route, and expected vulnerable behavior |
