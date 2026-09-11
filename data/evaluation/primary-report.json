@@ -994,6 +994,10 @@
           "path": "data/primary_reviews/v1/primary-v1-xss-initial-03/packet.json",
           "sha256": "d51a455064ed7e67b84ffeed5724509350eaf892e46eb5dd8d1adbdce020671a"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-xss-initial-03/result.json",
+          "sha256": "a7aadcfd1674b30ab4b6ba36b0124232a2d5c7151ba230aa580dc2f4d54013a3"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/candidate.patch",
           "sha256": "00fe0383fdf72fe6514edb90b2241869e257d24a25818aa46a55e31933152848"
@@ -1001,11 +1005,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-10T17:30:47.656470Z",
+        "rationale": "Patch change: >-\n  req.query.name enters the /hello handler and is assigned to name. Originally,\n  it was concatenated directly into an HTML response. The candidate adds a local\n  escapeHtml function that converts the value to a string and encodes &, <, >,\n  double quotes, single quotes, and backticks before res.send. The route still\n  returns an <h1>Hello [name]</h1> greeting. Its wire-format changes for special\n  characters, but the browser-visible text is preserved. The patch assumes name\n  is plain text rather than intentionally supplied HTML, and that the escaped\n  value remains in HTML element-content context. String(undefined) also preserves\n  the original missing-name result, \"undefined\".\n\nSecurity observations: >-\n  All four requests returned 200. The script-tag payload was returned as\n  &lt;script&gt;...; the img/onerror payload had its markup delimiters encoded;\n  the quote-plus-SVG payload encoded both the quote and markup delimiters; and\n  the consecutive-markup payload encoded every relevant < and >. In every case,\n  the raw response contained no executable version of the supplied markup and\n  headless Chromium reported no dialogs or payload execution. These tests\n  establish protection against the four tested reflected-XSS forms in the\n  current HTML element-content sink, but they are a fixed payload suite rather\n  than a general proof for every input or future output context.\n\nFunctional observations: >-\n  Tony and Tony Tran were returned unchanged. Inputs containing &, <, adjacent\n  &<>, and \"><hello> were entity-encoded in the HTTP body but decoded to exactly\n  the original browser-visible value. That expected behavior makes sense for a\n  greeting route where a name is text, not markup. The tests therefore show that\n  the patch does not strip or corrupt the tested special characters while\n  neutralizing their HTML syntax.\n\nWhy the SAST warning may persist: >-\n  Both CWE-79 rules now point to candidate line 17, where res.send receives\n  \"<h1>Hello \" + escapeHtml(name) + \"</h1>\". One rule conservatively detects\n  user data in manually constructed HTML, and the other detects user input\n  written directly to a response. Neither appears to recognize the custom\n  escapeHtml helper as a trusted, context-appropriate sanitizer. Because the\n  warning is located at the post-escaping sink, while code inspection and both\n  response and browser evidence show effective encoding, the persistence most\n  likely reflects a scanner modeling limitation rather than an ineffective\n  repair.\n\nRemaining uncertainty or additional test needed: >-\n  The existing suite does not cover empty or omitted name values, repeated query\n  parameters, Unicode, entity-looking input such as &lt;script&gt;, single\n  quotes, or backticks. It also detects execution primarily through alert\n  dialogs. An optional stronger supplemental test would exercise those values\n  and assert that the resulting h1 contains only one text node, has no\n  attacker-created child elements, and displays the original input exactly.\n  A property/fuzz test over arbitrary strings would provide broader assurance.\n  This uncertainty does not reveal a concrete bypass in the present sink,\n  because the implementation encodes ampersands before encoding every <\n  delimiter.\n\nProposed verdict and justification: >-\n  ACCEPT_CANDIDATE within the controlled /hello-route scope. The patch applies\n  correct HTML element-content encoding before the only response sink, preserves\n  the route's intended visible greeting for the tested normal and special\n  inputs, introduces no new SAST findings, and retains the original missing-name\n  coercion behavior. The persistent scanner finding is best explained by lack\n  of recognition of the local escaping helper. Acceptance would not imply that\n  the helper is safe if its output is later reused in an attribute, URL,\n  JavaScript, CSS, or another context.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-xss-initial-03/packet.json",
           "sha256": "d51a455064ed7e67b84ffeed5724509350eaf892e46eb5dd8d1adbdce020671a"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-xss-initial-03/result.json",
+          "sha256": "a7aadcfd1674b30ab4b6ba36b0124232a2d5c7151ba230aa580dc2f4d54013a3"
         }
       },
       "trial_id": "primary-v1-xss-initial-03",
@@ -4934,8 +4945,8 @@
   ],
   "adjudication_summary": {
     "required": 10,
-    "completed": 2,
-    "pending": 8,
+    "completed": 3,
+    "pending": 7,
     "missing_packet": 0
   },
   "unique_candidate_sources": {

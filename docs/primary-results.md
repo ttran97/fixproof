@@ -6,7 +6,7 @@ Generated from verified recorded evidence; no model or runtime tests are rerun.
 |---|---|---|---|---|---|
 | primary-v1-xss-initial-01 | persistent | 4/4 | 6/6 | NEEDS_HUMAN_ADJUDICATION | completed |
 | primary-v1-xss-initial-02 | persistent | 4/4 | 6/6 | NEEDS_HUMAN_ADJUDICATION | completed |
-| primary-v1-xss-initial-03 | persistent | 4/4 | 6/6 | NEEDS_HUMAN_ADJUDICATION | pending |
+| primary-v1-xss-initial-03 | persistent | 4/4 | 6/6 | NEEDS_HUMAN_ADJUDICATION | completed |
 | primary-v1-xss-initial-04 | persistent | 4/4 | 6/6 | NEEDS_HUMAN_ADJUDICATION | pending |
 | primary-v1-xss-initial-05 | persistent | 4/4 | 6/6 | NEEDS_HUMAN_ADJUDICATION | pending |
 | primary-v1-sqli-initial-01 | resolved | 2/2 | 3/3 | READY_FOR_HUMAN_REVIEW | not_required |
@@ -33,7 +33,7 @@ All rates use the 15 scheduled initial attempts; pilot and control evidence are 
 - sast_false_success: 0/15 (0.0%).
 - sast_runtime_disagreement: 10/15 (66.7%).
 
-Conflict reviews completed: **2/10**. Ready for human review does not mean human approval.
+Conflict reviews completed: **3/10**. Ready for human review does not mean human approval.
 
 Distinct candidate sources per case: {'xss': 5, 'sqli': 1, 'path-traversal': 5}.
 

@@ -2,6 +2,12 @@
 
 ## Purpose
 
+For a source-checked explanation of how these references support the project,
+see [Understanding and defending FixProof](fixproof-understanding-and-defense.md).
+The September 10 Progress Report 2 update adds OWASP testing guidance and
+Semgrep configuration documentation to the three-paper foundation. These
+technical references support methodology; they do not prove FixProof's results.
+
 This working document positions FixProof without claiming that it invented
 LLM vulnerability repair, patch validation, or validation-guided retry. The
 project contribution is a controlled, auditable combination of those ideas for
@@ -53,4 +59,3 @@ false-success control.
 
 All claims and bibliographic fields should be checked against the papers before
 this draft is incorporated into a graded report.
-

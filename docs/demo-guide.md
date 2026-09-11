@@ -48,7 +48,7 @@ candidate validations:
 
 | Set | Vulnerability/evidence condition | What the test proves | Expected decision |
 |---|---|---|---|
-| TS-01 | Reproducibility and policy checks | All 37 automated tests, artifact bindings, metric separation, adjudication completion, and false-success control coverage | `READY` |
+| TS-01 | Reproducibility and policy checks | Full automated suite (89 tests verified September 10), artifact bindings, metric separation, pilot adjudication completion, primary review status, and false-success control coverage | `EVIDENCE VERIFIED` |
 | TS-02 | SQL injection, CWE-89 | Parameterization resolves the target while preserving legitimate lookups | `READY_FOR_HUMAN_REVIEW` |
 | TS-03 | XSS attempt 1, CWE-79 | A security improvement with a functional regression must be rejected | `REJECT` |
 | TS-04 | XSS attempt 2, CWE-79 | Static/runtime disagreement must cross the human boundary | `NEEDS_HUMAN_ADJUDICATION` |
@@ -89,7 +89,7 @@ drift.
 
 Follow these checkpoints in the output:
 
-1. The reproducibility gate finishes with `37 tests`, `OK`, and `READY`.
+1. The reproducibility gate finishes with `OK` and `EVIDENCE VERIFIED` (89 tests at the September 10 checkpoint). Primary human completion is reported separately; evidence verification does not approve candidates.
 2. The selected finding is `CF-345f0ac3d7ae` / `CWE-89`.
 3. Both targeted SQL-injection tests pass.
 4. All three functional regression tests pass.

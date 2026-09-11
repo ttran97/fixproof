@@ -1,6 +1,6 @@
 # FixProof prototype status
 
-Updated September 5, 2026. This is the implementation status following the September 4
+Updated September 10, 2026. This is the implementation status following the September 4
 alignment review. The earlier review remains a historical assessment. New
 features are post-collection additions; primary-v1 inputs, candidates,
 decisions, and the frozen implementation are preserved.
@@ -11,9 +11,10 @@ decisions, and the frozen implementation are preserved.
 | Primary collection | All 15 initial attempts recorded |
 | Primary report and verification | Implemented in `evaluation/primary_report.py`; verifies the completed schedule, frozen inputs, prompt reconstruction, 105 attempt-artifact bindings, workspace content, scanner normalization/correlation, tests, decisions, and metrics |
 | Primary dashboard | `/ui/primary.html` shows the 15 attempts, measured evidence, code/diffs, and actual conflict-review status |
-| Human conflict review | Ten pending evidence-bound packets prepared; zero completed human results at this checkpoint |
+| Human conflict review | Ten evidence-bound packets prepared; two XSS reviews completed as ACCEPT_CANDIDATE and eight reviews pending |
 | Finding history | New/persistent/resolved/reopened tracking implemented in `findings/lifecycle.py`; nine focused tests cover transitions, ambiguity, replay, coverage changes, tampering, and storage |
 | Verification command | `reproduce --verify` now rebuilds/checks both reports and runs the complete tests; it reports evidence verification separately from human completion |
+| Current automated checks | September 10: 89 tests passed; all 15 primary attempts and the two completed review bindings verified |
 | Fresh environment check | September 5: all 87 tests passed in an isolated working-copy snapshot with a newly installed Python environment; all six apps' locked Node dependencies installed; all four pilot runtime demos matched recorded decisions |
 | Controlled scope | Purpose-built Express fixtures and AI-generated remediation candidates; no claim to have evaluated a representative AI-generated application corpus |
 | Course final deliverables | Final paper, slides/video, personal review, and Canvas checks remain student work |
@@ -55,7 +56,8 @@ cryptographic authenticity of the original observations.
 
 ## Human review is the next concrete milestone
 
-Use [the primary review guide](primary-review-guide.md). The ten packets are
+Use [the primary review guide](primary-review-guide.md). Eight reviews remain:
+XSS trials 03–05 and path-traversal trials 01–05. The ten packets are
 under `data/primary_reviews/v1/<trial-id>/packet.json`. They bind each selected
 candidate to its evidence. Actual conclusions must be recorded separately
 as `result.json`; a generated packet or dashboard visit is not a review.
@@ -111,7 +113,7 @@ existence of every historical source file.
 
 ## Remaining scope and research work
 
-- Personally review the ten conflict packets and record measured conclusions;
+- Personally review the eight remaining conflict packets and record measured conclusions;
   request more testing when the evidence does not justify acceptance.
 - State the controlled-app/AI-generated-repair scope in the next progress
   report. Benchmark-authoring AI assistance and evaluation of an AI-generated

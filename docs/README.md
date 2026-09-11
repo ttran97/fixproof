@@ -10,6 +10,7 @@ tree, explain the project, and prepare the paper and presentation.
 | Document | Purpose |
 |---|---|
 | [Prototype status](prototype-status.md) | Current implementation, limits, and next milestone |
+| [Understanding and defending FixProof](fixproof-understanding-and-defense.md) | Concepts, live/recorded demo distinctions, reference-to-claim map, and professor questions |
 | [Primary results](primary-results.md) | Generated 15-attempt results; regenerate rather than manually edit |
 | [Primary review guide](primary-review-guide.md) | Personally inspect and record the ten conflict reviews |
 | [Submission guide](cs6727-submission-guide.md) | File structure, professor-facing explanation, paper/video outline |
