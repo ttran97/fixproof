@@ -1,0 +1,72 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_environment_preflight",
+  "protocol": {
+    "protocol_id": "supplemental-v1",
+    "status": "verified",
+    "lock": "data/supplemental/v1/protocol-lock.json",
+    "bindings": [
+      {
+        "path": "docs/supplemental-protocol-v1.md",
+        "sha256": "737fbea4fb790dca7403ed1b9cd24b822f53bdca48aae19487ec29275a662930"
+      },
+      {
+        "path": "data/primary_trials/v1/primary-experiment-manifest.json",
+        "sha256": "069486143bd5299c284acaaad5fa51942a2f28aadd9a744998948cd2a6ad7b75"
+      },
+      {
+        "path": "data/evaluation/primary-report.json",
+        "sha256": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65"
+      }
+    ]
+  },
+  "cases": {
+    "protocol_id": "supplemental-v1",
+    "status": "verified",
+    "definition_only": true,
+    "does_not_execute_applications": true,
+    "manifest": "tests/supplemental/v1/cases.json",
+    "manifest_sha256": "1171c42c5d76fcc513983c327ae8f193d82a7db5b734aaf82dd2c2fa2e918fa8",
+    "case_counts": {
+      "xss": 9,
+      "path-traversal": 11,
+      "sqli": 8
+    },
+    "test_count": 28
+  },
+  "environment": {
+    "protocol_id": "supplemental-v1",
+    "check_type": "environment_preflight_no_candidate_execution",
+    "ready_for_live_supplemental_execution": false,
+    "node": null,
+    "npm": null,
+    "chromium": {
+      "path": null,
+      "exists": false,
+      "playwright_python_package_available": true
+    },
+    "baseline_dependencies": {
+      "xss": {
+        "package_lock": true,
+        "node_modules": false
+      },
+      "path-traversal": {
+        "package_lock": true,
+        "node_modules": false
+      },
+      "sqli": {
+        "package_lock": true,
+        "node_modules": false
+      }
+    },
+    "blockers": [
+      "node_not_on_path",
+      "npm_not_on_path",
+      "chromium_not_installed_for_playwright",
+      "locked_dependencies_missing:xss",
+      "locked_dependencies_missing:path-traversal",
+      "locked_dependencies_missing:sqli"
+    ]
+  }
+}

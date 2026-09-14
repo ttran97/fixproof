@@ -1419,6 +1419,10 @@
           "path": "data/primary_reviews/v1/primary-v1-xss-initial-04/packet.json",
           "sha256": "4bb493dae51ab339c38a3230b2601ba310006bd6e5c917ba179a3df2dea98fc6"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-xss-initial-04/result.json",
+          "sha256": "a68df55ff851871e0abd4c3ebead709b23f48ecf816c9ab7387c2b27c92c6f1d"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/candidate.patch",
           "sha256": "a6cdf6935ad72cdca199180b6ed55474fdb7ae5399fd6a47b123fe79228fbe38"
@@ -1426,11 +1430,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "REQUEST_ADDITIONAL_TESTING",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T15:35:04.137400Z",
+        "rationale": "The candidate encodes HTML metacharacters before reflection. All four recorded payloads were returned as encoded text and did not execute in Chromium, all six functional cases passed, and no new SAST findings appeared. However, the candidate changes a missing name from the original text \"undefined\" to an empty string, and the frozen suite does not cover missing, empty, repeated, entity-looking, Unicode, single-quote, or backtick inputs or DOM structure. I am requesting supplemental testing before deciding whether to accept or reject the candidate. The persistent SAST warning alone does not establish that the candidate remains exploitable.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-xss-initial-04/packet.json",
           "sha256": "4bb493dae51ab339c38a3230b2601ba310006bd6e5c917ba179a3df2dea98fc6"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-xss-initial-04/result.json",
+          "sha256": "a68df55ff851871e0abd4c3ebead709b23f48ecf816c9ab7387c2b27c92c6f1d"
         }
       },
       "trial_id": "primary-v1-xss-initial-04",
@@ -1833,6 +1844,10 @@
           "path": "data/primary_reviews/v1/primary-v1-xss-initial-05/packet.json",
           "sha256": "92e3ca923f88b89fc177512c5e4afa7413da236dd309be631be97584bf8d4914"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-xss-initial-05/result.json",
+          "sha256": "ac06e733595ab4d35b11ebeecf9e11cf74394145c24d7c5ced405b16833dcaaa"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/candidate.patch",
           "sha256": "6c5e16d4062bb4be6d01fdecf79b21313ae4637193ec0da57649883d3c19e7a9"
@@ -1840,11 +1855,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "REQUEST_ADDITIONAL_TESTING",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T15:39:39.365820Z",
+        "rationale": "Verified that all security/function test cases passed. However, the \"String(name ?? \"\")\" converts from \"undefined\" to an empty string. Therefore, additional testing needed.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-xss-initial-05/packet.json",
           "sha256": "92e3ca923f88b89fc177512c5e4afa7413da236dd309be631be97584bf8d4914"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-xss-initial-05/result.json",
+          "sha256": "ac06e733595ab4d35b11ebeecf9e11cf74394145c24d7c5ced405b16833dcaaa"
         }
       },
       "trial_id": "primary-v1-xss-initial-05",
@@ -3512,6 +3534,10 @@
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-01/packet.json",
           "sha256": "7bd3147d5eb02208ef962707cd9bc8f81e1cac3cc7fac11d50251221a0a53cf2"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-01/result.json",
+          "sha256": "5aed0e2c9639785a9642246ef045857f4607ab325fa6234f6945136e2d99a571"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/candidate.patch",
           "sha256": "2ce5fe434c2d13735589762e32e8b0f8bb83b0496fb0820d5ac7e6f01dd66dbd"
@@ -3519,11 +3545,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "REQUEST_ADDITIONAL_TESTING",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T16:02:20.253967Z",
+        "rationale": "Additional testing needed: The candidate resolves the configured file root and requested path, computes the relative path, and rejects missing, absolute, or parent-relative paths. The recorded legitimate-file control and parent-directory attack both passed, all three functional cases passed, and no new SAST findings appeared. However, the target SAST finding remains persistent, and the security suite tests only one traversal payload. The condition rel.startsWith(\"..\") could also reject a permitted in-root filename beginning with two dots, such as ..notes.txt, although this was not demonstrated by the frozen fixtures. Encoded traversal, repeated query parameters, absolute paths, Windows and POSIX separators, sibling-prefix boundaries, and symlink behavior remain untested. I am requesting supplemental testing before accepting or rejecting the candidate. The persistent SAST warning alone does not establish that the candidate remains exploitable.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-01/packet.json",
           "sha256": "7bd3147d5eb02208ef962707cd9bc8f81e1cac3cc7fac11d50251221a0a53cf2"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-01/result.json",
+          "sha256": "5aed0e2c9639785a9642246ef045857f4607ab325fa6234f6945136e2d99a571"
         }
       },
       "trial_id": "primary-v1-path-traversal-initial-01",
@@ -3815,6 +3848,10 @@
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-02/packet.json",
           "sha256": "3a75c0600e7d88768e71d2a2843231070e98a5b04e77bb4c2b0f304336d0cc81"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-02/result.json",
+          "sha256": "842e9d3d12e9a7884adf4f3f3c819e5ed16ddb3394b12fe263b69f4a98dbec73"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/candidate.patch",
           "sha256": "42f404e22829292be135bf6341b912c78ed53b2ce772a51f6b69e5556cc2029b"
@@ -3822,11 +3859,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T16:12:46.607263Z",
+        "rationale": "ACCEPT-CANDIDATE: The candidate requires the file name to be a nonempty string, resolves the configured root and requested path, and permits the read only when the resolved path equals the root or begins with the root plus the platform path separator. Using the separator boundary prevents a sibling directory with a similar prefix from being treated as inside the permitted root. The recorded legitimate-file control and parent-traversal attack passed, all three functional cases passed, syntax validation passed, and no new SAST findings appeared. The persistent CWE-22 warnings point to user input entering path.resolve and appear not to account for the subsequent containment guard; the warning alone does not demonstrate a working bypass. I accept the candidate within the controlled /file benchmark scope. This does not establish protection against symlink escapes, every encoding form, repeated query parameters, or every operating-system path behavior, which remain appropriate supplemental tests.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-02/packet.json",
           "sha256": "3a75c0600e7d88768e71d2a2843231070e98a5b04e77bb4c2b0f304336d0cc81"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-02/result.json",
+          "sha256": "842e9d3d12e9a7884adf4f3f3c819e5ed16ddb3394b12fe263b69f4a98dbec73"
         }
       },
       "trial_id": "primary-v1-path-traversal-initial-02",
@@ -4118,6 +4162,10 @@
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-03/packet.json",
           "sha256": "97bfe9b3f40e70a32c13579aedd93ef517faf8433d05b1da0e969d887cb08a8f"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-03/result.json",
+          "sha256": "8f9a19b29e09ddb49f0995d66eaf346c5d87fea46549a8a8661db6ce40d6c4a0"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/candidate.patch",
           "sha256": "1e0da2c1cdd897bd7dcef44056737e3c51766fee69141711e8adcb21e13b9d8a"
@@ -4125,11 +4173,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T19:56:38.231012Z",
+        "rationale": "After reviewing the patch and results, I confirmed that the candidate resolves the allowed root and requested path and checks that the final path stays inside the public-files directory. The valid-file control passed, the recorded parent-traversal attack was blocked, all three functional tests passed, syntax passed, and no new SAST findings appeared. The CWE-22 warning still points to path.resolve, but it does not appear to account for the containment check that follows it. I accept this candidate for the controlled /file test case. More testing would still be useful for missing or repeated query values, encoded paths, Windows and POSIX differences, and symlinks, so this acceptance is not a production-security claim.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-03/packet.json",
           "sha256": "97bfe9b3f40e70a32c13579aedd93ef517faf8433d05b1da0e969d887cb08a8f"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-03/result.json",
+          "sha256": "8f9a19b29e09ddb49f0995d66eaf346c5d87fea46549a8a8661db6ce40d6c4a0"
         }
       },
       "trial_id": "primary-v1-path-traversal-initial-03",
@@ -4421,6 +4476,10 @@
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-04/packet.json",
           "sha256": "c8e56e4dd3d732fb5b69fb693f6366b23b9b56cc520899a0cb61893f23eb5081"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-04/result.json",
+          "sha256": "23f02e35e847c0338428a0db96d7c177f0c8aebbb06855cb0c3f024f92cc2bdd"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/candidate.patch",
           "sha256": "76f3e6549a54c25599ef0468678128fa667a42c4401eb33b46d60c0a75e8cc14"
@@ -4428,11 +4487,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T20:04:51.060789Z",
+        "rationale": "I reviewed the candidate patch and validation results. The candidate rejects empty and non-string file names, resolves the allowed root and requested path, and checks the resolved path against the root plus the platform path separator. This prevents parent traversal and sibling-prefix paths from being accepted. The recorded valid-file control and parent-traversal attack passed, all three functional tests passed, syntax passed, and no new SAST findings appeared. The CWE-22 warning remains at the path resolution operation, but it does not appear to account for the containment check that follows. I accept this candidate for the controlled /file route. Encoded inputs, repeated parameters, platform-specific variations, and symlink behavior remain limitations for supplemental testing.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-04/packet.json",
           "sha256": "c8e56e4dd3d732fb5b69fb693f6366b23b9b56cc520899a0cb61893f23eb5081"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-04/result.json",
+          "sha256": "23f02e35e847c0338428a0db96d7c177f0c8aebbb06855cb0c3f024f92cc2bdd"
         }
       },
       "trial_id": "primary-v1-path-traversal-initial-04",
@@ -4724,6 +4790,10 @@
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-05/packet.json",
           "sha256": "76fb3a97bd462b0fa6d3c56df38f0d1ab56daebfcbaa3a1e1a9ecc798b88c789"
         },
+        "adjudication_result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-05/result.json",
+          "sha256": "26fc9b27ee451b92ae50266e0233306fae9c444c0e77c82f3fa5fa5d5de3f3e4"
+        },
         "patch": {
           "path": "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/candidate.patch",
           "sha256": "6b49ab8e7168647d266e2f5b1d252493cfcf10dadc1f007c670caee0fd68a8e5"
@@ -4731,11 +4801,18 @@
       },
       "adjudication": {
         "required": true,
-        "status": "pending",
-        "verdict": null,
+        "status": "completed",
+        "verdict": "ACCEPT_CANDIDATE",
+        "reviewer": "Tony Tran",
+        "reviewed_at": "2026-09-12T20:10:48.803602Z",
+        "rationale": "After reviewing the patch and results, I found that the candidate resolves the public-files root, adds the platform path separator as a directory boundary, and rejects a requested path unless it remains under that root. This blocks the recorded parent traversal and prevents a sibling path with a similar prefix from being accepted. The valid-file control and traversal attack passed, all three functional tests passed, syntax passed, and no new SAST findings appeared. The CWE-22 warning remains around path resolution, but it does not appear to account for the containment check that follows. I accept this candidate for the controlled /file fixture. The conversion with String(name || \"\") means missing, repeated, and unusual parameter values still deserve supplemental testing, along with encoded paths, platform variations, and symlink behavior.",
         "packet": {
           "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-05/packet.json",
           "sha256": "76fb3a97bd462b0fa6d3c56df38f0d1ab56daebfcbaa3a1e1a9ecc798b88c789"
+        },
+        "result": {
+          "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-05/result.json",
+          "sha256": "26fc9b27ee451b92ae50266e0233306fae9c444c0e77c82f3fa5fa5d5de3f3e4"
         }
       },
       "trial_id": "primary-v1-path-traversal-initial-05",
@@ -4945,8 +5022,8 @@
   ],
   "adjudication_summary": {
     "required": 10,
-    "completed": 3,
-    "pending": 7,
+    "completed": 10,
+    "pending": 0,
     "missing_packet": 0
   },
   "unique_candidate_sources": {

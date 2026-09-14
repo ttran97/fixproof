@@ -10,6 +10,8 @@ tree, explain the project, and prepare the paper and presentation.
 | Document | Purpose |
 |---|---|
 | [Prototype status](prototype-status.md) | Current implementation, limits, and next milestone |
+| [September 13 checkpoint / Video II](coursework/review-2026-09-13/Current-progress-and-next-steps.md) | Ten completed reviews, fresh 89-test verification, reviewed PowerPoint/narration and supplied course schedule |
+| [September 12 assessment / Report 2](coursework/review-2026-09-12/FixProof-assessment.md) | Current artifact audit, revised DOCX, completion estimate, test gaps, and syllabus/peer-feedback mapping |
 | [Understanding and defending FixProof](fixproof-understanding-and-defense.md) | Concepts, live/recorded demo distinctions, reference-to-claim map, and professor questions |
 | [Primary results](primary-results.md) | Generated 15-attempt results; regenerate rather than manually edit |
 | [Primary review guide](primary-review-guide.md) | Personally inspect and record the ten conflict reviews |

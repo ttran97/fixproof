@@ -1,0 +1,85 @@
+{
+  "schema_version": "0.1",
+  "protocol_id": "supplemental-v1",
+  "artifact_type": "supplemental_case_manifest",
+  "cwes": {
+    "xss": {
+      "cwe": "CWE-79",
+      "route": "/hello",
+      "parameter": "name",
+      "baseline": "benchmarks/primary/v1/xss",
+      "candidates": [
+        {"attempt": 1, "app": "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/app"},
+        {"attempt": 2, "app": "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/app"},
+        {"attempt": 3, "app": "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/app"},
+        {"attempt": 4, "app": "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/app"},
+        {"attempt": 5, "app": "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/app"}
+      ],
+      "tests": [
+        {"id": "XSS-P01", "category": "behavioral_parity", "input": "missing name", "request": {"mode": "omit"}, "baseline_expectation": "HTTP 200 and h1 text Hello undefined", "candidate_expectation": "Exact baseline status and h1 text", "security_oracle": "No dialog or active injected node", "functional_oracle": "Exact status and h1 text parity"},
+        {"id": "XSS-P02", "category": "behavioral_parity", "input": "empty name", "request": {"mode": "pairs", "pairs": [["name", ""]]}, "baseline_expectation": "HTTP 200 and h1 text Hello followed by a space", "candidate_expectation": "Exact baseline status and h1 text", "security_oracle": "No dialog or active injected node", "functional_oracle": "Exact status and h1 text parity"},
+        {"id": "XSS-P03", "category": "behavioral_parity", "input": "repeated Tony and Admin values", "request": {"mode": "pairs", "pairs": [["name", "Tony"], ["name", "Admin"]]}, "baseline_expectation": "HTTP 200 and h1 text Hello Tony,Admin", "candidate_expectation": "Exact baseline status and h1 text", "security_oracle": "No dialog or active injected node", "functional_oracle": "Exact status and h1 text parity"},
+        {"id": "XSS-P04", "category": "behavioral_parity", "input": "Zoë 漢字 😀", "request": {"mode": "pairs", "pairs": [["name", "Zoë 漢字 😀"]]}, "baseline_expectation": "HTTP 200 with exact Unicode greeting text", "candidate_expectation": "Exact baseline status and h1 text", "security_oracle": "No dialog or active injected node", "functional_oracle": "Exact h1 text parity"},
+        {"id": "XSS-P05", "category": "behavioral_parity", "input": "O'Reilly `admin`", "request": {"mode": "pairs", "pairs": [["name", "O'Reilly `admin`"]]}, "baseline_expectation": "HTTP 200 with exact punctuation greeting text", "candidate_expectation": "Exact baseline status and h1 text", "security_oracle": "No dialog or active injected node", "functional_oracle": "Exact h1 text parity"},
+        {"id": "XSS-R01", "category": "robustness_contract", "input": "literal &lt;b&gt;Tony&lt;/b&gt;", "request": {"mode": "pairs", "pairs": [["name", "&lt;b&gt;Tony&lt;/b&gt;"]]}, "baseline_expectation": "Characterize one-time HTML entity interpretation", "candidate_expectation": "Display the submitted entity-looking value literally", "security_oracle": "No attacker-created element or dialog", "functional_oracle": "h1 text ends with the literal submitted value"},
+        {"id": "XSS-S01", "category": "security", "input": "mixed-case script tag", "request": {"mode": "pairs", "pairs": [["name", "<ScRiPt>alert(1)</ScRiPt>"]]}, "baseline_expectation": "Script element and controlled dialog", "candidate_expectation": "Input rendered only as text", "security_oracle": "No dialog and no attacker-created script", "functional_oracle": "HTTP 200 with one greeting h1"},
+        {"id": "XSS-S02", "category": "security", "input": "repeated safe value and image-event payload", "request": {"mode": "pairs", "pairs": [["name", "Tony"], ["name", "<img src=x onerror=alert(1)>"]]}, "baseline_expectation": "Image element and controlled dialog", "candidate_expectation": "Both values rendered only as text", "security_oracle": "No dialog and no attacker-created image", "functional_oracle": "HTTP 200 with deterministic greeting text"},
+        {"id": "XSS-S03", "category": "security", "input": "aggregate DOM structure for XSS-S01 and XSS-S02", "request": {"mode": "aggregate", "references": ["XSS-S01", "XSS-S02"]}, "baseline_expectation": "Attack input can alter document structure", "candidate_expectation": "Single intended greeting heading", "security_oracle": "No dialog or attacker-created active element", "functional_oracle": "Exactly one greeting h1 and no unexpected sibling elements"}
+      ]
+    },
+    "path-traversal": {
+      "cwe": "CWE-22",
+      "route": "/file",
+      "parameter": "name",
+      "baseline": "benchmarks/primary/v1/path-traversal",
+      "candidates": [
+        {"attempt": 1, "app": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/app"},
+        {"attempt": 2, "app": "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/app"},
+        {"attempt": 3, "app": "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/app"},
+        {"attempt": 4, "app": "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/app"},
+        {"attempt": 5, "app": "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/app"}
+      ],
+      "tests": [
+        {"id": "PATH-P01", "category": "behavioral_parity", "input": "in-root ..notes.txt", "request": {"mode": "pairs", "pairs": [["name", "..notes.txt"]]}, "baseline_expectation": "HTTP 200 with exact allowed contents", "candidate_expectation": "Exact baseline response", "security_oracle": "Only allowed file contents", "functional_oracle": "Exact status and body parity"},
+        {"id": "PATH-P02", "category": "behavioral_parity", "input": "in-root annual report 2026.txt", "request": {"mode": "pairs", "pairs": [["name", "annual report 2026.txt"]]}, "baseline_expectation": "HTTP 200 with exact allowed contents", "candidate_expectation": "Exact baseline response", "security_oracle": "Only allowed file contents", "functional_oracle": "Exact status and body parity"},
+        {"id": "PATH-R01", "category": "robustness_contract", "input": "missing name", "request": {"mode": "omit"}, "baseline_expectation": "Characterize baseline failure behavior", "candidate_expectation": "HTTP 400 with stable JSON error", "security_oracle": "No outside marker", "functional_oracle": "HTTP 400 and no stack trace"},
+        {"id": "PATH-R02", "category": "robustness_contract", "input": "empty name", "request": {"mode": "pairs", "pairs": [["name", ""]]}, "baseline_expectation": "Characterize baseline failure behavior", "candidate_expectation": "HTTP 400 with stable JSON error", "security_oracle": "No outside marker", "functional_oracle": "HTTP 400 and no stack trace"},
+        {"id": "PATH-R03", "category": "robustness_contract", "input": "repeated filenames", "request": {"mode": "pairs", "pairs": [["name", "welcome.txt"], ["name", "guide.txt"]]}, "baseline_expectation": "Characterize ambiguous-input behavior", "candidate_expectation": "HTTP 400 for a nonscalar filename", "security_oracle": "No outside marker", "functional_oracle": "HTTP 400 and no stack trace"},
+        {"id": "PATH-S01", "category": "security", "input": "single-encoded parent traversal", "request": {"mode": "raw_query", "query": "name=..%2Foutside-secret.txt"}, "baseline_expectation": "Outside marker disclosed", "candidate_expectation": "Request denied", "security_oracle": "Outside marker absent", "functional_oracle": "Record status; 400, 403, or 404 accepted"},
+        {"id": "PATH-S02", "category": "security", "input": "double-encoded parent traversal", "request": {"mode": "raw_query", "query": "name=%252e%252e%252foutside-secret.txt"}, "baseline_expectation": "One decode leaves a literal encoded filename and no marker", "candidate_expectation": "No second decode into an escape", "security_oracle": "Outside marker absent", "functional_oracle": "No HTTP 500"},
+        {"id": "PATH-S03", "category": "security", "input": "Windows backslash traversal", "request": {"mode": "raw_query", "query": "name=..%5Coutside-secret.txt"}, "baseline_expectation": "Outside marker disclosed on Windows", "candidate_expectation": "Request denied", "security_oracle": "Outside marker absent", "functional_oracle": "Record OS and status; no HTTP 500"},
+        {"id": "PATH-S04", "category": "security", "input": "generated POSIX and Windows absolute marker paths", "request": {"mode": "generated_absolute_paths", "target": "outside_marker"}, "baseline_expectation": "Characterize both absolute-path responses", "candidate_expectation": "Deny or safely treat as unavailable in-root names", "security_oracle": "Outside marker absent", "functional_oracle": "No HTTP 500 or stack trace"},
+        {"id": "PATH-S05", "category": "security", "input": "sibling-prefix traversal", "request": {"mode": "pairs", "pairs": [["name", "../public-files-evil/secret.txt"]]}, "baseline_expectation": "Sibling marker disclosed", "candidate_expectation": "Request denied", "security_oracle": "Sibling marker absent", "functional_oracle": "HTTP 400, 403, or 404"},
+        {"id": "PATH-S06", "category": "security", "input": "in-root symlink or junction to outside directory", "request": {"mode": "pairs", "pairs": [["name", "link/outside-secret.txt"]]}, "baseline_expectation": "Outside marker disclosed", "candidate_expectation": "Deny after filesystem-boundary validation", "security_oracle": "Outside marker absent", "functional_oracle": "HTTP 400, 403, or 404; inconclusive if link creation is unavailable"}
+      ]
+    },
+    "sqli": {
+      "cwe": "CWE-89",
+      "route": "/user",
+      "parameter": "username",
+      "baseline": "benchmarks/primary/v1/sqli",
+      "supplemental_seed_users": [
+        {"username": "o'connor", "role": "user"},
+        {"username": "semi;colon", "role": "user"},
+        {"username": "zoë", "role": "user"}
+      ],
+      "candidates": [
+        {"attempt": 1, "app": "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/app"},
+        {"attempt": 2, "app": "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/app"},
+        {"attempt": 3, "app": "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/app"},
+        {"attempt": 4, "app": "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/app"},
+        {"attempt": 5, "app": "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/app"}
+      ],
+      "tests": [
+        {"id": "SQL-P01", "category": "behavioral_parity", "input": "missing username", "request": {"mode": "omit"}, "baseline_expectation": "HTTP 200 with an empty array", "candidate_expectation": "Exact baseline status and JSON", "security_oracle": "No broadened result", "functional_oracle": "Exact status and JSON parity"},
+        {"id": "SQL-P02", "category": "behavioral_parity", "input": "empty username", "request": {"mode": "pairs", "pairs": [["username", ""]]}, "baseline_expectation": "HTTP 200 with an empty array", "candidate_expectation": "Exact baseline status and JSON", "security_oracle": "No broadened result", "functional_oracle": "Exact status and JSON parity"},
+        {"id": "SQL-R01", "category": "robustness_contract", "input": "repeated alice and bob usernames", "request": {"mode": "pairs", "pairs": [["username", "alice"], ["username", "bob"]]}, "baseline_expectation": "Characterize ambiguous-input behavior", "candidate_expectation": "HTTP 400 for a nonscalar username", "security_oracle": "No user row returned", "functional_oracle": "HTTP 400 with stable JSON error"},
+        {"id": "SQL-R02", "category": "robustness_contract", "input": "seeded o'connor username", "request": {"mode": "pairs", "pairs": [["username", "o'connor"]]}, "baseline_expectation": "Raw query construction produces an error", "candidate_expectation": "HTTP 200 with one exact user row", "security_oracle": "No extra rows", "functional_oracle": "Exact expected username and role"},
+        {"id": "SQL-R03", "category": "robustness_contract", "input": "seeded semi;colon and zoë usernames", "request": {"mode": "multiple", "values": ["semi;colon", "zoë"]}, "baseline_expectation": "HTTP 200 with each exact row", "candidate_expectation": "Preserve each exact row", "security_oracle": "No extra rows", "functional_oracle": "Exact JSON row equality"},
+        {"id": "SQL-S01", "category": "security", "input": "alice' --", "request": {"mode": "pairs", "pairs": [["username", "alice' --"]]}, "baseline_expectation": "Alice row returned for a nonliteral username", "candidate_expectation": "Empty array", "security_oracle": "Zero rows", "functional_oracle": "HTTP 200 with valid JSON"},
+        {"id": "SQL-S02", "category": "security", "input": "x' OR 1=1 --", "request": {"mode": "pairs", "pairs": [["username", "x' OR 1=1 --"]]}, "baseline_expectation": "All seeded rows returned", "candidate_expectation": "Empty array", "security_oracle": "Zero rows and no broadened query", "functional_oracle": "HTTP 200 with valid JSON"},
+        {"id": "SQL-S03", "category": "security", "input": "UNION SELECT synthetic admin row", "request": {"mode": "pairs", "pairs": [["username", "' UNION SELECT 999,'synthetic','admin' --"]]}, "baseline_expectation": "Synthetic row returned", "candidate_expectation": "Empty array", "security_oracle": "No synthetic or database row", "functional_oracle": "HTTP 200 with valid JSON"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+﻿{
+    "source":  "C:/Users/tonyt/OneDrive/Documents/Progress Report 2 (Tony Tran) - Updated Draft (1).docx",
+    "source_sha256":  "A7E17A4CED28E3FCE97AF5FFC0438426BA39B01FE1EEF0F0CA4A12220E47B588",
+    "output":  "C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\docs\\coursework\\review-2026-09-12\\Progress Report 2 (Tony Tran) - Reviewed September 12.docx",
+    "output_sha256":  "5FFFEC08FA4D05D8BDA5B008F9155856A091794C16956DD3C82101D6D4E13A59",
+    "replacements":  19,
+    "tables":  2,
+    "rows":  29,
+    "xml_parts_parse":  "pass",
+    "original_unchanged":  true,
+    "visual_layout_checked":  false
+}

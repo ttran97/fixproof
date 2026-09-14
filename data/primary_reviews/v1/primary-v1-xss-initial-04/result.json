@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "xss",
+    "case": "Reflected XSS",
+    "canonical_id": "CF-209ae17232b1",
+    "attempt": 4,
+    "status": "completed",
+    "verdict": "REQUEST_ADDITIONAL_TESTING",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T15:35:04.137400Z",
+    "rationale": "The candidate encodes HTML metacharacters before reflection. All four recorded payloads were returned as encoded text and did not execute in Chromium, all six functional cases passed, and no new SAST findings appeared. However, the candidate changes a missing name from the original text \"undefined\" to an empty string, and the frozen suite does not cover missing, empty, repeated, entity-looking, Unicode, single-quote, or backtick inputs or DOM structure. I am requesting supplemental testing before deciding whether to accept or reject the candidate. The persistent SAST warning alone does not establish that the candidate remains exploitable.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-xss-initial-04/packet.json",
+      "sha256": "4bb493dae51ab339c38a3230b2601ba310006bd6e5c917ba179a3df2dea98fc6"
+    },
+    "automated_decision_unchanged": true
+  }
+}

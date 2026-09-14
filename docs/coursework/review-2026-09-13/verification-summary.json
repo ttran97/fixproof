@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-13",
+  "interpreter": ".venv/Scripts/python.exe",
+  "python_version": "3.11.9",
+  "primary_report_check": {
+    "status": "pass",
+    "initial_attempts": 15,
+    "conflict_reviews": 10,
+    "pending_initial_reviews": 0,
+    "missing_packets": 0
+  },
+  "unittest": {
+    "command": "python -m unittest discover -s tests -v",
+    "tests": 89,
+    "seconds": 29.081,
+    "status": "OK",
+    "process_exit_code": 0
+  },
+  "primary_dry_run": {
+    "frozen_inputs": "pass",
+    "prompt_withholding": "pass",
+    "scheduled_initial_attempts": 15,
+    "model_calls": 0
+  },
+  "lifecycle_replay_check": {
+    "snapshots": 3,
+    "reopened_findings": 1,
+    "persistent_findings": 1,
+    "status": "pass"
+  },
+  "limits": [
+    "Summary transcribed from tool execution results, not a raw test log.",
+    "Repository tests include mocked scanner/model operations and saved evidence verification.",
+    "No fresh candidate Express/Chromium tests, model calls, or live Semgrep scans were run.",
+    "No supplemental experimental outcomes or human verdicts were added.",
+    "Full working-tree git diff --check reports existing CRLF-related whitespace in the generated primary report; experimental files were preserved."
+  ]
+}

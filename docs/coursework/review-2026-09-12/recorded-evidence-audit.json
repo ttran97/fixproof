@@ -1,0 +1,2164 @@
+﻿{
+    "audit_date":  "2026-09-12",
+    "mode":  "PowerShell saved-artifact hash checks and decision/count consistency; no Python/scanner/model/runtime execution",
+    "commit":  "20c7261e8beab04b636d61845ae734c8c7fd5e12",
+    "scheduled":  15,
+    "completed":  15,
+    "target_resolved":  5,
+    "security_pass":  15,
+    "functional_pass":  15,
+    "ready":  5,
+    "disagreements":  10,
+    "false_successes":  0,
+    "candidates_with_new_findings":  0,
+    "unique_candidate_sources":  11,
+    "unique_response_ids":  15,
+    "review_results":  3,
+    "first_completed_utc":  "2026-09-03T23:25:35.575485+00:00",
+    "last_completed_utc":  "2026-09-04T18:04:32.408289+00:00",
+    "issues":  [
+
+               ],
+    "checks":  [
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/xss/baseline-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/xss/contexts.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/xss/prompts.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/sqli/baseline-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/sqli/contexts.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/sqli/prompts.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/path-traversal/baseline-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/path-traversal/contexts.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/preparation/path-traversal/prompts.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "benchmarks/primary/v1/xss/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "benchmarks/primary/v1/sqli/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "benchmarks/primary/v1/path-traversal/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/attempt.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/sast/candidate-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/sast/candidate-normalized.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_evidence",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/sast/candidate-semgrep-raw.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "report_manifest",
+                       "path":  "data/primary_trials/v1/primary-experiment-manifest.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/primary_trials.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/agent/context_builder.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/agent/prompt_builder.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/agent/remediation_agent.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/findings/finding_correlator.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/patches/patch_workspace.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/scanners/semgrep_parser.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/scanners/semgrep_runner.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/validation/browser_xss.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/validation/decision_engine.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/validation/functional_validator.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/validation/security_validator.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_implementation",
+                       "path":  "src/fixproof/validation/validation_runner.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "data/evaluation/primary-benchmark-manifest.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "src/fixproof/agent/prompt_builder.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "src/fixproof/agent/retry_prompt_builder.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "rules/fixproof-sqli.yml",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "src/fixproof/validation/browser_xss.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "src/fixproof/validation/security_validator.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "src/fixproof/scanners/semgrep_runner.py",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "docs/study-protocol-v1.md",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "frozen_input",
+                       "path":  "pyproject.toml",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/xss/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/xss/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/xss/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-04/workspace/CF-209ae17232b1/attempt-04/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/xss/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-05/workspace/CF-209ae17232b1/attempt-05/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/xss/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/sqli/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-02/workspace/CF-8b662341cc2d/attempt-02/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/sqli/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-03/workspace/CF-8b662341cc2d/attempt-03/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/sqli/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-04/workspace/CF-8b662341cc2d/attempt-04/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/sqli/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/sqli/attempt-05/workspace/CF-8b662341cc2d/attempt-05/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/sqli/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/path-traversal/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/path-traversal/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/path-traversal/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/path-traversal/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "attempt_artifact",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/candidate.patch",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/app/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "workspace_normalized_text",
+                       "path":  "benchmarks/primary/v1/path-traversal/app.js",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_packet",
+                       "path":  "data/primary_reviews/v1/primary-v1-xss-initial-01/packet.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/preparation/xss/baseline-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-01/workspace/CF-209ae17232b1/attempt-01/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_packet",
+                       "path":  "data/primary_reviews/v1/primary-v1-xss-initial-02/packet.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/preparation/xss/baseline-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/workspace.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_packet",
+                       "path":  "data/primary_reviews/v1/primary-v1-xss-initial-03/packet.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/preparation/xss/baseline-correlated.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/remediation.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/preliminary.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/security.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/functional.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/decision.json",
+                       "matches":  true
+                   },
+                   {
+                       "category":  "review_evidence",
+                       "path":  "data/primary_trials/v1/cases/xss/attempt-03/workspace/CF-209ae17232b1/attempt-03/workspace.json",
+                       "matches":  true
+                   }
+               ],
+    "trials":  [
+                   {
+                       "trial":  "primary-v1-xss-initial-01",
+                       "case":  "xss",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "fc20bf6f17647a5aeaaf20ba0c6e16dcd25648a03696098486c04ca8aa2b11c9",
+                       "response_id":  "resp_0351a1e256a67f32006a9a01ddeec087d29da6daad65268950"
+                   },
+                   {
+                       "trial":  "primary-v1-xss-initial-02",
+                       "case":  "xss",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "7174b60d5657a7d6388823ae76588ecd1bd306e8b62b42d4349d8bad0bb9efe6",
+                       "response_id":  "resp_0b26fd23b8c3f927006a9ad745930487d2a8280fda85e4ed92"
+                   },
+                   {
+                       "trial":  "primary-v1-xss-initial-03",
+                       "case":  "xss",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "99daf7c0134115e6c84fa77f37eb487b0c1ae04777333e519fa8096f203574b6",
+                       "response_id":  "resp_02eb89c2f5ac92af006a9af6ad3ae087d285a2b4a4ea5e0dd0"
+                   },
+                   {
+                       "trial":  "primary-v1-xss-initial-04",
+                       "case":  "xss",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "800981802cb8cbe12b22adbd6a3059fe4ebece11fcee6fef78af2bc94a9f1007",
+                       "response_id":  "resp_07b29f9c3380bba2006a9af77a9be487d2963535a5dae7004d"
+                   },
+                   {
+                       "trial":  "primary-v1-xss-initial-05",
+                       "case":  "xss",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "b59e428d97da65e73fe74fe1b7ba55a90d6e74de181c54e4f030a5cd015bb32b",
+                       "response_id":  "resp_092e1f33a820a5e1006a9af7e72da087d2a2b4eaa838f1a5e9"
+                   },
+                   {
+                       "trial":  "primary-v1-sqli-initial-01",
+                       "case":  "sqli",
+                       "target_sast":  "resolved",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "READY_FOR_HUMAN_REVIEW",
+                       "source_hash":  "c8f43c2ea0d2e312245921f22d42a840e833d570adcab26870691947cfe21a1b",
+                       "response_id":  "resp_0f9487e0c4a29b81006a9af84fd7cc87d2b214efb12f97dca1"
+                   },
+                   {
+                       "trial":  "primary-v1-sqli-initial-02",
+                       "case":  "sqli",
+                       "target_sast":  "resolved",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "READY_FOR_HUMAN_REVIEW",
+                       "source_hash":  "c8f43c2ea0d2e312245921f22d42a840e833d570adcab26870691947cfe21a1b",
+                       "response_id":  "resp_0bc538a18c3e1520006a9aff95fbd087d29789b7e8ce15f4b6"
+                   },
+                   {
+                       "trial":  "primary-v1-sqli-initial-03",
+                       "case":  "sqli",
+                       "target_sast":  "resolved",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "READY_FOR_HUMAN_REVIEW",
+                       "source_hash":  "c8f43c2ea0d2e312245921f22d42a840e833d570adcab26870691947cfe21a1b",
+                       "response_id":  "resp_0c33a11b263e3663006a9b000e84ac87d2aff007e886ab0697"
+                   },
+                   {
+                       "trial":  "primary-v1-sqli-initial-04",
+                       "case":  "sqli",
+                       "target_sast":  "resolved",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "READY_FOR_HUMAN_REVIEW",
+                       "source_hash":  "c8f43c2ea0d2e312245921f22d42a840e833d570adcab26870691947cfe21a1b",
+                       "response_id":  "resp_062ca9da6362ba7b006a9b00458f8887d2bd773227ec08dc91"
+                   },
+                   {
+                       "trial":  "primary-v1-sqli-initial-05",
+                       "case":  "sqli",
+                       "target_sast":  "resolved",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "READY_FOR_HUMAN_REVIEW",
+                       "source_hash":  "c8f43c2ea0d2e312245921f22d42a840e833d570adcab26870691947cfe21a1b",
+                       "response_id":  "resp_013f58984faca7e6006a9b008bf71c87d2b22dfa265a1d825b"
+                   },
+                   {
+                       "trial":  "primary-v1-path-traversal-initial-01",
+                       "case":  "path-traversal",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "c9551e736277295a1921bb957f20681a8d62d2fb202ca37effdffeef5f3e947f",
+                       "response_id":  "resp_0196bf8de483641c006a9b077cadd887d2ac7a62b9781509ca"
+                   },
+                   {
+                       "trial":  "primary-v1-path-traversal-initial-02",
+                       "case":  "path-traversal",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "6e5caaa90c7b404132e9b242823340f8b42c33f3dfc2397d50193aba54096a2b",
+                       "response_id":  "resp_069faad3fe2ce0d6006a9b079ff70487d2ba85a44229ead306"
+                   },
+                   {
+                       "trial":  "primary-v1-path-traversal-initial-03",
+                       "case":  "path-traversal",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "b4cbc26c9fae3dd60e6743c3fbba85f86fe2cc0f7f370211e832fa67499a5a41",
+                       "response_id":  "resp_0c4ee11b67c45b65006a9b07cb2ae887d2be6bd882a0e6fabc"
+                   },
+                   {
+                       "trial":  "primary-v1-path-traversal-initial-04",
+                       "case":  "path-traversal",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "a64b8a725a0ef938076f683a2ed6fbcaf2ad76d7aefe7e47ad7868cee306bd91",
+                       "response_id":  "resp_05cce6ab46d313d6006a9b07f5d11c87d288c11222dac91ff4"
+                   },
+                   {
+                       "trial":  "primary-v1-path-traversal-initial-05",
+                       "case":  "path-traversal",
+                       "target_sast":  "persistent",
+                       "security":  "pass",
+                       "functional":  "pass",
+                       "new_findings":  0,
+                       "decision":  "NEEDS_HUMAN_ADJUDICATION",
+                       "source_hash":  "68c08c0b08c0bf6480f4969f2ba8954e901a34c7a9c557a1033aca0245257caf",
+                       "response_id":  "resp_01cd9cf2b274863c006a9b08211d7087d29188b4b072e315dd"
+                   }
+               ],
+    "reviews":  [
+                    {
+                        "case":  "xss",
+                        "attempt":  1,
+                        "verdict":  "ACCEPT_CANDIDATE",
+                        "reviewed_at":  "2026-09-05T14:35:49.364498Z",
+                        "reviewer":  "Tony Tran"
+                    },
+                    {
+                        "case":  "xss",
+                        "attempt":  2,
+                        "verdict":  "ACCEPT_CANDIDATE",
+                        "reviewed_at":  "2026-09-05T15:46:57.091307Z",
+                        "reviewer":  "Tony Tran"
+                    },
+                    {
+                        "case":  "xss",
+                        "attempt":  3,
+                        "verdict":  "ACCEPT_CANDIDATE",
+                        "reviewed_at":  "2026-09-10T17:30:47.656470Z",
+                        "reviewer":  "Tony Tran"
+                    }
+                ],
+    "limitations":  [
+                        "Not the full Python primary-report verifier; scanner normalization, prompt reconstruction, baseline runtime and lifecycle ledger were not re-executed.",
+                        "Hashes establish agreement with saved bindings, not authenticity, security completeness, or personal review quality.",
+                        "Historical report of 89 tests passing was not rerun in this environment."
+                    ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "xss",
+    "case": "Reflected XSS",
+    "canonical_id": "CF-209ae17232b1",
+    "attempt": 5,
+    "status": "completed",
+    "verdict": "REQUEST_ADDITIONAL_TESTING",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T15:39:39.365820Z",
+    "rationale": "Verified that all security/function test cases passed. However, the \"String(name ?? \"\")\" converts from \"undefined\" to an empty string. Therefore, additional testing needed.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-xss-initial-05/packet.json",
+      "sha256": "92e3ca923f88b89fc177512c5e4afa7413da236dd309be631be97584bf8d4914"
+    },
+    "automated_decision_unchanged": true
+  }
+}

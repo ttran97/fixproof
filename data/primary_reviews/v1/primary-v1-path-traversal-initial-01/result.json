@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "path-traversal",
+    "case": "Path traversal",
+    "canonical_id": "CF-17216aac7b7a",
+    "attempt": 1,
+    "status": "completed",
+    "verdict": "REQUEST_ADDITIONAL_TESTING",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T16:02:20.253967Z",
+    "rationale": "Additional testing needed: The candidate resolves the configured file root and requested path, computes the relative path, and rejects missing, absolute, or parent-relative paths. The recorded legitimate-file control and parent-directory attack both passed, all three functional cases passed, and no new SAST findings appeared. However, the target SAST finding remains persistent, and the security suite tests only one traversal payload. The condition rel.startsWith(\"..\") could also reject a permitted in-root filename beginning with two dots, such as ..notes.txt, although this was not demonstrated by the frozen fixtures. Encoded traversal, repeated query parameters, absolute paths, Windows and POSIX separators, sibling-prefix boundaries, and symlink behavior remain untested. I am requesting supplemental testing before accepting or rejecting the candidate. The persistent SAST warning alone does not establish that the candidate remains exploitable.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-01/packet.json",
+      "sha256": "7bd3147d5eb02208ef962707cd9bc8f81e1cac3cc7fac11d50251221a0a53cf2"
+    },
+    "automated_decision_unchanged": true
+  }
+}

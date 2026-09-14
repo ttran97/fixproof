@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "path-traversal",
+    "case": "Path traversal",
+    "canonical_id": "CF-17216aac7b7a",
+    "attempt": 2,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T16:12:46.607263Z",
+    "rationale": "ACCEPT-CANDIDATE: The candidate requires the file name to be a nonempty string, resolves the configured root and requested path, and permits the read only when the resolved path equals the root or begins with the root plus the platform path separator. Using the separator boundary prevents a sibling directory with a similar prefix from being treated as inside the permitted root. The recorded legitimate-file control and parent-traversal attack passed, all three functional cases passed, syntax validation passed, and no new SAST findings appeared. The persistent CWE-22 warnings point to user input entering path.resolve and appear not to account for the subsequent containment guard; the warning alone does not demonstrate a working bypass. I accept the candidate within the controlled /file benchmark scope. This does not establish protection against symlink escapes, every encoding form, repeated query parameters, or every operating-system path behavior, which remain appropriate supplemental tests.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-02/packet.json",
+      "sha256": "3a75c0600e7d88768e71d2a2843231070e98a5b04e77bb4c2b0f304336d0cc81"
+    },
+    "automated_decision_unchanged": true
+  }
+}

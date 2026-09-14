@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "path-traversal",
+    "case": "Path traversal",
+    "canonical_id": "CF-17216aac7b7a",
+    "attempt": 4,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T20:04:51.060789Z",
+    "rationale": "I reviewed the candidate patch and validation results. The candidate rejects empty and non-string file names, resolves the allowed root and requested path, and checks the resolved path against the root plus the platform path separator. This prevents parent traversal and sibling-prefix paths from being accepted. The recorded valid-file control and parent-traversal attack passed, all three functional tests passed, syntax passed, and no new SAST findings appeared. The CWE-22 warning remains at the path resolution operation, but it does not appear to account for the containment check that follows. I accept this candidate for the controlled /file route. Encoded inputs, repeated parameters, platform-specific variations, and symlink behavior remain limitations for supplemental testing.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-04/packet.json",
+      "sha256": "c8e56e4dd3d732fb5b69fb693f6366b23b9b56cc520899a0cb61893f23eb5081"
+    },
+    "automated_decision_unchanged": true
+  }
+}

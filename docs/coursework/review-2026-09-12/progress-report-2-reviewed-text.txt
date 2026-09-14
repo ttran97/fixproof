@@ -1,0 +1,321 @@
+﻿Section: CS OCY, OC1
+
+FixProof: A Validation-Oriented System for AI-Generated Vulnerability Remediation
+
+Tony Tran
+
+Progress Report 2 — Updated draft, September 12, 2026
+
+Problem Statement:
+
+AI coding tools can create insecure code, and a proposed security repair can leave the vulnerability exploitable or modify intended application behavior. Disappearance of a static-analysis warning therefore gives incomplete evidence of a correct repair. Pearce et al. (2021a) found approximately 40% of 1,689 Copilot-generated programs vulnerable in their selected security scenarios. Research on vulnerability repair and validation feedback already exists (Pearce et al., 2021b; Kulsum et al., 2024). FixProof investigates how separate validation evidence can support a human patch decision in a small, controlled JavaScript/Express setting, without claiming to be the first system to confirm generated repairs.
+
+Solution Statement:
+
+FixProof is a Python prototype that scans controlled JavaScript/Node.js Express applications with Semgrep CE, normalizes findings, and supplies a remediation model with one finding and focused source context. It applies the returned candidate to a copied workspace, then performs JavaScript syntax checks, SAST comparison, targeted security tests, and functional tests. Deterministic Python policy produces REJECT, READY_FOR_HUMAN_REVIEW, or NEEDS_HUMAN_ADJUDICATION. The model generates replacement source code; it does not author the evaluation tests at runtime, grade its own patch, or record human approval. Deliverables are the prototype, three versioned CWE benchmarks, auditable evaluation artifacts, an evidence dashboard and CLI demonstration, documentation, and the final report/presentation.
+
+In response to the professor's scope feedback, the evaluated applications are deliberately constructed fixtures for reflected XSS (CWE-79), SQL injection (CWE-89), and path traversal (CWE-22). Each has a fixed route, attacker-controlled input, vulnerable sink, synthetic data, and expected benign behavior. AI generates the repair candidates. This narrows the original proposal: the primary study evaluates repairs of controlled fixtures, not a representative corpus of AI-generated web applications.
+
+Completed Tasks (Last 2 Week):
+
+Incorporated the completed primary study into a separate results workflow: five initial model calls per CWE, 15 total, with fixed model/prompt conditions and a frozen protocol. The attempt timestamps span September 3–4, 2026 (UTC). Report 1 described the four-attempt pilot; these primary results are newly reported here, rather than claimed as 15 additional trials collected after Report 1.
+
+Implemented primary report verification and a separate 15-trial dashboard. Verification checks frozen inputs and implementation bindings, 105 attempt-artifact hashes, candidate source/patch evidence, reconstructed finding comparisons, policy decisions, and aggregate metrics. This makes the primary conclusions traceable without mixing pilot retries or the non-AI control into their denominator.
+
+Added evidence-bound human-review packets for the ten SAST/runtime disagreements. Three XSS reviews (trials 01–03) are recorded as ACCEPT_CANDIDATE; seven conflict reviews remain pending. The third review, dated September 10, discusses source-to-sink behavior, scanner persistence, observed tests, and limits in detail. Human results remain separate from automated decisions. A rationale-file CLI option addresses Windows PowerShell quoting problems.
+
+Implemented a separate versioned finding-history component for new, persistent, resolved, and reopened states. A recorded SQLi baseline/candidate/baseline replay demonstrates reopening, with tests for transitions, ambiguous identities, coverage changes, and tampering. This post-collection addition does not modify the frozen primary comparator or constitute a new live three-version experiment.
+
+The repository documents 89 automated tests passing on September 10. Its September 5 fresh Python environment check records 87 then-current tests, restoration of six apps' locked Node dependencies, and reproduction of four selected pilot demo decisions on the same Windows host. The September 12 review checked saved artifact hashes and decision/count consistency, including the third human-review record. It did not rerun Python tests, Semgrep, Chromium, or candidate applications: a working Python/Node setup was unavailable in that checkout. Historical test results are therefore reported separately from this artifact audit.
+
+Refined the architecture, methodology, evidence map, repository guide, review instructions, and submission walkthrough. Active documentation distinguishes primary results from pilot history and identifies preserved experimental files versus generated dependencies. The original study inputs and candidate evidence remain intact.
+
+Reporting period: September 2–10, 2026. I spent approximately 13.5 hours during this period, averaging about 1–2 hours daily. My work focused on running and interpreting prototype demonstrations and tests, reviewing documentation and candidate evidence, troubleshooting the review workflow, and understanding the relationships between AI remediation, security testing, functional testing, and human adjudication. This estimate excludes the 31.5 hours previously reported.
+
+Tasks for the Next Project Report:
+
+Complete the remaining seven conflict reviews: XSS trials 04–05 and path-traversal trials 01–05. Explain the patch behavior, persistent warning, security observations, functional observations, and uncertainty. Add dated supplements to the brief first two XSS rationales as needed. The five SQLi candidates are ready for ordinary human approval review; the conflict-review counter does not track their approval.
+
+Predefine a supplemental test matrix and expected outcomes before executing it. Prioritize additional input forms for the existing three routes, stronger XSS DOM/text assertions, traversal boundary/encoding cases, and legitimate SQL usernames containing punctuation. Include separate constructed controls for ineffective repair, functionality removal, and introduction of a different security weakness. Label these as controls and preserve every outcome separately from primary-v1. These tests are planned, not completed results.
+
+Develop the related-work comparison and justify minimal fixtures, Semgrep with disclosed supplemental rules, one fixed model, and a SAST-only comparator. Add a bounded failure-handling matrix for malformed or mismatched candidate output, missing context, scanner timeout, startup failure, and interrupted API collection. Use saved or mocked failures where suitable; a paid repeated-call stress experiment is not necessary to test orchestration behavior.
+
+By the user-planned September 20 submission, reconcile the actual effort period, update verified review counts, and prepare Progress Report 2 plus the required Video II and peer-feedback activities. Subsequently complete supplemental evaluation, methods/results figures, final paper, presentation/demo, AI-use attribution records, and committed-archive verification. September 20 is the student's stated target; the supplied syllabus does not specify that calendar date. Confirm the assignment's exact Canvas deadline and timezone.
+
+Questions I have or Issues I’m running into:
+
+The main observed methodological issue is disagreement: ten primary candidates pass targeted runtime and functional checks while their SAST target persists. Three have recorded human acceptances within the controlled XSS scope; seven still require conflict review. The first two rationales are brief and would benefit from dated supplements discussing scanner behavior and test limitations. A persistent warning alone does not establish an exploitable candidate, and passing fixed tests alone does not establish complete security.
+
+The primary sample contains no SAST false successes, so it cannot establish a detection rate for naturally generated patches that clear SAST but fail later checks. One app per CWE and identical SQLi source across five calls also limit diversity. Remote Semgrep auto rules were not fully archived, and the fresh-environment check used the same Windows host. These are limitations to report, not reasons to revise completed observations.
+
+Is the refined three-fixture scope with repeated repairs and a separate supplemental test set sufficient to address the original scope concern? Would a second reviewer for selected disagreements be a more useful extension than another vulnerability class? 
+
+Methodology Paragraph Summary:
+
+Each primary fixture defines a target route, attacker-controlled input, vulnerable operation, synthetic data, and expected benign behavior. Baseline security checks establish the intended vulnerability independently of scanner detection. The frozen study uses Semgrep 1.136.0, a disclosed controlled SQLi rule where default coverage missed the target, and gpt-5.2 for five separate initial calls per CWE. Prompts withhold evaluator ground truth and test implementations. The model returns structured repair fields; implemented validators execute HTTP security/functional checks, with Chromium execution observations for primary XSS. SAST-only interpretation and the full deterministic policy are compared on the same saved candidate. Initial attempts, pilot retries, non-AI controls, human conclusions, and post-collection lifecycle work are analyzed separately. Repeated calls on one fixture are not independent applications, and passing targeted tests does not prove application-wide security.
+
+Background research informs the design rather than merely motivating the topic. Pearce et al. (2021a) motivates testing generated code under explicit security scenarios; Pearce et al. (2021b) reports challenges with functionally correct vulnerability repairs, motivating separate benign-behavior checks. Kulsum et al. (2024) uses external patch-validation feedback in VRpilot, providing precedent for a bounded feedback retry. FixProof's narrower contribution is its auditable combination of scanner, runtime, functional, and human-decision evidence; it does not establish superiority over those systems. Semgrep's documentation supports explicitly configured default and local rules. OWASP WSTG v4.2 informs the planned supplemental testing, but the implemented suite is not complete WSTG coverage.
+
+Timeline:
+
+Week labels retain the 16-week planning structure from Report 1. Completed work has been brought forward; later weeks are refinement and contingency capacity, not evidence of hours already worked. The internal final-package target is late November; exact course dates must be confirmed in Canvas. W15–W16 are reserves only if the course schedule requires them.
+
+Week #
+
+Description of Task
+
+Status
+
+W1
+
+Define the problem and compare candidate SAST tools.
+
+Completed; Report 1
+
+W1
+
+Establish the repository and perform initial controlled scans.
+
+Completed; Report 1
+
+W2
+
+Implement and validate the three-CWE pilot, including the XSS retry and non-AI control.
+
+Completed; Report 1
+
+W2
+
+Freeze primary fixtures, protocol, model/prompt settings, and trial schedule.
+
+Completed
+
+W2
+
+Collect 15 primary initial attempts and retain their evidence.
+
+Completed September 4
+
+W3
+
+Verify primary results and expose evidence in a separate dashboard.
+
+Completed
+
+W3
+
+Implement lifecycle history and verify the recorded reopening replay.
+
+Completed
+
+W3
+
+Restore dependencies in a separate environment and verify tests/demos.
+
+Completed on same host
+
+W3
+
+Record primary conflict reviews and resolve CLI rationale quoting.
+
+3/10 conflict reviews; CLI fix complete
+
+W4
+
+Complete seven pending conflict reviews and document remaining evidence gaps.
+
+Planned
+
+W4
+
+Specify supplemental payloads and expected benign/attack outcomes.
+
+Planned
+
+W5
+
+Run the supplemental checks and retain all outcomes separately.
+
+Planned
+
+W6
+
+Compare related repair systems and justify FixProof's design choices.
+
+In progress
+
+W7
+
+Draft methods and results with primary/pilot/control separation.
+
+Planned
+
+W8
+
+Rehearse the demo and produce architecture/results figures.
+
+Planned
+
+W9
+
+Prepare a full paper draft with limitations and provenance.
+
+Planned
+
+W10
+
+Address review feedback and document any supplemental retesting.
+
+Planned
+
+W11
+
+Audit citations, metric claims, and AI-use records.
+
+Planned
+
+W12
+
+Verify the intended committed archive and inspect package contents.
+
+Planned
+
+W13
+
+Finalize the presentation narrative and rehearse its duration.
+
+Planned
+
+W14
+
+Finalize the paper and reproducible project package for the late-November target.
+
+Planned
+
+W15
+
+Recheck affected artifacts if final review identifies corrections.
+
+Contingency
+
+W16
+
+Verify any corrected package and preserve its verification record.
+
+Contingency
+
+
+
+Evaluation:
+
+All 15 scheduled initial attempts have complete candidate and validation records. The fixed denominator excludes pilot attempts, retries, and the constructed non-AI control.
+
+Primary case
+
+Initial attempts
+
+Target SAST resolved
+
+Security pass
+
+Functional pass
+
+Automated decision
+
+Reflected XSS
+
+5
+
+0/5
+
+5/5
+
+5/5
+
+5 need adjudication
+
+SQL injection
+
+5
+
+5/5
+
+5/5
+
+5/5
+
+5 ready for review
+
+Path traversal
+
+5
+
+0/5
+
+5/5
+
+5/5
+
+5 need adjudication
+
+Total
+
+15
+
+5/15
+
+15/15
+
+15/15
+
+5 ready; 10 disagreements
+
+
+
+Target-SAST resolution is 33.3%; SAST/runtime disagreement is 66.7%. No primary SAST false success or new SAST finding was observed. The 15 response IDs produced 11 distinct candidate sources: five XSS, one SQLi, and five traversal. Human conflict-review completion is 3/10 (30%); the five SQLi readiness decisions are not recorded approvals. Each XSS candidate has four attack checks and six functional checks; each SQLi and traversal candidate has one attack plus one benign security control, and three functional checks. Consequently, a 15/15 pass rate is an attempt-level result, not coverage of 15 independent applications or all input variants.
+
+The separate pilot demonstrates a functional regression: the first XSS patch changed legitimate text into output containing “undefined” and failed two of six functional checks. Its retry passed those checks while SAST persisted. This is not a SAST false success. The separately constructed non-AI static-output control clears the target SAST warning but fails all six functional checks, with security validation inconclusive; FixProof rejects it. This demonstrates rejection of a misleading SAST success caused by removing intended behavior, not an observed AI patch that clears SAST while retaining an exploitable vulnerability. No initial primary candidate was rejected, so primary retry improvement is not applicable.
+
+Report Outline:
+
+1. Problem, motivation, and research question.
+
+2. Related work, alternatives, and specific contribution.
+
+3. Controlled scope, threat model, and benchmark construction.
+
+4. Architecture, model authority, validators, decision policy, and human boundary.
+
+5. Frozen experimental method, comparator, provenance, and reproducibility.
+
+6. Primary results, separate pilot/control examples, and actual human conclusions.
+
+7. Supplemental evaluation, lifecycle demonstration, limitations, and deployment feasibility.
+
+8. Conclusion, references, evidence index, and AI-use disclosure.
+
+References:
+
+Pearce, H., Ahmad, B., Tan, B., Dolan-Gavitt, B., & Karri, R. (2021a). Asleep at the keyboard? Assessing the security of GitHub Copilot's code contributions [Preprint]. arXiv. https://arxiv.org/abs/2108.09293
+
+Pearce, H., Tan, B., Ahmad, B., Karri, R., & Dolan-Gavitt, B. (2021b). Examining zero-shot vulnerability repair with large language models [Preprint]. arXiv. https://arxiv.org/abs/2112.02125
+
+Kulsum, U., Zhu, H., Xu, B., & d'Amorim, M. (2024). A case study of LLM for automated vulnerability repair: Assessing impact of reasoning and patch validation feedback [Preprint]. arXiv. https://arxiv.org/abs/2405.15690
+
+OWASP Foundation. (n.d.). Web Security Testing Guide (Version 4.2). Retrieved September 10, 2026, from https://wstg.owasp.org/v4.2/
+
+Semgrep. (n.d.). Run rules. Retrieved September 10, 2026, from https://docs.semgrep.dev/running-rules
+
+MITRE. (n.d.-a). CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'). https://cwe.mitre.org/data/definitions/79.html
+
+MITRE. (n.d.-b). CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'). https://cwe.mitre.org/data/definitions/89.html
+
+MITRE. (n.d.-c). CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal'). https://cwe.mitre.org/data/definitions/22.html
+
+Appendix
+
+Evidence index: docs/study-protocol-v1.md records the frozen design; benchmarks/primary/v1/ contains the three fixtures; data/primary_trials/v1/ preserves candidate and validation evidence; data/evaluation/primary-report.json and docs/primary-results.md contain verified results; data/primary_reviews/v1/ contains the separate reviewer records; data/lifecycle/ contains the recorded reopening replay. docs/README.md maps active and historical documentation. Installed environments, local credentials, and disposable output are excluded from the source archive.
+
+Verification: python -m fixproof.reproduce --verify rebuilds reports and runs the tests. powershell.exe -ExecutionPolicy Bypass -File .\demo-test.ps1 -Suite replays four pilot candidates with live runtime checks and recorded SAST. Neither command generates new AI candidates. The primary evidence view is /ui/primary.html after starting python -m fixproof.reproduce --serve.
+
+Generative AI disclosure: OpenAI ChatGPT/Codex assisted with project planning, implementation, debugging, test orchestration, documentation, and preparation of this report draft. FixProof separately used the OpenAI API to generate remediation candidates; evaluator code and deterministic policy assessed their recorded behavior. Runtime prompts/responses are retained in experiment artifacts. Development and report-authoring conversations also require sanitized attribution records. I remain responsible for verifying the report, reporting my actual effort, and making human-review decisions. This draft does not attest that all personal review or disclosure work is complete.

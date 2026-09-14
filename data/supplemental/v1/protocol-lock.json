@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_protocol_lock",
+  "protocol_id": "supplemental-v1",
+  "status": "frozen",
+  "approved_by": "Tony Tran",
+  "frozen_on": "2026-09-14",
+  "protocol": {
+    "path": "docs/supplemental-protocol-v1.md",
+    "sha256": "737fbea4fb790dca7403ed1b9cd24b822f53bdca48aae19487ec29275a662930"
+  },
+  "primary_evidence_reference": {
+    "suite_id": "primary-v1",
+    "manifest": {
+      "path": "data/primary_trials/v1/primary-experiment-manifest.json",
+      "sha256": "069486143bd5299c284acaaad5fa51942a2f28aadd9a744998948cd2a6ad7b75"
+    },
+    "verified_report": {
+      "path": "data/evaluation/primary-report.json",
+      "sha256": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65"
+    }
+  },
+  "candidate_policy": "reuse_saved_primary_candidates_no_new_model_calls",
+  "execution_status_at_freeze": "not_started",
+  "execution_count_at_freeze": 0
+}

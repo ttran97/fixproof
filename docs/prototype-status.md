@@ -1,6 +1,6 @@
 # FixProof prototype status
 
-Updated September 10, 2026. This is the implementation status following the September 4
+Updated September 14, 2026. This is the implementation status following the September 4
 alignment review. The earlier review remains a historical assessment. New
 features are post-collection additions; primary-v1 inputs, candidates,
 decisions, and the frozen implementation are preserved.
@@ -11,13 +11,22 @@ decisions, and the frozen implementation are preserved.
 | Primary collection | All 15 initial attempts recorded |
 | Primary report and verification | Implemented in `evaluation/primary_report.py`; verifies the completed schedule, frozen inputs, prompt reconstruction, 105 attempt-artifact bindings, workspace content, scanner normalization/correlation, tests, decisions, and metrics |
 | Primary dashboard | `/ui/primary.html` shows the 15 attempts, measured evidence, code/diffs, and actual conflict-review status |
-| Human conflict review | Ten evidence-bound packets prepared; two XSS reviews completed as ACCEPT_CANDIDATE and eight reviews pending |
+| Human conflict review | All ten reviews recorded: seven ACCEPT_CANDIDATE and three REQUEST_ADDITIONAL_TESTING (XSS 04–05 and traversal 01) |
 | Finding history | New/persistent/resolved/reopened tracking implemented in `findings/lifecycle.py`; nine focused tests cover transitions, ambiguity, replay, coverage changes, tampering, and storage |
 | Verification command | `reproduce --verify` now rebuilds/checks both reports and runs the complete tests; it reports evidence verification separately from human completion |
-| Current automated checks | September 10: 89 tests passed; all 15 primary attempts and the two completed review bindings verified |
+| Current automated checks | September 14: 94 repository tests passed, including five supplemental-definition checks; the primary report still verified all 15 attempts and all ten review bindings. These checks did not run Express or Chromium. |
+| September 12 artifact audit | Saved hashes and decision/count consistency checked, including all three review bindings; Python tests and live scanner/runtime checks were not rerun in this checkout |
 | Fresh environment check | September 5: all 87 tests passed in an isolated working-copy snapshot with a newly installed Python environment; all six apps' locked Node dependencies installed; all four pilot runtime demos matched recorded decisions |
 | Controlled scope | Purpose-built Express fixtures and AI-generated remediation candidates; no claim to have evaluated a representative AI-generated application corpus |
 | Course final deliverables | Final paper, slides/video, personal review, and Canvas checks remain student work |
+
+See the [September 13 checkpoint and Video II package](coursework/review-2026-09-13/Current-progress-and-next-steps.md)
+for the current file map, testing gaps, course dates, reviewed slides and narration.
+Today's repository checks did not rerun the historical Express applications,
+Chromium attacks, model calls or live SAST scans. Report 2 and Video II are
+submitted or posted according to Tony's September 14 update; this repository
+does not verify Canvas receipts. Video II peer feedback is due September 27 in
+the supplied schedule.
 
 The narrow prototype is close to feature completion. This does not establish
 that the CS6727 submission is complete: human conclusions, interpretation,
@@ -54,10 +63,11 @@ instead of silently reducing its denominator. Verification checks recorded
 observations; it does not rerun the scanner/model/runtime tests or establish
 cryptographic authenticity of the original observations.
 
-## Human review is the next concrete milestone
+## Supplemental validation is the next concrete milestone
 
-Use [the primary review guide](primary-review-guide.md). Eight reviews remain:
-XSS trials 03–05 and path-traversal trials 01–05. The ten packets are
+Initial conflict reviews are complete. XSS trials 04–05 and path-traversal 01
+request additional testing. Preserve the review records and record supplemental
+results and follow-up conclusions separately. The ten packets are
 under `data/primary_reviews/v1/<trial-id>/packet.json`. They bind each selected
 candidate to its evidence. Actual conclusions must be recorded separately
 as `result.json`; a generated packet or dashboard visit is not a review.
@@ -66,6 +76,14 @@ All five SQLi candidates remain `READY_FOR_HUMAN_REVIEW`, which is not an
 approval. The conflict-adjudication workflow concerns the ten XSS/path-traversal
 disagreements. Completing those reviews does not automatically approve the
 SQLi candidates or make deployment part of this prototype.
+
+The dated, author-approved protocol is now at
+[`docs/supplemental-protocol-v1.md`](supplemental-protocol-v1.md). It contains
+pre-registered security, behavioral-parity, and robustness oracles. Its
+September 14 freeze hash is stored in `data/supplemental/v1/protocol-lock.json`.
+No baseline or candidate execution has been recorded yet; the preflight reports
+that Node/npm, Chromium, and all three locked Node dependency directories must
+be restored first.
 
 ## Four-state finding history
 
@@ -113,8 +131,8 @@ existence of every historical source file.
 
 ## Remaining scope and research work
 
-- Personally review the eight remaining conflict packets and record measured conclusions;
-  request more testing when the evidence does not justify acceptance.
+- Review and freeze `docs/supplemental-protocol-v1.md`, then execute its checks
+  for the three additional-testing requests and all comparable saved candidates.
 - State the controlled-app/AI-generated-repair scope in the next progress
   report. Benchmark-authoring AI assistance and evaluation of an AI-generated
   application corpus are different claims.

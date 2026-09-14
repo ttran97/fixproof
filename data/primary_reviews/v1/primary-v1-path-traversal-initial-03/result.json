@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "adjudication_result",
+  "adjudication_result": {
+    "case_id": "path-traversal",
+    "case": "Path traversal",
+    "canonical_id": "CF-17216aac7b7a",
+    "attempt": 3,
+    "status": "completed",
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T19:56:38.231012Z",
+    "rationale": "After reviewing the patch and results, I confirmed that the candidate resolves the allowed root and requested path and checks that the final path stays inside the public-files directory. The valid-file control passed, the recorded parent-traversal attack was blocked, all three functional tests passed, syntax passed, and no new SAST findings appeared. The CWE-22 warning still points to path.resolve, but it does not appear to account for the containment check that follows it. I accept this candidate for the controlled /file test case. More testing would still be useful for missing or repeated query values, encoded paths, Windows and POSIX differences, and symlinks, so this acceptance is not a production-security claim.",
+    "completed_checks": {
+      "candidate_patch_reviewed": true,
+      "sast_finding_and_rule_provenance_reviewed": true,
+      "targeted_security_evidence_reviewed": true,
+      "functional_evidence_reviewed": true
+    },
+    "packet_binding": {
+      "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-03/packet.json",
+      "sha256": "97bfe9b3f40e70a32c13579aedd93ef517faf8433d05b1da0e969d887cb08a8f"
+    },
+    "automated_decision_unchanged": true
+  }
+}

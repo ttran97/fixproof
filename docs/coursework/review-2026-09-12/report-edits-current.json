@@ -1,0 +1,82 @@
+[
+  {
+    "prefix": "Progress Report 2 ",
+    "text": "Progress Report 2 - Current verified update, September 12, 2026"
+  },
+  {
+    "prefix": "FixProof scans controlled Express",
+    "text": "FixProof is a Python prototype that scans controlled JavaScript/Node.js Express applications with Semgrep CE, normalizes findings, and supplies a remediation model with one finding and focused source context. It applies the returned candidate to a copied workspace, then performs JavaScript syntax checks, SAST comparison, targeted security tests, and functional tests. Deterministic Python policy produces REJECT, READY_FOR_HUMAN_REVIEW, or NEEDS_HUMAN_ADJUDICATION. The model generates replacement source code; it does not author the evaluation tests at runtime, grade its own patch, or record human approval. Deliverables are the prototype, three versioned CWE benchmarks, auditable evaluation artifacts, an evidence dashboard and CLI demonstration, documentation, and the final report/presentation."
+  },
+  {
+    "prefix": "In response to the professor's scope",
+    "text": "In response to the professor's scope feedback, the evaluated applications are deliberately constructed fixtures for reflected XSS (CWE-79), SQL injection (CWE-89), and path traversal (CWE-22). Each has a fixed route, attacker-controlled input, vulnerable sink, synthetic data, and expected benign behavior. AI generates the repair candidates. This narrows the original proposal: the primary study evaluates repairs of controlled fixtures, not a representative corpus of AI-generated web applications."
+  },
+  {
+    "prefix": "Verified and incorporated the completed",
+    "text": "Incorporated the completed primary study into a separate results workflow: five initial model calls per CWE, 15 total, with fixed model/prompt conditions and a frozen protocol. The attempt timestamps span September 3-4, 2026 (UTC). Report 1 described the four-attempt pilot; these primary results are newly reported here, rather than claimed as 15 additional trials collected after Report 1."
+  },
+  {
+    "prefix": "Added evidence-bound human-review",
+    "text": "Completed evidence-bound human review of all ten primary SAST/runtime disagreements. Seven candidates were accepted within the controlled route scope, and three were marked REQUEST_ADDITIONAL_TESTING. The XSS results are three accepts and two additional-testing requests; the path-traversal results are four accepts and one additional-testing request. Human results remain separate from automated decisions, and acceptance is not a production-deployment approval. The five SQLi candidates remain READY_FOR_HUMAN_REVIEW; that automated readiness state is not a recorded human approval."
+  },
+  {
+    "prefix": "Strengthened reproducibility and regression",
+    "text": "After the final conflict review on September 12, the recorded-evidence verifier passed all 89 automated tests, verified all 15 primary attempts, and verified all 10 human conflict-review bindings. The verification regenerated the primary and pilot reports and checked hashes, schemas, policy decisions, denominator separation, and adjudication bindings. It did not call the remediation model or rerun the historical primary applications. Node.js and npm were unavailable in the current checkout, so no new live Express or Chromium observation is claimed."
+  },
+  {
+    "prefix": "Reporting period: September 2",
+    "text": "Reporting period: September 2-10, 2026. I spent approximately 13.5 hours during this period, averaging about 1-2 hours daily. My work focused on running and interpreting prototype demonstrations and tests, reviewing documentation and candidate evidence, troubleshooting the review workflow, and understanding the relationships between AI remediation, security testing, functional testing, and human adjudication. This estimate excludes the 31.5 hours previously reported. Seven additional conflict reviews were completed on September 12 as a post-period evidence update; time spent after September 10 is not included in the 13.5 hours and must be reconciled from my actual work log before submission."
+  },
+  {
+    "prefix": "Complete the remaining eight conflict reviews",
+    "text": "The ten primary conflict reviews are complete. Preserve the immutable result files and add a dated analysis supplement for the brief XSS 01, 02, and 05 rationales. Summarize why XSS 04-05 and path-traversal 01 requested additional testing, while keeping those follow-up tests separate from the frozen primary-v1 study. The five SQLi candidates are ready for ordinary human approval review; the conflict-review counter does not track their approval."
+  },
+  {
+    "prefix": "Define a small supplemental test matrix",
+    "text": "Predefine a supplemental test matrix and expected outcomes before executing it. Prioritize additional input forms for the existing three routes, stronger XSS DOM/text assertions, traversal boundary/encoding cases, and legitimate SQL usernames containing punctuation. Include separate constructed controls for ineffective repair, functionality removal, and introduction of a different security weakness. Label these as controls and preserve every outcome separately from primary-v1. These tests are planned, not completed results."
+  },
+  {
+    "prefix": "Develop the related-work comparison",
+    "text": "Develop the related-work comparison and justify minimal fixtures, Semgrep with disclosed supplemental rules, one fixed model, and a SAST-only comparator. Add a bounded failure-handling matrix for malformed or mismatched candidate output, missing context, scanner timeout, startup failure, and interrupted API collection. Use saved or mocked failures where suitable; a paid repeated-call stress experiment is not necessary to test orchestration behavior."
+  },
+  {
+    "prefix": "Draft the final methods/results",
+    "text": "By the user-planned September 20 submission, reconcile the actual effort period, update the report with the completed 10/10 conflict reviews, and prepare Progress Report 2 plus Video II and required peer-feedback activities. Video II should show the Python-to-Express workflow, the verified primary dashboard, one bounded SQLi success, one XSS evidence conflict, and the limits of the fixed tests. Subsequently complete supplemental evaluation, methods/results figures, the final paper and presentation, AI-use attribution records, and committed-archive verification. September 20 is the student's stated target; confirm the exact Canvas deadline, timezone, duration, and upload requirements."
+  },
+  {
+    "prefix": "The main methodological issue is disagreement:",
+    "text": "The main observed methodological issue is disagreement: ten primary candidates pass targeted runtime and functional checks while their SAST target persists. All ten conflicts now have human reviews: seven candidates were accepted within the controlled route scope and three requested additional testing. The requests identify concrete evidence gaps rather than treating either SAST persistence or fixed-test success as conclusive. The brief XSS 01, 02, and 05 rationales still need a dated explanatory supplement."
+  },
+  {
+    "prefix": "Semgrep's rule-configuration documentation",
+    "text": "Background research informs the design rather than merely motivating the topic. Pearce et al. (2021a) motivates testing generated code under explicit security scenarios; Pearce et al. (2021b) reports challenges with functionally correct vulnerability repairs, motivating separate benign-behavior checks. Kulsum et al. (2024) uses external patch-validation feedback in VRpilot, providing precedent for a bounded feedback retry. FixProof's narrower contribution is its auditable combination of scanner, runtime, functional, and human-decision evidence; it does not establish superiority over those systems. Semgrep's documentation supports explicitly configured default and local rules. OWASP WSTG v4.2 informs the planned supplemental testing, but the implemented suite is not complete WSTG coverage."
+  },
+  {
+    "prefix": "Target-SAST resolution is 33.3%",
+    "text": "Target-SAST resolution is 33.3%; SAST/runtime disagreement is 66.7%. No primary SAST false success or new SAST finding was observed. The 15 response IDs produced 11 distinct candidate sources: five XSS, one SQLi, and five traversal. Human conflict-review completion is 10/10 (100%): seven accepts within the controlled route scope and three requests for additional testing. The five SQLi readiness decisions are not recorded approvals. Each XSS candidate has four attack checks and six functional checks; each SQLi and traversal candidate has one attack plus one benign security control, and three functional checks. Consequently, a 15/15 pass rate is an attempt-level result, not coverage of 15 independent applications or all input variants."
+  },
+  {
+    "prefix": "The separate pilot demonstrates a functional regression:",
+    "text": "The separate pilot demonstrates a functional regression: the first XSS patch changed legitimate text into output containing 'undefined' and failed two of six functional checks. Its retry passed those checks while SAST persisted. This is not a SAST false success. The separately constructed non-AI static-output control clears the target SAST warning but fails all six functional checks, with security validation inconclusive; FixProof rejects it. This demonstrates rejection of a misleading SAST success caused by removing intended behavior, not an observed AI patch that clears SAST while retaining an exploitable vulnerability. No initial primary candidate was rejected, so primary retry improvement is not applicable."
+  },
+  {
+    "prefix": "2/10 reviews; CLI fix complete",
+    "text": "10/10 conflict reviews complete; CLI fix complete"
+  },
+  {
+    "prefix": "Complete eight pending reviews",
+    "text": "Conflict reviews complete; document the three additional-testing requests and add the dated XSS rationale supplement."
+  },
+  {
+    "prefix": "Common weakness enumeration. CWE. (n.d.).",
+    "text": "MITRE. (n.d.-a). CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'). https://cwe.mitre.org/data/definitions/79.html"
+  },
+  {
+    "prefix": "Common weakness enumeration. CWE. (n.d.-a). https://cwe.mitre.org/data/definitions/89",
+    "text": "MITRE. (n.d.-b). CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'). https://cwe.mitre.org/data/definitions/89.html"
+  },
+  {
+    "prefix": "Common weakness enumeration. CWE. (n.d.-a). https://cwe.mitre.org/data/definitions/22",
+    "text": "MITRE. (n.d.-c). CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal'). https://cwe.mitre.org/data/definitions/22.html"
+  }
+]

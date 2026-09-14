@@ -1,3 +1,9 @@
+# Historical September 10 Markdown draft
+
+The supplied later DOCX includes Tony's effort statement, and the repository now
+contains three conflict reviews. Use the [September 12 reviewed report and assessment](review-2026-09-12/FixProof-assessment.md)
+for the current revision. The earlier draft below is preserved as history.
+
 Section: CS OCY, OC1
 
 # FixProof: A Validation-Oriented System for AI-Generated Vulnerability Remediation
