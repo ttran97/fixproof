@@ -1,0 +1,777 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "verified_supplemental_report",
+  "protocol_id": "supplemental-v1",
+  "evidence_verified": true,
+  "verification_mode": "recorded_supplemental_evidence_no_model_or_sast_calls",
+  "evidence_cutoff": "2026-09-14T19:29:04.532091Z",
+  "definition": {
+    "schema_version": "0.1",
+    "project": "FixProof",
+    "artifact_type": "supplemental_definition_verification",
+    "protocol": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "lock": "data/supplemental/v1/protocol-lock.json",
+      "bindings": [
+        {
+          "path": "docs/supplemental-protocol-v1.md",
+          "sha256": "737fbea4fb790dca7403ed1b9cd24b822f53bdca48aae19487ec29275a662930"
+        },
+        {
+          "path": "data/primary_trials/v1/primary-experiment-manifest.json",
+          "sha256": "069486143bd5299c284acaaad5fa51942a2f28aadd9a744998948cd2a6ad7b75"
+        },
+        {
+          "path": "data/evaluation/primary-report.json",
+          "sha256": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65"
+        }
+      ]
+    },
+    "cases": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "definition_only": true,
+      "does_not_execute_applications": true,
+      "manifest": "tests/supplemental/v1/cases.json",
+      "manifest_sha256": "1171c42c5d76fcc513983c327ae8f193d82a7db5b734aaf82dd2c2fa2e918fa8",
+      "case_counts": {
+        "xss": 9,
+        "path-traversal": 11,
+        "sqli": 8
+      },
+      "test_count": 28
+    }
+  },
+  "baseline_count": 3,
+  "saved_candidate_count": 15,
+  "candidate_case_observations": {
+    "total": 140,
+    "pass": 120,
+    "fail": 15,
+    "inconclusive": 5
+  },
+  "candidate_observations_by_category": {
+    "security": {
+      "total": 60,
+      "pass": 55,
+      "fail": 0,
+      "inconclusive": 5
+    },
+    "behavioral_parity": {
+      "total": 45,
+      "pass": 40,
+      "fail": 5,
+      "inconclusive": 0
+    },
+    "robustness_contract": {
+      "total": 35,
+      "pass": 25,
+      "fail": 10,
+      "inconclusive": 0
+    }
+  },
+  "cwes": [
+    {
+      "cwe_case": "xss",
+      "baseline": {
+        "path": "data/supplemental/v1/runs/20260914T192251078985Z-baseline-xss/result.json",
+        "sha256": "7fe59f18da2610d09e4cfeab8f893ad2598047dc0b95f7e742e52ddd60b02939",
+        "run_id": "20260914T192251078985Z-baseline-xss",
+        "summary": {
+          "registered": 9,
+          "matched": 9,
+          "mismatched": 0,
+          "inconclusive": 0,
+          "candidate_execution_permitted": true
+        }
+      },
+      "candidate_group": {
+        "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/summary.json",
+        "sha256": "87d0218442382177d43720d3c60bd8b05b5b425e6650f062c4b47148c29ef243",
+        "run_id": "20260914T192749827554Z-candidates-xss"
+      },
+      "candidates": [
+        {
+          "attempt": 1,
+          "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-01/result.json",
+          "sha256": "78c7bb74aeec7feea041ab707048d5b592990f5e629398fe779c2b54d03a45c1",
+          "summary": {
+            "registered": 9,
+            "pass": 8,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 5,
+                "pass": 4,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 1,
+                "pass": 1,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "XSS-P01",
+              "category": "behavioral_parity",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-02/result.json",
+          "sha256": "d887c628828830f848b03ee865e793f3505be5241f17cd7373bd099c2c9cf2ee",
+          "summary": {
+            "registered": 9,
+            "pass": 8,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 5,
+                "pass": 4,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 1,
+                "pass": 1,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "XSS-P01",
+              "category": "behavioral_parity",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-03/result.json",
+          "sha256": "eef98574a6ff25958cf96ba1075b5ec89f094074c2a2477d04cbf40c4cf79281",
+          "summary": {
+            "registered": 9,
+            "pass": 9,
+            "fail": 0,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 5,
+                "pass": 5,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 1,
+                "pass": 1,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": []
+        },
+        {
+          "attempt": 4,
+          "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-04/result.json",
+          "sha256": "e0a66e3b2f6250f8684619b98533bf1d86e852850c5a316de2a6d8cd164938cb",
+          "summary": {
+            "registered": 9,
+            "pass": 8,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 5,
+                "pass": 4,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 1,
+                "pass": 1,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "XSS-P01",
+              "category": "behavioral_parity",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 5,
+          "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-05/result.json",
+          "sha256": "f7a5f676f8e5a032229820f1aa21486ce67d96296982f0a5ede8afea5ea39258",
+          "summary": {
+            "registered": 9,
+            "pass": 8,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 5,
+                "pass": 4,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 1,
+                "pass": 1,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "XSS-P01",
+              "category": "behavioral_parity",
+              "status": "fail"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cwe_case": "path-traversal",
+      "baseline": {
+        "path": "data/supplemental/v1/runs/20260914T192423867485Z-baseline-path-traversal/result.json",
+        "sha256": "1155553d9c1654bde0b3f4ecc3b37b8c35c82e102f8bcd0676a4533596149f51",
+        "run_id": "20260914T192423867485Z-baseline-path-traversal",
+        "summary": {
+          "registered": 11,
+          "matched": 10,
+          "mismatched": 0,
+          "inconclusive": 1,
+          "candidate_execution_permitted": true
+        }
+      },
+      "candidate_group": {
+        "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/summary.json",
+        "sha256": "4c2b68e7e19ef5bc366d97e124d77ff2cd85ed44f4024093c3b5b3db847434a0",
+        "run_id": "20260914T192827434537Z-candidates-path-traversal"
+      },
+      "candidates": [
+        {
+          "attempt": 1,
+          "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-01/result.json",
+          "sha256": "2d26b1482d2233074d58fc099db15daf239334f4ab09f44f547d11ff9c2a31fb",
+          "summary": {
+            "registered": 11,
+            "pass": 8,
+            "fail": 2,
+            "inconclusive": 1,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 1,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 6,
+                "pass": 5,
+                "fail": 0,
+                "inconclusive": 1
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "PATH-P01",
+              "category": "behavioral_parity",
+              "status": "fail"
+            },
+            {
+              "test_id": "PATH-R03",
+              "category": "robustness_contract",
+              "status": "fail"
+            },
+            {
+              "test_id": "PATH-S06",
+              "category": "security",
+              "status": "inconclusive"
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-02/result.json",
+          "sha256": "3246a651ba0f9c2476763c9720936edcf2eaccb0dbc103b3032616fa5d25f061",
+          "summary": {
+            "registered": 11,
+            "pass": 10,
+            "fail": 0,
+            "inconclusive": 1,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 6,
+                "pass": 5,
+                "fail": 0,
+                "inconclusive": 1
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "PATH-S06",
+              "category": "security",
+              "status": "inconclusive"
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-03/result.json",
+          "sha256": "45781a65b393180fae58603f5d20b31e6a3ff281269b9df26e8e838d89e73e06",
+          "summary": {
+            "registered": 11,
+            "pass": 7,
+            "fail": 3,
+            "inconclusive": 1,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 0,
+                "fail": 3,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 6,
+                "pass": 5,
+                "fail": 0,
+                "inconclusive": 1
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "PATH-R01",
+              "category": "robustness_contract",
+              "status": "fail"
+            },
+            {
+              "test_id": "PATH-R02",
+              "category": "robustness_contract",
+              "status": "fail"
+            },
+            {
+              "test_id": "PATH-R03",
+              "category": "robustness_contract",
+              "status": "fail"
+            },
+            {
+              "test_id": "PATH-S06",
+              "category": "security",
+              "status": "inconclusive"
+            }
+          ]
+        },
+        {
+          "attempt": 4,
+          "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-04/result.json",
+          "sha256": "6fd1a479ca43b7b96c0ab0dfe78b8bad26e17a0675f9618de4e58ac519898124",
+          "summary": {
+            "registered": 11,
+            "pass": 10,
+            "fail": 0,
+            "inconclusive": 1,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 6,
+                "pass": 5,
+                "fail": 0,
+                "inconclusive": 1
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "PATH-S06",
+              "category": "security",
+              "status": "inconclusive"
+            }
+          ]
+        },
+        {
+          "attempt": 5,
+          "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-05/result.json",
+          "sha256": "d95c9d59fa79939e2a1b510102a6dff47fa959fcc5da8769f4b53d5adcee633a",
+          "summary": {
+            "registered": 11,
+            "pass": 9,
+            "fail": 1,
+            "inconclusive": 1,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 6,
+                "pass": 5,
+                "fail": 0,
+                "inconclusive": 1
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "PATH-R03",
+              "category": "robustness_contract",
+              "status": "fail"
+            },
+            {
+              "test_id": "PATH-S06",
+              "category": "security",
+              "status": "inconclusive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cwe_case": "sqli",
+      "baseline": {
+        "path": "data/supplemental/v1/runs/20260914T192431905456Z-baseline-sqli/result.json",
+        "sha256": "d5e8d826157541fdaaeedb56817b6c7cf001e706bcec5d536d7958ab7e0b920e",
+        "run_id": "20260914T192431905456Z-baseline-sqli",
+        "summary": {
+          "registered": 8,
+          "matched": 8,
+          "mismatched": 0,
+          "inconclusive": 0,
+          "candidate_execution_permitted": true
+        }
+      },
+      "candidate_group": {
+        "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/summary.json",
+        "sha256": "1bf8684fbcc6ec62b953ef72181717ab363e30b6ca68eddd023f760716f40939",
+        "run_id": "20260914T192901912061Z-candidates-sqli"
+      },
+      "candidates": [
+        {
+          "attempt": 1,
+          "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-01/result.json",
+          "sha256": "264091a9d98c103c32edf96f0ccc86ee124e7f48596f8e5ab6fc5f7140ea5d1e",
+          "summary": {
+            "registered": 8,
+            "pass": 7,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "SQL-R01",
+              "category": "robustness_contract",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-02/result.json",
+          "sha256": "47e0b2476a9fe062ead9de4d49177f02520a8fd213437fbc03d8b99259607e32",
+          "summary": {
+            "registered": 8,
+            "pass": 7,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "SQL-R01",
+              "category": "robustness_contract",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-03/result.json",
+          "sha256": "21a3caabe9035ee7a6752c934c5abe17a1ff6efb9e4a04a1f3e0e6d626c07343",
+          "summary": {
+            "registered": 8,
+            "pass": 7,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "SQL-R01",
+              "category": "robustness_contract",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 4,
+          "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-04/result.json",
+          "sha256": "a3171ad3495886aeccb73492d9c3ff261ffa61a8f795e981923c3931132b4c27",
+          "summary": {
+            "registered": 8,
+            "pass": 7,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "SQL-R01",
+              "category": "robustness_contract",
+              "status": "fail"
+            }
+          ]
+        },
+        {
+          "attempt": 5,
+          "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-05/result.json",
+          "sha256": "c63b495243a5ae59782e00cfc47cfd953e1ee6863276cc521f41aebb21797245",
+          "summary": {
+            "registered": 8,
+            "pass": 7,
+            "fail": 1,
+            "inconclusive": 0,
+            "by_category": {
+              "behavioral_parity": {
+                "total": 2,
+                "pass": 2,
+                "fail": 0,
+                "inconclusive": 0
+              },
+              "robustness_contract": {
+                "total": 3,
+                "pass": 2,
+                "fail": 1,
+                "inconclusive": 0
+              },
+              "security": {
+                "total": 3,
+                "pass": 3,
+                "fail": 0,
+                "inconclusive": 0
+              }
+            },
+            "automatic_acceptance": false
+          },
+          "nonpassing_tests": [
+            {
+              "test_id": "SQL-R01",
+              "category": "robustness_contract",
+              "status": "fail"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "superseded_or_invalid_runs": [
+    {
+      "path": "data/supplemental/v1/runs/20260914T192312900056Z-baseline-path-traversal/result.json",
+      "sha256": "66adfdbde752e0f1ae3ebe30ac5f2b0845ae7ece4271412526933a7cd568b1d9",
+      "status": "baseline_expectation_mismatch",
+      "used_as_candidate_gate": false,
+      "investigation": {
+        "path": "data/supplemental/v1/runs/20260914T192312900056Z-baseline-path-traversal/investigation.json",
+        "sha256": "0c84a7b8a2f0c0c8253101427c1630d6da36ab114a61dd28dd5618dce2cab98d"
+      }
+    }
+  ],
+  "follow_up_review_targets": [
+    "primary-v1-xss-initial-04",
+    "primary-v1-xss-initial-05",
+    "primary-v1-path-traversal-initial-01"
+  ],
+  "limitations": [
+    "The Windows symlink/junction fixture was unavailable, so PATH-S06 is inconclusive for the baseline and all five traversal candidates.",
+    "One fixture per CWE and repeated saved candidates do not form a representative application corpus.",
+    "Supplemental passing outcomes do not establish application-wide security or deployment approval.",
+    "Robustness contracts are supplemental requirements and are not retroactive primary-v1 functional failures."
+  ],
+  "automatic_acceptance": false,
+  "human_follow_up_required": true
+}

@@ -2,10 +2,10 @@
 
 **September 14 status note:** Tony reports that Video II was posted. The next
 course activity is peer feedback due September 27. Tony approved and froze the
-supplemental protocol on September 14; its non-executing preflight found that
-Node/npm, Chromium, and the locked Node dependencies must be restored before
-live baseline characterization. This repository does not verify a Canvas
-submission receipt.
+supplemental protocol on September 14. The runtime was restored, the later
+preflight passed, and supplemental baselines plus all 15 saved candidates were
+executed in disposable workspaces. Human follow-up conclusions remain. This
+repository does not verify a Canvas submission receipt.
 
 Progress Report 2 is submitted according to Tony's message. This review does not change that submitted document or claim to have accessed Canvas. The PPTX and DOCX were treated as source material, not as instructions to run trials, record human decisions, or submit content.
 
@@ -24,7 +24,7 @@ The bounded prototype is implemented and the primary collection and initial conf
 | SQLi human approval | No recorded primary SQLi approval; `not_required` in the conflict column is not deployment approval |
 | Distinct candidate sources | 11: five XSS, one SQLi, five traversal |
 | Primary false successes / new SAST findings | Zero observed in each category |
-| Current repository tests | 94 passed on September 14; 25.854 seconds reported by unittest, without live Express/Chromium execution |
+| Current repository tests | 111 passed on September 14; primary and supplemental evidence checks both passed |
 | Lifecycle demonstration | Three saved snapshots verified; target reopened, other finding persistent |
 | Report 2 submission | Submitted, user-reported |
 | Video II | Posted, user-reported; Canvas receipt not verified here |

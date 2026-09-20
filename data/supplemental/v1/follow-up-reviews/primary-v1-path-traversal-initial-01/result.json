@@ -1,0 +1,66 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_result",
+  "protocol_id": "supplemental-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-path-traversal-initial-01",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-15T21:24:25.437996Z",
+  "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+  "rationale": "I reviewed the candidate patch, original review, and all eleven supplemental traversal results. The candidate passed all five executable security cases, while PATH-S06 remained inconclusive because Windows could not create the required symlink fixture. PATH-P01 confirmed that the candidate rejects the valid in-root filename \"..notes.txt\", and PATH-R03 returned HTTP 404 rather than the predefined HTTP 400 response for repeated filenames. These results demonstrate a behavioral-parity failure and a robustness-contract failure. I reject the candidate for the bounded benchmark while preserving the symlink result as inconclusive.",
+  "confirmed_required_checks": true,
+  "packet": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-01/packet.json",
+    "sha256": "44391c5d9418396b5a5c349e030ef095de70e326b4bbfd97b5c45c6caca63951"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-01/result.json",
+    "sha256": "2d26b1482d2233074d58fc099db15daf239334f4ab09f44f547d11ff9c2a31fb",
+    "summary": {
+      "registered": 11,
+      "pass": 8,
+      "fail": 2,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 1,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 2,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "PATH-P01",
+        "category": "behavioral_parity",
+        "status": "fail"
+      },
+      {
+        "test_id": "PATH-R03",
+        "category": "robustness_contract",
+        "status": "fail"
+      },
+      {
+        "test_id": "PATH-S06",
+        "category": "security",
+        "status": "inconclusive"
+      }
+    ]
+  },
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

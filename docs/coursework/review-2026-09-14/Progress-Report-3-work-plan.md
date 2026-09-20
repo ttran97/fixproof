@@ -2,7 +2,7 @@
 
 **Prepared:** September 14, 2026  
 **Target recorded in the local course schedule:** October 4, 2026 at 11:59 p.m.; verify the live Canvas assignment before submission  
-**Current phase:** frozen supplemental definition and environment restoration
+**Current phase:** verified supplemental execution and human follow-up review
 
 ## Verified starting point
 
@@ -21,11 +21,11 @@ Show that FixProof moved from identifying limitations to testing them with a pre
 | Order | Deliverable | Evidence of completion | Status |
 | --- | --- | --- | --- |
 | 1 | Review and freeze `docs/supplemental-protocol-v1.md` | Author approval, freeze date, and SHA-256 | Complete September 14 |
-| 2 | Implement the isolated supplemental runner | Definition verifier and preflight implemented; live runner still required | In progress |
-| 3 | Create disposable fixtures and manifest | 28-case manifest created; disposable runtime fixtures remain | In progress |
-| 4 | Execute baseline characterization | One result per registered test ID; no candidate execution if a baseline oracle is wrong | Not started |
-| 5 | Execute all comparable saved candidates | Complete XSS, traversal, and SQLi result matrices | Not started |
-| 6 | Review the three requested follow-ups | Separate dated conclusions; original reviews unchanged | Not started |
+| 2 | Implement the isolated supplemental runner | Definition verifier, preflight, disposable runner, and report verifier | Complete September 14 |
+| 3 | Create disposable fixtures and manifest | 28-case manifest plus path and SQL fixture transforms | Complete September 14 |
+| 4 | Execute baseline characterization | XSS 9/9; traversal 10/10 executable plus one inconclusive; SQLi 8/8 | Complete September 14 |
+| 5 | Execute all comparable saved candidates | 15 candidates and 140 case observations verified | Complete September 14 |
+| 6 | Review the three requested follow-ups | Three bound packets initialized; Tony's dated conclusions remain | In progress |
 | 7 | Draft Report 3 and Video III evidence comparison | One concise comparison plus limitations and next step | Not started |
 
 ## Suggested timeline
@@ -42,31 +42,19 @@ Show that FixProof moved from identifying limitations to testing them with a pre
 
 Dates after September 14 are planning targets, not claims that the work occurred.
 
-## Current gate before live testing
+## Current checkpoint after live testing
 
-The September 14 preflight verified the frozen protocol and all 28 registered case definitions without launching an application. It found that Node and npm are not on PATH, Chromium is not installed for this Python environment, and `node_modules` is absent from all three primary benchmark directories. These are environment blockers, not candidate failures.
+The September 14 preflight initially found missing Node/npm, Chromium, and Node dependencies. Those components were restored, and the later preflight passed with no blockers. The runner then characterized all three baselines before running the saved candidates.
 
-After installing a supported Node.js LTS release and opening a new PowerShell terminal, use this sequence from the inner `fixproof` repository root:
+To verify the saved supplemental report from the inner `fixproof` repository root:
 
 ```powershell
-node --version
-npm --version
-
-foreach ($case in @("xss", "sqli", "path-traversal")) {
-    Push-Location "benchmarks\primary\v1\$case"
-    npm ci
-    Pop-Location
-}
-
-.\.venv\Scripts\python.exe -m playwright install chromium
 $env:PYTHONPATH = (Resolve-Path .\src).Path
-.\.venv\Scripts\python.exe -m fixproof.evaluation.supplemental_protocol preflight `
-    --project-root . `
-    --output data/supplemental/v1/environment-preflight.json `
-    --require-ready
+.\.venv\Scripts\python.exe -m fixproof.evaluation.supplemental_report `
+    --project-root . --check
 ```
 
-This command is only a readiness check. The following development step is the live runner and disposable fixture builder; baseline characterization comes after those components pass repository tests.
+This command verifies saved evidence; it does not rerun the applications. The next technical action is Tony's three dated follow-up conclusions, followed by the Report 3 comparison. See `docs/supplemental-results-v1.md`.
 
 ## Evidence to collect for the report
 

@@ -38,35 +38,28 @@
   "environment": {
     "protocol_id": "supplemental-v1",
     "check_type": "environment_preflight_no_candidate_execution",
-    "ready_for_live_supplemental_execution": false,
-    "node": null,
-    "npm": null,
+    "ready_for_live_supplemental_execution": true,
+    "node": "C:\\Program Files\\nodejs\\node.EXE",
+    "npm": "C:\\Program Files\\nodejs\\npm.CMD",
     "chromium": {
-      "path": null,
-      "exists": false,
+      "path": "C:\\Users\\tonyt\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "exists": true,
       "playwright_python_package_available": true
     },
     "baseline_dependencies": {
       "xss": {
         "package_lock": true,
-        "node_modules": false
+        "node_modules": true
       },
       "path-traversal": {
         "package_lock": true,
-        "node_modules": false
+        "node_modules": true
       },
       "sqli": {
         "package_lock": true,
-        "node_modules": false
+        "node_modules": true
       }
     },
-    "blockers": [
-      "node_not_on_path",
-      "npm_not_on_path",
-      "chromium_not_installed_for_playwright",
-      "locked_dependencies_missing:xss",
-      "locked_dependencies_missing:path-traversal",
-      "locked_dependencies_missing:sqli"
-    ]
+    "blockers": []
   }
 }

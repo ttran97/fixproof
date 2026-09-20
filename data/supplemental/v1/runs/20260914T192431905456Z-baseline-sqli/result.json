@@ -1,0 +1,310 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_baseline_characterization",
+  "protocol_id": "supplemental-v1",
+  "run_id": "20260914T192431905456Z-baseline-sqli",
+  "target_type": "baseline",
+  "cwe_case": "sqli",
+  "started_at": "2026-09-14T19:24:31.907471Z",
+  "status": "baseline_characterized",
+  "definition": {
+    "schema_version": "0.1",
+    "project": "FixProof",
+    "artifact_type": "supplemental_definition_verification",
+    "protocol": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "lock": "data/supplemental/v1/protocol-lock.json",
+      "bindings": [
+        {
+          "path": "docs/supplemental-protocol-v1.md",
+          "sha256": "737fbea4fb790dca7403ed1b9cd24b822f53bdca48aae19487ec29275a662930"
+        },
+        {
+          "path": "data/primary_trials/v1/primary-experiment-manifest.json",
+          "sha256": "069486143bd5299c284acaaad5fa51942a2f28aadd9a744998948cd2a6ad7b75"
+        },
+        {
+          "path": "data/evaluation/primary-report.json",
+          "sha256": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65"
+        }
+      ]
+    },
+    "cases": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "definition_only": true,
+      "does_not_execute_applications": true,
+      "manifest": "tests/supplemental/v1/cases.json",
+      "manifest_sha256": "1171c42c5d76fcc513983c327ae8f193d82a7db5b734aaf82dd2c2fa2e918fa8",
+      "case_counts": {
+        "xss": 9,
+        "path-traversal": 11,
+        "sqli": 8
+      },
+      "test_count": 28
+    }
+  },
+  "environment": {
+    "protocol_id": "supplemental-v1",
+    "check_type": "environment_preflight_no_candidate_execution",
+    "ready_for_live_supplemental_execution": true,
+    "node": "C:\\Program Files\\nodejs\\node.EXE",
+    "npm": "C:\\Program Files\\nodejs\\npm.CMD",
+    "chromium": {
+      "path": "C:\\Users\\tonyt\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "exists": true,
+      "playwright_python_package_available": true
+    },
+    "baseline_dependencies": {
+      "xss": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "path-traversal": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "sqli": {
+        "package_lock": true,
+        "node_modules": true
+      }
+    },
+    "blockers": []
+  },
+  "finished_at": "2026-09-14T19:24:33.105216Z",
+  "port": 50173,
+  "preparation": {
+    "source_app": "C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\sqli",
+    "source_app_sha256": "2c5d9bf8cd28515357d110bb15ed38cf9558f6f00c02529c711b61b37fd7ff95",
+    "disposable_app": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-sqli-hlw0_0x6\\app",
+    "disposable_app_sha256": "9096c7c3743da0950aa3e708835d3618ea68bafcc539375431dfeab2750b7bfa",
+    "transformations": [
+      {
+        "type": "supplemental_sql_seed",
+        "usernames": [
+          "o'connor",
+          "semi;colon",
+          "zoë"
+        ]
+      }
+    ],
+    "fixture_status": {}
+  },
+  "cases": [
+    {
+      "test_id": "SQL-P01",
+      "category": "behavioral_parity",
+      "input": "missing username",
+      "baseline_expectation": "HTTP 200 with an empty array",
+      "evidence": {
+        "observations": [
+          {
+            "label": "omitted",
+            "url": "http://127.0.0.1:50173/user",
+            "http": {
+              "status_code": 200,
+              "body": "[]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected HTTP 200 with an empty array."
+      }
+    },
+    {
+      "test_id": "SQL-P02",
+      "category": "behavioral_parity",
+      "input": "empty username",
+      "baseline_expectation": "HTTP 200 with an empty array",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:50173/user?username=",
+            "http": {
+              "status_code": 200,
+              "body": "[]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected HTTP 200 with an empty array."
+      }
+    },
+    {
+      "test_id": "SQL-R01",
+      "category": "robustness_contract",
+      "input": "repeated alice and bob usernames",
+      "baseline_expectation": "Characterize ambiguous-input behavior",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:50173/user?username=alice&username=bob",
+            "http": {
+              "status_code": 200,
+              "body": "[]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Repeated-parameter baseline behavior was characterized."
+      }
+    },
+    {
+      "test_id": "SQL-R02",
+      "category": "robustness_contract",
+      "input": "seeded o'connor username",
+      "baseline_expectation": "Raw query construction produces an error",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:50173/user?username=o%27connor",
+            "http": {
+              "status_code": 500,
+              "body": "{\"error\":\"Query failed\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 500: Internal Server Error"
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected raw query construction to fail on the apostrophe."
+      }
+    },
+    {
+      "test_id": "SQL-R03",
+      "category": "robustness_contract",
+      "input": "seeded semi;colon and zoë usernames",
+      "baseline_expectation": "HTTP 200 with each exact row",
+      "evidence": {
+        "observations": [
+          {
+            "label": "semi;colon",
+            "url": "http://127.0.0.1:50173/user?username=semi%3Bcolon",
+            "http": {
+              "status_code": 200,
+              "body": "[{\"id\":5,\"username\":\"semi;colon\",\"role\":\"user\"}]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          },
+          {
+            "label": "zoë",
+            "url": "http://127.0.0.1:50173/user?username=zo%C3%AB",
+            "http": {
+              "status_code": 200,
+              "body": "[{\"id\":6,\"username\":\"zoë\",\"role\":\"user\"}]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected exact rows for both seeded punctuation/Unicode users."
+      }
+    },
+    {
+      "test_id": "SQL-S01",
+      "category": "security",
+      "input": "alice' --",
+      "baseline_expectation": "Alice row returned for a nonliteral username",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:50173/user?username=alice%27+--",
+            "http": {
+              "status_code": 200,
+              "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"}]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected comment injection to return Alice."
+      }
+    },
+    {
+      "test_id": "SQL-S02",
+      "category": "security",
+      "input": "x' OR 1=1 --",
+      "baseline_expectation": "All seeded rows returned",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:50173/user?username=x%27+OR+1%3D1+--",
+            "http": {
+              "status_code": 200,
+              "body": "[{\"id\":1,\"username\":\"alice\",\"role\":\"user\"},{\"id\":2,\"username\":\"bob\",\"role\":\"admin\"},{\"id\":3,\"username\":\"charlie\",\"role\":\"user\"},{\"id\":4,\"username\":\"o'connor\",\"role\":\"user\"},{\"id\":5,\"username\":\"semi;colon\",\"role\":\"user\"},{\"id\":6,\"username\":\"zoë\",\"role\":\"user\"}]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected Boolean injection to return all six seeded users."
+      }
+    },
+    {
+      "test_id": "SQL-S03",
+      "category": "security",
+      "input": "UNION SELECT synthetic admin row",
+      "baseline_expectation": "Synthetic row returned",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:50173/user?username=%27+UNION+SELECT+999%2C%27synthetic%27%2C%27admin%27+--",
+            "http": {
+              "status_code": 200,
+              "body": "[{\"id\":999,\"username\":\"synthetic\",\"role\":\"admin\"}]",
+              "content_type": "application/json; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected UNION injection to return the synthetic row."
+      }
+    }
+  ],
+  "summary": {
+    "registered": 8,
+    "matched": 8,
+    "mismatched": 0,
+    "inconclusive": 0,
+    "candidate_execution_permitted": true
+  },
+  "process": {
+    "stdout": "FixProof primary SQLi benchmark running on port 50173\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_result",
+  "protocol_id": "supplemental-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-xss-initial-04",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-15T19:58:42.353608Z",
+  "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+  "rationale": "I reviewed the candidate patch, original review, and all nine supplemental XSS results. I also confirmed that the September 15 rerun produced the same outcome. Attempt 04 passed all three supplemental security tests and the robustness test. However, XSS-P01 demonstrated that an omitted name changed from the baseline text \"Hello undefined\" to \"Hello \". Because the frozen protocol requires exact observable behavior for this case, I reject the candidate for the bounded benchmark. This is a functional-parity decision and does not mean the registered XSS attacks remained exploitable. Reference: \"XSS-P01\"",
+  "confirmed_required_checks": true,
+  "packet": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-xss-initial-04/packet.json",
+    "sha256": "e1576ea39ece9140589b76841a593269a20505965760c9836f5b429faad3304a"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-04/result.json",
+    "sha256": "e0a66e3b2f6250f8684619b98533bf1d86e852850c5a316de2a6d8cd164938cb",
+    "summary": {
+      "registered": 9,
+      "pass": 8,
+      "fail": 1,
+      "inconclusive": 0,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 5,
+          "pass": 4,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 1,
+          "pass": 1,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "XSS-P01",
+        "category": "behavioral_parity",
+        "status": "fail"
+      }
+    ]
+  },
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

@@ -1,0 +1,382 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_baseline_characterization",
+  "protocol_id": "supplemental-v1",
+  "run_id": "20260914T192312900056Z-baseline-path-traversal",
+  "target_type": "baseline",
+  "cwe_case": "path-traversal",
+  "started_at": "2026-09-14T19:23:12.901085Z",
+  "status": "baseline_expectation_mismatch",
+  "definition": {
+    "schema_version": "0.1",
+    "project": "FixProof",
+    "artifact_type": "supplemental_definition_verification",
+    "protocol": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "lock": "data/supplemental/v1/protocol-lock.json",
+      "bindings": [
+        {
+          "path": "docs/supplemental-protocol-v1.md",
+          "sha256": "737fbea4fb790dca7403ed1b9cd24b822f53bdca48aae19487ec29275a662930"
+        },
+        {
+          "path": "data/primary_trials/v1/primary-experiment-manifest.json",
+          "sha256": "069486143bd5299c284acaaad5fa51942a2f28aadd9a744998948cd2a6ad7b75"
+        },
+        {
+          "path": "data/evaluation/primary-report.json",
+          "sha256": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65"
+        }
+      ]
+    },
+    "cases": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "definition_only": true,
+      "does_not_execute_applications": true,
+      "manifest": "tests/supplemental/v1/cases.json",
+      "manifest_sha256": "1171c42c5d76fcc513983c327ae8f193d82a7db5b734aaf82dd2c2fa2e918fa8",
+      "case_counts": {
+        "xss": 9,
+        "path-traversal": 11,
+        "sqli": 8
+      },
+      "test_count": 28
+    }
+  },
+  "environment": {
+    "protocol_id": "supplemental-v1",
+    "check_type": "environment_preflight_no_candidate_execution",
+    "ready_for_live_supplemental_execution": true,
+    "node": "C:\\Program Files\\nodejs\\node.EXE",
+    "npm": "C:\\Program Files\\nodejs\\npm.CMD",
+    "chromium": {
+      "path": "C:\\Users\\tonyt\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "exists": true,
+      "playwright_python_package_available": true
+    },
+    "baseline_dependencies": {
+      "xss": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "path-traversal": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "sqli": {
+        "package_lock": true,
+        "node_modules": true
+      }
+    },
+    "blockers": []
+  },
+  "finished_at": "2026-09-14T19:23:14.104038Z",
+  "port": 57059,
+  "preparation": {
+    "source_app": "C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal",
+    "source_app_sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc",
+    "disposable_app": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app",
+    "disposable_app_sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc",
+    "transformations": [
+      {
+        "type": "supplemental_path_fixture",
+        "files": [
+          "public-files/..notes.txt",
+          "public-files/annual report 2026.txt",
+          "outside-secret.txt",
+          "public-files-evil/secret.txt"
+        ],
+        "symlink_created": false
+      }
+    ],
+    "fixture_status": {
+      "allowed_root": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\public-files",
+      "outside_marker_path": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\outside-secret.txt",
+      "sibling_marker_path": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\public-files-evil\\secret.txt",
+      "symlink_path": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\public-files\\link",
+      "symlink_created": false,
+      "symlink_error": "[WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-4t5cwqez\\\\app' -> 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-4t5cwqez\\\\app\\\\public-files\\\\link'"
+    }
+  },
+  "cases": [
+    {
+      "test_id": "PATH-P01",
+      "category": "behavioral_parity",
+      "input": "in-root ..notes.txt",
+      "baseline_expectation": "HTTP 200 with exact allowed contents",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:57059/file?name=..notes.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FixProof supplemental allowed fixture: ..notes.txt\r\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "mismatch",
+        "reason": "Expected the in-root ..notes.txt fixture."
+      }
+    },
+    {
+      "test_id": "PATH-P02",
+      "category": "behavioral_parity",
+      "input": "in-root annual report 2026.txt",
+      "baseline_expectation": "HTTP 200 with exact allowed contents",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:57059/file?name=annual+report+2026.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FixProof supplemental allowed fixture: annual report 2026.txt\r\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "mismatch",
+        "reason": "Expected the in-root spaced filename fixture."
+      }
+    },
+    {
+      "test_id": "PATH-R01",
+      "category": "robustness_contract",
+      "input": "missing name",
+      "baseline_expectation": "Characterize baseline failure behavior",
+      "evidence": {
+        "observations": [
+          {
+            "label": "omitted",
+            "url": "http://127.0.0.1:57059/file",
+            "http": {
+              "status_code": 500,
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>TypeError [ERR_INVALID_ARG_TYPE]: The &quot;path&quot; argument must be of type string. Received undefined<br> &nbsp; &nbsp;at Object.join (node:path:513:7)<br> &nbsp; &nbsp;at C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\app.js:11:27<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:117:3)<br> &nbsp; &nbsp;at handle (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:435:11)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:295:15<br> &nbsp; &nbsp;at processParams (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:582:12)<br> &nbsp; &nbsp;at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:291:5)</pre>\n</body>\n</html>\n",
+              "content_type": "text/html; charset=utf-8",
+              "error": "HTTP Error 500: Internal Server Error"
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Baseline malformed-input behavior was characterized without disclosing a marker."
+      }
+    },
+    {
+      "test_id": "PATH-R02",
+      "category": "robustness_contract",
+      "input": "empty name",
+      "baseline_expectation": "Characterize baseline failure behavior",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:57059/file?name=",
+            "http": {
+              "status_code": 404,
+              "body": "{\"error\":\"File not found\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 404: Not Found"
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Baseline malformed-input behavior was characterized without disclosing a marker."
+      }
+    },
+    {
+      "test_id": "PATH-R03",
+      "category": "robustness_contract",
+      "input": "repeated filenames",
+      "baseline_expectation": "Characterize ambiguous-input behavior",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:57059/file?name=welcome.txt&name=guide.txt",
+            "http": {
+              "status_code": 500,
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>TypeError [ERR_INVALID_ARG_TYPE]: The &quot;path&quot; argument must be of type string. Received an instance of Array<br> &nbsp; &nbsp;at Object.join (node:path:513:7)<br> &nbsp; &nbsp;at C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\app.js:11:27<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:117:3)<br> &nbsp; &nbsp;at handle (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:435:11)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:295:15<br> &nbsp; &nbsp;at processParams (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:582:12)<br> &nbsp; &nbsp;at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:291:5)</pre>\n</body>\n</html>\n",
+              "content_type": "text/html; charset=utf-8",
+              "error": "HTTP Error 500: Internal Server Error"
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Baseline malformed-input behavior was characterized without disclosing a marker."
+      }
+    },
+    {
+      "test_id": "PATH-S01",
+      "category": "security",
+      "input": "single-encoded parent traversal",
+      "baseline_expectation": "Outside marker disclosed",
+      "evidence": {
+        "observations": [
+          {
+            "label": "raw_query",
+            "url": "http://127.0.0.1:57059/file?name=..%2Foutside-secret.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET\r\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected the vulnerable baseline to disclose the outside marker."
+      }
+    },
+    {
+      "test_id": "PATH-S02",
+      "category": "security",
+      "input": "double-encoded parent traversal",
+      "baseline_expectation": "One decode leaves a literal encoded filename and no marker",
+      "evidence": {
+        "observations": [
+          {
+            "label": "raw_query",
+            "url": "http://127.0.0.1:57059/file?name=%252e%252e%252foutside-secret.txt",
+            "http": {
+              "status_code": 404,
+              "body": "{\"error\":\"File not found\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 404: Not Found"
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected one decoding pass to leave a nondisclosing literal name."
+      }
+    },
+    {
+      "test_id": "PATH-S03",
+      "category": "security",
+      "input": "Windows backslash traversal",
+      "baseline_expectation": "Outside marker disclosed on Windows",
+      "evidence": {
+        "observations": [
+          {
+            "label": "raw_query",
+            "url": "http://127.0.0.1:57059/file?name=..%5Coutside-secret.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET\r\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected the vulnerable baseline to disclose the outside marker."
+      }
+    },
+    {
+      "test_id": "PATH-S04",
+      "category": "security",
+      "input": "generated POSIX and Windows absolute marker paths",
+      "baseline_expectation": "Characterize both absolute-path responses",
+      "evidence": {
+        "observations": [
+          {
+            "label": "windows_absolute",
+            "url": "http://127.0.0.1:57059/file?name=C%3A%5CUsers%5Ctonyt%5CAppData%5CLocal%5CTemp%5Cfixproof-supplemental-path-traversal-4t5cwqez%5Capp%5Coutside-secret.txt",
+            "http": {
+              "status_code": 404,
+              "body": "{\"error\":\"File not found\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 404: Not Found"
+            }
+          },
+          {
+            "label": "posix_absolute",
+            "url": "http://127.0.0.1:57059/file?name=%2FC%3A%2FUsers%2Ftonyt%2FAppData%2FLocal%2FTemp%2Ffixproof-supplemental-path-traversal-4t5cwqez%2Fapp%2Foutside-secret.txt",
+            "http": {
+              "status_code": 404,
+              "body": "{\"error\":\"File not found\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 404: Not Found"
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected two characterized absolute-path responses."
+      }
+    },
+    {
+      "test_id": "PATH-S05",
+      "category": "security",
+      "input": "sibling-prefix traversal",
+      "baseline_expectation": "Sibling marker disclosed",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:57059/file?name=..%2Fpublic-files-evil%2Fsecret.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FIXPROOF_SUPPLEMENTAL_SIBLING_SECRET\r\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "baseline_expectation_evaluation": {
+        "status": "match",
+        "reason": "Expected the vulnerable baseline to disclose the sibling marker."
+      }
+    },
+    {
+      "test_id": "PATH-S06",
+      "category": "security",
+      "input": "in-root symlink or junction to outside directory",
+      "baseline_expectation": "Outside marker disclosed",
+      "evidence": {
+        "observations": [],
+        "fixture_unavailable": true,
+        "reason": "[WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-4t5cwqez\\\\app' -> 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-4t5cwqez\\\\app\\\\public-files\\\\link'"
+      },
+      "baseline_expectation_evaluation": {
+        "status": "inconclusive",
+        "reason": "Required symlink or junction fixture was unavailable."
+      }
+    }
+  ],
+  "summary": {
+    "registered": 11,
+    "matched": 8,
+    "mismatched": 2,
+    "inconclusive": 1,
+    "candidate_execution_permitted": false
+  },
+  "process": {
+    "stdout": "FixProof primary path-traversal benchmark running on port 57059\n",
+    "stderr": "TypeError [ERR_INVALID_ARG_TYPE]: The \"path\" argument must be of type string. Received undefined\n    at Object.join (node:path:513:7)\n    at C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\app.js:11:27\n    at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:291:5)\nTypeError [ERR_INVALID_ARG_TYPE]: The \"path\" argument must be of type string. Received an instance of Array\n    at Object.join (node:path:513:7)\n    at C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-4t5cwqez\\app\\app.js:11:27\n    at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\benchmarks\\primary\\v1\\path-traversal\\node_modules\\router\\index.js:291:5)\n"
+  }
+}

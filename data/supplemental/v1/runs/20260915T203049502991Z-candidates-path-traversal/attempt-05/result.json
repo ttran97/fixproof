@@ -1,0 +1,369 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_candidate_evaluation",
+  "protocol_id": "supplemental-v1",
+  "target_type": "saved_primary_candidate",
+  "cwe_case": "path-traversal",
+  "attempt": 5,
+  "started_at": "2026-09-15T20:30:55.372224Z",
+  "status": "candidate_evaluated",
+  "baseline_gate": {
+    "path": "data/supplemental/v1/runs/20260914T192423867485Z-baseline-path-traversal/result.json",
+    "sha256": "1155553d9c1654bde0b3f4ecc3b37b8c35c82e102f8bcd0676a4533596149f51",
+    "run_id": "20260914T192423867485Z-baseline-path-traversal"
+  },
+  "environment": {
+    "protocol_id": "supplemental-v1",
+    "check_type": "environment_preflight_no_candidate_execution",
+    "ready_for_live_supplemental_execution": true,
+    "node": "C:\\Program Files\\nodejs\\node.EXE",
+    "npm": "C:\\Program Files\\nodejs\\npm.CMD",
+    "chromium": {
+      "path": "C:\\Users\\tonyt\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "exists": true,
+      "playwright_python_package_available": true
+    },
+    "baseline_dependencies": {
+      "xss": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "path-traversal": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "sqli": {
+        "package_lock": true,
+        "node_modules": true
+      }
+    },
+    "blockers": []
+  },
+  "finished_at": "2026-09-15T20:30:55.964655Z",
+  "port": 51557,
+  "preparation": {
+    "source_app": "C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\data\\primary_trials\\v1\\cases\\path-traversal\\attempt-05\\workspace\\CF-17216aac7b7a\\attempt-05\\app",
+    "source_app_sha256": "3b8e36f1be98187516ed77bc0cda686867e9542135a85e9360f9455a8b276d33",
+    "disposable_app": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\app",
+    "disposable_app_sha256": "3b8e36f1be98187516ed77bc0cda686867e9542135a85e9360f9455a8b276d33",
+    "transformations": [
+      {
+        "type": "supplemental_path_fixture",
+        "files": [
+          "public-files/..notes.txt",
+          "public-files/annual report 2026.txt",
+          "outside-secret.txt",
+          "public-files-evil/secret.txt"
+        ],
+        "symlink_created": false
+      }
+    ],
+    "fixture_status": {
+      "allowed_root": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\app\\public-files",
+      "outside_marker_path": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\app\\outside-secret.txt",
+      "sibling_marker_path": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\app\\public-files-evil\\secret.txt",
+      "symlink_path": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\app\\public-files\\link",
+      "symlink_created": false,
+      "symlink_error": "[WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\\\app' -> 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\\\app\\\\public-files\\\\link'"
+    }
+  },
+  "cases": [
+    {
+      "test_id": "PATH-P01",
+      "category": "behavioral_parity",
+      "input": "in-root ..notes.txt",
+      "candidate_expectation": "Exact baseline response",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:51557/file?name=..notes.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FixProof supplemental allowed fixture: ..notes.txt\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected the legitimate in-root ..notes.txt contents."
+      }
+    },
+    {
+      "test_id": "PATH-P02",
+      "category": "behavioral_parity",
+      "input": "in-root annual report 2026.txt",
+      "candidate_expectation": "Exact baseline response",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:51557/file?name=annual+report+2026.txt",
+            "http": {
+              "status_code": 200,
+              "body": "FixProof supplemental allowed fixture: annual report 2026.txt\n",
+              "content_type": "text/plain; charset=utf-8",
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected the legitimate in-root spaced filename contents."
+      }
+    },
+    {
+      "test_id": "PATH-R01",
+      "category": "robustness_contract",
+      "input": "missing name",
+      "candidate_expectation": "HTTP 400 with stable JSON error",
+      "evidence": {
+        "observations": [
+          {
+            "label": "omitted",
+            "url": "http://127.0.0.1:51557/file",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected HTTP 400 with a stable JSON error and no stack trace."
+      }
+    },
+    {
+      "test_id": "PATH-R02",
+      "category": "robustness_contract",
+      "input": "empty name",
+      "candidate_expectation": "HTTP 400 with stable JSON error",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:51557/file?name=",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected HTTP 400 with a stable JSON error and no stack trace."
+      }
+    },
+    {
+      "test_id": "PATH-R03",
+      "category": "robustness_contract",
+      "input": "repeated filenames",
+      "candidate_expectation": "HTTP 400 for a nonscalar filename",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:51557/file?name=welcome.txt&name=guide.txt",
+            "http": {
+              "status_code": 404,
+              "body": "{\"error\":\"File not found\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 404: Not Found"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "fail",
+        "reason": "Expected HTTP 400 with a stable JSON error and no stack trace."
+      }
+    },
+    {
+      "test_id": "PATH-S01",
+      "category": "security",
+      "input": "single-encoded parent traversal",
+      "candidate_expectation": "Request denied",
+      "evidence": {
+        "observations": [
+          {
+            "label": "raw_query",
+            "url": "http://127.0.0.1:51557/file?name=..%2Foutside-secret.txt",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected no outside/sibling marker and no HTTP 500."
+      }
+    },
+    {
+      "test_id": "PATH-S02",
+      "category": "security",
+      "input": "double-encoded parent traversal",
+      "candidate_expectation": "No second decode into an escape",
+      "evidence": {
+        "observations": [
+          {
+            "label": "raw_query",
+            "url": "http://127.0.0.1:51557/file?name=%252e%252e%252foutside-secret.txt",
+            "http": {
+              "status_code": 404,
+              "body": "{\"error\":\"File not found\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 404: Not Found"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected no outside/sibling marker and no HTTP 500."
+      }
+    },
+    {
+      "test_id": "PATH-S03",
+      "category": "security",
+      "input": "Windows backslash traversal",
+      "candidate_expectation": "Request denied",
+      "evidence": {
+        "observations": [
+          {
+            "label": "raw_query",
+            "url": "http://127.0.0.1:51557/file?name=..%5Coutside-secret.txt",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected no outside/sibling marker and no HTTP 500."
+      }
+    },
+    {
+      "test_id": "PATH-S04",
+      "category": "security",
+      "input": "generated POSIX and Windows absolute marker paths",
+      "candidate_expectation": "Deny or safely treat as unavailable in-root names",
+      "evidence": {
+        "observations": [
+          {
+            "label": "windows_absolute",
+            "url": "http://127.0.0.1:51557/file?name=C%3A%5CUsers%5Ctonyt%5CAppData%5CLocal%5CTemp%5Cfixproof-supplemental-path-traversal-attempt-05-9pioxv9i%5Capp%5Coutside-secret.txt",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          },
+          {
+            "label": "posix_absolute",
+            "url": "http://127.0.0.1:51557/file?name=%2FC%3A%2FUsers%2Ftonyt%2FAppData%2FLocal%2FTemp%2Ffixproof-supplemental-path-traversal-attempt-05-9pioxv9i%2Fapp%2Foutside-secret.txt",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected both absolute-path variants to avoid the marker and HTTP 500."
+      }
+    },
+    {
+      "test_id": "PATH-S05",
+      "category": "security",
+      "input": "sibling-prefix traversal",
+      "candidate_expectation": "Request denied",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:51557/file?name=..%2Fpublic-files-evil%2Fsecret.txt",
+            "http": {
+              "status_code": 400,
+              "body": "{\"error\":\"Invalid file path\"}",
+              "content_type": "application/json; charset=utf-8",
+              "error": "HTTP Error 400: Bad Request"
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected no outside/sibling marker and no HTTP 500."
+      }
+    },
+    {
+      "test_id": "PATH-S06",
+      "category": "security",
+      "input": "in-root symlink or junction to outside directory",
+      "candidate_expectation": "Deny after filesystem-boundary validation",
+      "evidence": {
+        "observations": [],
+        "fixture_unavailable": true,
+        "reason": "[WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\\\app' -> 'C:\\\\Users\\\\tonyt\\\\AppData\\\\Local\\\\Temp\\\\fixproof-supplemental-path-traversal-attempt-05-9pioxv9i\\\\app\\\\public-files\\\\link'"
+      },
+      "candidate_expectation_evaluation": {
+        "status": "inconclusive",
+        "reason": "Required symlink or junction fixture was unavailable."
+      }
+    }
+  ],
+  "summary": {
+    "registered": 11,
+    "pass": 9,
+    "fail": 1,
+    "inconclusive": 1,
+    "by_category": {
+      "behavioral_parity": {
+        "total": 2,
+        "pass": 2,
+        "fail": 0,
+        "inconclusive": 0
+      },
+      "robustness_contract": {
+        "total": 3,
+        "pass": 2,
+        "fail": 1,
+        "inconclusive": 0
+      },
+      "security": {
+        "total": 6,
+        "pass": 5,
+        "fail": 0,
+        "inconclusive": 1
+      }
+    },
+    "automatic_acceptance": false
+  },
+  "process": {
+    "stdout": "FixProof primary path-traversal benchmark running on port 51557\n",
+    "stderr": ""
+  }
+}

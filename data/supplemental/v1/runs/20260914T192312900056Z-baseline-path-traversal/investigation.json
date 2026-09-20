@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_run_investigation",
+  "protocol_id": "supplemental-v1",
+  "run_id": "20260914T192312900056Z-baseline-path-traversal",
+  "reviewed_on": "2026-09-14",
+  "status": "runner_defect_identified",
+  "candidate_execution_occurred": false,
+  "affected_tests": [
+    "PATH-P01",
+    "PATH-P02"
+  ],
+  "finding": "The HTTP bodies contained the intended text but used Windows CRLF line endings. The runner constants expected LF because the fixture was intended to be byte-deterministic, while Path.write_text translated the newline on Windows.",
+  "resolution": "The disposable fixture builder now uses write_bytes for registered path-fixture contents. The original result.json is preserved unchanged, and a new baseline run is required.",
+  "symlink_observation": "PATH-S06 remains inconclusive in this run because Windows denied symlink creation with WinError 1314. This is independent of the newline defect."
+}

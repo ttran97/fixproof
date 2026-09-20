@@ -1,0 +1,514 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_candidate_evaluation",
+  "protocol_id": "supplemental-v1",
+  "target_type": "saved_primary_candidate",
+  "cwe_case": "xss",
+  "attempt": 1,
+  "started_at": "2026-09-15T16:27:56.538998Z",
+  "status": "candidate_evaluated",
+  "baseline_gate": {
+    "path": "data/supplemental/v1/runs/20260914T192251078985Z-baseline-xss/result.json",
+    "sha256": "7fe59f18da2610d09e4cfeab8f893ad2598047dc0b95f7e742e52ddd60b02939",
+    "run_id": "20260914T192251078985Z-baseline-xss"
+  },
+  "environment": {
+    "protocol_id": "supplemental-v1",
+    "check_type": "environment_preflight_no_candidate_execution",
+    "ready_for_live_supplemental_execution": true,
+    "node": "C:\\Program Files\\nodejs\\node.EXE",
+    "npm": "C:\\Program Files\\nodejs\\npm.CMD",
+    "chromium": {
+      "path": "C:\\Users\\tonyt\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "exists": true,
+      "playwright_python_package_available": true
+    },
+    "baseline_dependencies": {
+      "xss": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "path-traversal": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "sqli": {
+        "package_lock": true,
+        "node_modules": true
+      }
+    },
+    "blockers": []
+  },
+  "finished_at": "2026-09-15T16:28:08.494072Z",
+  "port": 55489,
+  "preparation": {
+    "source_app": "C:\\Users\\tonyt\\Documents\\fixproof-main\\fixproof\\data\\primary_trials\\v1\\cases\\xss\\attempt-01\\workspace\\CF-209ae17232b1\\attempt-01\\app",
+    "source_app_sha256": "25ef1521635744ba91acc646cf4e1b7c6a6f5a0c232bb9393adaf4399ec910bd",
+    "disposable_app": "C:\\Users\\tonyt\\AppData\\Local\\Temp\\fixproof-supplemental-xss-attempt-01-c9k1hoz0\\app",
+    "disposable_app_sha256": "25ef1521635744ba91acc646cf4e1b7c6a6f5a0c232bb9393adaf4399ec910bd",
+    "transformations": [],
+    "fixture_status": {}
+  },
+  "cases": [
+    {
+      "test_id": "XSS-P01",
+      "category": "behavioral_parity",
+      "input": "missing name",
+      "candidate_expectation": "Exact baseline status and h1 text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "omitted",
+            "url": "http://127.0.0.1:55489/hello",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello </h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello "
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello </h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "fail",
+        "reason": "Expected one safe h1 with text 'Hello undefined'."
+      }
+    },
+    {
+      "test_id": "XSS-P02",
+      "category": "behavioral_parity",
+      "input": "empty name",
+      "candidate_expectation": "Exact baseline status and h1 text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello </h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello "
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello </h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected one safe h1 with text 'Hello '."
+      }
+    },
+    {
+      "test_id": "XSS-P03",
+      "category": "behavioral_parity",
+      "input": "repeated Tony and Admin values",
+      "candidate_expectation": "Exact baseline status and h1 text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=Tony&name=Admin",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello Tony,Admin</h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello Tony,Admin"
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello Tony,Admin</h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected one safe h1 with text 'Hello Tony,Admin'."
+      }
+    },
+    {
+      "test_id": "XSS-P04",
+      "category": "behavioral_parity",
+      "input": "Zoë 漢字 😀",
+      "candidate_expectation": "Exact baseline status and h1 text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=Zo%C3%AB+%E6%BC%A2%E5%AD%97+%F0%9F%98%80",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello Zoë 漢字 😀</h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello Zoë 漢字 😀"
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello Zoë 漢字 😀</h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected one safe h1 with text 'Hello Zoë 漢字 😀'."
+      }
+    },
+    {
+      "test_id": "XSS-P05",
+      "category": "behavioral_parity",
+      "input": "O'Reilly `admin`",
+      "candidate_expectation": "Exact baseline status and h1 text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=O%27Reilly+%60admin%60",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello O&#39;Reilly `admin`</h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello O'Reilly `admin`"
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello O'Reilly `admin`</h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected one safe h1 with text \"Hello O'Reilly `admin`\"."
+      }
+    },
+    {
+      "test_id": "XSS-R01",
+      "category": "robustness_contract",
+      "input": "literal &lt;b&gt;Tony&lt;/b&gt;",
+      "candidate_expectation": "Display the submitted entity-looking value literally",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=%26lt%3Bb%26gt%3BTony%26lt%3B%2Fb%26gt%3B",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello &amp;lt;b&amp;gt;Tony&amp;lt;&#x2F;b&amp;gt;</h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello &lt;b&gt;Tony&lt;/b&gt;"
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello &amp;lt;b&amp;gt;Tony&amp;lt;/b&amp;gt;</h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected one safe h1 with text 'Hello &lt;b&gt;Tony&lt;/b&gt;'."
+      }
+    },
+    {
+      "test_id": "XSS-S01",
+      "category": "security",
+      "input": "mixed-case script tag",
+      "candidate_expectation": "Input rendered only as text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=%3CScRiPt%3Ealert%281%29%3C%2FScRiPt%3E",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello &lt;ScRiPt&gt;alert(1)&lt;&#x2F;ScRiPt&gt;</h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello <ScRiPt>alert(1)</ScRiPt>"
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello &lt;ScRiPt&gt;alert(1)&lt;/ScRiPt&gt;</h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected no dialog or injected script and one greeting h1."
+      }
+    },
+    {
+      "test_id": "XSS-S02",
+      "category": "security",
+      "input": "repeated safe value and image-event payload",
+      "candidate_expectation": "Both values rendered only as text",
+      "evidence": {
+        "observations": [
+          {
+            "label": "request",
+            "url": "http://127.0.0.1:55489/hello?name=Tony&name=%3Cimg+src%3Dx+onerror%3Dalert%281%29%3E",
+            "http": {
+              "status_code": 200,
+              "body": "<h1>Hello Tony,&lt;img src=x onerror=alert(1)&gt;</h1>",
+              "content_type": "text/html; charset=utf-8",
+              "error": null
+            },
+            "browser": {
+              "status": "observed",
+              "http_status": 200,
+              "dialogs": [],
+              "h1_count": 1,
+              "h1_texts": [
+                "Hello Tony,<img src=x onerror=alert(1)>"
+              ],
+              "active_element_counts": {
+                "script": 0,
+                "img": 0,
+                "svg": 0,
+                "input": 0,
+                "b": 0
+              },
+              "body_inner_html": "<h1>Hello Tony,&lt;img src=x onerror=alert(1)&gt;</h1>",
+              "page_errors": [],
+              "error": null
+            }
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected no dialog or injected img and one greeting h1."
+      }
+    },
+    {
+      "test_id": "XSS-S03",
+      "category": "security",
+      "input": "aggregate DOM structure for XSS-S01 and XSS-S02",
+      "candidate_expectation": "Single intended greeting heading",
+      "evidence": {
+        "references": [
+          "XSS-S01",
+          "XSS-S02"
+        ],
+        "referenced_results": [
+          {
+            "observations": [
+              {
+                "label": "request",
+                "url": "http://127.0.0.1:55489/hello?name=%3CScRiPt%3Ealert%281%29%3C%2FScRiPt%3E",
+                "http": {
+                  "status_code": 200,
+                  "body": "<h1>Hello &lt;ScRiPt&gt;alert(1)&lt;&#x2F;ScRiPt&gt;</h1>",
+                  "content_type": "text/html; charset=utf-8",
+                  "error": null
+                },
+                "browser": {
+                  "status": "observed",
+                  "http_status": 200,
+                  "dialogs": [],
+                  "h1_count": 1,
+                  "h1_texts": [
+                    "Hello <ScRiPt>alert(1)</ScRiPt>"
+                  ],
+                  "active_element_counts": {
+                    "script": 0,
+                    "img": 0,
+                    "svg": 0,
+                    "input": 0,
+                    "b": 0
+                  },
+                  "body_inner_html": "<h1>Hello &lt;ScRiPt&gt;alert(1)&lt;/ScRiPt&gt;</h1>",
+                  "page_errors": [],
+                  "error": null
+                }
+              }
+            ]
+          },
+          {
+            "observations": [
+              {
+                "label": "request",
+                "url": "http://127.0.0.1:55489/hello?name=Tony&name=%3Cimg+src%3Dx+onerror%3Dalert%281%29%3E",
+                "http": {
+                  "status_code": 200,
+                  "body": "<h1>Hello Tony,&lt;img src=x onerror=alert(1)&gt;</h1>",
+                  "content_type": "text/html; charset=utf-8",
+                  "error": null
+                },
+                "browser": {
+                  "status": "observed",
+                  "http_status": 200,
+                  "dialogs": [],
+                  "h1_count": 1,
+                  "h1_texts": [
+                    "Hello Tony,<img src=x onerror=alert(1)>"
+                  ],
+                  "active_element_counts": {
+                    "script": 0,
+                    "img": 0,
+                    "svg": 0,
+                    "input": 0,
+                    "b": 0
+                  },
+                  "body_inner_html": "<h1>Hello Tony,&lt;img src=x onerror=alert(1)&gt;</h1>",
+                  "page_errors": [],
+                  "error": null
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "candidate_expectation_evaluation": {
+        "status": "pass",
+        "reason": "Expected both attack cases to retain one heading with no dialog or attacker-created active element."
+      }
+    }
+  ],
+  "summary": {
+    "registered": 9,
+    "pass": 8,
+    "fail": 1,
+    "inconclusive": 0,
+    "by_category": {
+      "behavioral_parity": {
+        "total": 5,
+        "pass": 4,
+        "fail": 1,
+        "inconclusive": 0
+      },
+      "robustness_contract": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "inconclusive": 0
+      },
+      "security": {
+        "total": 3,
+        "pass": 3,
+        "fail": 0,
+        "inconclusive": 0
+      }
+    },
+    "automatic_acceptance": false
+  },
+  "process": {
+    "stdout": "FixProof primary XSS benchmark running on port 55489\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_execution_environment",
+  "protocol_id": "supplemental-v1",
+  "recorded_on": "2026-09-14",
+  "platform": {
+    "operating_system": "Windows-10-10.0.22631-SP0",
+    "machine": "AMD64"
+  },
+  "tools": {
+    "python": "3.11.9",
+    "node": "24.19.0",
+    "npm": "11.17.0",
+    "playwright_python": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "express": "5.2.1",
+    "sqlite3": "6.0.1"
+  },
+  "dependency_policy": "npm_ci_from_committed_primary_fixture_lockfiles",
+  "application_binding": "127.0.0.1_only_with_ephemeral_ports",
+  "candidate_policy": "saved_primary_candidates_only_no_model_calls",
+  "sast_activity": "not_run_for_supplemental_v1",
+  "covered_run_ids": [
+    "20260914T192251078985Z-baseline-xss",
+    "20260914T192312900056Z-baseline-path-traversal",
+    "20260914T192423867485Z-baseline-path-traversal",
+    "20260914T192431905456Z-baseline-sqli",
+    "20260914T192749827554Z-candidates-xss",
+    "20260914T192827434537Z-candidates-path-traversal",
+    "20260914T192901912061Z-candidates-sqli"
+  ],
+  "notes": [
+    "The first path baseline run is preserved as a runner-defect observation and was not used as a candidate gate.",
+    "Windows denied symlink creation with WinError 1314, so PATH-S06 remained inconclusive.",
+    "Dependency and browser downloads occurred before live evidence collection; tested applications themselves used loopback networking only."
+  ]
+}

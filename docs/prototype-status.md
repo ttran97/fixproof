@@ -14,7 +14,7 @@ decisions, and the frozen implementation are preserved.
 | Human conflict review | All ten reviews recorded: seven ACCEPT_CANDIDATE and three REQUEST_ADDITIONAL_TESTING (XSS 04–05 and traversal 01) |
 | Finding history | New/persistent/resolved/reopened tracking implemented in `findings/lifecycle.py`; nine focused tests cover transitions, ambiguity, replay, coverage changes, tampering, and storage |
 | Verification command | `reproduce --verify` now rebuilds/checks both reports and runs the complete tests; it reports evidence verification separately from human completion |
-| Current automated checks | September 14: 94 repository tests passed, including five supplemental-definition checks; the primary report still verified all 15 attempts and all ten review bindings. These checks did not run Express or Chromium. |
+| Current automated checks | September 14: 111 repository tests passed; the primary report verified all 15 attempts and ten original review bindings, and the supplemental report verified three baselines plus 15 saved candidates. |
 | September 12 artifact audit | Saved hashes and decision/count consistency checked, including all three review bindings; Python tests and live scanner/runtime checks were not rerun in this checkout |
 | Fresh environment check | September 5: all 87 tests passed in an isolated working-copy snapshot with a newly installed Python environment; all six apps' locked Node dependencies installed; all four pilot runtime demos matched recorded decisions |
 | Controlled scope | Purpose-built Express fixtures and AI-generated remediation candidates; no claim to have evaluated a representative AI-generated application corpus |
@@ -77,13 +77,16 @@ approval. The conflict-adjudication workflow concerns the ten XSS/path-traversal
 disagreements. Completing those reviews does not automatically approve the
 SQLi candidates or make deployment part of this prototype.
 
-The dated, author-approved protocol is now at
+The dated, author-approved protocol is at
 [`docs/supplemental-protocol-v1.md`](supplemental-protocol-v1.md). It contains
 pre-registered security, behavioral-parity, and robustness oracles. Its
 September 14 freeze hash is stored in `data/supplemental/v1/protocol-lock.json`.
-No baseline or candidate execution has been recorded yet; the preflight reports
-that Node/npm, Chromium, and all three locked Node dependency directories must
-be restored first.
+The runtime was restored and the later preflight passed. All three baselines
+and all 15 saved candidates were then evaluated in disposable copies. The
+verified report is `data/supplemental/v1/supplemental-report.json`, with a
+professor-readable interpretation in `docs/supplemental-results-v1.md`.
+Three separate follow-up packets are pending Tony's personal conclusions under
+`data/supplemental/v1/follow-up-reviews/`.
 
 ## Four-state finding history
 

@@ -1,0 +1,230 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_candidate_group_summary",
+  "protocol_id": "supplemental-v1",
+  "run_id": "20260914T192827434537Z-candidates-path-traversal",
+  "cwe_case": "path-traversal",
+  "started_at": "2026-09-14T19:28:27.436533Z",
+  "finished_at": "2026-09-14T19:28:30.584631Z",
+  "status": "completed",
+  "definition": {
+    "schema_version": "0.1",
+    "project": "FixProof",
+    "artifact_type": "supplemental_definition_verification",
+    "protocol": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "lock": "data/supplemental/v1/protocol-lock.json",
+      "bindings": [
+        {
+          "path": "docs/supplemental-protocol-v1.md",
+          "sha256": "737fbea4fb790dca7403ed1b9cd24b822f53bdca48aae19487ec29275a662930"
+        },
+        {
+          "path": "data/primary_trials/v1/primary-experiment-manifest.json",
+          "sha256": "069486143bd5299c284acaaad5fa51942a2f28aadd9a744998948cd2a6ad7b75"
+        },
+        {
+          "path": "data/evaluation/primary-report.json",
+          "sha256": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65"
+        }
+      ]
+    },
+    "cases": {
+      "protocol_id": "supplemental-v1",
+      "status": "verified",
+      "definition_only": true,
+      "does_not_execute_applications": true,
+      "manifest": "tests/supplemental/v1/cases.json",
+      "manifest_sha256": "1171c42c5d76fcc513983c327ae8f193d82a7db5b734aaf82dd2c2fa2e918fa8",
+      "case_counts": {
+        "xss": 9,
+        "path-traversal": 11,
+        "sqli": 8
+      },
+      "test_count": 28
+    }
+  },
+  "environment": {
+    "protocol_id": "supplemental-v1",
+    "check_type": "environment_preflight_no_candidate_execution",
+    "ready_for_live_supplemental_execution": true,
+    "node": "C:\\Program Files\\nodejs\\node.EXE",
+    "npm": "C:\\Program Files\\nodejs\\npm.CMD",
+    "chromium": {
+      "path": "C:\\Users\\tonyt\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+      "exists": true,
+      "playwright_python_package_available": true
+    },
+    "baseline_dependencies": {
+      "xss": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "path-traversal": {
+        "package_lock": true,
+        "node_modules": true
+      },
+      "sqli": {
+        "package_lock": true,
+        "node_modules": true
+      }
+    },
+    "blockers": []
+  },
+  "baseline_gate": {
+    "path": "data/supplemental/v1/runs/20260914T192423867485Z-baseline-path-traversal/result.json",
+    "sha256": "1155553d9c1654bde0b3f4ecc3b37b8c35c82e102f8bcd0676a4533596149f51",
+    "run_id": "20260914T192423867485Z-baseline-path-traversal"
+  },
+  "candidates": [
+    {
+      "attempt": 1,
+      "status": "candidate_evaluated",
+      "registered": 11,
+      "pass": 8,
+      "fail": 2,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 1,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 2,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    {
+      "attempt": 2,
+      "status": "candidate_evaluated",
+      "registered": 11,
+      "pass": 10,
+      "fail": 0,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    {
+      "attempt": 3,
+      "status": "candidate_evaluated",
+      "registered": 11,
+      "pass": 7,
+      "fail": 3,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 0,
+          "fail": 3,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    {
+      "attempt": 4,
+      "status": "candidate_evaluated",
+      "registered": 11,
+      "pass": 10,
+      "fail": 0,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    {
+      "attempt": 5,
+      "status": "candidate_evaluated",
+      "registered": 11,
+      "pass": 9,
+      "fail": 1,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 2,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    }
+  ],
+  "candidate_count": 5,
+  "automatic_acceptance": false
+}
