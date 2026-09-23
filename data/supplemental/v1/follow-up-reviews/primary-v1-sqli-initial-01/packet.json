@@ -1,0 +1,269 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_packet",
+  "protocol_id": "supplemental-v1",
+  "status": "pending_human_review",
+  "trial_id": "primary-v1-sqli-initial-01",
+  "cwe_case": "sqli",
+  "attempt": 1,
+  "purpose": "Record a first dated human decision after supplemental evidence for a candidate whose primary state was ready for human review, without overwriting the primary automated decision.",
+  "original_primary_review": {
+    "context_type": "automated_decision_without_human_review",
+    "verdict": null,
+    "reviewer": null,
+    "reviewed_at": null,
+    "rationale": null,
+    "result": {
+      "path": "data/primary_trials/v1/cases/sqli/attempt-01/decision.json",
+      "sha256": "c8b59a042064e2a7900ccfaf6347a9f0ccd473c10ebc609c60fcdae94ad87ae5"
+    }
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/sqli/attempt-01/workspace/CF-8b662341cc2d/attempt-01/candidate.patch",
+    "sha256": "b56f4759021ea66ac9c264c7c0194076bac331c9f28341aaa41662b1a5a41ea4"
+  },
+  "supplemental_report": {
+    "path": "data/supplemental/v1/supplemental-report.json",
+    "sha256": "8f09b2a6a4b5799d08e7b93bc543b1c800c6cb1d53ed9f50be345fe258d5f5b3"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-01/result.json",
+    "sha256": "264091a9d98c103c32edf96f0ccc86ee124e7f48596f8e5ab6fc5f7140ea5d1e",
+    "summary": {
+      "registered": 8,
+      "pass": 7,
+      "fail": 1,
+      "inconclusive": 0,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 2,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "SQL-R01",
+        "category": "robustness_contract",
+        "status": "fail"
+      }
+    ]
+  },
+  "comparable_candidate_context": [
+    {
+      "attempt": 1,
+      "summary": {
+        "registered": 8,
+        "pass": 7,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "SQL-R01",
+          "category": "robustness_contract",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "summary": {
+        "registered": 8,
+        "pass": 7,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "SQL-R01",
+          "category": "robustness_contract",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "summary": {
+        "registered": 8,
+        "pass": 7,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "SQL-R01",
+          "category": "robustness_contract",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 4,
+      "summary": {
+        "registered": 8,
+        "pass": 7,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "SQL-R01",
+          "category": "robustness_contract",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 5,
+      "summary": {
+        "registered": 8,
+        "pass": 7,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "SQL-R01",
+          "category": "robustness_contract",
+          "status": "fail"
+        }
+      ]
+    }
+  ],
+  "required_review_checks": [
+    "Reviewed the original candidate patch and automated primary decision.",
+    "Reviewed every supplemental case, input, observed response, and oracle outcome for this candidate.",
+    "Distinguished security, behavioral-parity, robustness, and inconclusive evidence.",
+    "Compared the candidate with the other saved candidates evaluated under the same CWE protocol.",
+    "Confirmed that this human result does not overwrite or retroactively alter primary-v1 metrics."
+  ],
+  "allowed_verdicts": [
+    "FOLLOW_UP_ACCEPT_CANDIDATE",
+    "FOLLOW_UP_REJECT_CANDIDATE",
+    "FOLLOW_UP_REQUEST_MORE_TESTING"
+  ],
+  "decision_boundary": "A passing security subset does not erase a parity or robustness failure. An inconclusive case must remain inconclusive. The human reviewer decides whether the complete bounded evidence supports acceptance, rejection, or further testing.",
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

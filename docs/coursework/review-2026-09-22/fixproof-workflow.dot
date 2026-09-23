@@ -1,0 +1,61 @@
+digraph FixProofWorkflow {
+  graph [
+    label=<<FONT FACE="Arial" POINT-SIZE="24" COLOR="#17253b"><B>FIXPROOF</B>  |  evidence-first repair workflow</FONT><BR/><FONT FACE="Arial" POINT-SIZE="12" COLOR="#53657d">The model proposes a repair; separate checks, policy, and people evaluate it.</FONT>>,
+    labelloc=t,
+    labeljust=l,
+    rankdir=LR,
+    bgcolor="#f8fafc",
+    pad="0.24",
+    nodesep="0.22",
+    ranksep="0.35",
+    splines=polyline,
+    outputorder=edgesfirst,
+    fontname="Arial"
+  ];
+  node [shape=box, style="rounded,filled", color="#b8c8dc", fillcolor="#ffffff", fontname="Arial", fontsize=14, fontcolor="#17253b", penwidth=1.4, margin="0.13,0.10"];
+  edge [color="#5a7090", penwidth=1.8, arrowsize=0.7, fontname="Arial", fontsize=10, fontcolor="#53657d"];
+
+  subgraph cluster_primary {
+    label=<<FONT FACE="Arial" POINT-SIZE="15" COLOR="#1d4678"><B>PRIMARY-v1  |  3 controlled Express fixtures × 5 initial attempts</B></FONT>>;
+    labelloc=t;
+    labeljust=l;
+    color="#c5d8ec";
+    fillcolor="#edf5fd";
+    style="rounded,filled";
+    penwidth=1.6;
+    margin=18;
+
+    setup [label=<<B>Vulnerable fixtures</B><BR/><FONT POINT-SIZE="11">XSS · SQLi · traversal<BR/>Semgrep finding + context</FONT>>];
+    model [label=<<B>Repair model</B><BR/><FONT POINT-SIZE="11">focused prompt → candidate code</FONT>>, fillcolor="#fff3df", color="#d9ae63"];
+    copy [label=<<B>Copied workspace</B><BR/><FONT POINT-SIZE="11">apply candidate; retain baseline</FONT>>];
+    checks [label=<<B>Separate validation channels</B><BR/><FONT POINT-SIZE="11">syntax · candidate SAST<BR/>attack tests · functional tests</FONT>>, fillcolor="#eaf7f4", color="#a7cec5"];
+    policy [label=<<B>Deterministic policy</B><BR/><FONT POINT-SIZE="11">REJECT · READY FOR REVIEW<BR/>NEEDS ADJUDICATION</FONT>>, fillcolor="#e4eafd", color="#8ea5d6"];
+    record [label=<<B>Preserved primary evidence</B><BR/><FONT POINT-SIZE="11">candidate · observations · metrics<BR/>separate human result if reviewed</FONT>>];
+    human [label=<<B>Human review</B><BR/><FONT POINT-SIZE="11">when required; verdict + rationale</FONT>>, fillcolor="#eee8fb", color="#a99acb"];
+
+    setup -> model -> copy -> checks -> policy -> record;
+    policy -> human [label="human boundary", constraint=false];
+    human -> record [constraint=false];
+  }
+
+  subgraph cluster_supplemental {
+    label=<<FONT FACE="Arial" POINT-SIZE="15" COLOR="#8a5526"><B>SUPPLEMENTAL-v1  |  later evidence, not a rewrite of primary-v1</B></FONT>>;
+    labelloc=t;
+    labeljust=l;
+    color="#ebd0a9";
+    fillcolor="#fff6e8";
+    style="rounded,filled";
+    penwidth=1.6;
+    margin=18;
+
+    saved [label=<<B>Baseline + saved candidates</B><BR/><FONT POINT-SIZE="11">disposable copies; no new model calls</FONT>>];
+    cases [label=<<B>Pre-registered cases</B><BR/><FONT POINT-SIZE="11">security · parity · robustness</FONT>>];
+    outcomes [label=<<B>Separate outcomes</B><BR/><FONT POINT-SIZE="11">pass · fail · inconclusive</FONT>>];
+    followup [label=<<B>Human follow-up</B><BR/><FONT POINT-SIZE="11">later qualification; original<BR/>reviews and metrics unchanged</FONT>>, fillcolor="#eee8fb", color="#a99acb"];
+
+    saved -> cases -> outcomes -> followup;
+  }
+
+  copy -> saved [style=dashed, color="#b67a40", penwidth=1.6, constraint=false];
+  record -> followup [style=dashed, color="#b67a40", penwidth=1.6, constraint=false];
+}

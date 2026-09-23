@@ -1,0 +1,298 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_packet",
+  "protocol_id": "supplemental-v1",
+  "status": "pending_human_review",
+  "trial_id": "primary-v1-path-traversal-initial-02",
+  "cwe_case": "path-traversal",
+  "attempt": 2,
+  "purpose": "Record a dated human qualification after later supplemental evidence without overwriting the original primary review.",
+  "original_primary_review": {
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-12T16:12:46.607263Z",
+    "rationale": "ACCEPT-CANDIDATE: The candidate requires the file name to be a nonempty string, resolves the configured root and requested path, and permits the read only when the resolved path equals the root or begins with the root plus the platform path separator. Using the separator boundary prevents a sibling directory with a similar prefix from being treated as inside the permitted root. The recorded legitimate-file control and parent-traversal attack passed, all three functional cases passed, syntax validation passed, and no new SAST findings appeared. The persistent CWE-22 warnings point to user input entering path.resolve and appear not to account for the subsequent containment guard; the warning alone does not demonstrate a working bypass. I accept the candidate within the controlled /file benchmark scope. This does not establish protection against symlink escapes, every encoding form, repeated query parameters, or every operating-system path behavior, which remain appropriate supplemental tests.",
+    "result": {
+      "path": "data/primary_reviews/v1/primary-v1-path-traversal-initial-02/result.json",
+      "sha256": "842e9d3d12e9a7884adf4f3f3c819e5ed16ddb3394b12fe263b69f4a98dbec73"
+    }
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/candidate.patch",
+    "sha256": "42f404e22829292be135bf6341b912c78ed53b2ce772a51f6b69e5556cc2029b"
+  },
+  "supplemental_report": {
+    "path": "data/supplemental/v1/supplemental-report.json",
+    "sha256": "8f09b2a6a4b5799d08e7b93bc543b1c800c6cb1d53ed9f50be345fe258d5f5b3"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-02/result.json",
+    "sha256": "3246a651ba0f9c2476763c9720936edcf2eaccb0dbc103b3032616fa5d25f061",
+    "summary": {
+      "registered": 11,
+      "pass": 10,
+      "fail": 0,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "PATH-S06",
+        "category": "security",
+        "status": "inconclusive"
+      }
+    ]
+  },
+  "comparable_candidate_context": [
+    {
+      "attempt": 1,
+      "summary": {
+        "registered": 11,
+        "pass": 8,
+        "fail": 2,
+        "inconclusive": 1,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 1,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 6,
+            "pass": 5,
+            "fail": 0,
+            "inconclusive": 1
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "PATH-P01",
+          "category": "behavioral_parity",
+          "status": "fail"
+        },
+        {
+          "test_id": "PATH-R03",
+          "category": "robustness_contract",
+          "status": "fail"
+        },
+        {
+          "test_id": "PATH-S06",
+          "category": "security",
+          "status": "inconclusive"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "summary": {
+        "registered": 11,
+        "pass": 10,
+        "fail": 0,
+        "inconclusive": 1,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 6,
+            "pass": 5,
+            "fail": 0,
+            "inconclusive": 1
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "PATH-S06",
+          "category": "security",
+          "status": "inconclusive"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "summary": {
+        "registered": 11,
+        "pass": 7,
+        "fail": 3,
+        "inconclusive": 1,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 0,
+            "fail": 3,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 6,
+            "pass": 5,
+            "fail": 0,
+            "inconclusive": 1
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "PATH-R01",
+          "category": "robustness_contract",
+          "status": "fail"
+        },
+        {
+          "test_id": "PATH-R02",
+          "category": "robustness_contract",
+          "status": "fail"
+        },
+        {
+          "test_id": "PATH-R03",
+          "category": "robustness_contract",
+          "status": "fail"
+        },
+        {
+          "test_id": "PATH-S06",
+          "category": "security",
+          "status": "inconclusive"
+        }
+      ]
+    },
+    {
+      "attempt": 4,
+      "summary": {
+        "registered": 11,
+        "pass": 10,
+        "fail": 0,
+        "inconclusive": 1,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 6,
+            "pass": 5,
+            "fail": 0,
+            "inconclusive": 1
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "PATH-S06",
+          "category": "security",
+          "status": "inconclusive"
+        }
+      ]
+    },
+    {
+      "attempt": 5,
+      "summary": {
+        "registered": 11,
+        "pass": 9,
+        "fail": 1,
+        "inconclusive": 1,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 2,
+            "pass": 2,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 3,
+            "pass": 2,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 6,
+            "pass": 5,
+            "fail": 0,
+            "inconclusive": 1
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "PATH-R03",
+          "category": "robustness_contract",
+          "status": "fail"
+        },
+        {
+          "test_id": "PATH-S06",
+          "category": "security",
+          "status": "inconclusive"
+        }
+      ]
+    }
+  ],
+  "required_review_checks": [
+    "Reviewed the original candidate patch and original adjudication rationale.",
+    "Reviewed every supplemental case, input, observed response, and oracle outcome for this candidate.",
+    "Distinguished security, behavioral-parity, robustness, and inconclusive evidence.",
+    "Compared the candidate with the other saved candidates evaluated under the same CWE protocol.",
+    "Confirmed that this follow-up does not overwrite or retroactively alter primary-v1 metrics."
+  ],
+  "allowed_verdicts": [
+    "FOLLOW_UP_ACCEPT_CANDIDATE",
+    "FOLLOW_UP_REJECT_CANDIDATE",
+    "FOLLOW_UP_REQUEST_MORE_TESTING"
+  ],
+  "decision_boundary": "A passing security subset does not erase a parity or robustness failure. An inconclusive case must remain inconclusive. The human reviewer decides whether the complete bounded evidence supports acceptance, rejection, or further testing.",
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

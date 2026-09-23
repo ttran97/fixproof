@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import io
 import sys
+import tempfile
+import shutil
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
@@ -12,6 +14,7 @@ from fixproof.evaluation.supplemental_protocol import load_json
 from fixproof.evaluation.supplemental_report import (
     build_supplemental_report,
     main,
+    _verify_source,
 )
 
 
@@ -19,6 +22,36 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class SupplementalReportTests(unittest.TestCase):
+    def test_source_relocation_checks_only_active_checkout(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            definition = load_json(PROJECT_ROOT / "tests/supplemental/v1/cases.json")
+            paths = ["tests/supplemental/v1/cases.json",
+                     definition["cwes"]["xss"]["baseline"] + "/app.js",
+                     definition["cwes"]["xss"]["candidates"][0]["app"] + "/app.js"]
+            for path in paths:
+                (root / path).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(PROJECT_ROOT / path, root / path)
+            from fixproof.evaluation.supplemental_protocol import sha256_file
+            for attempt, relative in ((None, paths[1]), (1, paths[2])):
+                for prefix in ("C:/Users/old-checkout/project/", "/old/unavailable/project/"):
+                    result = {"preparation": {
+                        "source_app": prefix + relative.removesuffix("/app.js"),
+                        "source_app_sha256": sha256_file(root / relative),
+                    }}
+                    _verify_source(root, result, "xss", attempt)
+                (root / relative).write_text("changed source", encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "source changed"):
+                    _verify_source(root, result, "xss", attempt)
+
+    def test_source_relocation_rejects_different_registered_app(self) -> None:
+        from fixproof.evaluation.supplemental_protocol import sha256_file
+        other = PROJECT_ROOT / "benchmarks/primary/v1/sqli"
+        result = {"preparation": {"source_app": str(other),
+                                  "source_app_sha256": sha256_file(other / "app.js")}}
+        with self.assertRaisesRegex(ValueError, "differs from registered"):
+            _verify_source(PROJECT_ROOT, result, "xss")
+
     def test_check_verifies_saved_run_bindings_not_later_reruns(self) -> None:
         stored = load_json(
             PROJECT_ROOT / "data/supplemental/v1/supplemental-report.json"

@@ -1,0 +1,262 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_packet",
+  "protocol_id": "supplemental-v1",
+  "status": "pending_human_review",
+  "trial_id": "primary-v1-xss-initial-02",
+  "cwe_case": "xss",
+  "attempt": 2,
+  "purpose": "Record a dated human qualification after later supplemental evidence without overwriting the original primary review.",
+  "original_primary_review": {
+    "verdict": "ACCEPT_CANDIDATE",
+    "reviewer": "Tony Tran",
+    "reviewed_at": "2026-09-05T15:46:57.091307Z",
+    "rationale": "Implemented safeName that holds global replacement map encodes &<>\"'",
+    "result": {
+      "path": "data/primary_reviews/v1/primary-v1-xss-initial-02/result.json",
+      "sha256": "78be6068defa5a6b1751988d134524ad15fdd516cbffaaa08cecc2a226fa1579"
+    }
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/xss/attempt-02/workspace/CF-209ae17232b1/attempt-02/candidate.patch",
+    "sha256": "67e43cf74c80f7a6ff06c089692fc0f47ae1b422f6266f4b1d58437524e495ee"
+  },
+  "supplemental_report": {
+    "path": "data/supplemental/v1/supplemental-report.json",
+    "sha256": "8f09b2a6a4b5799d08e7b93bc543b1c800c6cb1d53ed9f50be345fe258d5f5b3"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192749827554Z-candidates-xss/attempt-02/result.json",
+    "sha256": "d887c628828830f848b03ee865e793f3505be5241f17cd7373bd099c2c9cf2ee",
+    "summary": {
+      "registered": 9,
+      "pass": 8,
+      "fail": 1,
+      "inconclusive": 0,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 5,
+          "pass": 4,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 1,
+          "pass": 1,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "XSS-P01",
+        "category": "behavioral_parity",
+        "status": "fail"
+      }
+    ]
+  },
+  "comparable_candidate_context": [
+    {
+      "attempt": 1,
+      "summary": {
+        "registered": 9,
+        "pass": 8,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 5,
+            "pass": 4,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "XSS-P01",
+          "category": "behavioral_parity",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "summary": {
+        "registered": 9,
+        "pass": 8,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 5,
+            "pass": 4,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "XSS-P01",
+          "category": "behavioral_parity",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "summary": {
+        "registered": 9,
+        "pass": 9,
+        "fail": 0,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 5,
+            "pass": 5,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": []
+    },
+    {
+      "attempt": 4,
+      "summary": {
+        "registered": 9,
+        "pass": 8,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 5,
+            "pass": 4,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "XSS-P01",
+          "category": "behavioral_parity",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "attempt": 5,
+      "summary": {
+        "registered": 9,
+        "pass": 8,
+        "fail": 1,
+        "inconclusive": 0,
+        "by_category": {
+          "behavioral_parity": {
+            "total": 5,
+            "pass": 4,
+            "fail": 1,
+            "inconclusive": 0
+          },
+          "robustness_contract": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "inconclusive": 0
+          },
+          "security": {
+            "total": 3,
+            "pass": 3,
+            "fail": 0,
+            "inconclusive": 0
+          }
+        },
+        "automatic_acceptance": false
+      },
+      "nonpassing_tests": [
+        {
+          "test_id": "XSS-P01",
+          "category": "behavioral_parity",
+          "status": "fail"
+        }
+      ]
+    }
+  ],
+  "required_review_checks": [
+    "Reviewed the original candidate patch and original adjudication rationale.",
+    "Reviewed every supplemental case, input, observed response, and oracle outcome for this candidate.",
+    "Distinguished security, behavioral-parity, robustness, and inconclusive evidence.",
+    "Compared the candidate with the other saved candidates evaluated under the same CWE protocol.",
+    "Confirmed that this follow-up does not overwrite or retroactively alter primary-v1 metrics."
+  ],
+  "allowed_verdicts": [
+    "FOLLOW_UP_ACCEPT_CANDIDATE",
+    "FOLLOW_UP_REJECT_CANDIDATE",
+    "FOLLOW_UP_REQUEST_MORE_TESTING"
+  ],
+  "decision_boundary": "A passing security subset does not erase a parity or robustness failure. An inconclusive case must remain inconclusive. The human reviewer decides whether the complete bounded evidence supports acceptance, rejection, or further testing.",
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

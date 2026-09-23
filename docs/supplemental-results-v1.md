@@ -4,7 +4,7 @@
 **Protocol:** `supplemental-v1`, frozen September 14  
 **Machine-readable report:** `data/supplemental/v1/supplemental-report.json`  
 **Execution environment:** `data/supplemental/v1/execution-environment.json`  
-**Human follow-up status:** required; no original review has been overwritten
+**Human follow-up status:** three requested follow-ups recorded September 15, two consistency qualifications recorded September 21, and nine additional candidate decisions recorded September 22; no original review or primary metric has been overwritten
 
 ## What was tested
 
@@ -21,8 +21,8 @@ The test categories remain separate:
 | Category | Registered candidate observations | Pass | Fail | Inconclusive | Interpretation |
 | --- | ---: | ---: | ---: | ---: | --- |
 | Security | 60 | 55 | 0 | 5 | Every executable security case passed; the symlink case was unavailable for all five traversal candidates. |
-| Behavioral parity | 45 | 40 | 5 | Four XSS candidates changed missing-name output; traversal attempt 01 rejected a valid in-root filename. |
-| Robustness contract | 35 | 25 | 10 | Traversal candidates varied; every SQLi candidate lacked the new repeated-parameter rejection rule. |
+| Behavioral parity | 45 | 40 | 5 | 0 | Four XSS candidates changed missing-name output; traversal attempt 01 rejected a valid in-root filename. |
+| Robustness contract | 35 | 25 | 10 | 0 | Traversal candidates varied; every SQLi candidate lacked the new repeated-parameter rejection rule. |
 | **Total** | **140** | **120** | **15** | **5** | These mixed categories must not be presented as one security success rate. |
 
 ## Baseline gate
@@ -59,15 +59,49 @@ The path symlink case is inconclusive because Windows denied symlink creation wi
 
 The evidence does not establish application-wide security, production readiness, or automatic acceptance. It does show why separate oracles and human review add information that the primary passing counters omitted.
 
-## Human follow-up needed
+## Human follow-up recorded
 
-The original `REQUEST_ADDITIONAL_TESTING` records remain unchanged. Tony must record separate dated conclusions for:
+The original `REQUEST_ADDITIONAL_TESTING` records remain unchanged. Separate
+Tony Tran follow-up records under `data/supplemental/v1/follow-up-reviews/`
+contain these September 15 conclusions:
 
-- XSS attempt 04: decide whether the demonstrated missing-input parity failure is disqualifying under the frozen preservation criterion.
-- XSS attempt 05: apply the same criterion as attempt 04.
-- Path-traversal attempt 01: consider both the valid-filename parity failure and repeated-input robustness failure, while retaining the symlink uncertainty.
+| Candidate | Follow-up verdict | Main evidence |
+| --- | --- | --- |
+| XSS 04 | `FOLLOW_UP_REJECT_CANDIDATE` | Missing-input parity failure |
+| XSS 05 | `FOLLOW_UP_REJECT_CANDIDATE` | Same missing-input parity criterion |
+| Path traversal 01 | `FOLLOW_UP_REJECT_CANDIDATE` | Valid-filename parity and repeated-input robustness failures; symlink uncertainty remains |
 
-For consistency, Report 3 must also disclose that XSS attempts 01–02 share the same missing-input failure and that accepted traversal attempts 03 and 05 missed supplemental robustness rules. Those observations qualify the primary decisions but do not rewrite them.
+Packet/result bindings were verified September 21. These are recorded personal
+conclusions, not new automatic policy decisions or a rewrite of primary outcomes.
+
+Tony later reviewed XSS 01 and 02 against the same frozen criterion and recorded
+these September 21 qualifications:
+
+| Candidate | Later verdict | Main evidence |
+| --- | --- | --- |
+| XSS 01 | `FOLLOW_UP_REJECT_CANDIDATE` | `XSS-P01` missing-input parity failure caused by `String(value ?? "")` |
+| XSS 02 | `FOLLOW_UP_REJECT_CANDIDATE` | `XSS-P01` missing-input parity failure caused by `String(name ?? "")` |
+
+The later records qualify but do not overwrite the original primary
+`ACCEPT_CANDIDATE` results. Report 3 must also disclose that accepted traversal
+attempts 03 and 05 missed supplemental robustness rules. Those are new-contract
+limitations rather than retroactive primary security failures.
+
+After reviewing the remaining SQLi and traversal evidence on September 22,
+Tony recorded nine additional candidate-specific results:
+
+| Candidates | Later verdict | Main evidence and boundary |
+| --- | --- | --- |
+| SQLi 01–05 | `FOLLOW_UP_ACCEPT_CANDIDATE` | Parameterized queries passed 3/3 security and 2/2 parity cases and returned no unauthorized rows. `SQL-R01` remains a failed low-impact robustness contract: HTTP 200 `[]` rather than HTTP 400. Acceptance is bounded to the tested injection repair, not full supplemental conformance. |
+| Traversal 02 | `FOLLOW_UP_REQUEST_MORE_TESTING` | All executable cases passed, but `PATH-S06` symlink safety remains inconclusive. |
+| Traversal 03 | `FOLLOW_UP_REQUEST_MORE_TESTING` | Three malformed-input robustness cases failed and `PATH-S06` remains inconclusive. |
+| Traversal 04 | `FOLLOW_UP_REQUEST_MORE_TESTING` | All executable cases passed, but `PATH-S06` symlink safety remains inconclusive. |
+| Traversal 05 | `FOLLOW_UP_REQUEST_MORE_TESTING` | `PATH-R03` returned HTTP 404 rather than HTTP 400, and `PATH-S06` remains inconclusive. |
+
+There are now 14 completed supplemental human records: five rejections, five
+bounded acceptances, and four requests for more testing. XSS 03 retains its
+original bounded acceptance and has no separate later result because it passed
+all nine registered supplemental cases. All 14 packet/result bindings verify.
 
 ## Recommended Report 3 comparison
 

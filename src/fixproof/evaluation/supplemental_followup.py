@@ -18,9 +18,37 @@ from fixproof.evaluation.supplemental_report import (
 
 
 FOLLOW_UP_TARGETS = {
+    "primary-v1-xss-initial-01": ("xss", 1),
+    "primary-v1-xss-initial-02": ("xss", 2),
     "primary-v1-xss-initial-04": ("xss", 4),
     "primary-v1-xss-initial-05": ("xss", 5),
+    "primary-v1-sqli-initial-01": ("sqli", 1),
+    "primary-v1-sqli-initial-02": ("sqli", 2),
+    "primary-v1-sqli-initial-03": ("sqli", 3),
+    "primary-v1-sqli-initial-04": ("sqli", 4),
+    "primary-v1-sqli-initial-05": ("sqli", 5),
     "primary-v1-path-traversal-initial-01": ("path-traversal", 1),
+    "primary-v1-path-traversal-initial-02": ("path-traversal", 2),
+    "primary-v1-path-traversal-initial-03": ("path-traversal", 3),
+    "primary-v1-path-traversal-initial-04": ("path-traversal", 4),
+    "primary-v1-path-traversal-initial-05": ("path-traversal", 5),
+}
+
+EXPECTED_PRIMARY_VERDICTS = {
+    "primary-v1-xss-initial-01": "ACCEPT_CANDIDATE",
+    "primary-v1-xss-initial-02": "ACCEPT_CANDIDATE",
+    "primary-v1-xss-initial-04": "REQUEST_ADDITIONAL_TESTING",
+    "primary-v1-xss-initial-05": "REQUEST_ADDITIONAL_TESTING",
+    "primary-v1-sqli-initial-01": None,
+    "primary-v1-sqli-initial-02": None,
+    "primary-v1-sqli-initial-03": None,
+    "primary-v1-sqli-initial-04": None,
+    "primary-v1-sqli-initial-05": None,
+    "primary-v1-path-traversal-initial-01": "REQUEST_ADDITIONAL_TESTING",
+    "primary-v1-path-traversal-initial-02": "ACCEPT_CANDIDATE",
+    "primary-v1-path-traversal-initial-03": "ACCEPT_CANDIDATE",
+    "primary-v1-path-traversal-initial-04": "ACCEPT_CANDIDATE",
+    "primary-v1-path-traversal-initial-05": "ACCEPT_CANDIDATE",
 }
 
 ALLOWED_VERDICTS = (
@@ -35,6 +63,14 @@ REQUIRED_CHECKS = (
     "Distinguished security, behavioral-parity, robustness, and inconclusive evidence.",
     "Compared the candidate with the other saved candidates evaluated under the same CWE protocol.",
     "Confirmed that this follow-up does not overwrite or retroactively alter primary-v1 metrics.",
+)
+
+REQUIRED_CHECKS_WITHOUT_PRIMARY_REVIEW = (
+    "Reviewed the original candidate patch and automated primary decision.",
+    "Reviewed every supplemental case, input, observed response, and oracle outcome for this candidate.",
+    "Distinguished security, behavioral-parity, robustness, and inconclusive evidence.",
+    "Compared the candidate with the other saved candidates evaluated under the same CWE protocol.",
+    "Confirmed that this human result does not overwrite or retroactively alter primary-v1 metrics.",
 )
 
 
@@ -80,12 +116,21 @@ def build_follow_up_packet(
     primary_report_path = "data/evaluation/primary-report.json"
     primary_report = load_json(resolve_project_path(root, primary_report_path))
     primary_trial = _find_primary_trial(primary_report, trial_id)
-    if primary_trial["adjudication"]["verdict"] != "REQUEST_ADDITIONAL_TESTING":
+    original_verdict = primary_trial["adjudication"]["verdict"]
+    expected_verdict = EXPECTED_PRIMARY_VERDICTS[trial_id]
+    if original_verdict != expected_verdict:
         raise ValueError(
-            f"Primary review does not request additional testing: {trial_id}"
+            "Primary review verdict does not match the registered follow-up "
+            f"target: {trial_id}"
         )
 
-    original_result = primary_trial["artifacts"]["adjudication_result"]
+    original_result = primary_trial["artifacts"].get("adjudication_result")
+    primary_context_type = "original_human_review"
+    required_checks = REQUIRED_CHECKS
+    if original_result is None:
+        original_result = primary_trial["artifacts"]["decision"]
+        primary_context_type = "automated_decision_without_human_review"
+        required_checks = REQUIRED_CHECKS_WITHOUT_PRIMARY_REVIEW
     patch = primary_trial["artifacts"]["patch"]
     for bound in (original_result, patch):
         actual = _binding(root, bound["path"])
@@ -114,14 +159,29 @@ def build_follow_up_packet(
         "cwe_case": cwe,
         "attempt": attempt,
         "purpose": (
-            "Record a dated human conclusion after the requested supplemental "
-            "testing without overwriting the original primary review."
+            "Record a first dated human decision after supplemental evidence "
+            "for a candidate whose primary state was ready for human review, "
+            "without overwriting the primary automated decision."
+            if original_verdict is None
+            else (
+                "Record a dated human qualification after later supplemental "
+                "evidence without overwriting the original primary review."
+                if original_verdict == "ACCEPT_CANDIDATE"
+                else
+                "Record a dated human conclusion after the requested supplemental "
+                "testing without overwriting the original primary review."
+            )
         ),
         "original_primary_review": {
-            "verdict": primary_trial["adjudication"]["verdict"],
-            "reviewer": primary_trial["adjudication"]["reviewer"],
-            "reviewed_at": primary_trial["adjudication"]["reviewed_at"],
-            "rationale": primary_trial["adjudication"]["rationale"],
+            **(
+                {"context_type": primary_context_type}
+                if original_verdict is None
+                else {}
+            ),
+            "verdict": primary_trial["adjudication"].get("verdict"),
+            "reviewer": primary_trial["adjudication"].get("reviewer"),
+            "reviewed_at": primary_trial["adjudication"].get("reviewed_at"),
+            "rationale": primary_trial["adjudication"].get("rationale"),
             "result": original_result,
         },
         "candidate_patch": patch,
@@ -133,7 +193,7 @@ def build_follow_up_packet(
             "nonpassing_tests": candidate["nonpassing_tests"],
         },
         "comparable_candidate_context": comparable,
-        "required_review_checks": list(REQUIRED_CHECKS),
+        "required_review_checks": list(required_checks),
         "allowed_verdicts": list(ALLOWED_VERDICTS),
         "decision_boundary": (
             "A passing security subset does not erase a parity or robustness "
@@ -199,6 +259,57 @@ def ensure_follow_up_path(project_root: Path, path: Path) -> Path:
     return resolved
 
 
+def verify_recorded_follow_ups(project_root: Path) -> dict[str, int]:
+    root = project_root.resolve()
+    completed = 0
+    pending = 0
+    for trial_id in FOLLOW_UP_TARGETS:
+        directory = (
+            root / "data/supplemental/v1/follow-up-reviews" / trial_id
+        )
+        packet_path = directory / "packet.json"
+        if not packet_path.is_file():
+            raise FileNotFoundError(f"Follow-up packet is missing: {packet_path}")
+        packet = load_json(packet_path)
+        if packet.get("trial_id") != trial_id:
+            raise ValueError(f"Follow-up packet trial mismatch: {packet_path}")
+        verify_packet_bindings(root, packet)
+
+        result_path = directory / "result.json"
+        if not result_path.is_file():
+            pending += 1
+            continue
+        result = load_json(result_path)
+        if result.get("status") != "completed":
+            raise ValueError(f"Follow-up result is incomplete: {result_path}")
+        if result.get("trial_id") != trial_id:
+            raise ValueError(f"Follow-up result trial mismatch: {result_path}")
+        if result.get("verdict") not in ALLOWED_VERDICTS:
+            raise ValueError(f"Follow-up result verdict is invalid: {result_path}")
+        if not result.get("confirmed_required_checks"):
+            raise ValueError(f"Follow-up checks were not confirmed: {result_path}")
+        if result.get("effect_on_primary_record") != (
+            "none_original_record_is_preserved"
+        ):
+            raise ValueError(f"Follow-up may alter primary evidence: {result_path}")
+
+        actual_packet = _binding(root, result["packet"]["path"])
+        if actual_packet != result["packet"]:
+            raise ValueError(f"Follow-up packet binding mismatch: {result_path}")
+        if result.get("supplemental_candidate_result") != packet.get(
+            "supplemental_candidate_result"
+        ):
+            raise ValueError(
+                f"Follow-up candidate binding mismatch: {result_path}"
+            )
+        completed += 1
+    return {
+        "registered_targets": len(FOLLOW_UP_TARGETS),
+        "completed": completed,
+        "pending": pending,
+    }
+
+
 def record_follow_up(
     project_root: Path,
     packet_path: Path,
@@ -262,6 +373,9 @@ def main() -> None:
     initialize = subparsers.add_parser("initialize")
     initialize.add_argument("--project-root", type=Path, default=Path("."))
 
+    verify = subparsers.add_parser("verify")
+    verify.add_argument("--project-root", type=Path, default=Path("."))
+
     record = subparsers.add_parser("record")
     record.add_argument("--project-root", type=Path, default=Path("."))
     record.add_argument("--packet", type=Path, required=True)
@@ -276,6 +390,14 @@ def main() -> None:
     if args.command == "initialize":
         for path in initialize_packets(root):
             print(path.relative_to(root))
+        return
+    if args.command == "verify":
+        summary = verify_recorded_follow_ups(root)
+        print(
+            "Supplemental human records verified: "
+            f"{summary['completed']}/{summary['registered_targets']} complete; "
+            f"{summary['pending']} pending"
+        )
         return
 
     packet = args.packet if args.packet.is_absolute() else root / args.packet

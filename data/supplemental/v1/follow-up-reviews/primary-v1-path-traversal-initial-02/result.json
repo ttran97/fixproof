@@ -1,0 +1,56 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_result",
+  "protocol_id": "supplemental-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-path-traversal-initial-02",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-22T20:29:44.248756Z",
+  "verdict": "FOLLOW_UP_REQUEST_MORE_TESTING",
+  "rationale": "I reviewed the candidate patch, original acceptance, and all eleven supplemental traversal outcomes. The candidate passed both behavioral-parity cases, all three robustness cases, and all five executable security cases. PATH-S06 remains inconclusive because the Windows environment could not create the required symlink or junction fixture. The patch enforces a lexical resolved-root boundary, but the saved evidence does not establish containment of a filesystem target reached through an in-root link. I therefore request more testing in a symlink-capable environment rather than claiming complete traversal protection. This later conclusion preserves the original bounded acceptance, the inconclusive result, and all primary metrics.",
+  "confirmed_required_checks": true,
+  "packet": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-02/packet.json",
+    "sha256": "6bf890c038aced383eaa2da3b969efe7ad08a88206d6bdc22a9becae536e5641"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-02/result.json",
+    "sha256": "3246a651ba0f9c2476763c9720936edcf2eaccb0dbc103b3032616fa5d25f061",
+    "summary": {
+      "registered": 11,
+      "pass": 10,
+      "fail": 0,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "PATH-S06",
+        "category": "security",
+        "status": "inconclusive"
+      }
+    ]
+  },
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

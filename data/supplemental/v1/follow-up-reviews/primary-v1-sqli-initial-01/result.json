@@ -1,0 +1,56 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_result",
+  "protocol_id": "supplemental-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-sqli-initial-01",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-22T20:29:44.150061Z",
+  "verdict": "FOLLOW_UP_ACCEPT_CANDIDATE",
+  "rationale": "I reviewed the candidate patch, automated primary decision, and all eight supplemental outcomes for this candidate. The patch replaces SQL string concatenation with a parameterized query. The primary target SAST finding resolved, and the candidate passed the original security and functional checks. In the supplement, it passed all three registered SQL-injection security cases, both behavioral-parity cases, and two of three robustness cases. SQL-R01 supplied repeated username parameters and returned HTTP 200 with an empty array instead of the registered HTTP 400 JSON error, so that robustness result remains failed. The response returned no user row and did not broaden the query result. Under my bounded criterion, this client-visible status-code difference is not severe enough to reject the tested SQL-injection repair. I accept the candidate for the bounded benchmark while explicitly retaining the SQL-R01 limitation. This is not full supplemental conformance or production approval, and it does not alter the primary record or metrics.",
+  "confirmed_required_checks": true,
+  "packet": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-sqli-initial-01/packet.json",
+    "sha256": "0879cec90040038918d57d00d913aeba6fdd72a1186ac63997826fdd70db3e5d"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192901912061Z-candidates-sqli/attempt-01/result.json",
+    "sha256": "264091a9d98c103c32edf96f0ccc86ee124e7f48596f8e5ab6fc5f7140ea5d1e",
+    "summary": {
+      "registered": 8,
+      "pass": 7,
+      "fail": 1,
+      "inconclusive": 0,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 2,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 3,
+          "pass": 3,
+          "fail": 0,
+          "inconclusive": 0
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "SQL-R01",
+        "category": "robustness_contract",
+        "status": "fail"
+      }
+    ]
+  },
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

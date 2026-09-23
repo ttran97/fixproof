@@ -84,9 +84,15 @@ Syntax / Build Check        SAST Rescan
 ## Current project status
 
 The current implementation reference is [prototype status](docs/prototype-status.md).
-Primary reporting, a separate 15-attempt dashboard, ten completed conflict reviews (seven accepts and three requests for additional testing as of September 13),
-and new/persistent/resolved/reopened finding history are now implemented.
-Use [the September 13 checkpoint](docs/coursework/review-2026-09-13/Current-progress-and-next-steps.md) for supplemental testing, Video II and the remaining course schedule.
+Primary reporting, a separate 15-attempt dashboard, ten completed original
+conflict reviews (seven accepts and three requests for additional testing),
+supplemental validation and five later follow-up decisions, and
+new/persistent/resolved/reopened finding history are implemented. The original
+reviews and later qualifications remain separate.
+Use [the current prototype status](docs/prototype-status.md) for the latest
+evidence and [the Report 3-to-final roadmap](docs/coursework/review-2026-09-21/Progress-Report-3-to-final-roadmap.md)
+for the coursework schedule. The [September 13 checkpoint](docs/coursework/review-2026-09-13/Current-progress-and-next-steps.md)
+is historical Video II context.
 
 As of September 13, 2026, the three-case prototype and all **15/15 primary
 initial attempts** are implemented/recorded. The primary results are five

@@ -1,0 +1,61 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "supplemental_follow_up_review_result",
+  "protocol_id": "supplemental-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-path-traversal-initial-05",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-22T20:29:44.300579Z",
+  "verdict": "FOLLOW_UP_REQUEST_MORE_TESTING",
+  "rationale": "I reviewed the candidate patch, original acceptance, and all eleven supplemental traversal outcomes. The candidate passed both behavioral-parity cases, two of three robustness cases, and all five executable security cases. PATH-R03 supplied repeated filenames and returned HTTP 404 with a stable file-not-found response instead of the registered HTTP 400 response. The request exposed no outside content, so I treat this as a robustness-contract limitation rather than an observed traversal attack, and the failed result remains unchanged. PATH-S06 is also inconclusive because the Windows environment could not create the required symlink or junction fixture. I request more testing rather than claiming complete traversal protection. This later conclusion preserves the original acceptance and all primary metrics.",
+  "confirmed_required_checks": true,
+  "packet": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-05/packet.json",
+    "sha256": "e5dcb08e5d867e6d4e4e833d6d8e5df872d8661ba15758a46a56d94a6856963e"
+  },
+  "supplemental_candidate_result": {
+    "path": "data/supplemental/v1/runs/20260914T192827434537Z-candidates-path-traversal/attempt-05/result.json",
+    "sha256": "d95c9d59fa79939e2a1b510102a6dff47fa959fcc5da8769f4b53d5adcee633a",
+    "summary": {
+      "registered": 11,
+      "pass": 9,
+      "fail": 1,
+      "inconclusive": 1,
+      "by_category": {
+        "behavioral_parity": {
+          "total": 2,
+          "pass": 2,
+          "fail": 0,
+          "inconclusive": 0
+        },
+        "robustness_contract": {
+          "total": 3,
+          "pass": 2,
+          "fail": 1,
+          "inconclusive": 0
+        },
+        "security": {
+          "total": 6,
+          "pass": 5,
+          "fail": 0,
+          "inconclusive": 1
+        }
+      },
+      "automatic_acceptance": false
+    },
+    "nonpassing_tests": [
+      {
+        "test_id": "PATH-R03",
+        "category": "robustness_contract",
+        "status": "fail"
+      },
+      {
+        "test_id": "PATH-S06",
+        "category": "security",
+        "status": "inconclusive"
+      }
+    ]
+  },
+  "effect_on_primary_record": "none_original_record_is_preserved"
+}

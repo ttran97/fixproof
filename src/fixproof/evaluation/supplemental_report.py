@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
 from fixproof.evaluation.supplemental_protocol import (
@@ -93,6 +93,26 @@ def _add_counts(
         destination[key] += int(source[key])
 
 
+def _verify_source(
+    project_root: Path, result: dict[str, Any], cwe: str,
+    attempt: int | None = None,
+) -> None:
+    """Check the registered source in this checkout, never an old machine path."""
+    root = project_root.resolve()
+    definition = load_json(root / DEFAULT_CASES)["cwes"][cwe]
+    expected_app = definition["baseline"] if attempt is None else next(
+        row["app"] for row in definition["candidates"] if row["attempt"] == attempt
+    )
+    expected = resolve_project_path(root, expected_app + "/app.js")
+    recorded = result["preparation"]["source_app"].replace("\\", "/").rstrip("/")
+    absolute = PureWindowsPath(recorded).is_absolute() or PurePosixPath(recorded).is_absolute()
+    matches = recorded.endswith("/" + expected_app) if absolute else recorded == expected_app
+    if not matches or ".." in PurePosixPath(recorded).parts:
+        raise ValueError(f"Supplemental source differs from registered {cwe} attempt {attempt}.")
+    if sha256_file(expected) != result["preparation"]["source_app_sha256"]:
+        raise ValueError(f"Supplemental source changed after execution for {cwe} attempt {attempt}.")
+
+
 def verify_baseline_result(
     project_root: Path,
     cwe: str,
@@ -132,11 +152,7 @@ def verify_baseline_result(
     if result.get("summary") != recomputed:
         raise ValueError(f"Baseline summary does not recompute for {cwe}.")
 
-    source_path = Path(result["preparation"]["source_app"])
-    if sha256_file(source_path / "app.js") != result["preparation"][
-        "source_app_sha256"
-    ]:
-        raise ValueError(f"Baseline source changed after execution for {cwe}.")
+    _verify_source(project_root, result, cwe)
     return binding, result
 
 
@@ -192,11 +208,7 @@ def verify_candidate_group(
         recomputed = summarize_candidate_cases(result["cases"])
         if result.get("summary") != recomputed:
             raise ValueError(f"Candidate summary does not recompute: {result_path}")
-        source_path = Path(result["preparation"]["source_app"])
-        if sha256_file(source_path / "app.js") != result["preparation"][
-            "source_app_sha256"
-        ]:
-            raise ValueError(f"Candidate source changed after run: {result_path}")
+        _verify_source(project_root, result, cwe, attempt)
         results.append(
             {
                 "attempt": attempt,
