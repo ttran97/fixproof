@@ -1,8 +1,8 @@
 # FixProof: Progress Report 3 through final submission
 
-Prepared September 21 and updated September 22, 2026. Dates below come from the schedule Tony supplied;
+Prepared September 21 and updated September 24, 2026. Dates below come from the schedule Tony supplied;
 confirm the live Canvas assignment before submitting. Video II is posted, and
-its peer-feedback assignment is in progress. Historical reports and frozen
+four peer-feedback responses are complete. Historical reports and frozen
 experiment artifacts are evidence, not instructions to rerun or rewrite them.
 
 ## Current position
@@ -17,7 +17,7 @@ final presentation, final paper, and clean committed-archive reproduction are
 still outstanding. These percentages are judgmental and should not be quoted
 as measured research results.
 
-The September 22 checkpoint passed 119 automated tests and
+The September 24 checkpoint passed 119 automated tests and
 `fixproof.reproduce --verify`. Primary evidence verified 15/15 attempts and
 10/10 original conflict reviews; supplemental evidence verified three
 baselines and 15 saved candidates; all 14 supplemental human packet/result
@@ -28,14 +28,14 @@ primary model calls or the original browser experiments.
 ## Effort record
 
 Report 2 was submitted September 13. Tony estimates 1.5 hours of personal
-work per day from September 14 through September 22, inclusive: **9 days ×
-1.5 hours = approximately 13.5 hours**. Describe that time as reviewing the
+work per day from September 14 through September 24, inclusive: **11 days ×
+1.5 hours = approximately 16.5 hours**. Describe that time as reviewing the
 file structure and documentation, checking test snippets/results and saved
 evidence, and supplying human review rationales. Software generated or edited
 with Codex assistance is a project artifact, not proof of Tony's hours.
 
 Earlier reports state 31.5 hours before a separate 13.5-hour September 2–10
-period. Thus the documented subtotal is **58.5 hours plus any unreconciled
+period. Thus the documented subtotal is **61.5 hours plus any unreconciled
 September 11–13 work**. Do not count those three dates as zero by assumption.
 Continue a dated activity log. A continuing 1.5-hour daily pace is a plan, not
 hours already worked: it averages 10.5 hours/week, versus roughly 15
@@ -46,7 +46,7 @@ graded writing and presentation work, and allocate additional time if needed.
 
 | When | Course milestone | Work to finish before it |
 | --- | --- | --- |
-| By Sep 27 | Video II peer feedback | Finish the substantive peer-feedback assignment; save the submission receipt. Video II itself is already posted. |
+| Completed Sep 24 | Video II peer feedback | Four substantive feedback responses completed; retain the submission receipt. Video II itself is already posted. |
 | Sep 22–29 | Report 3 evidence lock | Re-read the frozen primary/supplemental reports and 14 supplemental human records; confirm denominators, XSS parity interpretation, SQLi/traversal robustness limits, and symlink inconclusive status. Reconcile Sep 11–13 hours. |
 | Sep 30–Oct 4 | Progress Report 3, due Oct 4 | Transfer the current draft to the course template; update actual dates/hours through cutoff; verify AI disclosure, citations, schedule, and rendered file; submit and retain receipt. |
 | Oct 5–11 | Video III and peer feedback | Demonstrate the original passing checks versus supplemental XSS-P01 failure, with XSS 03/04 or 01/03 comparison; label saved evidence versus live replay. Post video by Oct 6 and feedback by Oct 11. |
@@ -67,7 +67,7 @@ progress report.
 | `src/fixproof/` | Python orchestration, scanner adapters, model-candidate handling, validation, policy, and reports | Explain the pipeline; open one relevant file only if asked. |
 | `benchmarks/primary/v1/` | Frozen Express fixtures for XSS, SQLi, and traversal | Show the controlled inputs and ground truth; never edit for the demo. |
 | `data/primary_trials/v1/` and `data/primary_reviews/v1/` | Fifteen attempts and ten original human reviews | Use the primary dashboard to inspect one candidate; keep the original verdicts historical. |
-| `data/supplemental/v1/` | Frozen protocol lock, three baseline runs, 15 candidate evaluations, and five later follow-ups | Show XSS-P01 or traversal PATH-P01 as later evidence; do not merge counts into primary metrics. |
+| `data/supplemental/v1/` | Frozen protocol lock, three baseline runs, 15 candidate evaluations, and 14 later human records | Show XSS-P01 or traversal PATH-P01 as later evidence; do not merge counts into primary metrics. |
 | `sample_apps/`, `workspaces/`, `demo-test.ps1` | Pilot examples and disposable live replay inputs | Label the four-case live suite as **pilot replay**, not primary-study reproduction. |
 | `tests/` and `ui/` | Implementation checks and saved-evidence dashboard | Show verification and one evidence page; test count is not repaired-app count. |
 | `docs/`, `scripts/` | Method, reports, navigation, and packaging helpers | Use current guides; call older drafts historical. |

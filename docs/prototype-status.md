@@ -1,6 +1,6 @@
 # FixProof prototype status
 
-Updated September 21, 2026. This is the implementation status following the September 4
+Updated September 24, 2026. This is the implementation status following the September 4
 alignment review. The earlier review remains a historical assessment. New
 features are post-collection additions; primary-v1 inputs, candidates,
 decisions, and the frozen implementation are preserved.
@@ -22,13 +22,13 @@ decisions, and the frozen implementation are preserved.
 
 See the [September 13 checkpoint and Video II package](coursework/review-2026-09-13/Current-progress-and-next-steps.md)
 for that historical checkpoint, reviewed slides and narration. Use the
-[September 21 Report 3 assessment](coursework/review-2026-09-21/CS6727-Progress-Report-3-readiness.md)
+[September 24 validation summary](coursework/review-2026-09-24/CS6727-validation-summary.md)
 for current progress, feedback alignment, file map, and next tasks.
 Today's repository checks did not rerun the historical Express applications,
 Chromium attacks, model calls or live SAST scans. Report 2 and Video II are
-submitted or posted according to Tony's September 14 update; this repository
-does not verify Canvas receipts. Video II peer feedback is due September 27 in
-the supplied schedule.
+submitted or posted according to Tony's updates; this repository does not
+verify Canvas receipts. Tony reports completing four Video II peer-feedback
+responses by September 24.
 
 The narrow prototype is close to feature completion. This does not establish
 that the CS6727 submission is complete: human conclusions, interpretation,
@@ -71,7 +71,7 @@ instead of silently reducing its denominator. Verification checks recorded
 observations; it does not rerun the scanner/model/runtime tests or establish
 cryptographic authenticity of the original observations.
 
-## Supplemental validation and follow-up reviews are complete
+## Supplemental validation and follow-up reviews are recorded
 
 Initial conflict reviews are complete. XSS trials 04–05 and path-traversal 01
 request additional testing. Preserve the review records and record supplemental
@@ -80,10 +80,11 @@ under `data/primary_reviews/v1/<trial-id>/packet.json`. They bind each selected
 candidate to its evidence. Actual conclusions must be recorded separately
 as `result.json`; a generated packet or dashboard visit is not a review.
 
-All five SQLi candidates remain `READY_FOR_HUMAN_REVIEW`, which is not an
-approval. The conflict-adjudication workflow concerns the ten XSS/path-traversal
-disagreements. Completing those reviews does not automatically approve the
-SQLi candidates or make deployment part of this prototype.
+All five SQLi candidates retain the original automated state
+`READY_FOR_HUMAN_REVIEW`; that automated label is not rewritten. Separate
+September 22 human records accept them for the bounded tested injection repair
+while disclosing the `SQL-R01` robustness failures. This bounded conclusion is
+not deployment approval.
 
 The dated, author-approved protocol is at
 [`docs/supplemental-protocol-v1.md`](supplemental-protocol-v1.md). It contains
@@ -93,13 +94,20 @@ The runtime was restored and the later preflight passed. All three baselines
 and all 15 saved candidates were then evaluated in disposable copies. The
 verified report is `data/supplemental/v1/supplemental-report.json`, with a
 professor-readable interpretation in `docs/supplemental-results-v1.md`.
-All three follow-up conclusions were recorded September 15 under
+Three follow-up conclusions were recorded September 15 under
 `data/supplemental/v1/follow-up-reviews/`: XSS 04, XSS 05, and traversal 01
 received `FOLLOW_UP_REJECT_CANDIDATE`. Original reviews remain unchanged.
 On September 21, Tony applied the same frozen parity criterion to the previously
 accepted XSS 01 and 02 candidates and recorded separate
 `FOLLOW_UP_REJECT_CANDIDATE` qualifications. Their original primary acceptances
 and all primary metrics remain unchanged.
+
+On September 22, Tony recorded five bounded SQLi acceptances and four traversal
+requests for additional testing. Together with the earlier five qualifications,
+the supplemental area contains 14 verified human packet/result bindings. XSS
+03 has no later follow-up because all nine of its registered supplemental cases
+passed. These records do not relabel the saved pass, fail, or inconclusive case
+outcomes.
 
 The supplement recorded 55 security passes and five inconclusive cases,
 40 behavioral-parity passes and five failures, and 25 robustness passes and

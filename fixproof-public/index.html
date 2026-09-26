@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Read-only primary and supplemental evidence from the bounded FixProof CS6727 study.">
+    <title>FixProof | Evidence Reference</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to evidence</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="FixProof evidence reference home">
+        <span class="brand-mark" aria-hidden="true">FP</span>
+        <span><strong>FixProof</strong><small>CS6727 evidence reference</small></span>
+      </a>
+      <nav aria-label="Page sections">
+        <a href="#workflow">Workflow</a>
+        <a href="#primary">Primary</a>
+        <a href="#supplemental">Supplemental</a>
+        <a href="#limits">Limits</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div>
+          <p class="eyebrow">Evidence-first repair workflow</p>
+          <h1>What did each candidate fix, preserve, or leave uncertain?</h1>
+          <p class="hero-copy">
+            This read-only reference presents the frozen primary study, later
+            supplemental tests, and separate human rationales for 15 saved repair
+            candidates.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#primary">Explore the evidence</a>
+            <a class="button secondary" href="Video-III-15-candidate-evidence-appendix.pdf">Download the full appendix</a>
+          </div>
+        </div>
+        <aside class="scope-card" aria-label="Study scope">
+          <span class="scope-label">Bounded study</span>
+          <strong>3 fixtures</strong>
+          <span>Reflected XSS, SQL injection, and path traversal</span>
+          <strong>15 attempts</strong>
+          <span>Five initial repair calls per fixture</span>
+        </aside>
+      </section>
+
+      <section class="notice" aria-labelledby="saved-evidence-title">
+        <div class="notice-icon" aria-hidden="true">i</div>
+        <div>
+          <h2 id="saved-evidence-title">Saved evidence, not a live security service</h2>
+          <p id="recording-note">Loading the evidence boundary...</p>
+        </div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Architecture</p>
+            <h2>How evidence becomes a decision</h2>
+          </div>
+          <p>Primary records stay frozen. Later testing adds a separate qualification instead of rewriting the original result.</p>
+        </div>
+        <figure class="workflow-card">
+          <img src="assets/fixproof-workflow.png" alt="FixProof workflow from controlled fixtures through repair proposal, copied workspace, validators, deterministic policy, human review, and later supplemental follow-up.">
+          <figcaption>Copied workspaces protect study inputs; they are not security sandboxes.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section" aria-labelledby="snapshot-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Verified snapshot</p>
+            <h2 id="snapshot-title">Study at a glance</h2>
+          </div>
+        </div>
+        <div class="metric-grid" id="metric-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="section interpretation" aria-labelledby="interpretation-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Interpretation</p>
+            <h2 id="interpretation-title">Keep the evidence channels separate</h2>
+          </div>
+        </div>
+        <div class="explanation-grid">
+          <article>
+            <span class="channel static">SAST</span>
+            <h3>Did the target scanner finding disappear?</h3>
+            <p>A persistent finding is not automatically a successful attack, and a resolved finding is not proof of complete security.</p>
+          </article>
+          <article>
+            <span class="channel runtime">Runtime evidence</span>
+            <h3>What happened under registered tests?</h3>
+            <p>Security, behavioral parity, and robustness have different oracles and denominators.</p>
+          </article>
+          <article>
+            <span class="channel human">Human review</span>
+            <h3>What conclusion is justified?</h3>
+            <p>Original decisions and later follow-ups are shown separately, with their rationales preserved.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section evidence-section" id="primary">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Frozen record</p>
+            <h2>Primary-v1 matrix</h2>
+          </div>
+          <p>Rows count candidates whose complete registered primary suite passed, not individual test cases.</p>
+        </div>
+
+        <div class="controls" aria-label="Candidate filters">
+          <label>
+            Vulnerability family
+            <select id="case-filter">
+              <option value="all">All three families</option>
+              <option value="xss">Reflected XSS</option>
+              <option value="sqli">SQL injection</option>
+              <option value="path-traversal">Path traversal</option>
+            </select>
+          </label>
+          <label>
+            Find a candidate or case
+            <input id="candidate-search" type="search" placeholder="Example: XSS 04 or PATH-S06">
+          </label>
+        </div>
+
+        <div class="table-shell" tabindex="0" aria-label="Scrollable primary results table">
+          <table>
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Target SAST</th>
+                <th>Security</th>
+                <th>Functional</th>
+                <th>Automated state</th>
+                <th>Original human</th>
+                <th>Later follow-up</th>
+                <th><span class="visually-hidden">Evidence</span></th>
+              </tr>
+            </thead>
+            <tbody id="primary-body"></tbody>
+          </table>
+        </div>
+        <p class="table-note"><strong>Important:</strong> “0/5 target SAST resolved” means the target finding persisted in all five candidates. It does not mean the registered attacks succeeded.</p>
+      </section>
+
+      <section class="section evidence-section" id="supplemental">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Later evidence</p>
+            <h2>Supplemental-v1 matrix</h2>
+          </div>
+          <p>The same 15 saved candidates were evaluated with predefined and frozen cases. Primary metrics were not changed.</p>
+        </div>
+
+        <div class="table-shell" tabindex="0" aria-label="Scrollable supplemental results table">
+          <table>
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Security P/F/I</th>
+                <th>Parity P/F/I</th>
+                <th>Robustness P/F/I</th>
+                <th>Nonpassing cases</th>
+                <th>Later human</th>
+                <th><span class="visually-hidden">Evidence</span></th>
+              </tr>
+            </thead>
+            <tbody id="supplemental-body"></tbody>
+          </table>
+        </div>
+        <p class="table-note">P/F/I means pass, fail, and inconclusive. A failed robustness contract is not automatically a security exploit, and an inconclusive case is never counted as a pass.</p>
+      </section>
+
+      <section class="section" id="limits">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Claim boundary</p>
+            <h2>What these results do not establish</h2>
+          </div>
+          <p>The benchmark demonstrates evidence handling and review discipline, not population-level repair reliability.</p>
+        </div>
+        <ul class="limits-list" id="limitations"></ul>
+      </section>
+
+      <section class="download-card" aria-labelledby="appendix-title">
+        <div>
+          <p class="eyebrow">Backup reference</p>
+          <h2 id="appendix-title">Need the complete matrices and rationales?</h2>
+          <p>The PDF appendix preserves a printable view of the 15 candidates and the recorded human decisions.</p>
+        </div>
+        <a class="button primary" href="Video-III-15-candidate-evidence-appendix.pdf">Open evidence appendix</a>
+      </section>
+
+      <p class="load-error" id="load-error" role="alert" hidden></p>
+    </main>
+
+    <dialog id="candidate-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">Candidate evidence</p>
+          <h2 id="dialog-title">Candidate</h2>
+          <p id="dialog-subtitle"></p>
+        </div>
+        <button class="close-button" id="dialog-close" type="button" aria-label="Close candidate details">Close</button>
+      </div>
+      <div id="dialog-content"></div>
+    </dialog>
+
+    <footer>
+      <p><strong>FixProof</strong> · Tony Tran · CS6727 Cyber Security Practicum</p>
+      <p id="data-date">Loading evidence date...</p>
+    </footer>
+  </body>
+</html>

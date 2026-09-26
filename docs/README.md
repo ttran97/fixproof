@@ -1,6 +1,6 @@
 # FixProof documentation and repository guide
 
-Updated September 21, 2026. Start with [prototype status](prototype-status.md)
+Updated September 24, 2026. Start with [prototype status](prototype-status.md)
 for current capabilities and remaining work. Use
 [the submission guide](cs6727-submission-guide.md) to understand the source
 tree, explain the project, and prepare the paper and presentation.
@@ -12,14 +12,16 @@ tree, explain the project, and prepare the paper and presentation.
 | [Report 3 readiness assessment](coursework/review-2026-09-21/CS6727-Progress-Report-3-readiness.md) | Current evidence, file map, syllabus/feedback alignment, remaining work and deadlines |
 | [Report 3 writing starter](coursework/review-2026-09-21/Progress-Report-3-writing-starter.md) | Verified progress text to adapt into the required template with actual dates/hours |
 | [Report 3 full draft](coursework/review-2026-09-21/Progress-Report-3-draft.md) | Full working report with verified results and clearly marked personal fields |
-| [Report 3 working DOCX](<coursework/review-2026-09-21/Progress Report 3 (Tony Tran) - Working Draft September 22 - Recorded Reviews.docx>) | Report 2-format document updated through 14 verified supplemental human records; inspect in Word and complete personal fields before submission |
+| [Report 3 working DOCX](<coursework/review-2026-09-21/Progress Report 3 (Tony Tran) - Working Draft September 24 - Website and Feedback Aligned.docx>) | Report 2-format document updated through September 24, 14 verified supplemental human records, four completed Video II feedback responses, and the public reference site; inspect in Word and complete personal fields before submission |
 | [Report 3-to-final roadmap](coursework/review-2026-09-21/Progress-Report-3-to-final-roadmap.md) | Dated coursework tasks, file-structure audit, and bounded final-video demo plan |
-| [Video III outline](coursework/review-2026-09-22/Video-III-outline.md) | Four-to-five-minute structure, evidence links, feedback alignment, and recording checks |
+| [Video III final outline](coursework/review-2026-09-24/Video-III-final-outline.md) | Recording-ready chronological structure, public-dashboard demonstration, feedback question, and claim checks |
+| [Video III recording deck](<coursework/review-2026-09-22/FixProof - Video III - Recording Deck.pptx>) | Nine-slide presentation aligned with the frozen primary study, supplemental evidence, human decisions, and current public reference |
+| [September 24 validation summary](coursework/review-2026-09-24/CS6727-validation-summary.md) | Repository, public-site, deck, report, metrics, and remaining personal checks |
 | [Video III 15-candidate evidence appendix](coursework/review-2026-09-22/Video-III-15-candidate-evidence-appendix.pdf) ([HTML](coursework/review-2026-09-22/Video-III-15-candidate-evidence-appendix.html)) | Backup matrices with all ten original primary and 14 supplemental human rationales; distinguishes bounded acceptance from failed robustness cases |
 | [September 22 follow-up review worksheet](coursework/review-2026-09-22/remaining-follow-up-review-worksheet.md) | Source-linked rationale and patch excerpts used for five SQLi bounded acceptances and four traversal requests for more testing |
 | [Slide-ready workflow chart](coursework/review-2026-09-22/fixproof-workflow-slide.svg) ([PDF](coursework/review-2026-09-22/fixproof-workflow-slide.pdf), [PNG](coursework/review-2026-09-22/fixproof-workflow-slide.png)) | Primary repair workflow and later supplemental qualification, shown as separate evidence tracks |
 | [XSS 01–02 review record](coursework/review-2026-09-21/XSS-01-02-supplemental-review-checklist.md) | Human-readable summary of the two September 21 consistency qualifications |
-| [Supplemental results](supplemental-results-v1.md) | Category-specific results, three requested follow-ups, and two later consistency qualifications |
+| [Supplemental results](supplemental-results-v1.md) | Category-specific outcomes and all 14 later human decisions, kept separate from frozen primary metrics |
 | [Prototype status](prototype-status.md) | Current implementation, limits, and next milestone |
 | [September 13 checkpoint / Video II](coursework/review-2026-09-13/Current-progress-and-next-steps.md) | Historical checkpoint: ten reviews, 89-test verification, reviewed PowerPoint/narration |
 | [September 12 assessment / Report 2](coursework/review-2026-09-12/FixProof-assessment.md) | Historical Report 2 audit, revised DOCX, and feedback mapping |
@@ -76,15 +78,13 @@ reviewed; deleting it is optional disk-space housekeeping.
 
 ## Next work, in order
 
-1. Interpret supplemental failures consistently for previously accepted candidates.
-   All ten original reviews and three requested follow-up reviews are recorded.
-   Preserve those records and add dated qualifications where necessary.
+1. Finalize Progress Report 3: reconcile actual hours, verify citations and the
+   AI-use disclosure, inspect the rendered DOCX, submit, and retain the receipt.
 2. Explain the refined scope in the next course report: three deliberately
    vulnerable Express fixtures, AI-generated repairs, a controlled 15-attempt
    study, and a separate lifecycle replay. Do not claim a representative
    AI-generated application corpus.
-3. Prepare the paper and presentation using measured results, limitations,
-   literature comparisons, and actual AI-use records. Confirm Canvas deadlines,
-   format, and required progress/peer submissions.
+3. Record Video III with the public reference as a short evidence walkthrough,
+   then complete the October 11 peer-feedback assignment and preserve receipts.
 4. Review and commit the intended snapshot, run the clean-archive checks,
    then build and inspect the final submission archive.

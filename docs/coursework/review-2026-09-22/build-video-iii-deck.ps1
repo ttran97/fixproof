@@ -315,7 +315,7 @@ The supplement first characterized each vulnerable baseline, then applied the sa
 
     # Slide 6: backend demo handoff
     $slide = New-DeckSlide $presentation
-    Add-Title $slide '4. Backend demo: follow one evidence chain' 'Show saved artifacts at high zoom; do not run a new model experiment'
+    Add-Title $slide '4. Evidence demo: follow one candidate chain' 'Use the public reference first; open a raw saved artifact only if time allows'
     $steps = @(
         @{ n = '1'; title = 'Frozen plan'; detail = 'trial-plan.json -> 5 per CWE, 15 total, complete all' },
         @{ n = '2'; title = 'Primary result'; detail = 'primary dashboard/report -> persistent SAST + passing runtime' },
@@ -341,26 +341,28 @@ The supplement first characterized each vulnerable baseline, then applied the sa
     $null = Add-Box $slide 670 112 248 338 $C.White $C.Line 5 1.2
     $null = Add-TextBox $slide 688 128 212 24 'OPEN BEFORE RECORDING' 11 $C.Blue -Bold
     $paths = @'
-data/evaluation/
+fixproof.netlify.app
+  filter: Reflected XSS
+  open: XSS 04
+
+Local evidence backup:
   trial-plan.json
 
-ui/primary.html
-
-XSS attempt-03/
+  XSS attempt-03/
   candidate.patch
   result.json
 
-XSS attempt-04/
+  XSS attempt-04/
   candidate.patch
   result.json
   follow-up result.json
 '@
     $null = Add-TextBox $slide 688 160 212 248 $paths 11 $C.Ink -FontName 'Consolas'
     $null = Add-Box $slide 42 466 876 38 $C.BlueLight $C.Blue 5 1.0
-    $null = Add-TextBox $slide 56 473 850 24 'Label the dashboard and JSON as saved evidence. Verification checks bindings; it does not replay historical model calls.' 12.5 $C.Navy -Bold -Align 2 -VerticalAnchor 3
+    $null = Add-TextBox $slide 56 473 850 24 'The public site is a sanitized view of saved evidence; it does not replay historical model calls or tests.' 12.5 $C.Navy -Bold -Align 2 -VerticalAnchor 3
     Add-Footer $slide 6
     Set-SpeakerNotes $slide @'
-Switch from slides to the backend. First show the frozen trial plan fields. Then show the primary dashboard or primary report for XSS 03 and 04. Open the two candidate patches side by side and highlight only String(value) versus String(value ?? ""). Finally, show XSS-P01 in the two saved supplemental result files and the later XSS 04 follow-up verdict. Keep each file on screen only long enough to point to the relevant lines.
+Switch to https://fixproof.netlify.app/. Explain that this is a sanitized, read-only presentation layer over the saved evidence. Filter to Reflected XSS and open XSS 04. Point to the frozen primary result, the XSS-P01 parity failure, the original and later human records, and the patch excerpt. Then compare XSS 03 if time permits. For a technical audience, open one raw saved patch or JSON result as a backup; do not run a new model experiment or imply that the public site performs testing.
 '@
 
     # Slide 7: XSS comparison summary
@@ -395,7 +397,7 @@ This is the central comparison. Both candidates encode HTML and pass all three s
 
     # Slide 8: interpretation and close
     $slide = New-DeckSlide $presentation
-    Add-Title $slide '6. Human judgment, limits, and next steps' 'Later records qualify the evidence; they never overwrite primary-v1'
+    Add-Title $slide '6. Human judgment and next steps' 'Later records qualify the evidence; they never overwrite primary-v1'
     Add-MetricCard $slide 42 108 264 '10 original reviews' '7 accept | 3 request more testing' $C.BlueLight $C.Blue
     Add-MetricCard $slide 348 108 264 '14 later records' '5 reject | 5 bounded accept | 4 request' $C.PurpleLight $C.Purple
     Add-MetricCard $slide 654 108 264 '0 overwritten' 'primary records and metrics stay frozen' $C.GreenLight $C.Green
@@ -423,10 +425,10 @@ This is the central comparison. Both candidates encode HTML and pass all three s
     $null = Add-TextBox $slide 514 270 386 126 $next 13 $C.Ink
 
     $null = Add-Box $slide 88 438 784 62 $C.GoldLight $C.Gold 5 1.4
-    $null = Add-TextBox $slide 108 447 744 42 'Feedback: Would a second reviewer improve confidence more than adding another CWE - or should I prioritize a symlink-capable rerun?' 14 $C.Navy -Bold -Align 2 -VerticalAnchor 3
+    $null = Add-TextBox $slide 108 447 744 42 'Student reference: fixproof.netlify.app | Feedback: prioritize a second reviewer or a symlink-capable rerun?' 14 $C.Navy -Bold -Align 2 -VerticalAnchor 3
     Add-Footer $slide 8
     Set-SpeakerNotes $slide @'
-The original ten reviews and the later fourteen records are separate evidence layers. The later decisions include five rejections, five bounded SQLi acceptances, and four traversal requests for more testing. End by stating the limits explicitly and asking one focused design question. Mention that Progress Report 3 is due October 4, Video III posts October 6, and peer feedback is due October 11. Close with the course AI-use disclosure: Codex and ChatGPT assisted implementation, analysis, and presentation preparation; separate saved OpenAI API calls proposed experimental repairs; I made the recorded human decisions and remain responsible for the claims.
+The original ten reviews and the later fourteen records are separate evidence layers. The later decisions include five rejections, five bounded SQLi acceptances, and four traversal requests for more testing. Tell students that https://fixproof.netlify.app/ is a read-only reference for all 15 candidates, tests, and rationales, and invite questions through the course discussion channel. End by stating the limits explicitly and asking one focused design question. Mention that Progress Report 3 is due October 4, Video III posts October 6, and peer feedback is due October 11. Close with the course AI-use disclosure: Codex and ChatGPT assisted implementation, analysis, and presentation preparation; separate saved OpenAI API calls proposed experimental repairs; I made the recorded human decisions and remain responsible for the claims.
 '@
 
     # Slide 9: optional backup

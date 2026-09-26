@@ -86,7 +86,7 @@ Syntax / Build Check        SAST Rescan
 The current implementation reference is [prototype status](docs/prototype-status.md).
 Primary reporting, a separate 15-attempt dashboard, ten completed original
 conflict reviews (seven accepts and three requests for additional testing),
-supplemental validation and five later follow-up decisions, and
+supplemental validation and 14 later human decisions, and
 new/persistent/resolved/reopened finding history are implemented. The original
 reviews and later qualifications remain separate.
 Use [the current prototype status](docs/prototype-status.md) for the latest
@@ -94,12 +94,13 @@ evidence and [the Report 3-to-final roadmap](docs/coursework/review-2026-09-21/P
 for the coursework schedule. The [September 13 checkpoint](docs/coursework/review-2026-09-13/Current-progress-and-next-steps.md)
 is historical Video II context.
 
-As of September 13, 2026, the three-case prototype and all **15/15 primary
-initial attempts** are implemented/recorded. The primary results are five
+As of September 24, 2026, the three-case prototype and all **15/15 primary
+initial attempts** are implemented and recorded. The primary results are five
 `READY_FOR_HUMAN_REVIEW` candidates and ten `NEEDS_HUMAN_ADJUDICATION`
 candidates, with zero observed primary SAST false successes. All ten initial
-conflict reviews are recorded; supplemental follow-ups, ordinary SQLi approval
-status and final-submission materials remain separate work.
+conflict reviews and 14 later supplemental human decisions are recorded.
+The original records and later qualifications remain separate; final course
+reports, presentations, and archive checks remain student work.
 
 Start with the [documentation index](docs/README.md) for current references
 and guidance on preserving historical evidence. The

@@ -15,7 +15,7 @@ FixProof does not treat a scanner result or a passing attack test as sufficient 
 | 0:55-1:30 | Slide 3 | Walk left to right through primary-v1, then through supplemental-v1. Explain that supplemental cases were defined and frozen in the internal registry before candidate execution. Do not imply an external public preregistration. |
 | 1:30-2:05 | Slide 4 | Explain 15 scheduled calls, 5/15 target SAST findings resolved, 15/15 candidates passing their complete frozen primary security and functional suites, and 10/15 SAST/runtime disagreements. Explain that 0/5 resolved means the target finding persisted, not that the tested attacks succeeded. |
 | 2:05-2:35 | Slide 5 | Explain the separate supplemental denominators: security 60, parity 45, and robustness 35. The 140 total is a count of mixed candidate-case observations, not patches and not one security success rate. |
-| 2:35-3:45 | Slide 6, then backend | Follow the saved XSS 03/04 evidence chain below. State clearly that this is recorded evidence and that no new model call is being made. |
+| 2:35-3:45 | Slide 6, then [public evidence site](https://fixproof.netlify.app/) | Explain that the site is a sanitized, read-only presentation layer. Filter to Reflected XSS, open XSS 04, and follow its primary result, XSS-P01 failure, human records, and patch excerpt. State clearly that no model call or test execution is occurring. |
 | 3:45-4:30 | Slide 7 | Compare `String(value)` with `String(value ?? "")`. Both passed 3/3 supplemental XSS security cases. XSS 03 preserved all five parity cases; XSS 04 changed the missing-name output and failed XSS-P01. The rejection is about the frozen parity rule, not continued XSS exploitability. |
 | 4:30-5:00 | Slide 8 | State the separate human-record counts and limits. Ask the focused feedback question. Mention the October 4 Report 3 deadline, October 6 video date, and October 11 feedback deadline. Close with the AI-use disclosure below. |
 
@@ -25,7 +25,13 @@ Recommended closing disclosure:
 
 > Codex and ChatGPT assisted implementation, analysis, and presentation preparation. Separate saved OpenAI API calls proposed the experimental repairs. I made the recorded human decisions and remain responsible for the claims.
 
-## Backend demo: exact evidence chain
+## Evidence demo: public site first, raw files as backup
+
+Open [https://fixproof.netlify.app/](https://fixproof.netlify.app/) before recording. Use the vulnerability-family filter, select **Reflected XSS**, and choose **View evidence** for **XSS 04**. Point to the frozen primary result, the supplemental P/F/I counts, `XSS-P01`, the original and later human records, and the patch excerpt. Open XSS 03 only if time permits.
+
+The public site contains sanitized saved evidence. It does not call a model, run a scanner, start an application, replay an attack, or approve a candidate.
+
+For a technical question, use the raw evidence chain below as backup.
 
 Open these tabs before recording and zoom the editor so only the relevant lines are visible:
 
@@ -39,7 +45,7 @@ Open these tabs before recording and zoom the editor so only the relevant lines 
 
 Recommended transition sentence:
 
-> I am following one saved evidence chain, not rerunning the model. The frozen plan fixes the denominator; the two patches show the code difference; the same registered parity case records different outputs; and the later human record preserves that qualification separately.
+> I am following one saved evidence chain through the public reference, not rerunning the model. The frozen plan fixes the denominator; the two patches show the code difference; the same registered parity case records different outputs; and the later human record preserves that qualification separately.
 
 ## Dashboard preparation
 

@@ -2,12 +2,13 @@
 
 Tony Tran  
 Section: CS OCY, OC1  
-Progress Report 3 — working draft verified through September 23, 2026
+Progress Report 3 — working draft verified through September 24, 2026
 
-> **September 23 checkpoint, not a finished submission:** Update
+> **September 24 checkpoint, not a finished submission:** Update
 > the effort record through the submission date, reconcile any September 11-13
-> hours, and complete template-specific fields. Verify the live Canvas
-> instructions, references, AI disclosure, rendering, and submission receipt.
+> hours, and complete template-specific fields. The confirmed Canvas deadline is
+> October 4 at 11:59 p.m.; Tony plans to submit October 1. Verify references,
+> AI disclosure, rendering, and the submission receipt.
 
 ## Problem Statement
 
@@ -71,22 +72,23 @@ final report and presentation. The project evaluates AI-generated repairs to
 purpose-built fixtures. It does not claim to evaluate a representative corpus
 of AI-generated applications.
 
-## Completed Tasks Since Progress Report 2 (September 23 Checkpoint)
+## Completed Tasks Since Progress Report 2 (September 24 Checkpoint)
 
-**Reporting checkpoint:** September 14-23, 2026, after submitting Report 2 on
+**Reporting checkpoint:** September 14-24, 2026, after submitting Report 2 on
 September 13. Extend this period and update the estimate for any further work
 completed before submitting Report 3.  
-**Effort since Report 2 submission:** Approximately 15 hours through September
-23, based on Tony's estimate of 1.5 hours per day from September 14 through
-September 23 (ten days). Time was
+**Effort since Report 2 submission:** Approximately 16.5 hours through September
+24, based on Tony's estimate of 1.5 hours per day from September 14 through
+September 24 (eleven days). Time was
 primarily spent reviewing the project file structure and documentation,
 checking test and saved-evidence results, and reviewing candidates and recording
-human rationales, preparing the evidence appendix, and aligning the report with
-the professor's feedback. This is a self-reported estimate, not time inferred
-from commits or automated runs.  
+human rationales, preparing the evidence appendix and Video III materials,
+completing four peer-feedback responses, and building a sanitized public
+evidence reference. This is a self-reported estimate, not time inferred from
+commits or automated runs.
 **Cumulative effort:** Not yet reconciled. Earlier reports stated 31.5 hours
 before the 13.5-hour September 2-10 period. Adding this checkpoint's estimated
-15 hours gives approximately 60 hours **plus any September 11-13 work not
+16.5 hours gives approximately 61.5 hours **plus any September 11-13 work not
 included in Report 2's 13.5 hours**. Enter a reconciled cumulative figure
 before submission; do not silently count those dates as zero.
 
@@ -143,8 +145,15 @@ accomplishments counted again in this reporting period.
   failures and inconclusive cases, all 14 later human decisions, and complete
   recorded rationales. It is a Video III backup reference rather than a
   replacement for the report narrative.
-- The required Video II peer-feedback activity due September 27 is in progress
-  and remains a separate course obligation.
+- Completed the required Video II peer-feedback activity by submitting four
+  feedback responses. This remains a separate course deliverable rather than a
+  FixProof evaluation outcome.
+- Built, privacy-checked, and browser-validated a sanitized static evidence
+  reference at <https://fixproof.netlify.app/>. It presents all 15 primary and
+  supplemental candidate rows, ten original reviews, 14 later records,
+  rationales, patch excerpts, the workflow figure, and the PDF appendix. It
+  performs no model calls, scans, application execution, approval, or deployment
+  and does not change any experimental denominator or result.
 
 ## Methodology Paragraph Summary and Design Rationale
 
@@ -345,8 +354,9 @@ than another vulnerability class?
   model, validation oracle, retries, success definition, and limitations.
 - Draft the final paper's methods and results sections using the verified
   primary/supplemental separation and explicit denominators.
-- Prepare Video III around XSS 03 versus XSS 04, showing the patch, independent
-  evidence channels, missing-input parity result, and human boundary.
+- Prepare Video III around XSS 03 versus XSS 04, using the read-only public
+  evidence reference to show the patch, independent evidence channels,
+  missing-input parity result, and human boundary.
 - Decide whether the symlink limitation should remain documented or receive a
   separately dated run on an environment that supports the fixture.
 - Add supplemental verification to the clean-package checklist and rehearse the
@@ -354,8 +364,9 @@ than another vulnerability class?
 - Create a clean versioned release snapshot before the final demonstration,
   excluding local dependencies, caches, generated logs, and secrets; rerun all
   evidence and automated checks from the packaged copy.
-- Complete required peer feedback and incorporate substantive feedback when it
-  materially changes the research or presentation.
+- Summarize applicable themes from the four submitted Video II feedback
+  responses and incorporate them when they materially improve the research or
+  presentation.
 
 ## Timeline
 
@@ -373,9 +384,9 @@ than another vulnerability class?
 | Qualify XSS 01-02 consistently against later evidence | Completed September 21 |
 | Record nine SQLi/traversal decisions and verify 119 tests plus 14 follow-up records | Completed September 22 |
 | Complete evidence appendix and align Report 3 with professor feedback | Completed September 23 |
-| Submit Video II peer feedback | In progress; due September 27 in supplied schedule |
-| Complete and submit Progress Report 3 | Planned October 1; confirm live Canvas deadline |
-| Prepare Video III evidence comparison | Next presentation milestone |
+| Submit four Video II feedback responses and deploy sanitized public evidence reference | Completed September 24 |
+| Complete and submit Progress Report 3 | Planned October 1; official deadline October 4 at 11:59 p.m. |
+| Post Video III and submit Peer Feedback Report III | October 6 and October 11 at 11:59 p.m. |
 | Strengthen related work and draft final methods/results | In progress / next phase |
 | Rehearse reproducible package and final presentation | Planned for October-November |
 | Submit final presentation video | November 15 in supplied schedule |
@@ -451,14 +462,14 @@ must be reconciled with the actual tools and records used before submission.
 
 ## Submission Checklist
 
-- [ ] Update the September 14-21 estimated 12 hours through the final report
+- [ ] Update the September 14-24 estimated 16.5 hours through the final report
       cutoff, reconcile any September 11-13 work, and enter cumulative hours.
 - [x] Record Tony's XSS 01 and 02 supplemental conclusions without altering
       the original primary records.
-- [ ] Confirm peer-feedback completion separately when finished.
-- [ ] Confirm live Canvas requirements and deadline.
-- [ ] Check every number against the saved reports.
-- [ ] Explicitly check supplemental evidence and five later review bindings
+- [x] Confirm four Video II peer-feedback responses were submitted.
+- [x] Confirm the Canvas deadline of October 4 at 11:59 p.m.
+- [x] Check every primary and supplemental number against the saved reports.
+- [ ] Explicitly check supplemental evidence and all 14 later review bindings
       when rehearsing the committed source archive.
 - [ ] Verify citations and apply the required citation style.
 - [ ] Personally verify the AI disclosure and retain required interaction
