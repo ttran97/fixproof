@@ -1,0 +1,21 @@
+﻿{
+    "generated_on":  "2026-09-29T12:04:13.9567118-04:00",
+    "source":  "C:\\Users\\Tony Tran\\Documents\\fixproof\\docs\\coursework\\review-2026-09-29\\FixProof - Video III - Final Recording Deck.pptx",
+    "output":  "C:\\Users\\Tony Tran\\Documents\\fixproof\\docs\\coursework\\review-2026-09-29\\FixProof - Video III - Reviewed Recording Deck - Report 4 Feedback.pptx",
+    "pdf":  "C:\\Users\\Tony Tran\\Documents\\fixproof\\docs\\coursework\\review-2026-09-29\\FixProof - Video III - Reviewed Recording Deck - Report 4 Feedback.pdf",
+    "rendered_slides":  "C:\\Users\\Tony Tran\\Documents\\fixproof\\docs\\coursework\\review-2026-09-29\\video-iii-reviewed-rendered-slides",
+    "slides":  9,
+    "speaker_notes":  9,
+    "changes":  [
+                    "Clarified internal frozen case registry; no claim of public preregistration.",
+                    "Changed ambiguous attack wording to blocked registered attacks.",
+                    "Added exact app.js execution context and simplified the evidence chain.",
+                    "Separated supplemental category counts on the XSS comparison slide.",
+                    "Replaced the repeated second-reviewer question with a Report 4 scope question.",
+                    "Made the October 18 Report 4 scope and deadline explicit."
+                ],
+    "pptx_bytes":  96529,
+    "pdf_bytes":  228150,
+    "pptx_sha256":  "3e160384d01cd51b1a71f9995a4bce1a0069d2b1a4256e0ec669da268752e7e2",
+    "package_structure":  "pass"
+}

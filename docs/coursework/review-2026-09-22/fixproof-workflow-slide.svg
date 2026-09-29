@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
   <title id="title">FixProof evidence-first repair workflow</title>
-  <desc id="description">Primary FixProof study: controlled Express fixtures produce Semgrep findings and focused context; a repair model proposes candidate code; a copied workspace is checked by separate syntax, SAST, security, and functional validators; deterministic policy records an outcome and sends selected cases for separate human review. Later supplemental testing reuses saved baselines and candidates under pre-registered security, behavioral parity, and robustness cases. Follow-up decisions qualify but do not rewrite primary records.</desc>
+  <desc id="description">Primary FixProof study: controlled Express fixtures produce Semgrep findings and focused context; a repair model proposes candidate code; a copied workspace is checked by separate syntax, SAST, security, and functional validators; deterministic policy records an outcome and sends selected cases for separate human review. Later supplemental testing reuses saved baselines and candidates under security, behavioral-parity, and robustness cases that were predefined and frozen in the project's internal registry. Follow-up decisions qualify but do not rewrite primary records.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#516a8d"/>
@@ -18,6 +18,7 @@
       .node-title { font-size: 23px; font-weight: 700; }
       .node-text { font-size: 18px; fill: #3e526d; }
       .small-text { font-size: 16px; fill: #3e526d; }
+      .edge-label { font-size: 14px; fill: #3e526d; }
       .policy-text { font-size: 18px; font-weight: 600; fill: #304363; }
       .footer { font-size: 18px; fill: #50637c; }
       .main-edge { fill: none; stroke: #516a8d; stroke-width: 4; marker-end: url(#arrow); stroke-linecap: round; stroke-linejoin: round; }
@@ -67,6 +68,7 @@
   <path d="M 1268 355 Q 1230 378 1176 397" class="main-edge"/>
   <text x="1077" y="382" class="small-text" text-anchor="middle">selected cases</text>
   <path d="M 1375 355 V 397" class="main-edge"/>
+  <text x="1444" y="381" class="edge-label" text-anchor="middle">all outcomes</text>
   <path d="M 1209 443 H 1247" class="main-edge"/>
   <rect x="945" y="397" width="264" height="93" rx="17" fill="#eee8fb" stroke="#ac9cca" stroke-width="3"/>
   <text x="1077" y="431" class="node-title" text-anchor="middle">Human review</text>
@@ -78,7 +80,7 @@
 
   <rect x="68" y="566" width="1464" height="244" rx="25" fill="#fff6e8" stroke="#ebd0a9" stroke-width="3"/>
   <text x="91" y="607" class="band-title" fill="#8a5526">SUPPLEMENTAL-v1</text>
-  <text x="356" y="607" class="band-subtitle">Later, separately registered evidence; primary results stay frozen</text>
+  <text x="356" y="607" class="band-subtitle">Later, internally registered evidence; primary results stay frozen</text>
 
   <path d="M 410 703 H 438" class="main-edge"/>
   <path d="M 759 703 H 788" class="main-edge"/>
@@ -89,7 +91,7 @@
   <text x="251" y="740" class="small-text" text-anchor="middle">no new model calls</text>
 
   <rect x="438" y="646" width="321" height="113" rx="18" fill="#ffffff" stroke="#b9c9de" stroke-width="3"/>
-  <text x="598" y="685" class="node-title" text-anchor="middle">Pre-registered cases</text>
+  <text x="598" y="685" class="node-title" text-anchor="middle">Frozen case registry</text>
   <text x="598" y="716" class="node-text" text-anchor="middle">security · behavioral parity</text>
   <text x="598" y="742" class="small-text" text-anchor="middle">new robustness contract</text>
 
@@ -103,7 +105,7 @@
   <text x="1314" y="741" class="small-text" text-anchor="middle">original records/metrics unchanged</text>
 
   <path d="M 1377 490 V 646" class="later-edge"/>
-  <text x="1394" y="548" class="small-text" fill="#915b29">later review</text>
+  <text x="1394" y="548" class="small-text" fill="#915b29">primary evidence</text>
 
   <text x="72" y="858" class="footer">No automatic approval or deployment. Copied workspaces protect study inputs; they are not security sandboxes.</text>
 </svg>

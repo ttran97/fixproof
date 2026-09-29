@@ -33,8 +33,9 @@ digraph FixProofWorkflow {
     record [label=<<B>Preserved primary evidence</B><BR/><FONT POINT-SIZE="11">candidate · observations · metrics<BR/>separate human result if reviewed</FONT>>];
     human [label=<<B>Human review</B><BR/><FONT POINT-SIZE="11">when required; verdict + rationale</FONT>>, fillcolor="#eee8fb", color="#a99acb"];
 
-    setup -> model -> copy -> checks -> policy -> record;
-    policy -> human [label="human boundary", constraint=false];
+    setup -> model -> copy -> checks -> policy;
+    policy -> record [label="all outcomes"];
+    policy -> human [label="selected cases", constraint=false];
     human -> record [constraint=false];
   }
 
@@ -49,7 +50,7 @@ digraph FixProofWorkflow {
     margin=18;
 
     saved [label=<<B>Baseline + saved candidates</B><BR/><FONT POINT-SIZE="11">disposable copies; no new model calls</FONT>>];
-    cases [label=<<B>Pre-registered cases</B><BR/><FONT POINT-SIZE="11">security · parity · robustness</FONT>>];
+    cases [label=<<B>Frozen case registry</B><BR/><FONT POINT-SIZE="11">security · parity · robustness</FONT>>];
     outcomes [label=<<B>Separate outcomes</B><BR/><FONT POINT-SIZE="11">pass · fail · inconclusive</FONT>>];
     followup [label=<<B>Human follow-up</B><BR/><FONT POINT-SIZE="11">later qualification; original<BR/>reviews and metrics unchanged</FONT>>, fillcolor="#eee8fb", color="#a99acb"];
 
@@ -57,5 +58,5 @@ digraph FixProofWorkflow {
   }
 
   copy -> saved [style=dashed, color="#b67a40", penwidth=1.6, constraint=false];
-  record -> followup [style=dashed, color="#b67a40", penwidth=1.6, constraint=false];
+  record -> followup [label="primary evidence", style=dashed, color="#b67a40", penwidth=1.6, constraint=false];
 }
