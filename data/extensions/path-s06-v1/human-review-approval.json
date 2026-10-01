@@ -1,0 +1,56 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "path_s06_extension_human_approval",
+  "protocol_id": "path-s06-extension-v1",
+  "status": "confirmed",
+  "reviewer": "Tony Tran",
+  "approved_at": "2026-09-30T22:12:54.928885Z",
+  "confirmation": "I reviewed the frozen PATH-S06 protocol, baseline gate, run summary, and all five recorded candidate results. I also manually reproduced Traversal 02 in WSL2. I approve FOLLOW_UP_REJECT_CANDIDATE as a separate PATH-S06 extension qualification for Traversal 01-05. Traversal 01's existing rejection is reaffirmed, while Traversal 02-05 change from request-more-testing to rejection based on the later extension evidence. The original primary-v1 and supplemental-v1 records remain unchanged.",
+  "confirmed_checks": {
+    "reviewed_frozen_protocol": true,
+    "reviewed_baseline_gate": true,
+    "reviewed_run_summary": true,
+    "reviewed_all_five_candidate_results": true,
+    "manually_reproduced_traversal_02": true,
+    "preserve_primary_v1": true,
+    "preserve_supplemental_v1": true
+  },
+  "decisions": [
+    {
+      "trial_id": "primary-v1-path-traversal-initial-01",
+      "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+      "relationship_to_prior_follow_up": "reaffirms_prior_rejection",
+      "manual_reproduction": false,
+      "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 01 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I reaffirm FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier rejection and its separate parity and robustness findings remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-02",
+      "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+      "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+      "manual_reproduction": true,
+      "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result, and I manually reproduced Traversal 02 in WSL2. The candidate preserved normal access to welcome.txt and returned HTTP 400 for a direct ../../ traversal request. However, an in-root symbolic link pointing outside the allowed directory bypassed the lexical path.resolve check. The candidate returned HTTP 200 and disclosed the controlled outside-file marker. I therefore record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered PATH-S06 symbolic-link traversal remains exploitable. The earlier request-more-testing record remains preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-03",
+      "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+      "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+      "manual_reproduction": false,
+      "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 03 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record and three supplemental robustness failures remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-04",
+      "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+      "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+      "manual_reproduction": false,
+      "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 04 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record remains preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+    },
+    {
+      "trial_id": "primary-v1-path-traversal-initial-05",
+      "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+      "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+      "manual_reproduction": false,
+      "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 05 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record and supplemental repeated-parameter robustness failure remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+    }
+  ]
+}

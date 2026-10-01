@@ -63,6 +63,14 @@ function reviewVerdict(review) {
   return review ? badge(review.verdict) : badge("", "No human result");
 }
 
+function extensionOutcome(extension) {
+  if (!extension) return el("span", "muted", "Not applicable");
+  return badge(
+    extension.status,
+    `${label(extension.status)} · ${label(extension.human?.verdict)}`
+  );
+}
+
 function evidenceButton(candidate) {
   const button = el("button", "evidence-button", "View evidence");
   button.type = "button";
@@ -84,6 +92,7 @@ function filteredCandidates() {
       candidate.trial_id,
       candidate.primary.original_human?.rationale,
       candidate.supplemental.later_human?.rationale,
+      candidate.path_s06_extension?.human?.rationale,
       ...candidate.supplemental.nonpassing.map((item) => `${item.test_id} ${item.reason}`)
     ].filter(Boolean).join(" ").toLowerCase();
     return searchable.includes(query);
@@ -106,7 +115,7 @@ function renderTables() {
 
     const supplementalEmpty = el("tr");
     const supplementalCell = el("td", "empty-row", "No candidates match this filter.");
-    supplementalCell.colSpan = 7;
+    supplementalCell.colSpan = 8;
     supplementalEmpty.append(supplementalCell);
     supplementalBody.append(supplementalEmpty);
     return;
@@ -134,6 +143,7 @@ function renderTables() {
       : "None in registered supplement";
     addCell(supplementalRow, nonpassing);
     addCell(supplementalRow, reviewVerdict(candidate.supplemental.later_human));
+    addCell(supplementalRow, extensionOutcome(candidate.path_s06_extension));
     addCell(supplementalRow, evidenceButton(candidate));
     supplementalBody.append(supplementalRow);
   }
@@ -148,15 +158,17 @@ function metric(value, description, tone) {
 function renderSummary() {
   const primary = evidence.primary_summary;
   const supplemental = evidence.supplemental_summary;
+  const extension = evidence.path_s06_extension_summary;
   const grid = document.getElementById("metric-grid");
   grid.replaceChildren(
     metric(String(primary.attempts), "frozen primary candidates", "blue"),
     metric(`${primary.target_sast_resolved}/15`, "target SAST findings resolved", "gold"),
     metric(String(supplemental.candidate_case_observations.total), "supplemental candidate-case observations", "green"),
-    metric(String(supplemental.later_human_records), "later human records", "purple")
+    metric(String(supplemental.later_human_records), "supplemental-v1 human records", "purple"),
+    metric(`${extension.candidate_observations.fail}/5`, "PATH-S06 extension failures", "red")
   );
   document.getElementById("recording-note").textContent = evidence.scope.recording_note;
-  document.getElementById("data-date").textContent = `Evidence cutoff: ${evidence.evidence_cutoff.slice(0, 10)} · Public export: ${evidence.generated_on.slice(0, 10)}`;
+  document.getElementById("data-date").textContent = `Supplemental-v1 cutoff: ${evidence.evidence_cutoff.slice(0, 10)} · Public export: ${evidence.generated_on.slice(0, 10)}`;
 
   const limitations = document.getElementById("limitations");
   limitations.replaceChildren(...evidence.limitations.map((item) => el("li", "", item)));
@@ -219,11 +231,26 @@ function openCandidate(candidate) {
     el("h3", "", "Record boundary"),
     definitionList([
       ["Original review", candidate.primary.original_human ? label(candidate.primary.original_human.verdict) : "No original human result"],
-      ["Later follow-up", candidate.supplemental.later_human ? label(candidate.supplemental.later_human.verdict) : "No later follow-up"],
+      ["Supplemental-v1 follow-up", candidate.supplemental.later_human ? label(candidate.supplemental.later_human.verdict) : "No later follow-up"],
+      ["PATH-S06 qualification", candidate.path_s06_extension?.human ? label(candidate.path_s06_extension.human.verdict) : "Not applicable"],
       ["Primary overwritten", "No"]
     ])
   );
-  summary.append(primaryCard, supplementalCard, boundaryCard);
+  summary.append(primaryCard, supplementalCard);
+  if (candidate.path_s06_extension) {
+    const extensionCard = el("section", "detail-card");
+    extensionCard.append(
+      el("h3", "", "PATH-S06 extension"),
+      definitionList([
+        ["Registered outcome", label(candidate.path_s06_extension.status)],
+        ["HTTP status", String(candidate.path_s06_extension.status_code)],
+        ["Outside marker disclosed", candidate.path_s06_extension.marker_disclosed ? "Yes" : "No"],
+        ["Manual reproduction", candidate.path_s06_extension.manual_reproduction ? "Traversal 02 spot-check" : "No manual rerun claimed"]
+      ])
+    );
+    summary.append(extensionCard);
+  }
+  summary.append(boundaryCard);
   content.append(summary);
 
   const nonpassingSection = el("section", "detail-card");
@@ -245,6 +272,15 @@ function openCandidate(candidate) {
     reviewCard("Original human decision", candidate.primary.original_human, "No original primary human decision was recorded."),
     reviewCard("Later human follow-up", candidate.supplemental.later_human, "No later follow-up decision was recorded for this candidate.")
   );
+  if (candidate.path_s06_extension) {
+    content.append(
+      reviewCard(
+        "PATH-S06 extension qualification",
+        candidate.path_s06_extension.human,
+        "No extension human qualification was recorded."
+      )
+    );
+  }
 
   const patchCard = el("section", "detail-card");
   patchCard.append(el("h3", "", "Candidate patch excerpt"));

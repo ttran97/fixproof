@@ -1,0 +1,11 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "protocol_id": "path-s06-extension-v1",
+  "run_id": "20260930T180925912688Z-path-s06-v1",
+  "started_at": "2026-09-30T18:09:34.002522Z",
+  "status": "complete",
+  "model_calls": 0,
+  "sast_runs": 0,
+  "completed_at": "2026-09-30T18:09:48.136453Z"
+}

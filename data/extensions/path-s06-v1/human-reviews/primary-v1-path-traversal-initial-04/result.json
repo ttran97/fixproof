@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "path_s06_extension_follow_up_review_result",
+  "protocol_id": "path-s06-extension-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-path-traversal-initial-04",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-30T22:12:54.928885Z",
+  "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+  "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 04 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record remains preserved; this later qualification does not overwrite primary-v1 or supplemental-v1.",
+  "manual_reproduction": false,
+  "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+  "confirmed_required_checks": true,
+  "approval": {
+    "path": "data/extensions/path-s06-v1/human-review-approval.json",
+    "sha256": "9d9c396bc925042eaacbe1b7672b8f03ec140c54bad539e201ec57ef64d49fee"
+  },
+  "packet": {
+    "path": "data/extensions/path-s06-v1/human-reviews/primary-v1-path-traversal-initial-04/packet.json",
+    "sha256": "04651eb2a89b037dcfebf0fe2e591c4bf7d695548e80a2dabf21423553b79f3c"
+  },
+  "extension_candidate_result": {
+    "path": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-04/result.json",
+    "sha256": "2ee6f980913f2827c5a4b0416eab6c6e296ee82de4002f6d36ee88f7bdb829ed",
+    "status": "fail",
+    "status_code": 200,
+    "marker_disclosed": true
+  },
+  "prior_supplemental_follow_up": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-04/result.json",
+    "sha256": "404b0556eac653b7be435153c3c1a511a35b07d4d01cbe757019423679150551",
+    "verdict": "FOLLOW_UP_REQUEST_MORE_TESTING",
+    "reviewed_at": "2026-09-22T20:29:44.283383Z"
+  },
+  "effect_on_frozen_records": "none_earlier_records_are_preserved"
+}

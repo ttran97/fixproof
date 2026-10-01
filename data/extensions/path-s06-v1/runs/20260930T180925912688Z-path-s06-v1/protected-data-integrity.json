@@ -1,0 +1,31 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "protocol_id": "path-s06-extension-v1",
+  "recorded_at": "2026-09-30T18:09:48.094984Z",
+  "before": {
+    "data/primary_trials/v1": {
+      "file_count": 245,
+      "total_bytes": 1141175,
+      "tree_sha256": "232e223e84a889dca52c962f0ed2cffa2ed0e4f66b6f7ff82b1e104cbc4c517b"
+    },
+    "data/supplemental/v1": {
+      "file_count": 73,
+      "total_bytes": 718507,
+      "tree_sha256": "98845a46424a68f6408b53e4da56a689074fbb0648a25b0e7e99d3fc753d09b1"
+    }
+  },
+  "after": {
+    "data/primary_trials/v1": {
+      "file_count": 245,
+      "total_bytes": 1141175,
+      "tree_sha256": "232e223e84a889dca52c962f0ed2cffa2ed0e4f66b6f7ff82b1e104cbc4c517b"
+    },
+    "data/supplemental/v1": {
+      "file_count": 73,
+      "total_bytes": 718507,
+      "tree_sha256": "98845a46424a68f6408b53e4da56a689074fbb0648a25b0e7e99d3fc753d09b1"
+    }
+  },
+  "unchanged": true
+}

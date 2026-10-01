@@ -1,0 +1,11 @@
+﻿Evidence layer,Unit/category,Denominator,Pass/resolved,Fail/persistent,Inconclusive,Meaning
+primary-v1,Target SAST resolution (candidate-level),15,5,10,0,"Five target findings resolved; ten persisted. This is scanner evidence, not an attack result."
+primary-v1,Security suite (candidate-level),15,15,0,0,Candidates whose entire registered primary security suite passed.
+primary-v1,Functional suite (candidate-level),15,15,0,0,Candidates whose entire registered primary functional suite passed.
+primary-v1,Security test observations,40,40,0,0,Individual recorded primary security cases.
+primary-v1,Functional test observations,60,60,0,0,Individual recorded primary functional cases.
+supplemental-v1,Security observations,60,55,0,5,Frozen supplemental-v1 security cases; five PATH-S06 cases were inconclusive on Windows.
+supplemental-v1,Behavioral parity observations,45,40,5,0,Frozen supplemental-v1 comparisons with characterized baseline behavior.
+supplemental-v1,Robustness observations,35,25,10,0,Frozen supplemental-v1 malformed or unusual input contracts.
+path-s06-extension-v1,Security observations,5,0,5,0,Separate WSL2 extension; does not replace the five supplemental-v1 inconclusive records.
+supplemental-v1,All supplemental observations,140,120,15,5,Mixed categories shown for reconciliation only; not one security success rate.

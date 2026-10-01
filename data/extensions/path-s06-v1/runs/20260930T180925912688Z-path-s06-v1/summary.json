@@ -1,0 +1,66 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "protocol_id": "path-s06-extension-v1",
+  "run_id": "20260930T180925912688Z-path-s06-v1",
+  "status": "complete",
+  "baseline": {
+    "status": "pass",
+    "reason": "Baseline disclosed the controlled outside marker through the link.",
+    "marker_disclosed": true,
+    "status_allowed": true
+  },
+  "baseline_result": {
+    "result": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/baseline/result.json",
+    "sha256": "ee7a8e91f17047b81db43a8d48f63d0588128384f6cc40859d729dc6d964b4a9"
+  },
+  "candidate_counts": {
+    "pass": 0,
+    "fail": 5,
+    "inconclusive": 0
+  },
+  "candidate_results": [
+    {
+      "target_id": "primary-v1-path-traversal-initial-01",
+      "status": "fail",
+      "marker_disclosed": true,
+      "status_code": 200,
+      "result": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-01/result.json",
+      "sha256": "4454abe58fd92abcb60d9d253c1ad8ad3f6f1c0ade70cc388284fc0fb97fe26b"
+    },
+    {
+      "target_id": "primary-v1-path-traversal-initial-02",
+      "status": "fail",
+      "marker_disclosed": true,
+      "status_code": 200,
+      "result": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-02/result.json",
+      "sha256": "abeda5a4e0ea3abbe5fb3ef282a4d0edb64d0f2b7325c35c2bca71f73b9c9698"
+    },
+    {
+      "target_id": "primary-v1-path-traversal-initial-03",
+      "status": "fail",
+      "marker_disclosed": true,
+      "status_code": 200,
+      "result": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-03/result.json",
+      "sha256": "a3c33f90fe4908d1bf975c68b33bbb805c857e2a0896d31ee1dfc9c628aee8f1"
+    },
+    {
+      "target_id": "primary-v1-path-traversal-initial-04",
+      "status": "fail",
+      "marker_disclosed": true,
+      "status_code": 200,
+      "result": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-04/result.json",
+      "sha256": "2ee6f980913f2827c5a4b0416eab6c6e296ee82de4002f6d36ee88f7bdb829ed"
+    },
+    {
+      "target_id": "primary-v1-path-traversal-initial-05",
+      "status": "fail",
+      "marker_disclosed": true,
+      "status_code": 200,
+      "result": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-05/result.json",
+      "sha256": "30da97d0f7a3352743ec9fef28cdce9f061a7a3fc081f0a4fd9009ee8e08a15a"
+    }
+  ],
+  "protected_data_unchanged": true,
+  "interpretation_boundary": "Separate PATH-S06 extension evidence; not part of the 140 supplemental-v1 observations and not a human approval."
+}

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Request, response, payload, and outcome tables for the bounded FixProof CS6727 study.">
+    <title>FixProof | Test Evidence Tables</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="test-evidence.js" defer></script>
+  </head>
+  <body class="evidence-report-page">
+    <a class="skip-link" href="#main">Skip to case evidence</a>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Return to the FixProof evidence reference">
+        <span class="brand-mark" aria-hidden="true">FP</span>
+        <span><strong>FixProof</strong><small>Test evidence tables</small></span>
+      </a>
+      <nav aria-label="Page sections">
+        <a href="#candidates">Candidates</a>
+        <a href="#cases">Cases</a>
+        <a href="#counts">Counts</a>
+        <a href="#decisions">Decisions</a>
+        <a href="index.html">Main dashboard</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero evidence-hero">
+        <div>
+          <p class="eyebrow">Recorded request and response evidence</p>
+          <h1>Trace every count to a test case.</h1>
+          <p class="hero-copy">
+            Compare all 15 candidates using the recorded payload or input,
+            effective request, observed response, expected contract, and
+            pass/fail/inconclusive result.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#cases">Browse test cases</a>
+            <a class="button secondary" href="FixProof-15-candidate-test-evidence.xlsx">Download Excel workbook</a>
+          </div>
+        </div>
+        <aside class="scope-card" aria-label="Evidence layers">
+          <span class="scope-label">Keep layers separate</span>
+          <strong>100 primary cases</strong>
+          <span>40 security and 60 functional observations</span>
+          <strong>140 supplemental cases</strong>
+          <span>Security, parity, and robustness</span>
+          <strong>5 extension cases</strong>
+          <span>Separate PATH-S06 WSL2 evidence</span>
+        </aside>
+      </section>
+
+      <section class="notice" aria-labelledby="counting-title">
+        <div class="notice-icon" aria-hidden="true">i</div>
+        <div>
+          <h2 id="counting-title">Candidate counts and case counts are different</h2>
+          <p id="count-note">Loading the evidence definitions...</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="snapshot-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Reconciled snapshot</p>
+            <h2 id="snapshot-title">What is included</h2>
+          </div>
+        </div>
+        <div class="metric-grid" id="evidence-metrics" aria-live="polite"></div>
+      </section>
+
+      <section class="section evidence-section" id="candidates">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">15-candidate comparison</p>
+            <h2>Candidate summary</h2>
+          </div>
+          <p>Primary suite columns are candidate-level. Supplemental columns are individual case counts shown as pass/fail/inconclusive.</p>
+        </div>
+        <div class="table-shell" tabindex="0" aria-label="Scrollable candidate summary table">
+          <table class="wide-table">
+            <thead id="candidate-head"></thead>
+            <tbody id="candidate-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section evidence-section" id="cases">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">245 recorded candidate observations</p>
+            <h2>Payload, request, response, and outcome</h2>
+          </div>
+          <p>Use the filters to compare one candidate, vulnerability family, evidence layer, or result.</p>
+        </div>
+
+        <div class="controls evidence-controls" aria-label="Case evidence filters">
+          <label>
+            Evidence layer
+            <select id="layer-filter">
+              <option value="all">All layers</option>
+              <option value="primary-v1">Primary-v1</option>
+              <option value="supplemental-v1">Supplemental-v1</option>
+              <option value="path-s06-extension-v1">PATH-S06 extension</option>
+            </select>
+          </label>
+          <label>
+            Candidate
+            <select id="candidate-filter">
+              <option value="all">All candidates</option>
+            </select>
+          </label>
+          <label>
+            Result
+            <select id="result-filter">
+              <option value="all">All results</option>
+              <option value="PASS">Pass</option>
+              <option value="FAIL">Fail</option>
+              <option value="INCONCLUSIVE">Inconclusive</option>
+            </select>
+          </label>
+          <label>
+            Search payload, case, response, or reason
+            <input id="case-search" type="search" placeholder="For example: SQL-R01, script, symlink">
+          </label>
+        </div>
+
+        <div class="pagination-bar">
+          <p class="result-count" id="case-result-count" aria-live="polite"></p>
+          <div class="pagination-controls" aria-label="Case table pagination">
+            <label>
+              Rows per page
+              <select id="page-size">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="all">All</option>
+              </select>
+            </label>
+            <button id="previous-page" type="button">Previous</button>
+            <span id="page-status" aria-live="polite"></span>
+            <button id="next-page" type="button">Next</button>
+          </div>
+        </div>
+        <div class="table-shell" tabindex="0" aria-label="Scrollable request and response evidence table">
+          <table class="case-evidence-table">
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Layer / category</th>
+                <th>Case</th>
+                <th>Input or payload</th>
+                <th>Effective request</th>
+                <th>Expected contract</th>
+                <th>HTTP</th>
+                <th>Observed output</th>
+                <th>Result and reason</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody id="case-body"></tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          Primary request targets are derived from the recorded route, query
+          parameter, and payload. Supplemental and extension request targets
+          come from recorded evidence with transient loopback ports omitted.
+        </p>
+      </section>
+
+      <section class="section evidence-section" id="counts">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Denominator check</p>
+            <h2>Count reconciliation</h2>
+          </div>
+          <p>These rows explain exactly what the candidate-level and observation-level numbers count.</p>
+        </div>
+        <div class="table-shell" tabindex="0" aria-label="Scrollable count reconciliation table">
+          <table>
+            <thead id="count-head"></thead>
+            <tbody id="count-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section evidence-section" id="decisions">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Separate human authority</p>
+            <h2>Recorded human decisions</h2>
+          </div>
+          <p>Original reviews, supplemental follow-ups, and PATH-S06 qualifications remain separate records.</p>
+        </div>
+        <div class="table-shell" tabindex="0" aria-label="Scrollable human decision table">
+          <table class="decision-table">
+            <thead id="decision-head"></thead>
+            <tbody id="decision-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="download-card" aria-labelledby="workbook-title">
+        <div>
+          <p class="eyebrow">Offline review</p>
+          <h2 id="workbook-title">Use the filterable Excel workbook</h2>
+          <p>Seven worksheets preserve the guide, candidate summary, three evidence layers, count reconciliation, and human decisions.</p>
+        </div>
+        <a class="button primary" href="FixProof-15-candidate-test-evidence.xlsx">Download workbook</a>
+      </section>
+
+      <p class="load-error" id="evidence-load-error" role="alert" hidden></p>
+    </main>
+
+    <footer>
+      <p><strong>FixProof</strong> · Tony Tran · CS6727 Cyber Security Practicum</p>
+      <p id="evidence-date">Loading evidence date...</p>
+    </footer>
+  </body>
+</html>

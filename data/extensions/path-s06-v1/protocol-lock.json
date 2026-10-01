@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "path_s06_extension_protocol_lock",
+  "protocol_id": "path-s06-extension-v1",
+  "source_protocol_id": "supplemental-v1",
+  "status": "frozen",
+  "approved_by": "Tony Tran",
+  "frozen_on": "2026-09-30",
+  "bindings": [
+    {
+      "path": "docs/path-s06-extension-v1-protocol.md",
+      "sha256": "4a76c4d8ab903b0bf956a3912deb1cadbed21d6ff7fefd6375b991b094525a56"
+    },
+    {
+      "path": "tests/extensions/path_s06/v1/case.json",
+      "sha256": "4637d8d3d04b396e7d9c2b25c86abd98dc3857fe28846c52e3f4a07428ce916e"
+    },
+    {
+      "path": "src/fixproof/evaluation/path_s06_extension.py",
+      "sha256": "2bd7dc6d691f7b62bc59dc812fe0d7d040b7a613b2c3c68bce9bd39e0805620e"
+    }
+  ],
+  "execution_count_at_freeze": 0,
+  "primary_v1_unchanged": true,
+  "supplemental_v1_unchanged": true
+}

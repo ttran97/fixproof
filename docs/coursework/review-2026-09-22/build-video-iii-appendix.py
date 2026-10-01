@@ -21,6 +21,14 @@ HERE = Path(__file__).resolve().parent
 PRIMARY_REPORT = ROOT / "data/evaluation/primary-report.json"
 SUPPLEMENTAL_REPORT = ROOT / "data/supplemental/v1/supplemental-report.json"
 FOLLOW_UP_DIR = ROOT / "data/supplemental/v1/follow-up-reviews"
+EXTENSION_RUN_ID = "20260930T180925912688Z-path-s06-v1"
+EXTENSION_SUMMARY = (
+    ROOT
+    / "data/extensions/path-s06-v1/runs"
+    / EXTENSION_RUN_ID
+    / "summary.json"
+)
+EXTENSION_FOLLOW_UP_DIR = ROOT / "data/extensions/path-s06-v1/human-reviews"
 OUTPUT_HTML = HERE / "Video-III-15-candidate-evidence-appendix.html"
 OUTPUT_PDF = HERE / "Video-III-15-candidate-evidence-appendix.pdf"
 CASE_ORDER = {"xss": 0, "sqli": 1, "path-traversal": 2}
@@ -117,6 +125,8 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
         supplemental = item["supplemental"]
         original = item["original"]
         later = item["later"]
+        extension = item["extension"]
+        extension_review = item["extension_review"]
         case, attempt = key_for(primary)
         name = trial_name(case, attempt)
         anchor = primary["trial_id"]
@@ -127,6 +137,12 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
             f'{entry["test_id"]} ({entry["status"]})' for entry in nonpassing
         ) or "None in registered supplement"
         follow_label = follow_up_label(later)
+        extension_label = (
+            f'{extension["evaluation"]["status"].title()} · '
+            f'{follow_up_label(extension_review)}'
+            if extension is not None
+            else "Not applicable"
+        )
 
         primary_rows.append(
             f'<tr class="case-{esc(case)}">'
@@ -145,7 +161,8 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
             f'<td>{category_counts(summary, "behavioral_parity")}</td>'
             f'<td>{category_counts(summary, "robustness_contract")}</td>'
             f'<td>{esc(nonpassing_text)}</td>'
-            f'<td>{esc(follow_label)}</td></tr>'
+            f'<td>{esc(follow_label)}</td>'
+            f'<td>{esc(extension_label)}</td></tr>'
         )
 
         original_html = (
@@ -159,6 +176,22 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
             if later
             else '<p class="no-record">No separate supplemental human verdict or rationale is recorded.</p>'
         )
+        extension_html = (
+            rationale_block(
+                "PATH-S06 extension human qualification",
+                extension_review,
+                item["extension_review_path"],
+            )
+            if extension_review
+            else ""
+        )
+        extension_summary = (
+            f' PATH-S06 extension: {esc(extension["evaluation"]["status"])}; '
+            f'HTTP {extension["response"]["status_code"]}; outside marker '
+            f'disclosed: {esc(extension["evaluation"]["marker_disclosed"])}.'
+            if extension is not None
+            else ""
+        )
         details.append(
             f'<section class="candidate-detail" id="{esc(anchor)}">'
             f'<h3>{esc(name)} <span class="muted">· {esc(primary["cwe"])} · '
@@ -167,11 +200,11 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
             f'automated state: {esc(primary["decision"])}. Supplemental cases: '
             f'{summary["pass"]} pass, {summary["fail"]} fail, '
             f'{summary["inconclusive"]} inconclusive. Nonpassing: '
-            f'{esc(nonpassing_text)}.</p>'
+            f'{esc(nonpassing_text)}.{extension_summary}</p>'
             f'<p class="metadata">Primary decision: '
             f'{html_source_path(primary["artifacts"]["decision"]["path"])}<br>'
             f'Supplemental candidate result: {html_source_path(item["supplemental_path"])}</p>'
-            f'{original_html}{later_html}</section>'
+            f'{original_html}{later_html}{extension_html}</section>'
         )
 
     totals = category_totals
@@ -179,7 +212,7 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>FixProof Video III — 15-candidate evidence appendix</title>
+  <title>FixProof — 15-candidate evidence appendix</title>
   <style>
     @page {{ size: 16in 9in; margin: 0.55in 0.65in; }}
     * {{ box-sizing: border-box; }}
@@ -219,14 +252,15 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
 </head>
 <body>
   <section>
-    <h1>FixProof · Video III evidence appendix</h1>
-    <p class="intro">Prepared September 22, 2026 from verified saved evidence. This is a reference handout, not a new experiment or a replacement for the frozen primary report. It includes all 15 candidate-level outcomes and the <em>complete recorded text</em> of every original and later human rationale.</p>
+    <h1>FixProof · 15-candidate evidence appendix</h1>
+    <p class="intro">Updated September 30, 2026 from verified saved evidence. This is a reference handout, not a replacement for the frozen primary or supplemental-v1 reports. It includes all 15 candidate-level outcomes and the <em>complete recorded text</em> of original, supplemental-v1, and PATH-S06 extension human rationales.</p>
     <div class="metric-strip">
       <div class="metric"><strong>15 primary attempts</strong><span>Five initial calls per controlled CWE fixture</span></div>
       <div class="metric"><strong>10 original reviews</strong><span>Seven acceptances; three additional-testing requests</span></div>
       <div class="metric"><strong>14 supplemental human records</strong><span>5 reject · 5 bounded accept · 4 request more testing</span></div>
+      <div class="metric"><strong>5 PATH-S06 qualifications</strong><span>5 later reject · 1 manually reproduced</span></div>
     </div>
-    <div class="callout"><strong>How to read this:</strong> “Ready for review” is an automated state, not a human approval. Supplemental security, behavioral parity, and robustness are different criteria and must not be pooled into one repair-success rate. A supplemental human record may be the first human decision for SQLi or a later qualification of an earlier review; it never overwrites primary-v1.</div>
+    <div class="callout"><strong>How to read this:</strong> “Ready for review” is an automated state, not a human approval. Supplemental-v1 retains 140 observations and 14 human records. The five PATH-S06 failures and human qualifications are a separate later extension; they do not overwrite primary-v1 or supplemental-v1.</div>
     <h2>1. Frozen primary-v1 matrix</h2>
     <table aria-label="Primary results for all fifteen candidates">
       <colgroup><col style="width:10%"><col style="width:11%"><col style="width:11%"><col style="width:11%"><col style="width:20%"><col style="width:20%"><col style="width:17%"></colgroup>
@@ -244,26 +278,26 @@ def build_html(rows: list[dict], category_totals: dict) -> str:
       <div class="metric"><strong>Behavioral parity</strong><span>{totals['behavioral_parity']['pass']} pass · {totals['behavioral_parity']['fail']} fail · {totals['behavioral_parity']['inconclusive']} inconclusive</span></div>
       <div class="metric"><strong>Robustness</strong><span>{totals['robustness_contract']['pass']} pass · {totals['robustness_contract']['fail']} fail · {totals['robustness_contract']['inconclusive']} inconclusive</span></div>
     </div>
-    <p class="note"><strong>P/F/I</strong> means pass/fail/inconclusive. Nonpassing case IDs identify failures or unexecuted cases; they are not interchangeable. `PATH-S06` was inconclusive because the Windows symlink fixture could not be created.</p>
+    <p class="note"><strong>P/F/I</strong> means pass/fail/inconclusive. Nonpassing case IDs identify failures or unexecuted cases; they are not interchangeable. `PATH-S06` remains inconclusive in supplemental-v1 because the Windows symlink fixture could not be created. Its later WSL2 extension result is shown in the final column.</p>
     <table aria-label="Supplemental results for all fifteen saved candidates">
-      <colgroup><col style="width:10%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:34%"><col style="width:17%"></colgroup>
-      <thead><tr><th>Candidate</th><th>Security P/F/I</th><th>Parity P/F/I</th><th>Robustness P/F/I</th><th>Nonpassing registered cases</th><th>Supplemental human</th></tr></thead>
+      <colgroup><col style="width:9%"><col style="width:11%"><col style="width:11%"><col style="width:11%"><col style="width:29%"><col style="width:14%"><col style="width:15%"></colgroup>
+      <thead><tr><th>Candidate</th><th>Security P/F/I</th><th>Parity P/F/I</th><th>Robustness P/F/I</th><th>Nonpassing registered cases</th><th>Supplemental-v1 human</th><th>PATH-S06 extension</th></tr></thead>
       <tbody>{''.join(supplemental_rows)}</tbody>
     </table>
-    <p class="note">XSS 01, 02, 04, and 05 each failed the frozen missing-name parity case `XSS-P01`; XSS 03 passed all nine registered XSS supplemental cases. SQLi `SQL-R01` remains failed even though the bounded repair was accepted; it is a new repeated-parameter robustness requirement, not a retroactive primary security failure. Traversal 02–05 request more testing, and their symlink observations remain inconclusive—not passes.</p>
+    <p class="note">XSS 01, 02, 04, and 05 each failed the frozen missing-name parity case `XSS-P01`; XSS 03 passed all nine registered XSS supplemental cases. SQLi `SQL-R01` remains failed even though the bounded repair was accepted. Within supplemental-v1, Traversal 02–05 retain request-more-testing records and PATH-S06 remains inconclusive. The separate extension later recorded HTTP 200 marker disclosure and a rejection qualification for all five traversal candidates.</p>
   </section>
 
   <section class="page-break">
     <h2>3. Complete human rationale records</h2>
-    <p class="intro">Text below is copied verbatim from bound `result.json` rationale fields, including original primary review wording and separate supplemental human decisions. The source path and recorded timestamp accompany each statement. The five SQLi entries have no original primary human result; their September 22 bounded acceptances are shown separately and were not inferred automatically from `READY_FOR_HUMAN_REVIEW`.</p>
+    <p class="intro">Text below is copied verbatim from bound `result.json` rationale fields, including original primary review wording, supplemental-v1 decisions, and PATH-S06 extension qualifications. The source path and recorded timestamp accompany each statement. The five SQLi entries have no original primary human result; their September 22 bounded acceptances are shown separately and were not inferred automatically from `READY_FOR_HUMAN_REVIEW`.</p>
     {''.join(details)}
   </section>
 
   <section class="page-break">
     <h2>Evidence and interpretation boundary</h2>
-    <p>This appendix was assembled from <span class="source-path">data/evaluation/primary-report.json</span>, <span class="source-path">data/supplemental/v1/supplemental-report.json</span>, ten bound primary review results, fourteen bound supplemental human results, and fifteen hash-checked supplemental candidate results. The generated appendix does not alter those files.</p>
+    <p>This appendix was assembled from <span class="source-path">data/evaluation/primary-report.json</span>, <span class="source-path">data/supplemental/v1/supplemental-report.json</span>, ten bound primary review results, fourteen bound supplemental human results, fifteen hash-checked supplemental candidate results, five PATH-S06 extension results, and five extension human qualifications. The generated appendix does not alter those files.</p>
     <p>The main study concerns three deliberately vulnerable Express fixtures and repeated AI repair proposals, not fifteen independent applications or a representative web-app corpus. Passing registered tests does not establish production safety. A copied workspace preserves experiment inputs but is not a security sandbox.</p>
-    <p>The primary reviewer decisions were recorded at their original times. Supplemental human records apply later evidence without changing original primary states, reviews, or metrics. A bounded acceptance does not turn a robustness failure into a pass, and an inconclusive outcome stays inconclusive. For raw HTTP/browser observations, patches, scanner findings, or packet bindings, use the source paths in each candidate entry.</p>
+    <p>The primary reviewer decisions were recorded at their original times. Supplemental-v1 and PATH-S06 extension records apply later evidence without changing earlier states, reviews, or metrics. A bounded acceptance does not turn a robustness failure into a pass, and the supplemental-v1 inconclusive outcomes remain inconclusive even though the separate extension later executed the case. For raw observations, patches, or packet bindings, use the source paths in each candidate entry.</p>
   </section>
 </body>
 </html>
@@ -323,6 +357,45 @@ def main() -> None:
             raise ValueError(f"Follow-up may overwrite primary evidence: {trial_id}")
         followups[trial_id] = result, path.relative_to(ROOT).as_posix()
 
+    extension_summary = load_json(EXTENSION_SUMMARY)
+    if (
+        extension_summary.get("status") != "complete"
+        or extension_summary.get("candidate_counts")
+        != {"pass": 0, "fail": 5, "inconclusive": 0}
+        or extension_summary.get("protected_data_unchanged") is not True
+    ):
+        raise ValueError("PATH-S06 extension summary is incomplete or unexpected.")
+    extension_results = {}
+    for binding in extension_summary["candidate_results"]:
+        result, path = checked_binding(
+            {"path": binding["result"], "sha256": binding["sha256"]}
+        )
+        trial_id = binding["target_id"]
+        if (
+            result["evaluation"]["status"] != "fail"
+            or result["evaluation"]["marker_disclosed"] is not True
+            or result["response"]["status_code"] != 200
+        ):
+            raise ValueError(f"Unexpected PATH-S06 outcome: {trial_id}")
+        extension_results[trial_id] = result, path
+
+    extension_followups = {}
+    for path in sorted(EXTENSION_FOLLOW_UP_DIR.glob("*/result.json")):
+        result = load_json(path)
+        trial_id = result["trial_id"]
+        if trial_id in extension_followups or result["status"] != "completed":
+            raise ValueError(f"Duplicate or incomplete extension review: {trial_id}")
+        checked_binding(result["approval"])
+        packet, _ = checked_binding(result["packet"])
+        checked_binding(result["extension_candidate_result"])
+        if result["extension_candidate_result"] != packet["extension_candidate_result"]:
+            raise ValueError(f"Extension review links another result: {trial_id}")
+        if result["effect_on_frozen_records"] != "none_earlier_records_are_preserved":
+            raise ValueError(f"Extension review may overwrite prior evidence: {trial_id}")
+        extension_followups[trial_id] = result, path.relative_to(ROOT).as_posix()
+    if len(extension_results) != 5 or len(extension_followups) != 5:
+        raise ValueError("Expected five PATH-S06 results and five qualifications.")
+
     rows = []
     original_count = 0
     for key in sorted(primary_by_key, key=lambda value: (CASE_ORDER[value[0]], value[1])):
@@ -343,6 +416,14 @@ def main() -> None:
         later, later_path = followups.get(primary["trial_id"], (None, ""))
         if later and later["supplemental_candidate_result"]["path"] != supplemental_path:
             raise ValueError(f"Follow-up links another candidate result: {key}")
+        extension, extension_path = extension_results.get(
+            primary["trial_id"], (None, "")
+        )
+        extension_review, extension_review_path = extension_followups.get(
+            primary["trial_id"], (None, "")
+        )
+        if (extension is None) != (extension_review is None):
+            raise ValueError(f"Incomplete extension evidence pair: {key}")
         rows.append({
             "primary": primary,
             "supplemental": supplemental,
@@ -352,6 +433,10 @@ def main() -> None:
             "original_path": review_path,
             "later": later,
             "later_path": later_path,
+            "extension": extension,
+            "extension_path": extension_path,
+            "extension_review": extension_review,
+            "extension_review_path": extension_review_path,
         })
 
     follow_up_counts = Counter(
@@ -384,15 +469,15 @@ def main() -> None:
     rationales = [
         review["rationale"]
         for row in rows
-        for review in (row["original"], row["later"])
+        for review in (row["original"], row["later"], row["extension_review"])
         if review is not None
     ]
     if (
-        len(rationales) != 24
+        len(rationales) != 29
         or any(esc(rationale) not in document for rationale in rationales)
         or document.count('<tr class="case-') != 30
         or document.count('class="candidate-detail"') != 15
-        or document.count('<div class="rationale">') != 24
+        or document.count('<div class="rationale">') != 29
     ):
         raise ValueError("Generated appendix is missing a matrix row, detail, or rationale.")
     OUTPUT_HTML.write_text(document, encoding="utf-8")
@@ -415,7 +500,8 @@ def main() -> None:
         raise ValueError("PDF generation did not produce the complete appendix.")
     print(
         f"Wrote {OUTPUT_HTML.name} and {OUTPUT_PDF.name}: "
-        f"15 candidates, 10 original rationales, 14 supplemental rationales, {page_count} PDF pages."
+        f"15 candidates, 10 original rationales, 14 supplemental rationales, "
+        f"5 PATH-S06 rationales, {page_count} PDF pages."
     )
 
 

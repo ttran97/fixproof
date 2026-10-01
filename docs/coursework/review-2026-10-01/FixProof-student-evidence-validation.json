@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "generated_on": "2026-10-01T11:55:31.796037Z",
+  "source_hashes": {
+    "data/evaluation/primary-report.json": "81de9958140d59bcd5597a9965a4d47c8bc45f6fa350f69ca7984454d3bfbf65",
+    "data/supplemental/v1/supplemental-report.json": "8f09b2a6a4b5799d08e7b93bc543b1c800c6cb1d53ed9f50be345fe258d5f5b3",
+    "tests/extensions/path_s06/v1/case.json": "4637d8d3d04b396e7d9c2b25c86abd98dc3857fe28846c52e3f4a07428ce916e",
+    "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/summary.json": "bbe3459de9144153384b7d2218e43ee3a910dd067b748112f8df1986fb72687a"
+  },
+  "counts": {
+    "candidates": 15,
+    "primary_cases": 100,
+    "primary_security": 40,
+    "primary_functional": 60,
+    "supplemental_cases": 140,
+    "supplemental_pass": 120,
+    "supplemental_fail": 15,
+    "supplemental_inconclusive": 5,
+    "path_s06_extension_cases": 5,
+    "human_decisions": 29
+  },
+  "outputs": {
+    "docs/coursework/review-2026-10-01/FixProof-15-candidate-test-evidence.xlsx": "193fcaa21d70d2736422069113fd48705716bd427c738c4b4fa7e04e22d73c6d",
+    "fixproof-public/FixProof-15-candidate-test-evidence.xlsx": "193fcaa21d70d2736422069113fd48705716bd427c738c4b4fa7e04e22d73c6d",
+    "fixproof-public/data/student-test-evidence.json": "1c5025aab8835d63f2aa5e49794d6cb692b2c3257d7b81b6d412d3203c365a10",
+    "fixproof-public/test-evidence.html": "bb0c8138c40ed522cbe2477255712c8d690aa4ad10881e9d490cf9cbb0d8dc57",
+    "fixproof-public/test-evidence.js": "4837a37bacdc556e84899708ba1c736dab01c139be91c444ab9d48f5b17cc52b",
+    "docs/coursework/review-2026-10-01/student-evidence-csv/candidate-summary.csv": "1cd06931ca173279f2aae9523f63e6e8be8c8fee57d3986f0d6a44cf0670ba84",
+    "docs/coursework/review-2026-10-01/student-evidence-csv/primary-cases.csv": "cdd58ee5a5c8c4a60af2e253ce89f7631abcf5f4cd304faca42b7cd3e160f932",
+    "docs/coursework/review-2026-10-01/student-evidence-csv/supplemental-cases.csv": "607861e2ed525bd610d289ae683bc6f26c40b2bdd453fbe99636ceb68b2f38ea",
+    "docs/coursework/review-2026-10-01/student-evidence-csv/path-s06-extension.csv": "46c3ba1662aa9c5211c98ccd5d52b6572c0ff5a54bad9f8f89be587a3cf0607a",
+    "docs/coursework/review-2026-10-01/student-evidence-csv/count-reconciliation.csv": "2db9a023fa9219a32c05fded6abc7667ee610589620174047292ebc2bcf64f55",
+    "docs/coursework/review-2026-10-01/student-evidence-csv/human-decisions.csv": "2b9399c094928d11d87b2e394822e0cc1c9f6bdab3b3fc3c9eb5313ced7efd3c"
+  },
+  "checks": [
+    "15 candidate summary rows",
+    "100 primary case rows: 40 security and 60 functional",
+    "140 supplemental-v1 rows: 120 pass, 15 fail, 5 inconclusive",
+    "5 separate PATH-S06 extension rows: all fail",
+    "29 human-decision rows: 10 original, 14 supplemental-v1, 5 extension",
+    "public JSON excludes local-user paths, response IDs, and API-key names",
+    "XLSX ZIP members passed integrity validation",
+    "public HTML and JavaScript hashes recorded; browser validation is separate"
+  ]
+}

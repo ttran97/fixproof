@@ -6,6 +6,7 @@ reports, model response identifiers, local paths, hashes, or review packets.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,6 +15,17 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[3]
 OUTPUT = ROOT / "fixproof-public" / "data" / "public-evidence.json"
+EXTENSION_RUN_ID = "20260930T180925912688Z-path-s06-v1"
+EXTENSION_SUMMARY = (
+    ROOT
+    / "data"
+    / "extensions"
+    / "path-s06-v1"
+    / "runs"
+    / EXTENSION_RUN_ID
+    / "summary.json"
+)
+EXTENSION_REVIEWS = ROOT / "data" / "extensions" / "path-s06-v1" / "human-reviews"
 
 CASE_ORDER = {"xss": 0, "sqli": 1, "path-traversal": 2}
 CASE_LABELS = {
@@ -35,6 +47,16 @@ CATEGORY_LABELS = {
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def checked_binding(binding: dict[str, Any]) -> dict[str, Any]:
+    path = (ROOT / str(binding["path"])).resolve()
+    if not path.is_relative_to(ROOT.resolve()) or not path.is_file():
+        raise ValueError(f"Bound public evidence is missing: {binding['path']}")
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    if actual != binding.get("sha256"):
+        raise ValueError(f"Bound public evidence changed: {binding['path']}")
+    return load_json(path)
 
 
 def public_review(record: dict[str, Any] | None) -> dict[str, str] | None:
@@ -93,6 +115,43 @@ def main() -> None:
     supplemental = load_json(
         ROOT / "data" / "supplemental" / "v1" / "supplemental-report.json"
     )
+    extension_summary = load_json(EXTENSION_SUMMARY)
+    if (
+        extension_summary.get("status") != "complete"
+        or extension_summary.get("candidate_counts")
+        != {"pass": 0, "fail": 5, "inconclusive": 0}
+        or extension_summary.get("protected_data_unchanged") is not True
+    ):
+        raise ValueError("PATH-S06 extension summary is incomplete or unexpected.")
+
+    extension_candidates: dict[str, dict[str, Any]] = {}
+    for row in extension_summary["candidate_results"]:
+        result = checked_binding(
+            {"path": row["result"], "sha256": row["sha256"]}
+        )
+        evaluation = result["evaluation"]
+        response = result["response"]
+        if (
+            evaluation.get("status") != "fail"
+            or evaluation.get("marker_disclosed") is not True
+            or response.get("status_code") != 200
+        ):
+            raise ValueError(f"Unexpected PATH-S06 result: {row['target_id']}")
+        extension_candidates[str(row["target_id"])] = result
+
+    extension_reviews: dict[str, dict[str, Any]] = {}
+    for result_path in sorted(EXTENSION_REVIEWS.glob("*/result.json")):
+        result = load_json(result_path)
+        if result.get("status") != "completed":
+            raise ValueError(f"Incomplete PATH-S06 human record: {result_path}")
+        checked_binding(result["approval"])
+        packet = checked_binding(result["packet"])
+        checked_binding(result["extension_candidate_result"])
+        if result["extension_candidate_result"] != packet["extension_candidate_result"]:
+            raise ValueError(f"PATH-S06 review binds another result: {result_path}")
+        extension_reviews[str(result["trial_id"])] = result
+    if len(extension_candidates) != 5 or len(extension_reviews) != 5:
+        raise ValueError("Expected five PATH-S06 results and five human records.")
 
     followups: dict[str, dict[str, Any]] = {}
     followup_root = ROOT / "data" / "supplemental" / "v1" / "follow-up-reviews"
@@ -149,6 +208,32 @@ def main() -> None:
                     "nonpassing": public_nonpassing(supplemental_result),
                     "later_human": public_review(followups.get(trial_id)),
                 },
+                "path_s06_extension": (
+                    {
+                        "status": str(
+                            extension_candidates[trial_id]["evaluation"]["status"]
+                        ),
+                        "status_code": int(
+                            extension_candidates[trial_id]["response"]["status_code"]
+                        ),
+                        "marker_disclosed": bool(
+                            extension_candidates[trial_id]["evaluation"][
+                                "marker_disclosed"
+                            ]
+                        ),
+                        "human": public_review(extension_reviews[trial_id]),
+                        "relationship_to_prior_follow_up": str(
+                            extension_reviews[trial_id][
+                                "relationship_to_prior_follow_up"
+                            ]
+                        ),
+                        "manual_reproduction": bool(
+                            extension_reviews[trial_id]["manual_reproduction"]
+                        ),
+                    }
+                    if trial_id in extension_candidates
+                    else None
+                ),
                 "patch_excerpt": patch_excerpt(row["review_material"]["patch"]),
             }
         )
@@ -157,7 +242,7 @@ def main() -> None:
 
     primary_metrics = primary["metrics"]
     public = {
-        "schema_version": "1.0-public",
+        "schema_version": "1.1-public",
         "project": "FixProof",
         "generated_on": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "evidence_cutoff": supplemental["evidence_cutoff"],
@@ -195,9 +280,23 @@ def main() -> None:
             "by_category": supplemental["candidate_observations_by_category"],
             "later_human_records": len(followups),
         },
+        "path_s06_extension_summary": {
+            "protocol_id": "path-s06-extension-v1",
+            "run_id": EXTENSION_RUN_ID,
+            "candidate_observations": extension_summary["candidate_counts"],
+            "human_qualifications": len(extension_reviews),
+            "manual_reproductions": sum(
+                bool(record["manual_reproduction"])
+                for record in extension_reviews.values()
+            ),
+            "recording_note": (
+                "This separately versioned extension does not change the five "
+                "inconclusive PATH-S06 observations in supplemental-v1."
+            ),
+        },
         "limitations": [
             *primary["limitations"],
-            "The five PATH-S06 observations are inconclusive because the Windows environment could not create the symlink fixture.",
+            "The five PATH-S06 observations remain inconclusive in supplemental-v1; a separate WSL2 extension later recorded five security failures.",
             "The SQL injection target comparison uses a separately labeled controlled Semgrep rule.",
             "Supplemental security, behavioral-parity, and robustness counts answer different questions and should not be pooled into one security rate.",
         ],
@@ -208,6 +307,13 @@ def main() -> None:
     assert len(followups) == 14
     assert sum(1 for item in candidates if item["primary"]["original_human"]) == 10
     assert sum(1 for item in candidates if item["supplemental"]["later_human"]) == 14
+    assert sum(1 for item in candidates if item["path_s06_extension"]) == 5
+    assert sum(
+        1
+        for item in candidates
+        if item["path_s06_extension"]
+        and item["path_s06_extension"]["human"]
+    ) == 5
     assert public["supplemental_summary"]["candidate_case_observations"] == {
         "total": 140,
         "pass": 120,
@@ -229,7 +335,10 @@ def main() -> None:
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(serialized, encoding="utf-8")
     print(f"Created {OUTPUT}")
-    print(f"Candidates: {len(candidates)}; later human records: {len(followups)}")
+    print(
+        f"Candidates: {len(candidates)}; supplemental human records: "
+        f"{len(followups)}; PATH-S06 qualifications: {len(extension_reviews)}"
+    )
 
 
 if __name__ == "__main__":

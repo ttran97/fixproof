@@ -1,0 +1,44 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "protocol_id": "path-s06-extension-v1",
+  "case_id": "PATH-S06",
+  "recorded_at": "2026-09-30T18:09:36.317407Z",
+  "target": {
+    "id": "baseline-path-traversal",
+    "type": "baseline",
+    "source": "benchmarks/primary/v1/path-traversal/app.js",
+    "sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc"
+  },
+  "fixture": {
+    "link": "public-files/link",
+    "target": "../outside-zone",
+    "symlink_created": true,
+    "resolved_outside_allowed_root": true,
+    "error": null
+  },
+  "request": {
+    "method": "GET",
+    "path": "/file",
+    "parameter": "name",
+    "value": "link/outside-secret.txt"
+  },
+  "response": {
+    "status_code": 200,
+    "body": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET\n",
+    "content_type": "text/plain; charset=utf-8",
+    "error": null
+  },
+  "evaluation": {
+    "status": "pass",
+    "reason": "Baseline disclosed the controlled outside marker through the link.",
+    "marker_disclosed": true,
+    "status_allowed": true
+  },
+  "process": {
+    "return_code": -15,
+    "stdout": "FixProof primary path-traversal benchmark running on port 49959\n",
+    "stderr": "",
+    "error": null
+  }
+}

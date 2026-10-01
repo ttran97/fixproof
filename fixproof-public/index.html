@@ -20,6 +20,7 @@
         <a href="#workflow">Workflow</a>
         <a href="#primary">Primary</a>
         <a href="#supplemental">Supplemental</a>
+        <a href="test-evidence.html">Test cases</a>
         <a href="#limits">Limits</a>
       </nav>
     </header>
@@ -31,11 +32,12 @@
           <h1>What did each candidate fix, preserve, or leave uncertain?</h1>
           <p class="hero-copy">
             This read-only reference presents the frozen primary study, later
-            supplemental tests, and separate human rationales for 15 saved repair
-            candidates.
+            supplemental tests, a separately versioned PATH-S06 extension, and
+            separate human rationales for 15 saved repair candidates.
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#primary">Explore the evidence</a>
+            <a class="button secondary" href="test-evidence.html">View request/response tables</a>
             <a class="button secondary" href="Video-III-15-candidate-evidence-appendix.pdf">Download the full appendix</a>
           </div>
         </div>
@@ -169,14 +171,15 @@
                 <th>Parity P/F/I</th>
                 <th>Robustness P/F/I</th>
                 <th>Nonpassing cases</th>
-                <th>Later human</th>
+                <th>Supplemental-v1 human</th>
+                <th>PATH-S06 extension</th>
                 <th><span class="visually-hidden">Evidence</span></th>
               </tr>
             </thead>
             <tbody id="supplemental-body"></tbody>
           </table>
         </div>
-        <p class="table-note">P/F/I means pass, fail, and inconclusive. A failed robustness contract is not automatically a security exploit, and an inconclusive case is never counted as a pass.</p>
+        <p class="table-note">P/F/I means pass, fail, and inconclusive. The supplemental-v1 columns remain frozen. The PATH-S06 extension is a separate later layer and does not replace the five original inconclusive observations.</p>
       </section>
 
       <section class="section" id="limits">
@@ -194,9 +197,12 @@
         <div>
           <p class="eyebrow">Backup reference</p>
           <h2 id="appendix-title">Need the complete matrices and rationales?</h2>
-          <p>The PDF appendix preserves a printable view of the 15 candidates and the recorded human decisions.</p>
+          <p>The PDF preserves the matrices and rationales. The Excel workbook traces the counts to the recorded payloads, requests, responses, and outcomes.</p>
         </div>
-        <a class="button primary" href="Video-III-15-candidate-evidence-appendix.pdf">Open evidence appendix</a>
+        <div class="download-actions">
+          <a class="button primary" href="Video-III-15-candidate-evidence-appendix.pdf">Open evidence appendix</a>
+          <a class="button primary" href="FixProof-15-candidate-test-evidence.xlsx">Download test workbook</a>
+        </div>
       </section>
 
       <p class="load-error" id="load-error" role="alert" hidden></p>

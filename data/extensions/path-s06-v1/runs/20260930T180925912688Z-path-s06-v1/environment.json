@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-09-30T18:09:34.020121Z",
+  "platform": {
+    "system": "Linux",
+    "release": "6.6.87.2-microsoft-standard-WSL2",
+    "machine": "x86_64",
+    "python": "3.12.3"
+  },
+  "tools": {
+    "node": "v24.19.0",
+    "npm": "11.17.0"
+  },
+  "network": "loopback application requests; npm registry used only for npm ci",
+  "model_calls": 0,
+  "sast_runs": 0
+}

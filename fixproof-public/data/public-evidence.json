@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0-public",
+  "schema_version": "1.1-public",
   "project": "FixProof",
-  "generated_on": "2026-09-24T15:13:45.720231Z",
+  "generated_on": "2026-09-30T22:19:49.107566Z",
   "evidence_cutoff": "2026-09-14T19:29:04.532091Z",
   "scope": {
     "description": "Three controlled Express fixtures and five initial repair attempts per fixture. Results are descriptive and do not estimate production repair reliability.",
@@ -53,13 +53,25 @@
     },
     "later_human_records": 14
   },
+  "path_s06_extension_summary": {
+    "protocol_id": "path-s06-extension-v1",
+    "run_id": "20260930T180925912688Z-path-s06-v1",
+    "candidate_observations": {
+      "pass": 0,
+      "fail": 5,
+      "inconclusive": 0
+    },
+    "human_qualifications": 5,
+    "manual_reproductions": 1,
+    "recording_note": "This separately versioned extension does not change the five inconclusive PATH-S06 observations in supplemental-v1."
+  },
   "limitations": [
     "One application per CWE; repeated prompts are not independent applications.",
     "Passing targeted tests is not proof of application-wide security.",
     "Default Semgrep auto rule definitions were not fully archived.",
     "Pilot attempts, retry, and non-AI control are excluded from primary rates.",
     "Evidence verification does not perform or attest human review.",
-    "The five PATH-S06 observations are inconclusive because the Windows environment could not create the symlink fixture.",
+    "The five PATH-S06 observations remain inconclusive in supplemental-v1; a separate WSL2 extension later recorded five security failures.",
     "The SQL injection target comparison uses a separately labeled controlled Semgrep rule.",
     "Supplemental security, behavioral-parity, and robustness counts answer different questions and should not be pooled into one security rate."
   ],
@@ -125,6 +137,7 @@
           "rationale": "I reviewed the candidate patch, original decision, and all nine supplemental outcomes. The candidate passed all three registered supplemental security cases and the robustness case. However, XSS-P01 omitted the name parameter and observed \"<h1>Hello </h1>\" instead of the frozen baseline \"<h1>Hello undefined</h1>\". The expression String(value ?? \"\") converts the missing value to an empty string. Because the frozen protocol requires exact behavioral parity for this case, I reject the candidate for the bounded benchmark. This is a behavioral-parity decision and does not mean that the registered XSS attacks remained exploitable."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    res.send(\"<h1>Hello \" + name + \"</h1>\");\n+    const escapeHtml = (value) => String(value ?? \"\")\n+        .replace(/&/g, \"&amp;\")\n+        .replace(/</g, \"&lt;\")\n+        .replace(/>/g, \"&gt;\")\n+        .replace(/\\\"/g, \"&quot;\")\n+        .replace(/'/g, \"&#39;\")\n+        .replace(/\\//g, \"&#x2F;\");\n+\n+    res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");"
     },
     {
@@ -188,6 +201,7 @@
           "rationale": "I reviewed the candidate patch, original decision, and all nine supplemental outcomes. The candidate passed all three registered supplemental security cases and the robustness case. However, XSS-P01 omitted the name parameter and observed \"<h1>Hello </h1>\" instead of the frozen baseline \"<h1>Hello undefined</h1>\". The expression String(name ?? \"\") converts the missing value to an empty string. Because the frozen protocol requires exact behavioral parity for this case, I reject the candidate for the bounded benchmark. This is a behavioral-parity decision and does not mean that the registered XSS attacks remained exploitable."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    res.send(\"<h1>Hello \" + name + \"</h1>\");\n+    const safeName = String(name ?? \"\").replace(/[&<>\"']/g, (c) => ({\n+        \"&\": \"&amp;\",\n+        \"<\": \"&lt;\",\n+        \">\": \"&gt;\",\n+        '\"': \"&quot;\",\n+        \"'\": \"&#39;\",\n+    })[c]);\n+    res.send(\"<h1>Hello \" + safeName + \"</h1>\");"
     },
     {
@@ -240,6 +254,7 @@
         "nonpassing": [],
         "later_human": null
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    res.send(\"<h1>Hello \" + name + \"</h1>\");\n+    const escapeHtml = (value) =>\n+        String(value)\n+            .replace(/&/g, \"&amp;\")\n+            .replace(/</g, \"&lt;\")\n+            .replace(/>/g, \"&gt;\")\n+            .replace(/\\\"/g, \"&quot;\")\n+            .replace(/'/g, \"&#39;\")\n+            .replace(/`/g, \"&#96;\");\n+\n+    res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");"
     },
     {
@@ -303,6 +318,7 @@
           "rationale": "I reviewed the candidate patch, original review, and all nine supplemental XSS results. I also confirmed that the September 15 rerun produced the same outcome. Attempt 04 passed all three supplemental security tests and the robustness test. However, XSS-P01 demonstrated that an omitted name changed from the baseline text \"Hello undefined\" to \"Hello \". Because the frozen protocol requires exact observable behavior for this case, I reject the candidate for the bounded benchmark. This is a functional-parity decision and does not mean the registered XSS attacks remained exploitable. Reference: \"XSS-P01\""
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    res.send(\"<h1>Hello \" + name + \"</h1>\");\n+    const escapeHtml = (value) =>\n+        String(value ?? \"\")\n+            .replace(/&/g, \"&amp;\")\n+            .replace(/</g, \"&lt;\")\n+            .replace(/>/g, \"&gt;\")\n+            .replace(/\\\"/g, \"&quot;\")\n+            .replace(/'/g, \"&#39;\");\n+\n+    res.send(\"<h1>Hello \" + escapeHtml(name) + \"</h1>\");"
     },
     {
@@ -366,6 +382,7 @@
           "rationale": "I reviewed the candidate patch, the original review, and all nine supplemental XSS results. I also reproduced the supplemental evaluation on September 15 with the same outcome. Attempt 05 passed all three security tests and the robustness test, but XSS-P01 confirmed that an omitted name changed from the baseline “Hello undefined” to “Hello ”. Because the frozen protocol requires exact observable behavior for this case, I reject the candidate for the bounded benchmark. This is a functional-parity decision and does not mean the registered XSS attacks remained exploitable."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    res.send(\"<h1>Hello \" + name + \"</h1>\");\n+    const safeName = String(name ?? \"\")\n+        .replace(/&/g, \"&amp;\")\n+        .replace(/</g, \"&lt;\")\n+        .replace(/>/g, \"&gt;\")\n+        .replace(/\\\"/g, \"&quot;\")\n+        .replace(/'/g, \"&#39;\");\n+    res.send(\"<h1>Hello \" + safeName + \"</h1>\");"
     },
     {
@@ -425,6 +442,7 @@
           "rationale": "I reviewed the candidate patch, automated primary decision, and all eight supplemental outcomes for this candidate. The patch replaces SQL string concatenation with a parameterized query. The primary target SAST finding resolved, and the candidate passed the original security and functional checks. In the supplement, it passed all three registered SQL-injection security cases, both behavioral-parity cases, and two of three robustness cases. SQL-R01 supplied repeated username parameters and returned HTTP 200 with an empty array instead of the registered HTTP 400 JSON error, so that robustness result remains failed. The response returned no user row and did not broaden the query result. Under my bounded criterion, this client-visible status-code difference is not severe enough to reject the tested SQL-injection repair. I accept the candidate for the bounded benchmark while explicitly retaining the SQL-R01 limitation. This is not full supplemental conformance or production approval, and it does not alter the primary record or metrics."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    const query =\n-        \"SELECT id, username, role FROM users \" +\n-        \"WHERE username = '\" +\n-        username +\n-        \"'\";\n+    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n-    db.all(query, (err, rows) => {\n+    db.all(query, [username], (err, rows) => {"
     },
     {
@@ -484,6 +502,7 @@
           "rationale": "I reviewed the candidate patch, automated primary decision, and all eight supplemental outcomes for this candidate. The patch replaces SQL string concatenation with a parameterized query. The primary target SAST finding resolved, and the candidate passed the original security and functional checks. In the supplement, it passed all three registered SQL-injection security cases, both behavioral-parity cases, and two of three robustness cases. SQL-R01 supplied repeated username parameters and returned HTTP 200 with an empty array instead of the registered HTTP 400 JSON error, so that robustness result remains failed. The response returned no user row and did not broaden the query result. Under my bounded criterion, this client-visible status-code difference is not severe enough to reject the tested SQL-injection repair. I accept the candidate for the bounded benchmark while explicitly retaining the SQL-R01 limitation. This is not full supplemental conformance or production approval, and it does not alter the primary record or metrics."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    const query =\n-        \"SELECT id, username, role FROM users \" +\n-        \"WHERE username = '\" +\n-        username +\n-        \"'\";\n+    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n-    db.all(query, (err, rows) => {\n+    db.all(query, [username], (err, rows) => {"
     },
     {
@@ -543,6 +562,7 @@
           "rationale": "I reviewed the candidate patch, automated primary decision, and all eight supplemental outcomes for this candidate. The patch replaces SQL string concatenation with a parameterized query. The primary target SAST finding resolved, and the candidate passed the original security and functional checks. In the supplement, it passed all three registered SQL-injection security cases, both behavioral-parity cases, and two of three robustness cases. SQL-R01 supplied repeated username parameters and returned HTTP 200 with an empty array instead of the registered HTTP 400 JSON error, so that robustness result remains failed. The response returned no user row and did not broaden the query result. Under my bounded criterion, this client-visible status-code difference is not severe enough to reject the tested SQL-injection repair. I accept the candidate for the bounded benchmark while explicitly retaining the SQL-R01 limitation. This is not full supplemental conformance or production approval, and it does not alter the primary record or metrics."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    const query =\n-        \"SELECT id, username, role FROM users \" +\n-        \"WHERE username = '\" +\n-        username +\n-        \"'\";\n+    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n-    db.all(query, (err, rows) => {\n+    db.all(query, [username], (err, rows) => {"
     },
     {
@@ -602,6 +622,7 @@
           "rationale": "I reviewed the candidate patch, automated primary decision, and all eight supplemental outcomes for this candidate. The patch replaces SQL string concatenation with a parameterized query. The primary target SAST finding resolved, and the candidate passed the original security and functional checks. In the supplement, it passed all three registered SQL-injection security cases, both behavioral-parity cases, and two of three robustness cases. SQL-R01 supplied repeated username parameters and returned HTTP 200 with an empty array instead of the registered HTTP 400 JSON error, so that robustness result remains failed. The response returned no user row and did not broaden the query result. Under my bounded criterion, this client-visible status-code difference is not severe enough to reject the tested SQL-injection repair. I accept the candidate for the bounded benchmark while explicitly retaining the SQL-R01 limitation. This is not full supplemental conformance or production approval, and it does not alter the primary record or metrics."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    const query =\n-        \"SELECT id, username, role FROM users \" +\n-        \"WHERE username = '\" +\n-        username +\n-        \"'\";\n+    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n-    db.all(query, (err, rows) => {\n+    db.all(query, [username], (err, rows) => {"
     },
     {
@@ -661,6 +682,7 @@
           "rationale": "I reviewed the candidate patch, automated primary decision, and all eight supplemental outcomes for this candidate. The patch replaces SQL string concatenation with a parameterized query. The primary target SAST finding resolved, and the candidate passed the original security and functional checks. In the supplement, it passed all three registered SQL-injection security cases, both behavioral-parity cases, and two of three robustness cases. SQL-R01 supplied repeated username parameters and returned HTTP 200 with an empty array instead of the registered HTTP 400 JSON error, so that robustness result remains failed. The response returned no user row and did not broaden the query result. Under my bounded criterion, this client-visible status-code difference is not severe enough to reject the tested SQL-injection repair. I accept the candidate for the bounded benchmark while explicitly retaining the SQL-R01 limitation. This is not full supplemental conformance or production approval, and it does not alter the primary record or metrics."
         }
       },
+      "path_s06_extension": null,
       "patch_excerpt": "-    const query =\n-        \"SELECT id, username, role FROM users \" +\n-        \"WHERE username = '\" +\n-        username +\n-        \"'\";\n+    const query = \"SELECT id, username, role FROM users WHERE username = ?\";\n-    db.all(query, (err, rows) => {\n+    db.all(query, [username], (err, rows) => {"
     },
     {
@@ -736,6 +758,18 @@
           "rationale": "I reviewed the candidate patch, original review, and all eleven supplemental traversal results. The candidate passed all five executable security cases, while PATH-S06 remained inconclusive because Windows could not create the required symlink fixture. PATH-P01 confirmed that the candidate rejects the valid in-root filename \"..notes.txt\", and PATH-R03 returned HTTP 404 rather than the predefined HTTP 400 response for repeated filenames. These results demonstrate a behavioral-parity failure and a robustness-contract failure. I reject the candidate for the bounded benchmark while preserving the symlink result as inconclusive."
         }
       },
+      "path_s06_extension": {
+        "status": "fail",
+        "status_code": 200,
+        "marker_disclosed": true,
+        "human": {
+          "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+          "reviewed_on": "2026-09-30",
+          "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 01 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I reaffirm FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier rejection and its separate parity and robustness findings remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+        },
+        "relationship_to_prior_follow_up": "reaffirms_prior_rejection",
+        "manual_reproduction": false
+      },
       "patch_excerpt": "-    const filePath = path.join(fileRoot, name);\n+\n+    const rootPath = path.resolve(fileRoot);\n+    const resolvedPath = path.resolve(rootPath, String(name || \"\"));\n+    const rel = path.relative(rootPath, resolvedPath);\n+\n+    if (!name || rel.startsWith(\"..\") || path.isAbsolute(rel)) {\n+        return res.status(400).json({ error: \"Invalid file path\" });\n+    }\n+\n+    const filePath = resolvedPath;"
     },
     {
@@ -798,6 +832,18 @@
           "reviewed_on": "2026-09-22",
           "rationale": "I reviewed the candidate patch, original acceptance, and all eleven supplemental traversal outcomes. The candidate passed both behavioral-parity cases, all three robustness cases, and all five executable security cases. PATH-S06 remains inconclusive because the Windows environment could not create the required symlink or junction fixture. The patch enforces a lexical resolved-root boundary, but the saved evidence does not establish containment of a filesystem target reached through an in-root link. I therefore request more testing in a symlink-capable environment rather than claiming complete traversal protection. This later conclusion preserves the original bounded acceptance, the inconclusive result, and all primary metrics."
         }
+      },
+      "path_s06_extension": {
+        "status": "fail",
+        "status_code": 200,
+        "marker_disclosed": true,
+        "human": {
+          "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+          "reviewed_on": "2026-09-30",
+          "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result, and I manually reproduced Traversal 02 in WSL2. The candidate preserved normal access to welcome.txt and returned HTTP 400 for a direct ../../ traversal request. However, an in-root symbolic link pointing outside the allowed directory bypassed the lexical path.resolve check. The candidate returned HTTP 200 and disclosed the controlled outside-file marker. I therefore record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered PATH-S06 symbolic-link traversal remains exploitable. The earlier request-more-testing record remains preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+        },
+        "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+        "manual_reproduction": true
       },
       "patch_excerpt": "-    const filePath = path.join(fileRoot, name);\n+    if (typeof name !== \"string\" || name.length === 0) {\n+        return res.status(400).json({ error: \"Invalid file name\" });\n+    }\n+\n+    const resolvedRoot = path.resolve(fileRoot);\n+    const filePath = path.resolve(resolvedRoot, name);\n+\n+    if (filePath !== resolvedRoot && !filePath.startsWith(resolvedRoot + path.sep)) {\n+        return res.status(400).json({ error: \"Invalid file path\" });\n+    }"
     },
@@ -880,6 +926,18 @@
           "rationale": "I reviewed the candidate patch, original acceptance, and all eleven supplemental traversal outcomes. The candidate passed both behavioral-parity cases and all five executable security cases. PATH-R01, PATH-R02, and PATH-R03 failed because missing, empty, and repeated filename inputs returned HTTP 404 instead of the registered HTTP 400 response; these are robustness-contract failures, not observed traversal attacks. PATH-S06 remains inconclusive because the Windows environment could not create the required symlink or junction fixture. Because three malformed-input contracts failed and symlink-escape protection remains unverified, I request more testing rather than reaffirming acceptance or claiming complete traversal protection. This later conclusion does not overwrite the original acceptance or primary metrics."
         }
       },
+      "path_s06_extension": {
+        "status": "fail",
+        "status_code": 200,
+        "marker_disclosed": true,
+        "human": {
+          "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+          "reviewed_on": "2026-09-30",
+          "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 03 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record and three supplemental robustness failures remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+        },
+        "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+        "manual_reproduction": false
+      },
       "patch_excerpt": "-    const filePath = path.join(fileRoot, name);\n+\n+    const rootPath = path.resolve(fileRoot);\n+    const filePath = path.resolve(rootPath, String(name || \"\"));\n+\n+    if (filePath !== rootPath && !filePath.startsWith(rootPath + path.sep)) {\n+        return res.status(400).json({ error: \"Invalid file path\" });\n+    }"
     },
     {
@@ -942,6 +1000,18 @@
           "reviewed_on": "2026-09-22",
           "rationale": "I reviewed the candidate patch, original acceptance, and all eleven supplemental traversal outcomes. The candidate passed both behavioral-parity cases, all three robustness cases, and all five executable security cases. PATH-S06 remains inconclusive because the Windows environment could not create the required symlink or junction fixture. The patch enforces a lexical resolved-root boundary, but the saved evidence does not establish containment of a filesystem target reached through an in-root link. I therefore request more testing in a symlink-capable environment rather than claiming complete traversal protection. This later conclusion preserves the original bounded acceptance, the inconclusive result, and all primary metrics."
         }
+      },
+      "path_s06_extension": {
+        "status": "fail",
+        "status_code": 200,
+        "marker_disclosed": true,
+        "human": {
+          "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+          "reviewed_on": "2026-09-30",
+          "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 04 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record remains preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+        },
+        "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+        "manual_reproduction": false
       },
       "patch_excerpt": "-    const filePath = path.join(fileRoot, name);\n+    if (typeof name !== \"string\" || name.length === 0) {\n+        return res.status(400).json({\n+            error: \"Invalid file name\"\n+        });\n+    }\n+\n+    const rootPath = path.resolve(fileRoot);\n+    const filePath = path.resolve(rootPath, name);\n+\n+    // Ensure the resolved path stays within the intended root directory\n+    if (filePath !== rootPath && !filePath.startsWith(rootPath + path.sep)) {\n+        return res.status(400).json({\n+            error: \"Invalid file name\"\n+        });\n+    }"
     },
@@ -1011,6 +1081,18 @@
           "reviewed_on": "2026-09-22",
           "rationale": "I reviewed the candidate patch, original acceptance, and all eleven supplemental traversal outcomes. The candidate passed both behavioral-parity cases, two of three robustness cases, and all five executable security cases. PATH-R03 supplied repeated filenames and returned HTTP 404 with a stable file-not-found response instead of the registered HTTP 400 response. The request exposed no outside content, so I treat this as a robustness-contract limitation rather than an observed traversal attack, and the failed result remains unchanged. PATH-S06 is also inconclusive because the Windows environment could not create the required symlink or junction fixture. I request more testing rather than claiming complete traversal protection. This later conclusion preserves the original acceptance and all primary metrics."
         }
+      },
+      "path_s06_extension": {
+        "status": "fail",
+        "status_code": 200,
+        "marker_disclosed": true,
+        "human": {
+          "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+          "reviewed_on": "2026-09-30",
+          "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 05 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record and supplemental repeated-parameter robustness failure remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1."
+        },
+        "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+        "manual_reproduction": false
       },
       "patch_excerpt": "-    const filePath = path.join(fileRoot, name);\n+\n+    const rootPath = path.resolve(fileRoot) + path.sep;\n+    const filePath = path.resolve(fileRoot, String(name || \"\"));\n+\n+    if (!filePath.startsWith(rootPath)) {\n+        return res.status(400).json({\n+            error: \"Invalid file path\"\n+        });\n+    }"
     }

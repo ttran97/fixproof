@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "path_s06_extension_follow_up_review_result",
+  "protocol_id": "path-s06-extension-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-path-traversal-initial-05",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-30T22:12:54.928885Z",
+  "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+  "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result. The vulnerable baseline established the control by disclosing the outside-file marker through an in-root symbolic link. Traversal 05 then returned HTTP 200 and disclosed the same marker because its lexical path containment check did not verify the filesystem target followed by fs.readFile. I record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered symbolic-link traversal remains exploitable. The earlier request-more-testing record and supplemental repeated-parameter robustness failure remain preserved; this later qualification does not overwrite primary-v1 or supplemental-v1.",
+  "manual_reproduction": false,
+  "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+  "confirmed_required_checks": true,
+  "approval": {
+    "path": "data/extensions/path-s06-v1/human-review-approval.json",
+    "sha256": "9d9c396bc925042eaacbe1b7672b8f03ec140c54bad539e201ec57ef64d49fee"
+  },
+  "packet": {
+    "path": "data/extensions/path-s06-v1/human-reviews/primary-v1-path-traversal-initial-05/packet.json",
+    "sha256": "85b85e63c924e267786a1ed9a0b5d3b00e3a4c806ccec781ff2e9e66cacc8f35"
+  },
+  "extension_candidate_result": {
+    "path": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-05/result.json",
+    "sha256": "30da97d0f7a3352743ec9fef28cdce9f061a7a3fc081f0a4fd9009ee8e08a15a",
+    "status": "fail",
+    "status_code": 200,
+    "marker_disclosed": true
+  },
+  "prior_supplemental_follow_up": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-05/result.json",
+    "sha256": "69e5732a5fe6c9029cc1ede5d775e2a7c3e34aa7e7217a21fb7e8e5eb07b1248",
+    "verdict": "FOLLOW_UP_REQUEST_MORE_TESTING",
+    "reviewed_at": "2026-09-22T20:29:44.300579Z"
+  },
+  "effect_on_frozen_records": "none_earlier_records_are_preserved"
+}

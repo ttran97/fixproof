@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "path_s06_extension_follow_up_review_result",
+  "protocol_id": "path-s06-extension-v1",
+  "status": "completed",
+  "trial_id": "primary-v1-path-traversal-initial-02",
+  "reviewer": "Tony Tran",
+  "reviewed_at": "2026-09-30T22:12:54.928885Z",
+  "verdict": "FOLLOW_UP_REJECT_CANDIDATE",
+  "rationale": "I reviewed the frozen PATH-S06 protocol, baseline gate, saved candidate, prior decisions, and registered extension result, and I manually reproduced Traversal 02 in WSL2. The candidate preserved normal access to welcome.txt and returned HTTP 400 for a direct ../../ traversal request. However, an in-root symbolic link pointing outside the allowed directory bypassed the lexical path.resolve check. The candidate returned HTTP 200 and disclosed the controlled outside-file marker. I therefore record FOLLOW_UP_REJECT_CANDIDATE for the bounded benchmark because the registered PATH-S06 symbolic-link traversal remains exploitable. The earlier request-more-testing record remains preserved; this later qualification does not overwrite primary-v1 or supplemental-v1.",
+  "manual_reproduction": true,
+  "relationship_to_prior_follow_up": "changes_current_conclusion_prior_request_preserved",
+  "confirmed_required_checks": true,
+  "approval": {
+    "path": "data/extensions/path-s06-v1/human-review-approval.json",
+    "sha256": "9d9c396bc925042eaacbe1b7672b8f03ec140c54bad539e201ec57ef64d49fee"
+  },
+  "packet": {
+    "path": "data/extensions/path-s06-v1/human-reviews/primary-v1-path-traversal-initial-02/packet.json",
+    "sha256": "859891af9f55bacbb551ca2a65ff8874592188a8561f2d259e75e28f0b428338"
+  },
+  "extension_candidate_result": {
+    "path": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-02/result.json",
+    "sha256": "abeda5a4e0ea3abbe5fb3ef282a4d0edb64d0f2b7325c35c2bca71f73b9c9698",
+    "status": "fail",
+    "status_code": 200,
+    "marker_disclosed": true
+  },
+  "prior_supplemental_follow_up": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-02/result.json",
+    "sha256": "70ded9cd753a5f3d8f90e8ca018cd90743b92a392ad26b046c063211f5a04970",
+    "verdict": "FOLLOW_UP_REQUEST_MORE_TESTING",
+    "reviewed_at": "2026-09-22T20:29:44.248756Z"
+  },
+  "effect_on_frozen_records": "none_earlier_records_are_preserved"
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "artifact_type": "path_s06_extension_follow_up_review_packet",
+  "protocol_id": "path-s06-extension-v1",
+  "status": "evidence_ready_for_confirmed_review",
+  "trial_id": "primary-v1-path-traversal-initial-04",
+  "case_id": "PATH-S06",
+  "purpose": "Bind the frozen PATH-S06 extension result to the candidate's prior follow-up without modifying either earlier record.",
+  "protocol_lock": {
+    "path": "data/extensions/path-s06-v1/protocol-lock.json",
+    "sha256": "7ce716eadfa2060c14b776347047c526083e4f0e760d71da98e229fb776a72da"
+  },
+  "extension_run_summary": {
+    "path": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/summary.json",
+    "sha256": "bbe3459de9144153384b7d2218e43ee3a910dd067b748112f8df1986fb72687a"
+  },
+  "extension_candidate_result": {
+    "path": "data/extensions/path-s06-v1/runs/20260930T180925912688Z-path-s06-v1/candidates/primary-v1-path-traversal-initial-04/result.json",
+    "sha256": "2ee6f980913f2827c5a4b0416eab6c6e296ee82de4002f6d36ee88f7bdb829ed",
+    "status": "fail",
+    "status_code": 200,
+    "marker_disclosed": true
+  },
+  "prior_supplemental_follow_up": {
+    "path": "data/supplemental/v1/follow-up-reviews/primary-v1-path-traversal-initial-04/result.json",
+    "sha256": "404b0556eac653b7be435153c3c1a511a35b07d4d01cbe757019423679150551",
+    "verdict": "FOLLOW_UP_REQUEST_MORE_TESTING",
+    "reviewed_at": "2026-09-22T20:29:44.283383Z"
+  },
+  "candidate_patch": {
+    "path": "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/candidate.patch",
+    "sha256": "76f3e6549a54c25599ef0468678128fa667a42c4401eb33b46d60c0a75e8cc14"
+  },
+  "review_worksheet": {
+    "path": "docs/coursework/review-2026-09-30/PATH-S06-extension-human-review.md",
+    "sha256": "273d3d38b22a9789772ebc425ea481be68f07dda943ad08de5d63c90d67081cf"
+  },
+  "required_review_checks": [
+    "Reviewed the frozen PATH-S06 protocol and baseline gate.",
+    "Reviewed the registered run summary and this candidate result.",
+    "Compared the extension result with the preserved prior follow-up.",
+    "Distinguished a registered security disclosure from status-only failure.",
+    "Confirmed that primary-v1 and supplemental-v1 remain unchanged."
+  ],
+  "allowed_verdicts": [
+    "FOLLOW_UP_REJECT_CANDIDATE"
+  ],
+  "decision_boundary": "The extension qualifies the current human conclusion but does not replace primary-v1, supplemental-v1, or an earlier human record.",
+  "effect_on_frozen_records": "none_earlier_records_are_preserved"
+}

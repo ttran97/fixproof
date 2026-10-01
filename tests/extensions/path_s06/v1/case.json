@@ -1,0 +1,85 @@
+{
+  "schema_version": "0.1",
+  "project": "FixProof",
+  "protocol_id": "path-s06-extension-v1",
+  "source_protocol_id": "supplemental-v1",
+  "status": "frozen",
+  "approved_by": "Tony Tran",
+  "frozen_on": "2026-09-30",
+  "activity": {
+    "model_calls": 0,
+    "sast_runs": 0,
+    "candidate_policy": "reuse_five_saved_primary_path_traversal_candidates"
+  },
+  "case": {
+    "id": "PATH-S06",
+    "category": "security",
+    "route": "/file",
+    "parameter": "name",
+    "value": "link/outside-secret.txt",
+    "fixture": "in-root symbolic link to a disposable outside directory",
+    "marker": "FIXPROOF_CONTROLLED_TRAVERSAL_SECRET",
+    "baseline_oracle": {
+      "status_code": 200,
+      "marker_disclosed": true
+    },
+    "candidate_oracle": {
+      "allowed_status_codes": [400, 403, 404],
+      "marker_disclosed": false
+    },
+    "inconclusive_conditions": [
+      "symlink fixture unavailable",
+      "application startup failure",
+      "loopback request failure",
+      "application process exits before observation"
+    ]
+  },
+  "package": {
+    "manifest": {
+      "path": "benchmarks/primary/v1/path-traversal/package.json",
+      "sha256": "b7f2127a3ddfaba293dfdd4bb700b04bf71ac037da3e05e40951582e0ce0d4cf"
+    },
+    "lockfile": {
+      "path": "benchmarks/primary/v1/path-traversal/package-lock.json",
+      "sha256": "6a282da1e8d3316fa4dcd2d205950f85142117d39c0409e03800c435fc591e41"
+    }
+  },
+  "targets": [
+    {
+      "id": "baseline-path-traversal",
+      "type": "baseline",
+      "source": "benchmarks/primary/v1/path-traversal/app.js",
+      "sha256": "6d6095c2a6fc915a23b7d05bd73592f2fac0e0df655fc73f81a40fa524da11dc"
+    },
+    {
+      "id": "primary-v1-path-traversal-initial-01",
+      "type": "candidate",
+      "source": "data/primary_trials/v1/cases/path-traversal/attempt-01/workspace/CF-17216aac7b7a/attempt-01/app/app.js",
+      "sha256": "56bd11df5dc22e2753f998a627d98d2701cc2b5881077e095201cdabee7f94ce"
+    },
+    {
+      "id": "primary-v1-path-traversal-initial-02",
+      "type": "candidate",
+      "source": "data/primary_trials/v1/cases/path-traversal/attempt-02/workspace/CF-17216aac7b7a/attempt-02/app/app.js",
+      "sha256": "8c529e5022e14ab4a8dd7fe9455dcd833ab56cb100609b988262601fc7c6c275"
+    },
+    {
+      "id": "primary-v1-path-traversal-initial-03",
+      "type": "candidate",
+      "source": "data/primary_trials/v1/cases/path-traversal/attempt-03/workspace/CF-17216aac7b7a/attempt-03/app/app.js",
+      "sha256": "a4a64d388755de9f65eee031379bcdfddf58931d8a762847b1f05d32611e25b2"
+    },
+    {
+      "id": "primary-v1-path-traversal-initial-04",
+      "type": "candidate",
+      "source": "data/primary_trials/v1/cases/path-traversal/attempt-04/workspace/CF-17216aac7b7a/attempt-04/app/app.js",
+      "sha256": "a4a40c665f6946f1425c8c20d5783be1b3a24b321839713ef0da402bf22048ad"
+    },
+    {
+      "id": "primary-v1-path-traversal-initial-05",
+      "type": "candidate",
+      "source": "data/primary_trials/v1/cases/path-traversal/attempt-05/workspace/CF-17216aac7b7a/attempt-05/app/app.js",
+      "sha256": "3b8e36f1be98187516ed77bc0cda686867e9542135a85e9360f9455a8b276d33"
+    }
+  ]
+}
