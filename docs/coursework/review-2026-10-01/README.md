@@ -42,8 +42,14 @@ payloads, requests, responses, outputs, and case outcomes.
 
 ## Netlify package
 
-Use **fixproof-public-netlify-test-evidence-2026-10-01.zip** for the next
+Use **fixproof-public-netlify-path-s06-2026-10-21-v2.zip** for the next
 deployment. Its SHA-256 is
-**F39B196D78C2520DEA48121A65BC570AC7ADB0F1505C85FD282367284874EA19**.
-The previously generated September 30 ZIP does not contain this case-level
-table or workbook.
+**F60F2EE42640849C2BD9E89CCE014BD1113B31BF2A4928DD6D47163646B777D0**.
+It contains the case-level table, workbook, five separate PATH-S06 extension
+failures, and five extension human qualifications. The October 1 and September
+30 packages are retained as superseded local artifacts. The first October 21
+ZIP is also superseded because Windows `Compress-Archive` stored nested entries
+with backslashes, causing Netlify JSON requests to return HTTP 404. Version 2
+uses forward-slash archive paths and passed an extracted-package browser test.
+Do not describe the live site as updated until version 2 has been uploaded and
+checked.

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1-public",
   "project": "FixProof",
-  "generated_on": "2026-09-30T22:19:49.107566Z",
+  "generated_on": "2026-10-22T03:42:34.684566Z",
   "evidence_cutoff": "2026-09-14T19:29:04.532091Z",
   "scope": {
     "description": "Three controlled Express fixtures and five initial repair attempts per fixture. Results are descriptive and do not estimate production repair reliability.",

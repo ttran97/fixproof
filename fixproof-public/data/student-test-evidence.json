@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0-student-case-evidence",
   "project": "FixProof",
-  "generated_on": "2026-10-01T11:55:31.796037Z",
+  "generated_on": "2026-10-22T03:42:34.841345Z",
   "scope_note": "Saved, read-only evidence for the bounded FixProof benchmark. This export does not execute applications or alter frozen records.",
   "count_note": "Primary candidate-level suite counts and individual observation counts are distinct. Supplemental categories must remain separate.",
   "candidate_summary": [
