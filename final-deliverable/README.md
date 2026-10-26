@@ -1,7 +1,8 @@
 # FixProof final deliverable staging folder
 
-**Status:** Placeholder created October 1, 2026. This is not the final
-submission package.
+**Status:** Staging structure created October 1, 2026 and updated October 22
+after the live public-reference and clean-package checks. This is not yet the
+final submission package.
 
 This folder stages the materials that may accompany the FixProof final report
 and final presentation. The organization follows the course clarification:
@@ -30,15 +31,17 @@ and final presentation. The organization follows the course clarification:
 
 These remain in their working locations until they are final:
 
-- Latest Progress Report 4 draft:
-  **docs/coursework/review-2026-09-30/Progress Report 4 (Tony Tran) - Student
-  Evidence Aligned October 1.docx**
+- Latest progress-report draft:
+  **docs/coursework/review-2026-10-22/Progress Report 5 (Tony Tran) - Working
+  Draft October 22.docx**
 - Student evidence workbook:
   **docs/coursework/review-2026-10-01/FixProof-15-candidate-test-evidence.xlsx**
 - Current printable evidence appendix:
   **docs/coursework/review-2026-09-22/Video-III-15-candidate-evidence-appendix.pdf**
 - Current public-reference source: **fixproof-public/**
 - Reproducibility guidance: **docs/reproducibility.md**
+- Live public validation and clean-package rehearsal:
+  **docs/coursework/review-2026-10-22/**
 
 References here are pointers, not final-package copies. Copying begins only
 after an artifact is approved for release.

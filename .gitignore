@@ -28,3 +28,8 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 dist/
+
+# Microsoft Office temporary lock files
+~$*.docx
+~$*.pptx
+~$*.xlsx

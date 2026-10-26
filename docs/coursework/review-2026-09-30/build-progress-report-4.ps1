@@ -2,6 +2,8 @@
 param(
     [string]$InputPath = 'docs\coursework\review-2026-09-30\Progress-Report-4-working-draft.md',
     [string]$OutputPath = 'docs\coursework\review-2026-09-30\Progress Report 4 (Tony Tran) - Student Evidence Aligned October 1.docx',
+    [string]$AllowedRoot = 'docs\coursework\review-2026-09-30',
+    [string]$FooterText = 'FixProof Progress Report 4 - Working Draft | ',
     [switch]$Overwrite
 )
 
@@ -21,7 +23,7 @@ function Resolve-ProjectPath {
 
 $source = Resolve-ProjectPath $InputPath
 $target = Resolve-ProjectPath $OutputPath
-$allowedRoot = Resolve-ProjectPath 'docs\coursework\review-2026-09-30'
+$allowedRoot = Resolve-ProjectPath $AllowedRoot
 $pdfPath = [IO.Path]::ChangeExtension($target, '.pdf')
 
 if (-not $target.StartsWith($allowedRoot + [IO.Path]::DirectorySeparatorChar,
@@ -73,7 +75,7 @@ try {
     $normal = $document.Styles.Item('Normal')
     $normal.Font.Name = 'Times New Roman'
     $normal.Font.Size = 10.5
-    $normal.ParagraphFormat.SpaceAfter = 4
+    $normal.ParagraphFormat.SpaceAfter = 3
     $normal.ParagraphFormat.LineSpacingRule = 0
 
     function Add-WordParagraph {
@@ -92,7 +94,7 @@ try {
         $paragraph.Range.ParagraphFormat.LeftIndent = 0
         $paragraph.Range.ParagraphFormat.FirstLineIndent = 0
         $paragraph.Range.ParagraphFormat.SpaceBefore = 0
-        $paragraph.Range.ParagraphFormat.SpaceAfter = 4
+        $paragraph.Range.ParagraphFormat.SpaceAfter = 3
         $paragraph.Range.ParagraphFormat.KeepWithNext = 0
 
         switch ($Kind) {
@@ -172,6 +174,24 @@ try {
         $table.Range.InsertParagraphAfter()
     }
 
+    function Add-WordCodeBlock {
+        param([string[]]$Lines)
+        $range = $document.Range($document.Content.End - 1, $document.Content.End - 1)
+        $range.Text = ($Lines -join [char]11)
+        $range.InsertParagraphAfter()
+        $paragraph = $document.Paragraphs.Item($document.Paragraphs.Count - 1)
+        $paragraph.Range.Font.Name = 'Consolas'
+        $paragraph.Range.Font.Size = 8
+        $paragraph.Range.ParagraphFormat.Alignment = $wdAlignParagraphLeft
+        $paragraph.Range.ParagraphFormat.LeftIndent = 10
+        $paragraph.Range.ParagraphFormat.RightIndent = 10
+        $paragraph.Range.ParagraphFormat.FirstLineIndent = 0
+        $paragraph.Range.ParagraphFormat.SpaceBefore = 3
+        $paragraph.Range.ParagraphFormat.SpaceAfter = 6
+        $paragraph.Range.ParagraphFormat.KeepTogether = -1
+        $paragraph.Range.Shading.BackgroundPatternColor = 15790320
+    }
+
     $raw = [IO.File]::ReadAllText($source, [Text.UTF8Encoding]::new($false))
     $lines = [regex]::Split($raw, '\r?\n')
     $paragraphBuffer = [Collections.Generic.List[string]]::new()
@@ -199,6 +219,19 @@ try {
         if (-not $trimmed) {
             Flush-ParagraphBuffer
             $index++
+            continue
+        }
+
+        if ($trimmed.StartsWith('```')) {
+            Flush-ParagraphBuffer
+            $index++
+            $codeLines = [Collections.Generic.List[string]]::new()
+            while ($index -lt $lines.Count -and -not ([string]$lines[$index]).Trim().StartsWith('```')) {
+                $codeLines.Add([string]$lines[$index])
+                $index++
+            }
+            if ($index -lt $lines.Count) { $index++ }
+            Add-WordCodeBlock @($codeLines)
             continue
         }
 
@@ -269,7 +302,7 @@ try {
             continue
         }
 
-        if ($metaLinesWritten -lt 2 -and ($trimmed -eq 'Tony Tran' -or $trimmed.StartsWith('Progress Report 4'))) {
+        if ($metaLinesWritten -lt 2 -and ($trimmed -eq 'Tony Tran' -or $trimmed -match '^Progress Report \d+')) {
             Flush-ParagraphBuffer
             [void](Add-WordParagraph $trimmed 'meta')
             $metaLinesWritten++
@@ -283,8 +316,18 @@ try {
     }
     Flush-ParagraphBuffer
 
+    # Word requires a terminal paragraph. Keep an otherwise empty terminal
+    # paragraph from spilling onto a footer-only page after dense reports.
+    $terminalParagraph = $document.Paragraphs.Item($document.Paragraphs.Count)
+    $terminalText = ($terminalParagraph.Range.Text -replace '[\r\v]', '').Trim()
+    if (-not $terminalText) {
+        $terminalParagraph.Range.Font.Size = 1
+        $terminalParagraph.Range.ParagraphFormat.SpaceBefore = 0
+        $terminalParagraph.Range.ParagraphFormat.SpaceAfter = 0
+    }
+
     $footer = $document.Sections.Item(1).Footers.Item(1).Range
-    $footer.Text = 'FixProof Progress Report 4 - Working Draft | '
+    $footer.Text = $FooterText
     $footer.Font.Name = 'Times New Roman'
     $footer.Font.Size = 8
     $footer.ParagraphFormat.Alignment = $wdAlignParagraphRight

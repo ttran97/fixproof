@@ -2,6 +2,10 @@
 
 Validated October 21, 2026.
 
+Deployment update: version 2 was published and live-validated on October 22,
+2026. See
+`docs/coursework/review-2026-10-22/Netlify-live-deployment-validation.md`.
+
 ## Package
 
 - File: `fixproof-public-netlify-path-s06-2026-10-21-v2.zip`
@@ -74,5 +78,5 @@ local runtime files are not included in the public package.
 9. Confirm the PDF appendix and workflow image load and browser developer tools
    show no failed site requests.
 
-The live deployment is not claimed as updated by this local validation record.
-Record the live check separately after upload.
+The local package record above is preserved. The later live check is recorded
+separately so package construction and deployment verification remain distinct.

@@ -1,6 +1,21 @@
 # Final presentation placeholder
 
-**Status:** Final deck and recording not yet created.
+**Status:** The October 25 Video V outline and under-three-minute script are
+prepared under `docs/coursework/review-2026-10-25/`. A validated seven-slide
+Video V checkpoint deck is also available there. The separate final
+presentation deck and recording are not yet created.
+
+## Current checkpoint materials
+
+- `docs/coursework/review-2026-10-25/Video-V-PowerPoint-outline.md`
+- `docs/coursework/review-2026-10-25/Video-V-under-3-minute-script.md`
+- `docs/coursework/review-2026-10-25/FixProof - Video V - Final Evidence Checkpoint.pptx`
+- `docs/coursework/review-2026-10-25/FixProof - Video V - Final Evidence Checkpoint.pdf`
+
+Video V consolidates the progression from the pilot through primary-v1,
+supplemental-v1, PATH-S06, live evidence validation, and clean-package
+reproduction. It is a course checkpoint and should not be mislabeled as the
+final presentation.
 
 ## Planned final files
 
