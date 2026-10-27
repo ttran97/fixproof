@@ -1,6 +1,19 @@
-# Final report placeholder
+# Final report working area
 
-**Status:** Not drafted as a final submission yet.
+**Status:** A substantive partial draft was created October 27, 2026 in
+response to TA feedback requesting visible draft work. It is not the final
+December submission.
+
+## Current draft files
+
+- `FixProof-Final-Report-Partial-Draft-2026-10-27.md` - editable source
+- `FixProof Final Project Report - Partial Draft October 27.docx` - reviewer copy
+- `FixProof Final Project Report - Partial Draft October 27.pdf` - stable reviewer copy
+
+The partial draft contains the problem and bounded research question, related
+work, architecture and method, primary and supplemental results, PATH-S06
+extension, human-review interpretation, reproducibility, limitations, draft
+conclusion, AI-use disclosure, references, and a supporting-evidence index.
 
 ## Required outcome
 

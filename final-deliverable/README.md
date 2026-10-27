@@ -32,8 +32,11 @@ and final presentation. The organization follows the course clarification:
 These remain in their working locations until they are final:
 
 - Latest progress-report draft:
-  **docs/coursework/review-2026-10-22/Progress Report 5 (Tony Tran) - Working
-  Draft October 22.docx**
+  **docs/coursework/review-2026-10-27/Progress Report 5 (Tony Tran) - TA
+  Feedback Aligned October 27.docx**
+- Partial final-report draft:
+  **final-deliverable/01-final-report/FixProof Final Project Report - Partial
+  Draft October 27.pdf**
 - Student evidence workbook:
   **docs/coursework/review-2026-10-01/FixProof-15-candidate-test-evidence.xlsx**
 - Current printable evidence appendix:
