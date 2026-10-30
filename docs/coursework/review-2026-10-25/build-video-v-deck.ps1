@@ -366,9 +366,11 @@ try {
     $null = Add-Text $slide 'DEC 6' 600 365 64 18 11 (RGB 146 180 224) $true
     $null = Add-Text $slide 'Final report + package' 600 386 154 18 12 $white $true
 
-    $null = Add-Box $slide 48 434 864 52 $white $line $true
-    $null = Add-Text $slide 'FEEDBACK' 68 451 76 18 11 $purple $true
-    $null = Add-Text $slide 'Is one candidate example enough to explain validators, policy, and human judgment?' 152 448 740 24 14 $navy $true 'Aptos' 2
+    $null = Add-Box $slide 48 430 864 64 $white $line $true
+    $null = Add-Text $slide 'FEEDBACK USED' 68 442 100 18 10 $purple $true
+    $null = Add-Text $slide 'Audit trail retained; second fixture recorded as future work; clean rehearsal not called independent.' 178 440 714 18 11 $muted $false
+    $null = Add-Text $slide 'ASK' 68 468 34 18 10 $blue $true
+    $null = Add-Text $slide 'Is one candidate example enough to explain validators, policy, and human judgment?' 112 465 780 21 13 $navy $true 'Aptos' 2
     Add-Notes $slide (Get-SlideNotes 7)
 
     $presentation.SaveAs($target, $ppSaveAsOpenXMLPresentation)
@@ -433,6 +435,14 @@ foreach ($token in $requiredTokens) {
     if (-not $allText.ToString().Contains($token)) { throw "Required slide token missing: $token" }
 }
 
+$narrationWordCount = 0
+foreach ($slideNumber in 1..7) {
+    $narrationWordCount += [regex]::Matches(
+        (Get-SlideNotes $slideNumber),
+        "\b[\p{L}\p{N}][\p{L}\p{N}\-'/]*\b"
+    ).Count
+}
+
 $verification = [ordered]@{
     generated_on = (Get-Date).ToString('o')
     output = $target
@@ -441,12 +451,12 @@ $verification = [ordered]@{
     contact_sheet = $contactSheet
     slides = $slideEntries.Count
     speaker_notes = $notesEntries.Count
-    main_script_words = 378
+    main_script_words = $narrationWordCount
     pptx_sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $target).Hash.ToLowerInvariant()
     pdf_sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $pdfPath).Hash.ToLowerInvariant()
     package_structure = 'pass'
     evidence_boundary = 'primary-v1, supplemental-v1, and path-s06-extension-v1 remain separate'
-    recording_status = 'pending visual inspection and personal rehearsal'
+    recording_status = 'visual inspection passed; personal rehearsal pending'
 }
 $verification | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $verificationPath -Encoding utf8
 

@@ -53,11 +53,12 @@ read-only viewer, not a live test runner.
 
 ## Slide 7 — conclusion and next steps (2:30-2:58)
 
-My bounded conclusion is that FixProof exposed disagreements, regressions, and
-later qualifications in three controlled Express fixtures. It does not estimate
-production repair reliability. Next, I will synthesize peer feedback, finish
-the final report, generate the release manifest and checksums, and rehearse the
-final presentation.
+FixProof exposed disagreements, regressions, and later qualifications in three
+controlled Express fixtures—not production repair reliability. Video IV
+feedback split: one reviewer favored a second fixture, and another favored an
+independent rerun. I retained the requested audit trail, recorded a second
+fixture as future work, and do not call my clean rehearsal independent. Next
+are the final report, manifest and checksums, and final presentation.
 
 Is one candidate example enough to explain the separation between validators,
 policy, and human judgment?

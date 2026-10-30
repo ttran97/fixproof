@@ -88,8 +88,8 @@ Report 4 submission date and the stale Peer Feedback IV in-progress status.
 ## Video V checks
 
 - Seven main slides are specified.
-- The main narration contains 378 words, approximately 2.8 minutes at 135 words
-  per minute.
+- The main narration remains under three minutes at a deliberate presentation
+  pace; the exact narration word count is recorded by the deck verifier.
 - Slide 3 distinguishes Python orchestration from validation, policy, and human
   authority.
 - Slide 4 keeps all evidence-layer denominators separate.
@@ -97,8 +97,13 @@ Report 4 submission date and the stale Peer Feedback IV in-progress status.
   their recorded outcomes.
 - Slide 6 accurately describes the 131 repository tests, public viewer, and
   clean reproduction; it does not call the activity independent replication.
-- Slide 7 states the bounded conclusion, remaining final deliverables, feedback
-  question, and AI-use disclosure.
+- Slide 7 states the bounded conclusion, remaining final deliverables, Video IV
+  feedback disposition, a new clarity question, and AI-use disclosure.
+- The October 25 Video IV feedback is preserved separately. One reviewer
+  favored a second fixture and one favored an independent rerun. The adopted
+  action is the explicit PATH-S06 audit trail already present in the records;
+  both new experiments are deferred and the clean rehearsal is not mislabeled
+  as independent replication.
 
 ## Personal checks before submission or recording
 

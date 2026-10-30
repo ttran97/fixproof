@@ -11,6 +11,7 @@ presentation deck and recording are not yet created.
 - `docs/coursework/review-2026-10-25/Video-V-under-3-minute-script.md`
 - `docs/coursework/review-2026-10-25/FixProof - Video V - Final Evidence Checkpoint.pptx`
 - `docs/coursework/review-2026-10-25/FixProof - Video V - Final Evidence Checkpoint.pdf`
+- `docs/coursework/review-2026-10-25/Video-IV-peer-feedback-disposition.md`
 
 Video V consolidates the progression from the pilot through primary-v1,
 supplemental-v1, PATH-S06, live evidence validation, and clean-package

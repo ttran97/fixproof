@@ -45,6 +45,9 @@ supplied by Tony.
 - Slide 7 states the bounded conclusion and does not claim production repair
   reliability, scanner accuracy across repositories, or application-level
   generalization.
+- Slide 7 accurately summarizes the October 25 Video IV feedback: the existing
+  PATH-S06 audit trail is retained, a second fixture is identified as future
+  work, and the author-run clean rehearsal is not described as independent.
 - Slide 7 uses the supplied Canvas milestones: Report 5 on November 1, Video V
   on November 3, final presentation on November 15, and final report on
   December 6.

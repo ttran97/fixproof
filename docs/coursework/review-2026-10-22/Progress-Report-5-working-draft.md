@@ -131,6 +131,14 @@ software.
   checkpoint. The presentation traces the progression from the initial pilot,
   through primary-v1, supplemental-v1, and PATH-S06, to the clean reproduction
   and final deliverable structure without adding a new experiment.
+- Reviewed two Video IV peer responses that recommended different next
+  priorities. One favored a second fixture to add application diversity; the
+  other favored an independent PATH-S06 rerun and specified an audit trail of
+  source hashes, setup, marker, and per-candidate responses. I adopted the
+  audit-trail recommendation because those fields are already preserved in the
+  extension records. I deferred both a true independent rerun and a new
+  fixture to separately versioned future work; neither changes the frozen
+  results.
 
 ## Response to Prior Instructor Feedback and Draft Work:
 
@@ -221,9 +229,11 @@ not represent new model calls or new registered experimental observations.
 
 ## Open Items and Next Milestone Work:
 
-- Summarize any substantive feedback received on FixProof with an adopt, defer,
-  or decline disposition for the final report and presentation. Feedback is
-  communication evidence and does not change the frozen experiment records.
+- Carry the Video IV peer-feedback disposition into the final report and
+  presentation: adopt the explicit PATH-S06 audit trail, identify a second
+  fixture as the higher-value coverage extension, and do not call the author's
+  clean rehearsal an independent reproduction. Feedback is communication
+  evidence and does not change the frozen experiment records.
 - Decide how to present the npm audit advisories. The current recommendation is
   to preserve the frozen benchmark lockfiles, report the advisories as a
   maintenance limitation, and create a separately versioned dependency-update
@@ -266,10 +276,17 @@ and invalidate direct reproduction. The defensible approach is to disclose the
 advisories, keep the evaluated snapshot immutable, and treat any remediation as
 a separate maintenance version.
 
-Feedback requested: Is the distinction between a reproducible research
-snapshot and a production-ready software release clear? For the final
-presentation, which evidence is most persuasive: the clean reproduction, the
-candidate-level matrices, or a focused request/response example?
+Video IV feedback exposed a useful tradeoff rather than a consensus. One
+reviewer prioritized broader coverage through a second fixture, while another
+prioritized an independent PATH-S06 rerun with a precise audit record. My
+disposition is to preserve the requested audit fields now, identify a second
+fixture as the higher-value future coverage extension, and defer a true
+independent rerun unless another person performs it. The completed clean
+rehearsal remains author-run due diligence, not independent replication.
+
+Feedback requested for Video V: Is one focused candidate example enough to
+make the separation between validators, deterministic policy, and human
+judgment clear in the final presentation?
 
 ## Methodology Paragraph Summary:
 
